@@ -1,0 +1,475 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7D93A74A250AD8DC00991121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93A749250AD8DC00991121 /* AppDelegate.swift */; };
+		7D93A74C250AD8DC00991121 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93A74B250AD8DC00991121 /* Document.swift */; };
+		7D93A74F250AD8DC00991121 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A74D250AD8DC00991121 /* Document.xib */; };
+		7D93A751250AD8DD00991121 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A750250AD8DD00991121 /* Assets.xcassets */; };
+		7D93A754250AD8DD00991121 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A752250AD8DD00991121 /* MainMenu.xib */; };
+		7D93A760250AD8DD00991121 /* BorkleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93A75F250AD8DD00991121 /* BorkleTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7D93A75C250AD8DD00991121 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D93A73E250AD8DC00991121 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7D93A745250AD8DC00991121;
+			remoteInfo = Borkle;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7D93A746250AD8DC00991121 /* Borkle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Borkle.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D93A749250AD8DC00991121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7D93A74B250AD8DC00991121 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		7D93A74E250AD8DC00991121 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
+		7D93A750250AD8DD00991121 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7D93A753250AD8DD00991121 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		7D93A755250AD8DD00991121 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D93A756250AD8DD00991121 /* Borkle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Borkle.entitlements; sourceTree = "<group>"; };
+		7D93A75B250AD8DD00991121 /* BorkleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BorkleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D93A75F250AD8DD00991121 /* BorkleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorkleTests.swift; sourceTree = "<group>"; };
+		7D93A761250AD8DD00991121 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7D93A743250AD8DC00991121 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7D93A758250AD8DD00991121 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7D93A73D250AD8DC00991121 = {
+			isa = PBXGroup;
+			children = (
+				7D93A748250AD8DC00991121 /* Borkle */,
+				7D93A75E250AD8DD00991121 /* BorkleTests */,
+				7D93A747250AD8DC00991121 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7D93A747250AD8DC00991121 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7D93A746250AD8DC00991121 /* Borkle.app */,
+				7D93A75B250AD8DD00991121 /* BorkleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7D93A748250AD8DC00991121 /* Borkle */ = {
+			isa = PBXGroup;
+			children = (
+				7D93A749250AD8DC00991121 /* AppDelegate.swift */,
+				7D93A74B250AD8DC00991121 /* Document.swift */,
+				7D93A74D250AD8DC00991121 /* Document.xib */,
+				7D93A750250AD8DD00991121 /* Assets.xcassets */,
+				7D93A752250AD8DD00991121 /* MainMenu.xib */,
+				7D93A755250AD8DD00991121 /* Info.plist */,
+				7D93A756250AD8DD00991121 /* Borkle.entitlements */,
+			);
+			path = Borkle;
+			sourceTree = "<group>";
+		};
+		7D93A75E250AD8DD00991121 /* BorkleTests */ = {
+			isa = PBXGroup;
+			children = (
+				7D93A75F250AD8DD00991121 /* BorkleTests.swift */,
+				7D93A761250AD8DD00991121 /* Info.plist */,
+			);
+			path = BorkleTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7D93A745250AD8DC00991121 /* Borkle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7D93A764250AD8DD00991121 /* Build configuration list for PBXNativeTarget "Borkle" */;
+			buildPhases = (
+				7D93A742250AD8DC00991121 /* Sources */,
+				7D93A743250AD8DC00991121 /* Frameworks */,
+				7D93A744250AD8DC00991121 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Borkle;
+			productName = Borkle;
+			productReference = 7D93A746250AD8DC00991121 /* Borkle.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7D93A75A250AD8DD00991121 /* BorkleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7D93A767250AD8DD00991121 /* Build configuration list for PBXNativeTarget "BorkleTests" */;
+			buildPhases = (
+				7D93A757250AD8DD00991121 /* Sources */,
+				7D93A758250AD8DD00991121 /* Frameworks */,
+				7D93A759250AD8DD00991121 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7D93A75D250AD8DD00991121 /* PBXTargetDependency */,
+			);
+			name = BorkleTests;
+			productName = BorkleTests;
+			productReference = 7D93A75B250AD8DD00991121 /* BorkleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7D93A73E250AD8DC00991121 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1150;
+				LastUpgradeCheck = 1150;
+				ORGANIZATIONNAME = Borkware;
+				TargetAttributes = {
+					7D93A745250AD8DC00991121 = {
+						CreatedOnToolsVersion = 11.5;
+					};
+					7D93A75A250AD8DD00991121 = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = 7D93A745250AD8DC00991121;
+					};
+				};
+			};
+			buildConfigurationList = 7D93A741250AD8DC00991121 /* Build configuration list for PBXProject "Borkle" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7D93A73D250AD8DC00991121;
+			productRefGroup = 7D93A747250AD8DC00991121 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7D93A745250AD8DC00991121 /* Borkle */,
+				7D93A75A250AD8DD00991121 /* BorkleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7D93A744250AD8DC00991121 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D93A751250AD8DD00991121 /* Assets.xcassets in Resources */,
+				7D93A74F250AD8DC00991121 /* Document.xib in Resources */,
+				7D93A754250AD8DD00991121 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7D93A759250AD8DD00991121 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7D93A742250AD8DC00991121 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D93A74C250AD8DC00991121 /* Document.swift in Sources */,
+				7D93A74A250AD8DC00991121 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7D93A757250AD8DD00991121 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D93A760250AD8DD00991121 /* BorkleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7D93A75D250AD8DD00991121 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7D93A745250AD8DC00991121 /* Borkle */;
+			targetProxy = 7D93A75C250AD8DD00991121 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7D93A74D250AD8DC00991121 /* Document.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7D93A74E250AD8DC00991121 /* Base */,
+			);
+			name = Document.xib;
+			sourceTree = "<group>";
+		};
+		7D93A752250AD8DD00991121 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7D93A753250AD8DD00991121 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7D93A762250AD8DD00991121 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7D93A763250AD8DD00991121 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		7D93A765250AD8DD00991121 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Borkle/Borkle.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2HBB3G8HCG;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Borkle/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = borkware.com.Borkle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		7D93A766250AD8DD00991121 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Borkle/Borkle.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2HBB3G8HCG;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Borkle/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = borkware.com.Borkle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		7D93A768250AD8DD00991121 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2HBB3G8HCG;
+				INFOPLIST_FILE = BorkleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = borkware.com.BorkleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Borkle.app/Contents/MacOS/Borkle";
+			};
+			name = Debug;
+		};
+		7D93A769250AD8DD00991121 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2HBB3G8HCG;
+				INFOPLIST_FILE = BorkleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = borkware.com.BorkleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Borkle.app/Contents/MacOS/Borkle";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7D93A741250AD8DC00991121 /* Build configuration list for PBXProject "Borkle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D93A762250AD8DD00991121 /* Debug */,
+				7D93A763250AD8DD00991121 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7D93A764250AD8DD00991121 /* Build configuration list for PBXNativeTarget "Borkle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D93A765250AD8DD00991121 /* Debug */,
+				7D93A766250AD8DD00991121 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7D93A767250AD8DD00991121 /* Build configuration list for PBXNativeTarget "BorkleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D93A768250AD8DD00991121 /* Debug */,
+				7D93A769250AD8DD00991121 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7D93A73E250AD8DC00991121 /* Project object */;
+}
