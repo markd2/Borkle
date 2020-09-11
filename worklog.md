@@ -107,6 +107,40 @@ Reading/Writing document content
   - [X] document-based app
   - [X] image and text file in the bundle
   - [X] save to a file bundle
-  - [ ] polish the file bundle experience
+
+==================================================
+# Friday September 11, 20202
+
+  - [X] polish the file bundle experience
+     - [X] interior file names and extensions
+     - [X] That runtime warning
+     - [X] bundle double-clickable
+  - [ ] display stuff
+  - [ ] load file
+  - [ ] hand-edit bundle and open. yay.
+  - [ ] let the user edit stuff and save it
+
+ok, that runtime waring
 
 
+2020-09-11 18:43:22.903437-0400 Borkle[55612:3042353] 
+
+-[NSDocumentController fileExtensionsFromType:] is deprecated
+  and does not work when passed a uniform type identifier (UTI). 
+  If the application didn't invoke it directly _(which is true)_
+  then the problem is probably that some other NSDocument or NSDocumentController
+  method is getting confused by a UTI that's not actually declared anywhere. 
+  Maybe it should be declared in the UTExportedTypeDeclarations section
+  of this app's Info.plist but is 
+  not. The alleged UTI in question is "com.borkware.borkle.bundle".
+
+ALLEGED UTI
+
+so UTExportedTypeDeclarations.    I have a com.borkware.borkle.bundle there :-(
+
+There's one in LSItemContentTypes and on in UTExpotedTypeDeclrations.
+
+ok, deleted the LSItemContentTypes. That quieted it.
+
+added conforms to com.apple.package. Didn't work
+Added-back-in "CFBundleTypeOSTypes"->"????" %-)
