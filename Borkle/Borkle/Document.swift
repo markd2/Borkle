@@ -7,6 +7,11 @@ class Document: NSDocument {
     
     var text = "greeble bork"
     var image: NSImage?
+    var metadataDict = ["blah": "greeble", "hoover": "bork"]
+
+    let textFilename = "text.txt"
+    let imageFilename = "image.png"
+    let metadataFilename = "metadata.json"
 
     override init() {
         super.init()
@@ -39,6 +44,43 @@ class Document: NSDocument {
         case badFileWrapper
     }
 
+    override func read(from fileWrapper: FileWrapper, 
+                       ofType typeName: String) throws {
+
+        // (comment from apple sample code)
+        // look for the image and text file wrappers.
+        // for each wrapper, extract the data and keep the file wrapper itself.
+        // The file wrappers are kept so that, if the corresponding data hasn't
+        // been changed, they can be reused during a save, and so the source
+        // file can be reused rather than rewritten.
+        // This avoids the overhead of syncing data unnecessarily. If the data
+        // related to a file wrapper changes (like a new image is added or text
+        // is edited), the corresponding file wrapper object is disposed of
+        // and a new file wrapper created on save.
+
+        let fileWrappers = fileWrapper.fileWrappers!
+
+        // load text file
+        if let imageFileWrapper = fileWrappers[imageFilename] {
+            let imageData = imageFileWrapper.regularFileContents!
+            let image = NSImage(data: imageData)
+            self.image = image
+        }
+
+        if let textFileWrapper = fileWrappers[textFilename] {
+            let textData = textFileWrapper.regularFileContents!
+            let text = String(data: textData, encoding: .utf8)!
+            self.text = text
+        }
+
+        if let metadataFileWrapper = fileWrappers[metadataFilename] {
+            let metadataData = metadataFileWrapper.regularFileContents!
+            let decoder = JSONDecoder()
+            let metadata = try! decoder.decode([String:String].self, from: metadataData)
+            self.metadataDict = metadata
+        }
+    }
+    
     override func fileWrapper(ofType typeName: String) throws -> FileWrapper {
         if documentFileWrapper == nil {
             let childrenByPreferredName = [String: FileWrapper]()
@@ -50,10 +92,6 @@ class Document: NSDocument {
         }
 
         let fileWrappers = documentFileWrapper.fileWrappers!
-
-        let textFilename = "text.txt"
-        let imageFilename = "image.png"
-        let metadataFilename = "metadata.json"
 
         // "if there isn't a wrapper for the text file, create one too"
         if fileWrappers[textFilename] != nil {
@@ -96,7 +134,6 @@ class Document: NSDocument {
         }
 
         // write the new file wrapper for our metadata
-        let metadataDict = ["blah": "greeble", "hoover": "bork"]
         let encoder = JSONEncoder()
         let metadataData = try! encoder.encode(metadataDict)
         metadataFileWrapper = FileWrapper(regularFileWithContents: metadataData)
