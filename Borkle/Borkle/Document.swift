@@ -57,9 +57,9 @@ class Document: NSDocument {
 
         let fileWrappers = documentFileWrapper.fileWrappers!
 
-        let textFilename = "textfilename"
-        let imageFilename = "imagefilename"
-        let metadataFilename = "metadatafilename"
+        let textFilename = "text.txt"
+        let imageFilename = "image.png"
+        let metadataFilename = "metadata.json"
 
         // "if there isn't a wrapper for the text file, create one too"
         if fileWrappers[textFilename] != nil {
