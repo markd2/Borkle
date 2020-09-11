@@ -2,13 +2,27 @@ import Cocoa
 
 class Document: NSDocument {
 
+    @IBOutlet var label: NSTextField!
+    @IBOutlet var imageView: NSImageView!
+    
+    var text = "greeble bork"
+    var image: NSImage?
+
     override init() {
         super.init()
+        image = NSImage(named: "flumph")!
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        label.stringValue = text
+        imageView.image = image
     }
 
     override class var autosavesInPlace: Bool {
         return true
     }
+
 
     override var windowNibName: NSNib.Name? {
         // Returns the nib file name of the document
@@ -67,7 +81,7 @@ class Document: NSDocument {
             documentFileWrapper.removeFileWrapper(textWrapper)
         }
 
-        let textdata = "greeble bork".data(using: .utf8)!
+        let textdata = text.data(using: .utf8)!
         let textFileWrapper = FileWrapper(regularFileWithContents: textdata)
         textFileWrapper.preferredFilename = textFilename
 
@@ -78,8 +92,7 @@ class Document: NSDocument {
         // then create a file wrapper for the image and add it to the document
         // file wrapper
 
-        if fileWrappers[imageFilename] == nil {
-            let image = NSImage(named: "flumph")!
+        if fileWrappers[imageFilename] == nil, let image = image {
             let imageReps = image.representations
             var data = NSBitmapImageRep.representationOfImageReps(in: imageReps,
                                                                   using: .png,
