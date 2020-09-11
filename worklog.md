@@ -98,6 +98,15 @@ Reading/Writing document content
       a specified type from a file.
 - [ ] calls `data(ofType:)` function to write a plain text file.
 
+==================================================
+# Thursday September 10, 2020
 
+* "Scrivner for RPG planning" and/or "Scrivner and Scapple had a child"
+
+* Want to get something up and running. Kind of infrastructure MVP
+  - [X] document-based app
+  - [X] image and text file in the bundle
+  - [X] save to a file bundle
+  - [ ] polish the file bundle experience
 
 
