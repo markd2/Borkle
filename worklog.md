@@ -115,9 +115,9 @@ Reading/Writing document content
      - [X] interior file names and extensions
      - [X] That runtime warning
      - [X] bundle double-clickable
-  - [ ] display stuff
-  - [ ] load file
-  - [ ] hand-edit bundle and open. yay.
+  - [X] display stuff
+  - [X] load file
+  - [X] hand-edit bundle and open. yay.
   - [ ] let the user edit stuff and save it
 
 ok, that runtime waring
@@ -144,3 +144,25 @@ ok, deleted the LSItemContentTypes. That quieted it.
 
 added conforms to com.apple.package. Didn't work
 Added-back-in "CFBundleTypeOSTypes"->"????" %-)
+
+----------
+
+loading file - 
+
+```
+    override func read(from fileWrapper: FileWrapper, 
+                       ofType typeName: String) throws {
+```
+
+pattern:
+
+```
+        let fileWrappers = fileWrapper.fileWrappers!
+
+        // load text file
+        if let imageFileWrapper = fileWrappers[imageFilename] {
+            let imageData = imageFileWrapper.regularFileContents!
+            let image = NSImage(data: imageData)
+            self.image = image
+        }
+```
