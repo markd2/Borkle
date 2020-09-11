@@ -13,6 +13,7 @@
 		7D93A751250AD8DD00991121 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A750250AD8DD00991121 /* Assets.xcassets */; };
 		7D93A754250AD8DD00991121 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A752250AD8DD00991121 /* MainMenu.xib */; };
 		7D93A760250AD8DD00991121 /* BorkleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93A75F250AD8DD00991121 /* BorkleTests.swift */; };
+		7D93A76D250B019D00991121 /* flumph.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A76C250B019D00991121 /* flumph.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,7 @@
 		7D93A75B250AD8DD00991121 /* BorkleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BorkleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D93A75F250AD8DD00991121 /* BorkleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorkleTests.swift; sourceTree = "<group>"; };
 		7D93A761250AD8DD00991121 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D93A76C250B019D00991121 /* flumph.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = flumph.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				7D93A752250AD8DD00991121 /* MainMenu.xib */,
 				7D93A755250AD8DD00991121 /* Info.plist */,
 				7D93A756250AD8DD00991121 /* Borkle.entitlements */,
+				7D93A76C250B019D00991121 /* flumph.jpg */,
 			);
 			path = Borkle;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D93A751250AD8DD00991121 /* Assets.xcassets in Resources */,
+				7D93A76D250B019D00991121 /* flumph.jpg in Resources */,
 				7D93A74F250AD8DC00991121 /* Document.xib in Resources */,
 				7D93A754250AD8DD00991121 /* MainMenu.xib in Resources */,
 			);
