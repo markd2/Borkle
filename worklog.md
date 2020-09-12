@@ -94,9 +94,9 @@ override var representedObject: Any? {
 
 Reading/Writing document content
 
-- [ ] at runtime the Document call `read(from:ofType:)` to read in the data of
+- [X] at runtime the Document call `read(from:ofType:)` to read in the data of
       a specified type from a file.
-- [ ] calls `data(ofType:)` function to write a plain text file.
+- [X] calls `data(ofType:)` function to write a plain text file.
 
 ==================================================
 # Thursday September 10, 2020
@@ -118,7 +118,7 @@ Reading/Writing document content
   - [X] display stuff
   - [X] load file
   - [X] hand-edit bundle and open. yay.
-  - [ ] let the user edit stuff and save it
+  - [X] let the user edit stuff and save it
 
 ok, that runtime waring
 
@@ -166,3 +166,8 @@ pattern:
             self.image = image
         }
 ```
+
+----------
+
+Let the user do stuff.
+
