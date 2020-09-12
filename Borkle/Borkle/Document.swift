@@ -1,6 +1,7 @@
 import Cocoa
 
 class Document: NSDocument {
+    var bubbles: [Bubble] = []
 
     @IBOutlet var label: NSTextField!
     @IBOutlet var imageView: NSImageView!
