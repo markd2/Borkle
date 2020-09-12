@@ -5,9 +5,28 @@ class Document: NSDocument {
     @IBOutlet var label: NSTextField!
     @IBOutlet var imageView: NSImageView!
     
-    var text = "greeble bork"
-    var image: NSImage?
-    var metadataDict = ["blah": "greeble", "hoover": "bork"]
+    var text = "greeble bork" {
+        didSet {
+            removeFileWrapper(filename: textFilename)
+        }
+    }
+    var image: NSImage? {
+        didSet {
+            removeFileWrapper(filename: imageFilename)
+        }
+    }
+    var metadataDict = ["blah": "greeble", "hoover": "bork"] {
+        didSet {
+            removeFileWrapper(filename: metadataFilename)
+        }
+    }
+
+    func removeFileWrapper(filename: String) {
+        // remove the text file wrapper if it exists
+        if let fileWrapper = documentFileWrapper?.fileWrappers?[filename] {
+            documentFileWrapper?.removeFileWrapper(fileWrapper)
+        }
+    }
 
     let textFilename = "text.txt"
     let imageFilename = "image.png"
