@@ -94,10 +94,80 @@ override var representedObject: Any? {
 
 Reading/Writing document content
 
-- [ ] at runtime the Document call `read(from:ofType:)` to read in the data of
+- [X] at runtime the Document call `read(from:ofType:)` to read in the data of
       a specified type from a file.
-- [ ] calls `data(ofType:)` function to write a plain text file.
+- [X] calls `data(ofType:)` function to write a plain text file.
+
+==================================================
+# Thursday September 10, 2020
+
+* "Scrivner for RPG planning" and/or "Scrivner and Scapple had a child"
+
+* Want to get something up and running. Kind of infrastructure MVP
+  - [X] document-based app
+  - [X] image and text file in the bundle
+  - [X] save to a file bundle
+
+==================================================
+# Friday September 11, 20202
+
+  - [X] polish the file bundle experience
+     - [X] interior file names and extensions
+     - [X] That runtime warning
+     - [X] bundle double-clickable
+  - [X] display stuff
+  - [X] load file
+  - [X] hand-edit bundle and open. yay.
+  - [X] let the user edit stuff and save it
+
+ok, that runtime waring
 
 
+2020-09-11 18:43:22.903437-0400 Borkle[55612:3042353] 
 
+-[NSDocumentController fileExtensionsFromType:] is deprecated
+  and does not work when passed a uniform type identifier (UTI). 
+  If the application didn't invoke it directly _(which is true)_
+  then the problem is probably that some other NSDocument or NSDocumentController
+  method is getting confused by a UTI that's not actually declared anywhere. 
+  Maybe it should be declared in the UTExportedTypeDeclarations section
+  of this app's Info.plist but is 
+  not. The alleged UTI in question is "com.borkware.borkle.bundle".
+
+ALLEGED UTI
+
+so UTExportedTypeDeclarations.    I have a com.borkware.borkle.bundle there :-(
+
+There's one in LSItemContentTypes and on in UTExpotedTypeDeclrations.
+
+ok, deleted the LSItemContentTypes. That quieted it.
+
+added conforms to com.apple.package. Didn't work
+Added-back-in "CFBundleTypeOSTypes"->"????" %-)
+
+----------
+
+loading file - 
+
+```
+    override func read(from fileWrapper: FileWrapper, 
+                       ofType typeName: String) throws {
+```
+
+pattern:
+
+```
+        let fileWrappers = fileWrapper.fileWrappers!
+
+        // load text file
+        if let imageFileWrapper = fileWrappers[imageFilename] {
+            let imageData = imageFileWrapper.regularFileContents!
+            let image = NSImage(data: imageData)
+            self.image = image
+        }
+```
+
+----------
+
+Let the user do stuff.
 
