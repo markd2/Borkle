@@ -144,3 +144,19 @@ class Document: NSDocument {
     }
 }
 
+extension Document: NSTextFieldDelegate {
+    func controlTextDidChange(_ notification: Notification) {
+        if let textField = notification.object as? NSTextField {
+            text = textField.stringValue
+            updateChangeCount(.changeDone)
+        }
+    }
+}
+
+
+extension Document {
+    @IBAction func imageDrop(_ sender: NSImageView) {
+        image = sender.image
+        updateChangeCount(.changeDone)
+    }
+}
