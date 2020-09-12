@@ -171,3 +171,24 @@ extension Document {
         updateChangeCount(.changeDone)
     }
 }
+
+
+extension Document {
+    // Comes in via responder chain.
+    @IBAction func importScapple(_ sender: AnyObject) {
+        let panel = NSOpenPanel()
+        panel.allowedFileTypes = ["scap"]
+        panel.allowsMultipleSelection = false
+        if let window = windowControllers.first?.window {
+            panel.beginSheetModal(for: window) { response in
+                if response == .OK, let url = panel.urls.first {
+                    self.importScapple(url: url)
+                }
+            }
+        }
+    }
+
+    func importScapple(url: URL) {
+        Swift.print("SNORGLE LOAD \(url)")
+    }
+}
