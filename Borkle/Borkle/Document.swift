@@ -191,7 +191,7 @@ extension Document {
     func importScapple(url: URL) {
         do {
             Swift.print("SNORGLE LOAD \(url)")
-            try ScappleImporter().importScapple(url)
+            bubbles = try ScappleImporter().importScapple(url: url)
         } catch {
             Swift.print("import error \(error)")
         }
