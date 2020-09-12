@@ -11,6 +11,8 @@ a [repo](https://github.com/markd2/MarkDnD) with notes and whatnot.
 I've been outgrowing it though - I really want Scapple's amazingly simple UI along with
 an outline processor, along with some templates for things like NPCs or monster statblocks.
 
+Kinda want Scapple cross-bred with Scrivener.
+
 So, this is my (probably incomplete) attempt of making such a tool before I 
 ~get distracted~ get a more pressing assignment.
 
