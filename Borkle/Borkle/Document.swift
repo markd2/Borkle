@@ -184,6 +184,14 @@ extension Document {
         image = sender.image
         updateChangeCount(.changeDone)
     }
+
+    @IBAction func selectAll(_ sender: Any) {
+        Swift.print("select all")
+    }
+    
+    @IBAction func expandSelection(_ sender: Any) {
+        Swift.print("expand selection all")
+    }
 }
 
 
