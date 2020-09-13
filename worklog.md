@@ -224,3 +224,21 @@ protocol Taggable {
 }
 ```
 
+----------
+
+* XML import works (not pretty, but very quick to hack something together).
+* Have a canvas that draws ugly rectangles
+
+* Import the segments
+* draw the things
+
+----------
+
+next:
+- scrolling
+- centering text
+- hit testing
+- dragging
+- making connections
+- double-click to make
+- save in bundle

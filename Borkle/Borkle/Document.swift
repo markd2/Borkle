@@ -1,10 +1,16 @@
 import Cocoa
 
 class Document: NSDocument {
-    var bubbles: [Bubble] = []
+    var bubbles: [Bubble] = [] {
+        didSet {
+            bubbleCanvas.bubbles = bubbles
+            removeFileWrapper(filename: bubbleFilename)
+        }
+    }
 
     @IBOutlet var label: NSTextField!
     @IBOutlet var imageView: NSImageView!
+    @IBOutlet var bubbleCanvas: BubbleCanvas!
     
     var text = "greeble bork" {
         didSet {
@@ -32,6 +38,7 @@ class Document: NSDocument {
     let textFilename = "text.txt"
     let imageFilename = "image.png"
     let metadataFilename = "metadata.json"
+    let bubbleFilename = "bubbles.blah"
 
     override init() {
         super.init()
