@@ -1,6 +1,6 @@
 import Foundation
 
-class Bubble {
+class Bubble: Codable {
     let ID: Int
     var text: String = ""
     var position: CGPoint = .zero
