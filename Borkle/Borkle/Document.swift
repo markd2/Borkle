@@ -4,6 +4,7 @@ class Document: NSDocument {
     @IBOutlet var label: NSTextField!
     @IBOutlet var imageView: NSImageView!
     @IBOutlet var bubbleCanvas: BubbleCanvas!
+    @IBOutlet var bubbleScroller: NSScrollView!
 
     var documentFileWrapper: FileWrapper?
 
@@ -52,6 +53,11 @@ class Document: NSDocument {
         label.stringValue = text
         imageView.image = image
         bubbleCanvas.bubbles = bubbles
+        // need to actually drive the frame from the bubbles
+        bubbleScroller.contentView.backgroundColor = BubbleCanvas.background
+        bubbleScroller.hasHorizontalScroller = true
+        bubbleScroller.hasVerticalScroller = true
+        bubbleCanvas.frame = CGRect(x: 0, y: 0, width: 1200, height: 950)
     }
 
     override class var autosavesInPlace: Bool {

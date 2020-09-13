@@ -9,6 +9,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="Document" customModule="Borkle" customModuleProvider="target">
             <connections>
                 <outlet property="BubbleCanvas" destination="Yd2-k3-bEp" id="QSA-d4-ja7"/>
+                <outlet property="bubbleCanvas" destination="Yd2-k3-bEp" id="avl-AQ-6PD"/>
+                <outlet property="bubbleScroller" destination="kz4-mA-D4k" id="Nxv-ec-PHs"/>
                 <outlet property="imageView" destination="021-kA-8LX" id="Fm8-P6-vAP"/>
                 <outlet property="label" destination="0fv-uL-aak" id="E0C-FM-nVt"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
@@ -51,19 +53,37 @@
                             <outlet property="delegate" destination="-2" id="NZO-RZ-9RG"/>
                         </connections>
                     </textField>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="Yd2-k3-bEp" customClass="BubbleCanvas" customModule="Borkle" customModuleProvider="target">
-                        <rect key="frame" x="20" y="20" width="291" height="270"/>
-                    </customView>
+                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kz4-mA-D4k">
+                        <rect key="frame" x="0.0" y="0.0" width="331" height="291"/>
+                        <clipView key="contentView" id="Xa2-Az-D99">
+                            <rect key="frame" x="1" y="1" width="329" height="289"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yd2-k3-bEp" customClass="BubbleCanvas" customModule="Borkle" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="19" width="291" height="270"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                </customView>
+                            </subviews>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="omz-UR-9om">
+                            <rect key="frame" x="-100" y="-100" width="291" height="15"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="WvQ-xN-ka1">
+                            <rect key="frame" x="-100" y="-100" width="15" height="285"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="Yd2-k3-bEp" secondAttribute="bottom" constant="20" id="8Qn-zo-SZl"/>
+                    <constraint firstAttribute="bottom" secondItem="kz4-mA-D4k" secondAttribute="bottom" id="9q2-sh-41r"/>
+                    <constraint firstItem="kz4-mA-D4k" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" id="A3s-1y-d4r"/>
                     <constraint firstItem="0fv-uL-aak" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" constant="20" id="K2A-Th-WGm"/>
                     <constraint firstItem="021-kA-8LX" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="20" id="O5v-tb-g5r"/>
-                    <constraint firstItem="Yd2-k3-bEp" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" constant="20" id="Y7p-Jh-CDe"/>
+                    <constraint firstAttribute="trailing" secondItem="kz4-mA-D4k" secondAttribute="trailing" id="ejq-dJ-FKq"/>
                     <constraint firstItem="021-kA-8LX" firstAttribute="leading" secondItem="0fv-uL-aak" secondAttribute="trailing" constant="8" id="h4U-F3-KLh"/>
-                    <constraint firstAttribute="trailing" secondItem="Yd2-k3-bEp" secondAttribute="trailing" constant="20" id="hej-Ww-sWj"/>
                     <constraint firstItem="0fv-uL-aak" firstAttribute="top" secondItem="021-kA-8LX" secondAttribute="top" id="kb6-yj-rL2"/>
-                    <constraint firstItem="Yd2-k3-bEp" firstAttribute="top" secondItem="021-kA-8LX" secondAttribute="bottom" constant="8" id="oUD-5B-gwd"/>
+                    <constraint firstItem="kz4-mA-D4k" firstAttribute="top" secondItem="021-kA-8LX" secondAttribute="bottom" constant="7" id="sXZ-Sa-1LS"/>
                     <constraint firstAttribute="trailing" secondItem="021-kA-8LX" secondAttribute="trailing" constant="20" id="sek-wq-4Ql"/>
                 </constraints>
             </view>
