@@ -19,6 +19,8 @@ class BubbleCanvas: NSView {
     /// !!! delta for undo.
     var originalBubblePosition: CGPoint?
 
+    var bubbleMoveUndoCompletion: ((_ bubble: Bubble, _ originPoint: CGPoint, _ finalPoint: CGPoint) -> Void)?
+
     override var isFlipped: Bool { return true }
     var bubbles: [Bubble] = [] {
         didSet {
@@ -207,5 +209,12 @@ extension BubbleCanvas {
         let delta = initialDragPoint - viewLocation
         selectedBubble.position = originalBubblePosition + delta
         needsDisplay = true
+    }
+    
+    override func mouseUp(with event: NSEvent) {
+        guard let selectedBubble = selectedBubble else { return }
+        guard let originalBubblePosition = originalBubblePosition else { return }
+
+        bubbleMoveUndoCompletion?(selectedBubble, selectedBubble.position, originalBubblePosition)
     }
 }

@@ -58,6 +58,19 @@ class Document: NSDocument {
         bubbleScroller.hasHorizontalScroller = true
         bubbleScroller.hasVerticalScroller = true
         bubbleCanvas.frame = CGRect(x: 0, y: 0, width: 1200, height: 950)
+
+        bubbleCanvas.bubbleMoveUndoCompletion = { bubble, start, end in
+            self.setBubblePosition(bubble: bubble, start: end, end: start)
+        }
+    }
+
+    func setBubblePosition(bubble: Bubble, start: CGPoint, end: CGPoint) {
+        bubble.position = end
+        bubbleCanvas.needsDisplay = true
+
+        undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
+                self.setBubblePosition(bubble: bubble, start: end, end: start)
+            })
     }
 
     override class var autosavesInPlace: Bool {
