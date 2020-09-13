@@ -9,6 +9,7 @@ class ScappleImporter: NSObject {
     var bubbles: [Bubble] = []
     var currentBubble: Bubble = Bubble(ID: -1)
     var currentString: String = ""
+    var currentConnectedNoteString: String?
 
     func importScapple(url: URL) throws -> [Bubble] {
         guard let parser = XMLParser(contentsOf: url) else {
@@ -27,7 +28,7 @@ class ScappleImporter: NSObject {
 }
 
 extension ScappleImporter {
-    func addNote(_ element: String, _ attributes: [String: String]) -> Bubble? {
+    func makeNote(_ element: String, _ attributes: [String: String]) -> Bubble? {
         guard let IDstring = attributes["ID"], let ID = Int(IDstring) else {
             return nil
         }
@@ -43,7 +44,41 @@ extension ScappleImporter {
 
         return bubble
     }
+
+    func makeConnections(_ connectionString: String?) -> IndexSet? {
+        guard let connectionString = connectionString else { return nil }
+        var connections = IndexSet()
+
+        let components = connectionString.split(separator: ",").map { String($0).trimmed }
+
+        for component in components {
+            let innerComponents = component.split(separator: "-").map { String($0).trimmed }
+            if innerComponents.count == 1 {
+                if let value = Int(component) {
+                    connections.update(with: value)
+                }
+            } else if innerComponents.count == 2 {
+                if let firstValue = Int(innerComponents[0]),
+                   let secondValue = Int(innerComponents[1]) {
+                    connections.insert(integersIn: firstValue ... secondValue)
+                }
+            } else {
+                Swift.print("Unexpected multiple (or zero) components from \(component)")
+            }
+        }
+
+        // of the form "76, 78-79, 83, 91, 142-143, 162, 171"
+        return connections
+    }
 }
+
+extension String {
+    var trimmed: String {
+        let trimmedString = self.trimmingCharacters(in: .whitespaces)
+        return trimmedString
+    }
+}
+
 
 extension CGFloat {
     init?(_ string: String) {
@@ -79,9 +114,11 @@ extension ScappleImporter: XMLParserDelegate {
         case "Notes":
             bubbles = []
         case "Note":
-            if let currentBubble = addNote(element, attributes) {
+            if let currentBubble = makeNote(element, attributes) {
                 self.currentBubble = currentBubble
             }
+        case "ConnectedNoteIDs":
+            currentConnectedNoteString = ""
         case "String":
             currentString = ""
         default:
@@ -99,6 +136,11 @@ extension ScappleImporter: XMLParserDelegate {
             Swift.print("BUBBLES! \(bubbles)")
         case "Note":
             bubbles.append(currentBubble)
+        case "ConnectedNoteIDs":
+            if let connections = makeConnections(currentConnectedNoteString) {
+                currentBubble.connections = connections
+            }
+            currentConnectedNoteString = nil
         default:
             break
         }
@@ -106,7 +148,11 @@ extension ScappleImporter: XMLParserDelegate {
 
     func parser(_ parser: XMLParser, foundCharacters: String) {
 //        Swift.print("string! \(foundCharacters)")
-        currentString += foundCharacters
+        if currentConnectedNoteString != nil {
+            currentConnectedNoteString! += foundCharacters
+        } else {
+            currentString += foundCharacters
+        }
     }
 
     func parserDidEndDocument(_ parser: XMLParser) {
