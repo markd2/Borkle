@@ -41,7 +41,11 @@ class BubbleCanvas: NSView {
     }
 
     private func drawConnections(_ map: [Int: CGRect]) {
-        NSColor.lightGray.set()
+        NSColor.darkGray.set()
+        let bezierPath = NSBezierPath()
+        let pattern: [CGFloat] = [2.0, 1.0]
+        bezierPath.setLineDash(pattern, count: pattern.count, phase: 0.0)
+
         for bubble in bubbles {
             for index in bubble.connections {
 
@@ -55,16 +59,21 @@ class BubbleCanvas: NSView {
                 let thing1 = map[bubble.ID]!.center
                 let thing2 = map[index]!.center
                 Swift.print("pairing \(thing1)->\(thing2)")
-                NSBezierPath.strokeLine(from: thing1, to: thing2)
+                bezierPath.removeAllPoints()
+                bezierPath.move(to: thing1)
+                bezierPath.line(to: thing2)
+                bezierPath.stroke()
             }
         }
     }
 
     private func renderBubble(_ bubble: Bubble, in rect: CGRect) {
+        let bezierPath = NSBezierPath()
+        bezierPath.appendRoundedRect(rect, xRadius: 8, yRadius: 8)
         NSColor.white.set()
-        rect.fill()
+        bezierPath.fill()
         NSColor.black.set()
-        rect.frame()
+        bezierPath.stroke()
 
         let nsstring = "\(bubble.text)" as NSString
         nsstring.draw(in: rect, withAttributes: nil)
