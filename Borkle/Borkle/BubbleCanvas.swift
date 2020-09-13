@@ -3,7 +3,11 @@ import Cocoa
 class BubbleCanvas: NSView {
     static let background = NSColor(red: 228.0 / 255.0, green: 232.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
 
+    /// Selected bubble.  Eventually needs to become a set of bubbles for multi-selection
     var selectedID: Int? = nil
+
+    /// Highlighted bubble, for mouse-motion indication.  Shown as a dashed line or something.
+    var highlightedID: Int? = nil
 
     override var isFlipped: Bool { return true }
     var bubbles: [Bubble] = [] {
@@ -40,7 +44,9 @@ class BubbleCanvas: NSView {
 
         bubbles.forEach {
             if let rect = idToRectMap[$0.ID] {
-                renderBubble($0, in: rect, selected: $0.ID == (selectedID ?? -666))
+                renderBubble($0, in: rect, 
+                    selected: $0.ID == (selectedID ?? -666), 
+                    highlighted: $0.ID == (highlightedID ?? -666))
             } else {
                 Swift.print("unexpected not-rendering a bubble")
             }
@@ -83,7 +89,7 @@ class BubbleCanvas: NSView {
         }
     }
 
-    private func renderBubble(_ bubble: Bubble, in rect: CGRect, selected: Bool) {
+    private func renderBubble(_ bubble: Bubble, in rect: CGRect, selected: Bool, highlighted: Bool) {
         let bezierPath = NSBezierPath()
         bezierPath.appendRoundedRect(rect, xRadius: 8, yRadius: 8)
         NSColor.white.set()
@@ -93,13 +99,22 @@ class BubbleCanvas: NSView {
         nsstring.draw(in: rect, withAttributes: nil)
 
         if selected {
-            NSColor.blue.set()
-            bezierPath.lineWidth = 3.0
+            NSColor.darkGray.set()
+            bezierPath.lineWidth = 4.0
         } else {
-            NSColor.black.set()
-            bezierPath.lineWidth = 1.0
+            NSColor.darkGray.set()
+            bezierPath.lineWidth = 2.0
         }
         bezierPath.stroke()
+
+        if highlighted {
+            let pattern: [CGFloat] = [2.0, 2.0]
+            bezierPath.setLineDash(pattern, count: pattern.count, phase: 0.0)
+            bezierPath.lineWidth = 1.0
+
+            NSColor.white.set()
+            bezierPath.stroke()
+        }
     }
 
     func hitTestBubble(at point: CGPoint) -> Bubble? {
@@ -114,16 +129,33 @@ class BubbleCanvas: NSView {
     }
 
     func selectBubble(_ bubble: Bubble?) {
-        guard let bubble = bubble else { return }
+        guard let bubble = bubble else {
+            selectedID = nil
+            needsDisplay = true
+            return
+        }
 
         if selectedID != bubble.ID {
             selectedID = bubble.ID
             needsDisplay = true
         }
     }
+
+    func highlightBubble(_ bubble: Bubble?) {
+        guard let bubble = bubble else {
+            highlightedID = nil
+            needsDisplay = true
+            return
+        }
+
+        if highlightedID != bubble.ID {
+            highlightedID = bubble.ID
+            needsDisplay = true
+        }
+    }
 }
 
-// Tracking area foobage.
+// mouse and tracking area foobage.
 extension BubbleCanvas {
     override func updateTrackingAreas() {
         Swift.print("SNORGLE update tracking areas")
@@ -133,8 +165,15 @@ extension BubbleCanvas {
         }
         addTrackingAreas()
     }
-    
+
     override func mouseMoved(with event: NSEvent) {
+        let locationInWindow = event.locationInWindow
+        let viewLocation = convert(locationInWindow, from: nil)
+        let bubble = hitTestBubble(at: viewLocation)
+        highlightBubble(bubble)
+    }
+
+    override func mouseDown(with event: NSEvent) {
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil)
         let bubble = hitTestBubble(at: viewLocation)
