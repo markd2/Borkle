@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D042C56250D8DB900E65175 /* ScappleImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D042C55250D8DB900E65175 /* ScappleImporter.swift */; };
+		7D51127F250D6F51004F0E63 /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D51127E250D6F51004F0E63 /* Bubble.swift */; };
 		7D93A74A250AD8DC00991121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93A749250AD8DC00991121 /* AppDelegate.swift */; };
 		7D93A74C250AD8DC00991121 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93A74B250AD8DC00991121 /* Document.swift */; };
 		7D93A74F250AD8DC00991121 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A74D250AD8DC00991121 /* Document.xib */; };
@@ -27,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7D042C55250D8DB900E65175 /* ScappleImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScappleImporter.swift; sourceTree = "<group>"; };
+		7D51127E250D6F51004F0E63 /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
 		7D93A746250AD8DC00991121 /* Borkle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Borkle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D93A749250AD8DC00991121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D93A74B250AD8DC00991121 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -82,12 +86,14 @@
 			children = (
 				7D93A749250AD8DC00991121 /* AppDelegate.swift */,
 				7D93A74B250AD8DC00991121 /* Document.swift */,
+				7D51127E250D6F51004F0E63 /* Bubble.swift */,
 				7D93A74D250AD8DC00991121 /* Document.xib */,
 				7D93A750250AD8DD00991121 /* Assets.xcassets */,
 				7D93A752250AD8DD00991121 /* MainMenu.xib */,
 				7D93A755250AD8DD00991121 /* Info.plist */,
 				7D93A756250AD8DD00991121 /* Borkle.entitlements */,
 				7D93A76C250B019D00991121 /* flumph.jpg */,
+				7D042C55250D8DB900E65175 /* ScappleImporter.swift */,
 			);
 			path = Borkle;
 			sourceTree = "<group>";
@@ -204,6 +210,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D93A74C250AD8DC00991121 /* Document.swift in Sources */,
+				7D51127F250D6F51004F0E63 /* Bubble.swift in Sources */,
+				7D042C56250D8DB900E65175 /* ScappleImporter.swift in Sources */,
 				7D93A74A250AD8DC00991121 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

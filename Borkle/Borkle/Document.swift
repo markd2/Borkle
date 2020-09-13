@@ -1,13 +1,33 @@
 import Cocoa
 
 class Document: NSDocument {
+    var bubbles: [Bubble] = []
 
     @IBOutlet var label: NSTextField!
     @IBOutlet var imageView: NSImageView!
     
-    var text = "greeble bork"
-    var image: NSImage?
-    var metadataDict = ["blah": "greeble", "hoover": "bork"]
+    var text = "greeble bork" {
+        didSet {
+            removeFileWrapper(filename: textFilename)
+        }
+    }
+    var image: NSImage? {
+        didSet {
+            removeFileWrapper(filename: imageFilename)
+        }
+    }
+    var metadataDict = ["blah": "greeble", "hoover": "bork"] {
+        didSet {
+            removeFileWrapper(filename: metadataFilename)
+        }
+    }
+
+    func removeFileWrapper(filename: String) {
+        // remove the text file wrapper if it exists
+        if let fileWrapper = documentFileWrapper?.fileWrappers?[filename] {
+            documentFileWrapper?.removeFileWrapper(fileWrapper)
+        }
+    }
 
     let textFilename = "text.txt"
     let imageFilename = "image.png"
@@ -28,7 +48,6 @@ class Document: NSDocument {
         return true
     }
 
-
     override var windowNibName: NSNib.Name? {
         // Returns the nib file name of the document
         // If you need to use a subclass of NSWindowController or if
@@ -42,6 +61,7 @@ class Document: NSDocument {
     var documentFileWrapper: FileWrapper?
     enum FileWrapperError: Error {
         case badFileWrapper
+        case unexpectedlyNilFileWrappers
     }
 
     override func read(from fileWrapper: FileWrapper, 
@@ -79,6 +99,8 @@ class Document: NSDocument {
             let metadata = try! decoder.decode([String:String].self, from: metadataData)
             self.metadataDict = metadata
         }
+        
+        documentFileWrapper = fileWrapper
     }
     
     override func fileWrapper(ofType typeName: String) throws -> FileWrapper {
@@ -91,54 +113,43 @@ class Document: NSDocument {
             throw(FileWrapperError.badFileWrapper)
         }
 
-        let fileWrappers = documentFileWrapper.fileWrappers!
-
-        // "if there isn't a wrapper for the text file, create one too"
-        if fileWrappers[textFilename] != nil {
-            let textWrapper = fileWrappers[textFilename]!
-            documentFileWrapper.removeFileWrapper(textWrapper)
+        guard let fileWrappers = documentFileWrapper.fileWrappers else {
+            throw(FileWrapperError.unexpectedlyNilFileWrappers)
         }
 
-        let textdata = text.data(using: .utf8)!
-        let textFileWrapper = FileWrapper(regularFileWithContents: textdata)
-        textFileWrapper.preferredFilename = textFilename
-
-        documentFileWrapper.addFileWrapper(textFileWrapper)
-
-        // "if the document file wrapper doesn't contain a file wrapper for an
-        // image and the image is not nil,
-        // then create a file wrapper for the image and add it to the document
-        // file wrapper
+        if fileWrappers[textFilename] == nil, let textData = text.data(using: .utf8) {
+            let textFileWrapper = FileWrapper(regularFileWithContents: textData)
+            textFileWrapper.preferredFilename = textFilename
+            
+            documentFileWrapper.addFileWrapper(textFileWrapper)
+        }
 
         if fileWrappers[imageFilename] == nil, let image = image {
             let imageReps = image.representations
             var data = NSBitmapImageRep.representationOfImageReps(in: imageReps,
                                                                   using: .png,
                                                                   properties: [:])
-            if data == nil {
-                let tiffData = image.tiffRepresentation!
-                let imageRep = NSBitmapImageRep(data: tiffData)!
+            if data == nil, let tiffData = image.tiffRepresentation,
+                let imageRep = NSBitmapImageRep(data: tiffData) {
                 data = imageRep.representation(using: .png, properties: [:])
             }
 
-            let imageFileWrapper = FileWrapper(regularFileWithContents: data!)
-            imageFileWrapper.preferredFilename = imageFilename
-            documentFileWrapper.addFileWrapper(imageFileWrapper)
+            if data != nil {
+                let imageFileWrapper = FileWrapper(regularFileWithContents: data!)
+                imageFileWrapper.preferredFilename = imageFilename
+                documentFileWrapper.addFileWrapper(imageFileWrapper)
+            }
         }
 
-        // "check if we already have a metadata file wrapper, first remove
-        // the old one if it exists.
-        var metadataFileWrapper = fileWrappers[metadataFilename]
-        if metadataFileWrapper != nil {
-            documentFileWrapper.removeFileWrapper(metadataFileWrapper!)
+        if fileWrappers[metadataFilename] == nil {
+            // write the new file wrapper for our metadata
+            let encoder = JSONEncoder()
+            if let metadataData = try? encoder.encode(metadataDict) {
+                let metadataFileWrapper = FileWrapper(regularFileWithContents: metadataData)
+                metadataFileWrapper.preferredFilename = metadataFilename
+                documentFileWrapper.addFileWrapper(metadataFileWrapper)
+            }
         }
-
-        // write the new file wrapper for our metadata
-        let encoder = JSONEncoder()
-        let metadataData = try! encoder.encode(metadataDict)
-        metadataFileWrapper = FileWrapper(regularFileWithContents: metadataData)
-        metadataFileWrapper!.preferredFilename = metadataFilename
-        documentFileWrapper.addFileWrapper(metadataFileWrapper!)
 
         return documentFileWrapper
     }
@@ -158,5 +169,31 @@ extension Document {
     @IBAction func imageDrop(_ sender: NSImageView) {
         image = sender.image
         updateChangeCount(.changeDone)
+    }
+}
+
+
+extension Document {
+    // Comes in via responder chain.
+    @IBAction func importScapple(_ sender: AnyObject) {
+        let panel = NSOpenPanel()
+        panel.allowedFileTypes = ["scap"]
+        panel.allowsMultipleSelection = false
+        if let window = windowControllers.first?.window {
+            panel.beginSheetModal(for: window) { response in
+                if response == .OK, let url = panel.urls.first {
+                    self.importScapple(url: url)
+                }
+            }
+        }
+    }
+
+    func importScapple(url: URL) {
+        do {
+            Swift.print("SNORGLE LOAD \(url)")
+            bubbles = try ScappleImporter().importScapple(url: url)
+        } catch {
+            Swift.print("import error \(error)")
+        }
     }
 }

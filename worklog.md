@@ -171,3 +171,56 @@ pattern:
 
 Let the user do stuff.
 
+==================================================
+# Saturday September 12, 2020
+
+- [>] Some basic tests for the document
+- [ ] Sketch in basic data structure, based on Scapple
+- [ ] Scapple import?
+
+I'm not a huge fan of `Document` owning all the data.  It's more controller-y,
+dealing with loading and saving.  Plus it'd probably be easier to test stuff
+pulling the data storage out of Document.
+
+ALTHOUGH, it'll actually be owning stuff more sophisicated than a text field
+and an image.  So maybe that's ok.  Document is responsible for holding on
+to the data strucures involved, providing an undo manager, and other
+document jazz.
+
+oh no!  my keyboard is failing :-( control key and caps lock :-(
+
+Cleaning up logic for file wrapper - the sample code doesn't make a lot
+of sense / is in contradiction to the docs' suggestions for efficiency.
+Also taking out the force-unwraps added for expediency
+
+----------
+
+Next, basic data structure - definitely a subset of Scapple's data for now.
+
+What do I want to start out with?
+  - Bubble
+  - ID
+  - Position
+  - Width
+  - Plain Text
+  - connections (IndexSet)
+
+- Bubble (Note)
+
+That'll give a good start to displaying the stuff later.
+
+----------
+
+ok, stuffed some tape under the control key to make the throw shorter, seems
+to have worked so far...  but not long enough :-(
+
+
+----------
+for the future
+
+```
+protocol Taggable {
+    var tags: [String] {get set}
+}
+```
+
