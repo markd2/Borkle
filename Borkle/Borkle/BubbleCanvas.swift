@@ -102,22 +102,24 @@ class BubbleCanvas: NSView {
         bezierPath.stroke()
     }
 
-    func selectBubble(at point: CGPoint) {
-        let currentSelectedID = selectedID
-        selectedID = nil
-
+    func hitTestBubble(at point: CGPoint) -> Bubble? {
         for bubble in bubbles {
             if let rect = idToRectMap[bubble.ID] {
                 if rect.contains(point) {
-                    selectedID = bubble.ID
-                    if currentSelectedID != selectedID {
-                        needsDisplay = true
-                    }
-                    break
+                    return bubble
                 }
             }
         }
-        
+        return nil
+    }
+
+    func selectBubble(_ bubble: Bubble?) {
+        guard let bubble = bubble else { return }
+
+        if selectedID != bubble.ID {
+            selectedID = bubble.ID
+            needsDisplay = true
+        }
     }
 }
 
@@ -135,6 +137,7 @@ extension BubbleCanvas {
     override func mouseMoved(with event: NSEvent) {
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil)
-        selectBubble(at: viewLocation)
+        let bubble = hitTestBubble(at: viewLocation)
+        selectBubble(bubble)
     }
 }
