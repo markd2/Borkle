@@ -18,3 +18,15 @@ So, this is my (probably incomplete) attempt of making such a tool before I
 
 
 
+# Screenshot Gallery
+
+Might be fun to see the [elvisloution](https://www.youtube.com/watch?v=knc9LKjukSQ) over the ~years~ ~months~ weeks.
+
+
+### "It Works"
+
+Imports Scapple documents and draws (crudely) the mindmap.  The text field and flumph are
+opened and saved to figure out bundle documents.
+
+![](docs/screenshot-1.png)
+
