@@ -25,7 +25,7 @@ extension Bubble {
         NSColor.black.set()
         rect.frame()
 
-        let nsstring = text as NSString
+        let nsstring = "\(ID)-\(text)" as NSString
         nsstring.draw(in: rect, withAttributes: nil)
     }
 }
