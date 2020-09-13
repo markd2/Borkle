@@ -235,10 +235,92 @@ protocol Taggable {
 ----------
 
 next:
+
+- save bubbles
+
 - scrolling
-- centering text
-- hit testing
-- dragging
-- making connections
-- double-click to make
-- save in bundle
+
+
+
+==================================================
+# Sunday September 13, 2020
+
+- [X] save bubbles
+   - [X] open last opened document and window position
+- [X] scrolling
+
+- [X] mouse motion
+- [X] hit testing
+- [ ] dragging
+- [ ] making connections
+- [ ] double-click to make
+
+
+- [ ] centering text in bubble
+- [ ] resizing bubble height to match text
+
+----------
+
+Get some work in before _two_ games today.
+
+----------
+
+added saving (with bundles is really easy.  Shouldn't have been scared of them
+over the years), also open lat document and window position. Makes getting
+into a runnable state much faster.
+
+----------
+
+Now for scrolling
+
+embed in a scroll view.  Now to remember how NSScrollView works...
+
+NSScrollView hsa three parts:
+- NSScrollView
+- NSClipView
+- Document View
+
+scrollView documentView
+scrollView.contentView.scroll(to: CGPoint)
+
+bet it's driven by the frame. Yep.
+
+Getting scroller behavior needed to turn on the scrollers
+
+```
+        bubbleScroller.hasHorizontalScroller = true
+        bubbleScroller.hasVerticalScroller = true
+```
+
+----------
+
+Also consolidaetd some of the useful utilities into one place
+
+----------
+
+ok, mouse motion. It's been a while...
+
+https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/EventOverview/TrackingAreaObjects/TrackingAreaObjects.html#//apple_ref/doc/uid/10000060i-CH8-SW1
+
+docs
+
+NSTrackingArea seems to be the new hotness
+request NSMouseMoved events
+can request cursorUpdate (not sure what those are yet)
+not sure if NSTrackingActiveInActiveApp or NSTrackingActiveInKeyWindow.
+  might need to constraint to front-most window
+  there's more, like refinemens of behavr
+
+region is rect in local coordinate.  message recipient is specified when the tracking area is created
+to keep up to date
+  - appkit will do most of it, but will send updateTrackingAreas to recompute and reset areas
+
+reminder for converting points
+
+```
+    override func mouseMoved(with event: NSEvent) {
+        let locationInWindow = event.locationInWindow
+        let viewLocation = convert(locationInWindow, from: nil)
+        selectBubble(at: viewLocation)
+    }
+```
