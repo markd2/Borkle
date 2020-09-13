@@ -14,7 +14,7 @@ class Document: NSDocument {
 
     var bubbles: [Bubble] = [] {
         didSet {
-            bubbleCanvas.bubbles = bubbles
+            bubbleCanvas?.bubbles = bubbles
             removeFileWrapper(filename: bubbleFilename)
         }
     }
@@ -51,6 +51,7 @@ class Document: NSDocument {
         super.awakeFromNib()
         label.stringValue = text
         imageView.image = image
+        bubbleCanvas.bubbles = bubbles
     }
 
     override class var autosavesInPlace: Bool {
@@ -88,6 +89,13 @@ class Document: NSDocument {
 
         let fileWrappers = fileWrapper.fileWrappers!
 
+        if let bubbleFileWrapper = fileWrappers[bubbleFilename] {
+            let bubbleData = bubbleFileWrapper.regularFileContents!
+            let decoder = JSONDecoder()
+            let bubbles = try! decoder.decode([Bubble].self, from: bubbleData)
+            self.bubbles = bubbles
+        }
+        
         // load text file
         if let imageFileWrapper = fileWrappers[imageFilename] {
             let imageData = imageFileWrapper.regularFileContents!
@@ -124,6 +132,18 @@ class Document: NSDocument {
         guard let fileWrappers = documentFileWrapper.fileWrappers else {
             throw(FileWrapperError.unexpectedlyNilFileWrappers)
         }
+
+        if fileWrappers[bubbleFilename] == nil {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+
+            if let bubbleData = try? encoder.encode(bubbles) {
+                let bubbleFileWrapper = FileWrapper(regularFileWithContents: bubbleData)
+                bubbleFileWrapper.preferredFilename = bubbleFilename
+                documentFileWrapper.addFileWrapper(bubbleFileWrapper)
+            }
+        }
+        
 
         if fileWrappers[textFilename] == nil, let textData = text.data(using: .utf8) {
             let textFileWrapper = FileWrapper(regularFileWithContents: textData)
