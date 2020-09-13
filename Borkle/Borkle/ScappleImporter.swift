@@ -17,7 +17,7 @@ class ScappleImporter: NSObject {
         parser.delegate = self
 
         if parser.parse() {
-            return []
+            return bubbles
         } else if let error = parser.parserError {
             throw error
         } else {
