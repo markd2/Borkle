@@ -3,6 +3,8 @@ import Cocoa
 class BubbleCanvas: NSView {
     static let background = NSColor(red: 228.0 / 255.0, green: 232.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
 
+    var selectedID: Int? = nil
+
     override var isFlipped: Bool { return true }
     var bubbles: [Bubble] = [] {
         didSet {
@@ -25,18 +27,20 @@ class BubbleCanvas: NSView {
         let trackingArea = NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
         addTrackingArea(trackingArea)
     }
+
+    var idToRectMap: [Int: CGRect] = [:]
     
     override func draw(_ areaToDrawPlzKthx: CGRect) {
         BubbleCanvas.background.set()
         bounds.fill()
 
-        let idToRectMap = allBorders(bubbles)
+        idToRectMap = allBorders(bubbles)
 
         drawConnections(idToRectMap)
 
         bubbles.forEach {
             if let rect = idToRectMap[$0.ID] {
-                renderBubble($0, in: rect)
+                renderBubble($0, in: rect, selected: $0.ID == (selectedID ?? -666))
             } else {
                 Swift.print("unexpected not-rendering a bubble")
             }
@@ -71,7 +75,6 @@ class BubbleCanvas: NSView {
 
                 let thing1 = map[bubble.ID]!.center
                 let thing2 = map[index]!.center
-                Swift.print("pairing \(thing1)->\(thing2)")
                 bezierPath.removeAllPoints()
                 bezierPath.move(to: thing1)
                 bezierPath.line(to: thing2)
@@ -80,7 +83,7 @@ class BubbleCanvas: NSView {
         }
     }
 
-    private func renderBubble(_ bubble: Bubble, in rect: CGRect) {
+    private func renderBubble(_ bubble: Bubble, in rect: CGRect, selected: Bool) {
         let bezierPath = NSBezierPath()
         bezierPath.appendRoundedRect(rect, xRadius: 8, yRadius: 8)
         NSColor.white.set()
@@ -89,8 +92,32 @@ class BubbleCanvas: NSView {
         let nsstring = "\(bubble.text)" as NSString
         nsstring.draw(in: rect, withAttributes: nil)
 
-        NSColor.black.set()
+        if selected {
+            NSColor.blue.set()
+            bezierPath.lineWidth = 3.0
+        } else {
+            NSColor.black.set()
+            bezierPath.lineWidth = 1.0
+        }
         bezierPath.stroke()
+    }
+
+    func selectBubble(at point: CGPoint) {
+        let currentSelectedID = selectedID
+        selectedID = nil
+
+        for bubble in bubbles {
+            if let rect = idToRectMap[bubble.ID] {
+                if rect.contains(point) {
+                    selectedID = bubble.ID
+                    if currentSelectedID != selectedID {
+                        needsDisplay = true
+                    }
+                    break
+                }
+            }
+        }
+        
     }
 }
 
@@ -106,6 +133,8 @@ extension BubbleCanvas {
     }
     
     override func mouseMoved(with event: NSEvent) {
-        Swift.print("SNORGLE moved \(event)")
+        let locationInWindow = event.locationInWindow
+        let viewLocation = convert(locationInWindow, from: nil)
+        selectBubble(at: viewLocation)
     }
 }
