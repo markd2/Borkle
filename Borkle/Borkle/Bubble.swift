@@ -12,5 +12,11 @@ class Bubble {
     }
 }
 
+extension Bubble: CustomDebugStringConvertible {
+    var debugDescription: String {
+        return "Bubble(ID: \(ID), text: '\(text)'  at: \(position)  width: \(width))"
+    }
+}
+
 
 
