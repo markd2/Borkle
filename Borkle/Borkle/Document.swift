@@ -1,6 +1,17 @@
 import Cocoa
 
 class Document: NSDocument {
+    @IBOutlet var label: NSTextField!
+    @IBOutlet var imageView: NSImageView!
+    @IBOutlet var bubbleCanvas: BubbleCanvas!
+
+    var documentFileWrapper: FileWrapper?
+
+    let textFilename = "text.txt"
+    let imageFilename = "image.png"
+    let metadataFilename = "metadata.json"
+    let bubbleFilename = "bubbles.json"
+
     var bubbles: [Bubble] = [] {
         didSet {
             bubbleCanvas.bubbles = bubbles
@@ -8,10 +19,6 @@ class Document: NSDocument {
         }
     }
 
-    @IBOutlet var label: NSTextField!
-    @IBOutlet var imageView: NSImageView!
-    @IBOutlet var bubbleCanvas: BubbleCanvas!
-    
     var text = "greeble bork" {
         didSet {
             removeFileWrapper(filename: textFilename)
@@ -34,11 +41,6 @@ class Document: NSDocument {
             documentFileWrapper?.removeFileWrapper(fileWrapper)
         }
     }
-
-    let textFilename = "text.txt"
-    let imageFilename = "image.png"
-    let metadataFilename = "metadata.json"
-    let bubbleFilename = "bubbles.blah"
 
     override init() {
         super.init()
@@ -65,7 +67,6 @@ class Document: NSDocument {
         return NSNib.Name("Document")
     }
 
-    var documentFileWrapper: FileWrapper?
     enum FileWrapperError: Error {
         case badFileWrapper
         case unexpectedlyNilFileWrappers
