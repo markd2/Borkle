@@ -3,8 +3,7 @@ import Cocoa
 class BubbleCanvas: NSView {
     static let background = NSColor(red: 228.0 / 255.0, green: 232.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
 
-    /// Selected bubble.  Eventually needs to become a set of bubbles for multi-selection
-    var selectedBubble: Bubble?
+    var selectedBubbles = Set<Bubble>()
 
     /// Highlighted bubble, for mouse-motion indication.  Shown as a dashed line or something.
     var highlightedID: Int? = nil
@@ -18,6 +17,7 @@ class BubbleCanvas: NSView {
     /// !!! Maybe copy the bubble, move it around, then on the completion it tells someone the move
     /// !!! delta for undo.
     var originalBubblePosition: CGPoint?
+    var originalBubblePositions = [Bubble: CGPoint]()
 
     var bubbleMoveUndoCompletion: ((_ bubble: Bubble, _ originPoint: CGPoint, _ finalPoint: CGPoint) -> Void)?
 
@@ -57,7 +57,7 @@ class BubbleCanvas: NSView {
         bubbles.forEach {
             if let rect = idToRectMap[$0.ID] {
                 renderBubble($0, in: rect, 
-                    selected: $0 == selectedBubble,
+                    selected: selectedBubbles.contains($0),
                     highlighted: $0.ID == (highlightedID ?? -666))
             } else {
                 Swift.print("unexpected not-rendering a bubble")
@@ -142,13 +142,13 @@ class BubbleCanvas: NSView {
 
     func selectBubble(_ bubble: Bubble?) {
         guard let bubble = bubble else {
-            selectedBubble = nil
+            selectedBubbles.removeAll()
             needsDisplay = true
             return
         }
         
-        if selectedBubble != bubble {
-            selectedBubble = bubble
+        if !selectedBubbles.contains(bubble) {
+            selectedBubbles.insert(bubble)
             needsDisplay = true
         }
     }
@@ -191,6 +191,12 @@ extension BubbleCanvas {
         let bubble = hitTestBubble(at: viewLocation)
         selectBubble(bubble)
 
+        /// !!! Play with reduce here
+        originalBubblePositions = [:]
+        selectedBubbles.forEach { bubble in
+            originalBubblePositions[bubble] = bubble.position
+        }
+
         // we have a selected bubble. Drag it around.
         if let bubble = bubble {
             initialDragPoint = viewLocation
@@ -200,21 +206,29 @@ extension BubbleCanvas {
 
     override func mouseDragged(with event: NSEvent) {
         guard let initialDragPoint = initialDragPoint else { return }
-        guard let selectedBubble = selectedBubble else { return }
-        guard let originalBubblePosition = originalBubblePosition else { return }
+        guard selectedBubbles.count > 0 else { return }
 
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil) as CGPoint
 
         let delta = initialDragPoint - viewLocation
-        selectedBubble.position = originalBubblePosition + delta
+        selectedBubbles.forEach { bubble in
+            guard let originalPosition = originalBubblePositions[bubble] else {
+                Swift.print("unexpectedly missing original bubble position")
+                return
+            }
+            bubble.position = originalPosition + delta
+        }
         needsDisplay = true
     }
     
     override func mouseUp(with event: NSEvent) {
-        guard let selectedBubble = selectedBubble else { return }
-        guard let originalBubblePosition = originalBubblePosition else { return }
-
-        bubbleMoveUndoCompletion?(selectedBubble, selectedBubble.position, originalBubblePosition)
+        selectedBubbles.forEach { bubble in
+            guard let originalPosition = originalBubblePositions[bubble] else {
+                Swift.print("unexpectedly missing bubble position in mouse up")
+                return
+            }
+            bubbleMoveUndoCompletion?(bubble, bubble.position, originalPosition)
+        }
     }
 }

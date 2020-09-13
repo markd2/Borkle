@@ -24,3 +24,8 @@ extension Bubble: Equatable {
     }
 }
 
+extension Bubble: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ID)
+    }
+}
