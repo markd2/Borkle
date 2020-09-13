@@ -9,6 +9,22 @@ class BubbleCanvas: NSView {
             needsDisplay = true
         }
     }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        addTrackingAreas()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addTrackingAreas()
+    }
+    var trackingArea: NSTrackingArea!
+
+    func addTrackingAreas() {
+        let trackingArea = NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
+        addTrackingArea(trackingArea)
+    }
     
     override func draw(_ areaToDrawPlzKthx: CGRect) {
         BubbleCanvas.background.set()
@@ -75,5 +91,21 @@ class BubbleCanvas: NSView {
 
         NSColor.black.set()
         bezierPath.stroke()
+    }
+}
+
+// Tracking area foobage.
+extension BubbleCanvas {
+    override func updateTrackingAreas() {
+        Swift.print("SNORGLE update tracking areas")
+        if let trackingArea = trackingArea {
+            removeTrackingArea(trackingArea)
+            self.trackingArea = nil
+        }
+        addTrackingAreas()
+    }
+    
+    override func mouseMoved(with event: NSEvent) {
+        Swift.print("SNORGLE moved \(event)")
     }
 }
