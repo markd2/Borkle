@@ -4,10 +4,20 @@ class BubbleCanvas: NSView {
     static let background = NSColor(red: 228.0 / 255.0, green: 232.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
 
     /// Selected bubble.  Eventually needs to become a set of bubbles for multi-selection
-    var selectedID: Int? = nil
+    var selectedBubble: Bubble?
 
     /// Highlighted bubble, for mouse-motion indication.  Shown as a dashed line or something.
     var highlightedID: Int? = nil
+
+    /// Where a click-drag originated.  nil if there's no active drag happening.
+    /// might make enum with associated object when there's additional dragging behaviors.
+    var initialDragPoint: CGPoint?
+
+    /// The bubble being dragged, original position, to calculate delta when dragging
+    /// and eventually for undo.
+    /// !!! Maybe copy the bubble, move it around, then on the completion it tells someone the move
+    /// !!! delta for undo.
+    var originalBubblePosition: CGPoint?
 
     override var isFlipped: Bool { return true }
     var bubbles: [Bubble] = [] {
@@ -45,7 +55,7 @@ class BubbleCanvas: NSView {
         bubbles.forEach {
             if let rect = idToRectMap[$0.ID] {
                 renderBubble($0, in: rect, 
-                    selected: $0.ID == (selectedID ?? -666), 
+                    selected: $0.ID == (selectedBubble?.ID ?? -666), 
                     highlighted: $0.ID == (highlightedID ?? -666))
             } else {
                 Swift.print("unexpected not-rendering a bubble")
@@ -130,13 +140,13 @@ class BubbleCanvas: NSView {
 
     func selectBubble(_ bubble: Bubble?) {
         guard let bubble = bubble else {
-            selectedID = nil
+            selectedBubble = nil
             needsDisplay = true
             return
         }
-
-        if selectedID != bubble.ID {
-            selectedID = bubble.ID
+        
+        if (selectedBubble?.ID ?? -666) != bubble.ID {
+            selectedBubble = bubble
             needsDisplay = true
         }
     }
@@ -178,5 +188,24 @@ extension BubbleCanvas {
         let viewLocation = convert(locationInWindow, from: nil)
         let bubble = hitTestBubble(at: viewLocation)
         selectBubble(bubble)
+
+        // we have a selected bubble. Drag it around.
+        if let bubble = bubble {
+            initialDragPoint = viewLocation
+            originalBubblePosition = bubble.position
+        }
+    }
+
+    override func mouseDragged(with event: NSEvent) {
+        guard let initialDragPoint = initialDragPoint else { return }
+        guard let selectedBubble = selectedBubble else { return }
+        guard let originalBubblePosition = originalBubblePosition else { return }
+
+        let locationInWindow = event.locationInWindow
+        let viewLocation = convert(locationInWindow, from: nil) as CGPoint
+
+        let delta = initialDragPoint - viewLocation
+        selectedBubble.position = originalBubblePosition + delta
+        needsDisplay = true
     }
 }

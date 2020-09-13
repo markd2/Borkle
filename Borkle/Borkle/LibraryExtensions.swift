@@ -34,6 +34,14 @@ extension CGPoint {
             return nil
         }
     }
+
+    static public func - (left: CGPoint, right: CGPoint) -> CGPoint {
+        return CGPoint(x: right.x - left.x, y: right.y - left.y)
+    }
+
+    static public func + (left: CGPoint, right: CGPoint) -> CGPoint {
+        return CGPoint(x: left.x + right.x, y: left.y + right.y)
+    }
 }
 
 
