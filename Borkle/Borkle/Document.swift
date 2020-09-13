@@ -186,7 +186,7 @@ extension Document {
     }
 
     @IBAction func selectAll(_ sender: Any) {
-        Swift.print("select all")
+        bubbleCanvas.selectBubbles(Set(bubbles))
     }
     
     @IBAction func expandSelection(_ sender: Any) {

@@ -5,6 +5,13 @@ class BubbleCanvas: NSView {
 
     var selectedBubbles = Set<Bubble>()
 
+    /// public API to select a chunka bubbles
+    func selectBubbles(_ bubbles: Set<Bubble>) {
+
+        selectedBubbles = bubbles
+        needsDisplay = true
+    }
+
     /// Highlighted bubble, for mouse-motion indication.  Shown as a dashed line or something.
     var highlightedID: Int? = nil
 
