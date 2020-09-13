@@ -142,8 +142,6 @@ class BubbleCanvas: NSView {
 
     func selectBubble(_ bubble: Bubble?) {
         guard let bubble = bubble else {
-            selectedBubbles.removeAll()
-            needsDisplay = true
             return
         }
         
@@ -151,6 +149,24 @@ class BubbleCanvas: NSView {
             selectedBubbles.insert(bubble)
             needsDisplay = true
         }
+    }
+
+    func toggleBubble(_ bubble: Bubble?) {
+        guard let bubble = bubble else { return }
+
+        // !!! See if there's a built-in that does this.
+        if selectedBubbles.contains(bubble) {
+            selectedBubbles.remove(bubble)
+            needsDisplay = true
+        } else {
+            selectedBubbles.insert(bubble)
+            needsDisplay = true
+        }
+    }
+
+    func deselectAllBubbles() {
+        selectedBubbles.removeAll()
+        needsDisplay = true
     }
 
     func highlightBubble(_ bubble: Bubble?) {
@@ -186,10 +202,44 @@ extension BubbleCanvas {
     }
 
     override func mouseDown(with event: NSEvent) {
+        let addToSelection = event.modifierFlags.contains(.shift)
+        let toggleSelection = event.modifierFlags.contains(.command)
+
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil)
         let bubble = hitTestBubble(at: viewLocation)
-        selectBubble(bubble)
+        initialDragPoint = nil
+
+        // !!! ponder enum/switch for this
+        if addToSelection {
+            selectBubble(bubble)
+
+        } else if toggleSelection {
+            toggleBubble(bubble)
+
+        } else {
+
+            if let bubble = bubble {
+                if selectedBubbles.contains(bubble) {
+                    // bubble already selected, so it's a drag of existing selection
+                    initialDragPoint = viewLocation
+                } else {
+                    // it's a fresh selection, no modifiers, could be a click-and-drag in one gesture
+                    // !!! scapple has click-drag 
+                    deselectAllBubbles()
+                    selectBubble(bubble)
+                    initialDragPoint = viewLocation
+                }
+                    
+                
+            } else {
+                // bubble is nil, so a click into open space, so deselect everything
+                deselectAllBubbles()
+            }
+        }
+
+        // All done if there's nothing to actually draga
+        guard initialDragPoint != nil else { return }
 
         /// !!! Play with reduce here
         originalBubblePositions = [:]
@@ -199,7 +249,6 @@ extension BubbleCanvas {
 
         // we have a selected bubble. Drag it around.
         if let bubble = bubble {
-            initialDragPoint = viewLocation
             originalBubblePosition = bubble.position
         }
     }
@@ -223,6 +272,8 @@ extension BubbleCanvas {
     }
     
     override func mouseUp(with event: NSEvent) {
+        guard initialDragPoint != nil else { return }
+
         selectedBubbles.forEach { bubble in
             guard let originalPosition = originalBubblePositions[bubble] else {
                 Swift.print("unexpectedly missing bubble position in mouse up")
