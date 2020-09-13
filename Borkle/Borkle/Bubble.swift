@@ -18,5 +18,9 @@ extension Bubble: CustomDebugStringConvertible {
     }
 }
 
-
+extension Bubble: Equatable {
+    static func == (thing1: Bubble, thing2: Bubble) -> Bool {
+        return thing1.ID == thing2.ID
+    }
+}
 

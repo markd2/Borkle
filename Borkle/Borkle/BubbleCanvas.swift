@@ -55,7 +55,7 @@ class BubbleCanvas: NSView {
         bubbles.forEach {
             if let rect = idToRectMap[$0.ID] {
                 renderBubble($0, in: rect, 
-                    selected: $0.ID == (selectedBubble?.ID ?? -666), 
+                    selected: $0 == selectedBubble,
                     highlighted: $0.ID == (highlightedID ?? -666))
             } else {
                 Swift.print("unexpected not-rendering a bubble")
@@ -145,7 +145,7 @@ class BubbleCanvas: NSView {
             return
         }
         
-        if (selectedBubble?.ID ?? -666) != bubble.ID {
+        if selectedBubble != bubble {
             selectedBubble = bubble
             needsDisplay = true
         }
