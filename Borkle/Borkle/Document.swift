@@ -1,14 +1,12 @@
 import Cocoa
 
 class Document: NSDocument {
-    @IBOutlet var label: NSTextField!
     @IBOutlet var imageView: NSImageView!
     @IBOutlet var bubbleCanvas: BubbleCanvas!
     @IBOutlet var bubbleScroller: NSScrollView!
 
     var documentFileWrapper: FileWrapper?
 
-    let textFilename = "text.txt"
     let imageFilename = "image.png"
     let metadataFilename = "metadata.json"
     let bubbleFilename = "bubbles.json"
@@ -20,11 +18,6 @@ class Document: NSDocument {
         }
     }
 
-    var text = "greeble bork" {
-        didSet {
-            removeFileWrapper(filename: textFilename)
-        }
-    }
     var image: NSImage? {
         didSet {
             removeFileWrapper(filename: imageFilename)
@@ -37,7 +30,6 @@ class Document: NSDocument {
     }
 
     func removeFileWrapper(filename: String) {
-        // remove the text file wrapper if it exists
         if let fileWrapper = documentFileWrapper?.fileWrappers?[filename] {
             documentFileWrapper?.removeFileWrapper(fileWrapper)
         }
@@ -50,7 +42,6 @@ class Document: NSDocument {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        label.stringValue = text
         imageView.image = image
         bubbleCanvas.bubbles = bubbles
         // need to actually drive the frame from the bubbles
@@ -96,7 +87,7 @@ class Document: NSDocument {
                        ofType typeName: String) throws {
 
         // (comment from apple sample code)
-        // look for the image and text file wrappers.
+        // look for the file wrappers.
         // for each wrapper, extract the data and keep the file wrapper itself.
         // The file wrappers are kept so that, if the corresponding data hasn't
         // been changed, they can be reused during a save, and so the source
@@ -115,17 +106,10 @@ class Document: NSDocument {
             self.bubbles = bubbles
         }
         
-        // load text file
         if let imageFileWrapper = fileWrappers[imageFilename] {
             let imageData = imageFileWrapper.regularFileContents!
             let image = NSImage(data: imageData)
             self.image = image
-        }
-
-        if let textFileWrapper = fileWrappers[textFilename] {
-            let textData = textFileWrapper.regularFileContents!
-            let text = String(data: textData, encoding: .utf8)!
-            self.text = text
         }
 
         if let metadataFileWrapper = fileWrappers[metadataFilename] {
@@ -163,14 +147,6 @@ class Document: NSDocument {
             }
         }
         
-
-        if fileWrappers[textFilename] == nil, let textData = text.data(using: .utf8) {
-            let textFileWrapper = FileWrapper(regularFileWithContents: textData)
-            textFileWrapper.preferredFilename = textFilename
-            
-            documentFileWrapper.addFileWrapper(textFileWrapper)
-        }
-
         if fileWrappers[imageFilename] == nil, let image = image {
             let imageReps = image.representations
             var data = NSBitmapImageRep.representationOfImageReps(in: imageReps,
@@ -199,15 +175,6 @@ class Document: NSDocument {
         }
 
         return documentFileWrapper
-    }
-}
-
-extension Document: NSTextFieldDelegate {
-    func controlTextDidChange(_ notification: Notification) {
-        if let textField = notification.object as? NSTextField {
-            text = textField.stringValue
-            updateChangeCount(.changeDone)
-        }
     }
 }
 
