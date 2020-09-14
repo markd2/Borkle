@@ -1,7 +1,6 @@
 import Foundation
 
 extension String {
-
     /// Returns a version of the string trimmed (off the ends) of whitespace
     var trimmed: String {
         let trimmedString = self.trimmingCharacters(in: .whitespaces)
@@ -60,9 +59,7 @@ extension CGRect {
 }
 
 
-
 extension IndexSet {
-
     /// Given a string of the form  "76, 78-81, 83, 91, 142-143, 162, 171", turn that into
     /// an index set.  Hypenated ranges are inclusive.
     static func setFromString(_ string: String) -> IndexSet {
@@ -92,5 +89,14 @@ extension IndexSet {
     /// an index set.  Hypenated ranges are inclusive.
     init?(_ string: String) {
         self = Self.setFromString(string)
+    }
+}
+
+
+extension FileWrapper {
+    func remove(filename: String) {
+        if let fileWrapper = fileWrappers?[filename] {
+            removeFileWrapper(fileWrapper)
+        }
     }
 }

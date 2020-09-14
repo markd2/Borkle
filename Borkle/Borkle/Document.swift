@@ -14,24 +14,18 @@ class Document: NSDocument {
     var bubbles: [Bubble] = [] {
         didSet {
             bubbleCanvas?.bubbles = bubbles
-            removeFileWrapper(filename: bubbleFilename)
+            documentFileWrapper?.remove(filename: bubbleFilename)
         }
     }
 
     var image: NSImage? {
         didSet {
-            removeFileWrapper(filename: imageFilename)
+            documentFileWrapper?.remove(filename: imageFilename)
         }
     }
     var metadataDict = ["blah": "greeble", "hoover": "bork"] {
         didSet {
-            removeFileWrapper(filename: metadataFilename)
-        }
-    }
-
-    func removeFileWrapper(filename: String) {
-        if let fileWrapper = documentFileWrapper?.fileWrappers?[filename] {
-            documentFileWrapper?.removeFileWrapper(fileWrapper)
+            documentFileWrapper?.remove(filename: metadataFilename)
         }
     }
 
@@ -58,7 +52,7 @@ class Document: NSDocument {
     }
 
     func setBubblePosition(bubble: Bubble, start: CGPoint, end: CGPoint) {
-        removeFileWrapper(filename: bubbleFilename)
+        documentFileWrapper?.remove(filename: bubbleFilename)
 
         bubble.position = end
         bubbleCanvas.needsDisplay = true
