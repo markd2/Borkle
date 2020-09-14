@@ -179,14 +179,8 @@ class BubbleCanvas: NSView {
     func toggleBubble(_ bubble: Bubble?) {
         guard let bubble = bubble else { return }
 
-        // !!! See if there's a built-in that does this.
-        if selectedBubbles.contains(bubble) {
-            selectedBubbles.remove(bubble)
-            needsDisplay = true
-        } else {
-            selectedBubbles.insert(bubble)
-            needsDisplay = true
-        }
+        selectedBubbles.toggle(bubble)
+        needsDisplay = true
     }
 
     func deselectAllBubbles() {

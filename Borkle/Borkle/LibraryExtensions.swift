@@ -92,6 +92,16 @@ extension IndexSet {
     }
 }
 
+extension Set {
+    mutating func toggle(_ thing: Element) {
+        if contains(thing) {
+            remove(thing)
+        } else {
+            insert(thing)
+        }
+    }
+}
+
 
 extension FileWrapper {
     func remove(filename: String) {
