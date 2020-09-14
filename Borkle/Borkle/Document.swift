@@ -59,6 +59,8 @@ class Document: NSDocument {
     }
 
     func setBubblePosition(bubble: Bubble, start: CGPoint, end: CGPoint) {
+        removeFileWrapper(filename: bubbleFilename)
+
         bubble.position = end
         bubbleCanvas.needsDisplay = true
 
