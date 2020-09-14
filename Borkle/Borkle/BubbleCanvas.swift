@@ -36,6 +36,7 @@ class BubbleCanvas: NSView {
     override var isFlipped: Bool { return true }
     var bubbles: [Bubble] = [] {
         didSet {
+            bubbles.forEach { $0._effectiveHeight = nil }
             needsDisplay = true
             resizeCanvas()
         }
@@ -103,7 +104,7 @@ class BubbleCanvas: NSView {
     private func drawConnections(_ map: [Int: CGRect]) {
         NSColor.darkGray.set()
         let bezierPath = NSBezierPath()
-        let pattern: [CGFloat] = [2.0, 1.0]
+        let pattern: [CGFloat] = [3.0, 2.0]
         bezierPath.setLineDash(pattern, count: pattern.count, phase: 0.0)
 
         for bubble in bubbles {
@@ -133,7 +134,10 @@ class BubbleCanvas: NSView {
         bezierPath.fill()
 
         let nsstring = "\(bubble.text)" as NSString
-        nsstring.draw(in: rect, withAttributes: nil)
+
+        let textRect = rect.insetBy(dx: bubble.margin!, dy: bubble.margin!)
+        nsstring.draw(in: textRect, withAttributes: nil)
+        NSColor.gray.set()
 
         if selected {
             NSColor.darkGray.set()
