@@ -10,6 +10,11 @@ class Bubble: Codable {
     init(ID: Int) {
         self.ID = ID
     }
+
+    var rect: CGRect {
+        let rect = CGRect(x: position.x, y: position.y, width: width, height: 20)
+        return rect
+    }
 }
 
 extension Bubble: CustomDebugStringConvertible {

@@ -81,7 +81,7 @@ class BubbleCanvas: NSView {
         var idToRectMap: [Int: CGRect] = [:]
 
         for bubble in bubbles {
-            let rect = CGRect(x: bubble.position.x, y: bubble.position.y, width: bubble.width, height: 20)
+            let rect = bubble.rect
             idToRectMap[bubble.ID] = rect
         }
         return idToRectMap
