@@ -31,6 +31,7 @@ class BubbleCanvas: NSView {
     var originalBubblePositions = [Bubble: CGPoint]()
 
     var bubbleMoveUndoCompletion: ((_ bubble: Bubble, _ originPoint: CGPoint, _ finalPoint: CGPoint) -> Void)?
+    var keypressHandler: ((_ event: NSEvent) -> Void)?
 
     override var isFlipped: Bool { return true }
     var bubbles: [Bubble] = [] {
@@ -292,5 +293,11 @@ extension BubbleCanvas {
             }
             bubbleMoveUndoCompletion?(bubble, bubble.position, originalPosition)
         }
+    }
+
+    override var acceptsFirstResponder: Bool { return true }
+
+    override func keyDown(with event: NSEvent) {
+        keypressHandler?(event)
     }
 }

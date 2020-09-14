@@ -53,6 +53,9 @@ class Document: NSDocument {
         bubbleCanvas.bubbleMoveUndoCompletion = { bubble, start, end in
             self.setBubblePosition(bubble: bubble, start: end, end: start)
         }
+        bubbleCanvas.keypressHandler = { event in
+            self.handleKeypress(event)
+        }
     }
 
     func setBubblePosition(bubble: Bubble, start: CGPoint, end: CGPoint) {
@@ -194,6 +197,33 @@ class Document: NSDocument {
 
         return destinationSet
     }
+
+    // Did we see a control-X float by? If so, if we see the next keystroke as a control-S,
+    // the save. (emacs save-document combo)
+    var controlXLatch = false
+
+    func forceSave() {
+        NSApp.sendAction(#selector(NSDocument.save(_:)), to: nil, from: self)
+    }
+    func handleKeypress(_ event: NSEvent) {
+        switch event.characters {
+
+        case "\u{18}":  // control-X
+            controlXLatch = true
+
+        case "\u{13}":  // control-S
+            if controlXLatch {
+                Swift.print("SAVE")
+                forceSave()
+            } else {
+                Swift.print("SEARCH-placeholder")
+            }
+            controlXLatch = false
+
+        default:
+            controlXLatch = false
+        }
+    }
 }
 
 
@@ -220,11 +250,7 @@ extension Document {
         }
         return menuItem.isEnabled
     }
-}
 
-
-extension Document {
-    // Comes in via responder chain.
     @IBAction func importScapple(_ sender: AnyObject) {
         let panel = NSOpenPanel()
         panel.allowedFileTypes = ["scap"]
