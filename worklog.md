@@ -235,10 +235,176 @@ protocol Taggable {
 ----------
 
 next:
+
+- save bubbles
+
 - scrolling
-- centering text
-- hit testing
-- dragging
-- making connections
-- double-click to make
-- save in bundle
+
+
+
+==================================================
+# Sunday September 13, 2020
+
+- [X] save bubbles
+   - [X] open last opened document and window position
+- [X] scrolling
+
+- [X] mouse motion
+- [X] hit testing
+- [X] equatable for bubbles
+- [X] dragging
+- [X] undo
+- [X] multiple selection + drag
+- [X] select cluster
+- [X] watch keystrokes - ^X^S
+- [X] properly set bounds
+
+- [ ] play with reduce()
+- [ ] fix drawing performance - the bubble highlighting is causing scrolling hiccups.
+
+Different kinds of dragging
+- [ ] rubberband
+- [ ] making connections
+- [ ] grab-hand scroll
+
+Need text editing
+- [ ] double-click to make
+
+Need text highlighting
+- [ ] ^S search
+
+Next text logic for measuring text, calculating heights
+- [ ] centering text in bubble
+- [ ] resizing bubble height to match text
+
+Invalidate
+- [ ] efficiency - spiking CPU on redraws
+
+----------
+
+Get some work in before _two_ games today.
+
+----------
+
+added saving (with bundles is really easy.  Shouldn't have been scared of them
+over the years), also open lat document and window position. Makes getting
+into a runnable state much faster.
+
+----------
+
+Now for scrolling
+
+embed in a scroll view.  Now to remember how NSScrollView works...
+
+NSScrollView hsa three parts:
+- NSScrollView
+- NSClipView
+- Document View
+
+scrollView documentView
+scrollView.contentView.scroll(to: CGPoint)
+
+bet it's driven by the frame. Yep.
+
+Getting scroller behavior needed to turn on the scrollers
+
+```
+        bubbleScroller.hasHorizontalScroller = true
+        bubbleScroller.hasVerticalScroller = true
+```
+
+----------
+
+Also consolidaetd some of the useful utilities into one place
+
+----------
+
+ok, mouse motion. It's been a while...
+
+https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/EventOverview/TrackingAreaObjects/TrackingAreaObjects.html#//apple_ref/doc/uid/10000060i-CH8-SW1
+
+docs
+
+NSTrackingArea seems to be the new hotness
+request NSMouseMoved events
+can request cursorUpdate (not sure what those are yet)
+not sure if NSTrackingActiveInActiveApp or NSTrackingActiveInKeyWindow.
+  might need to constraint to front-most window
+  there's more, like refinemens of behavr
+
+region is rect in local coordinate.  message recipient is specified when the tracking area is created
+to keep up to date
+  - appkit will do most of it, but will send updateTrackingAreas to recompute and reset areas
+
+reminder for converting points
+
+```
+    override func mouseMoved(with event: NSEvent) {
+        let locationInWindow = event.locationInWindow
+        let viewLocation = convert(locationInWindow, from: nil)
+        selectBubble(at: viewLocation)
+    }
+```
+
+----------
+
+Added mouse-down handling.  Mouse-over will highlight subtly the bubble. Click selects.
+
+----------
+
+OK! a bit of undo!  Let the canvas tell someone about the update.  Right now transmit out the two
+points.  But as we get into this, will probably need to tweedle how we do undo.
+
+This pattern
+```
+
+        bubbleCanvas.bubbleMoveUndoCompletion = { bubble, start, end in
+            self.setBubblePosition(bubble: bubble, start: end, end: start)
+        }
+
+    func setBubblePosition(bubble: Bubble, start: CGPoint, end: CGPoint) {
+        bubble.position = end
+        bubbleCanvas.needsDisplay = true
+
+        undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
+                self.setBubblePosition(bubble: bubble, start: end, end: start)
+            })
+    }
+```
+
+----------
+
+10.14.4 adds command-shift-A system wide shortcut for open Apropos in Terminal.
+W.T.F?  I love the terminal, but that's a bizarre one to inflict on the system.
+
+https://intellij-support.jetbrains.com/hc/en-us/articles/360005137400-Cmd-Shift-A-hotkey-opens-Terminal-with-apropos-search-instead-of-the-Find-Action-dialog
+
+----------
+
+Got select-all working (got rid of the text fields because responder chain was eating Command.
+Now for expand-selection (command-shift-A).  It's showing the menu item disabled.
+
+```
+    @IBAction func expandSelection(_ sender: Any) {
+        Swift.print("expand selection all")
+    }
+    
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        switch menuItem.action {
+        case #selector(expandSelection(_:)):
+            return bubbleCanvas.selectedBubbles.count > 0
+        default:
+            break
+        }
+        return menuItem.isEnabled
+    }
+```
+
+now to actually do that.  Pretty easy - walk through each bubble and add its companions.
+
+----------
+
+similarly for resizing the canvas when appropriate.
+There's a performance issue - when doing the 'hey highlight this cell", it
+redraws the WHOLE CANVAS, burning a lot of time doing all the drawing, so
+there's hiccups.

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7D042C56250D8DB900E65175 /* ScappleImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D042C55250D8DB900E65175 /* ScappleImporter.swift */; };
 		7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */; };
+		7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDD250E719800884F29 /* LibraryExtensions.swift */; };
 		7D51127F250D6F51004F0E63 /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D51127E250D6F51004F0E63 /* Bubble.swift */; };
 		7D93A74A250AD8DC00991121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93A749250AD8DC00991121 /* AppDelegate.swift */; };
 		7D93A74C250AD8DC00991121 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93A74B250AD8DC00991121 /* Document.swift */; };
@@ -32,6 +33,7 @@
 /* Begin PBXFileReference section */
 		7D042C55250D8DB900E65175 /* ScappleImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScappleImporter.swift; sourceTree = "<group>"; };
 		7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleCanvas.swift; sourceTree = "<group>"; };
+		7D452DDD250E719800884F29 /* LibraryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryExtensions.swift; sourceTree = "<group>"; };
 		7D51127E250D6F51004F0E63 /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
 		7D93A746250AD8DC00991121 /* Borkle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Borkle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D93A749250AD8DC00991121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				7D93A76C250B019D00991121 /* flumph.jpg */,
 				7D042C55250D8DB900E65175 /* ScappleImporter.swift */,
 				7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */,
+				7D452DDD250E719800884F29 /* LibraryExtensions.swift */,
 			);
 			path = Borkle;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				7D042C56250D8DB900E65175 /* ScappleImporter.swift in Sources */,
 				7D93A74A250AD8DC00991121 /* AppDelegate.swift in Sources */,
 				7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */,
+				7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

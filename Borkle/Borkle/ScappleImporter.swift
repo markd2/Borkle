@@ -47,59 +47,10 @@ extension ScappleImporter {
 
     func makeConnections(_ connectionString: String?) -> IndexSet? {
         guard let connectionString = connectionString else { return nil }
-        var connections = IndexSet()
-
-        let components = connectionString.split(separator: ",").map { String($0).trimmed }
-
-        for component in components {
-            let innerComponents = component.split(separator: "-").map { String($0).trimmed }
-            if innerComponents.count == 1 {
-                if let value = Int(component) {
-                    connections.update(with: value)
-                }
-            } else if innerComponents.count == 2 {
-                if let firstValue = Int(innerComponents[0]),
-                   let secondValue = Int(innerComponents[1]) {
-                    connections.insert(integersIn: firstValue ... secondValue)
-                }
-            } else {
-                Swift.print("Unexpected multiple (or zero) components from \(component)")
-            }
-        }
+        let connections = IndexSet(connectionString)
 
         // of the form "76, 78-79, 83, 91, 142-143, 162, 171"
         return connections
-    }
-}
-
-extension String {
-    var trimmed: String {
-        let trimmedString = self.trimmingCharacters(in: .whitespaces)
-        return trimmedString
-    }
-}
-
-
-extension CGFloat {
-    init?(_ string: String) {
-        if let double = Double(string) {
-            self.init(double)
-        } else {
-            return nil
-        }
-    }
-}
-
-extension CGPoint {
-    init?(_ string: String) {
-        let components = string.split(separator: ",").map { String($0) }
-        if components.count != 2 { return nil }
-        
-        if let x = CGFloat(components[0]), let y = CGFloat(components[1]) {
-            self.init(x: x, y: y)
-        } else {
-            return nil
-        }
     }
 }
 

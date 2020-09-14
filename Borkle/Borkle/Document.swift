@@ -1,22 +1,23 @@
 import Cocoa
 
 class Document: NSDocument {
+    @IBOutlet var imageView: NSImageView!
+    @IBOutlet var bubbleCanvas: BubbleCanvas!
+    @IBOutlet var bubbleScroller: NSScrollView!
+
+    var documentFileWrapper: FileWrapper?
+
+    let imageFilename = "image.png"
+    let metadataFilename = "metadata.json"
+    let bubbleFilename = "bubbles.json"
+
     var bubbles: [Bubble] = [] {
         didSet {
-            bubbleCanvas.bubbles = bubbles
+            bubbleCanvas?.bubbles = bubbles
             removeFileWrapper(filename: bubbleFilename)
         }
     }
 
-    @IBOutlet var label: NSTextField!
-    @IBOutlet var imageView: NSImageView!
-    @IBOutlet var bubbleCanvas: BubbleCanvas!
-    
-    var text = "greeble bork" {
-        didSet {
-            removeFileWrapper(filename: textFilename)
-        }
-    }
     var image: NSImage? {
         didSet {
             removeFileWrapper(filename: imageFilename)
@@ -29,16 +30,10 @@ class Document: NSDocument {
     }
 
     func removeFileWrapper(filename: String) {
-        // remove the text file wrapper if it exists
         if let fileWrapper = documentFileWrapper?.fileWrappers?[filename] {
             documentFileWrapper?.removeFileWrapper(fileWrapper)
         }
     }
-
-    let textFilename = "text.txt"
-    let imageFilename = "image.png"
-    let metadataFilename = "metadata.json"
-    let bubbleFilename = "bubbles.blah"
 
     override init() {
         super.init()
@@ -47,8 +42,33 @@ class Document: NSDocument {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        label.stringValue = text
         imageView.image = image
+        bubbleCanvas.bubbles = bubbles
+        // need to actually drive the frame from the bubbles
+        bubbleScroller.contentView.backgroundColor = BubbleCanvas.background
+        bubbleScroller.hasHorizontalScroller = true
+        bubbleScroller.hasVerticalScroller = true
+
+        bubbleCanvas.bubbleMoveUndoCompletion = { bubble, start, end in
+            self.setBubblePosition(bubble: bubble, start: end, end: start)
+        }
+        bubbleCanvas.keypressHandler = { event in
+            self.handleKeypress(event)
+        }
+    }
+
+    func setBubblePosition(bubble: Bubble, start: CGPoint, end: CGPoint) {
+        removeFileWrapper(filename: bubbleFilename)
+
+        bubble.position = end
+        bubbleCanvas.needsDisplay = true
+
+        undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
+                self.setBubblePosition(bubble: bubble, start: end, end: start)
+
+                // !!! Need to do this at the end of a bunch of undos rather than every time
+                self.bubbleCanvas.resizeCanvas()
+            })
     }
 
     override class var autosavesInPlace: Bool {
@@ -65,7 +85,6 @@ class Document: NSDocument {
         return NSNib.Name("Document")
     }
 
-    var documentFileWrapper: FileWrapper?
     enum FileWrapperError: Error {
         case badFileWrapper
         case unexpectedlyNilFileWrappers
@@ -75,7 +94,7 @@ class Document: NSDocument {
                        ofType typeName: String) throws {
 
         // (comment from apple sample code)
-        // look for the image and text file wrappers.
+        // look for the file wrappers.
         // for each wrapper, extract the data and keep the file wrapper itself.
         // The file wrappers are kept so that, if the corresponding data hasn't
         // been changed, they can be reused during a save, and so the source
@@ -87,17 +106,17 @@ class Document: NSDocument {
 
         let fileWrappers = fileWrapper.fileWrappers!
 
-        // load text file
+        if let bubbleFileWrapper = fileWrappers[bubbleFilename] {
+            let bubbleData = bubbleFileWrapper.regularFileContents!
+            let decoder = JSONDecoder()
+            let bubbles = try! decoder.decode([Bubble].self, from: bubbleData)
+            self.bubbles = bubbles
+        }
+        
         if let imageFileWrapper = fileWrappers[imageFilename] {
             let imageData = imageFileWrapper.regularFileContents!
             let image = NSImage(data: imageData)
             self.image = image
-        }
-
-        if let textFileWrapper = fileWrappers[textFilename] {
-            let textData = textFileWrapper.regularFileContents!
-            let text = String(data: textData, encoding: .utf8)!
-            self.text = text
         }
 
         if let metadataFileWrapper = fileWrappers[metadataFilename] {
@@ -124,13 +143,17 @@ class Document: NSDocument {
             throw(FileWrapperError.unexpectedlyNilFileWrappers)
         }
 
-        if fileWrappers[textFilename] == nil, let textData = text.data(using: .utf8) {
-            let textFileWrapper = FileWrapper(regularFileWithContents: textData)
-            textFileWrapper.preferredFilename = textFilename
-            
-            documentFileWrapper.addFileWrapper(textFileWrapper)
-        }
+        if fileWrappers[bubbleFilename] == nil {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
 
+            if let bubbleData = try? encoder.encode(bubbles) {
+                let bubbleFileWrapper = FileWrapper(regularFileWithContents: bubbleData)
+                bubbleFileWrapper.preferredFilename = bubbleFilename
+                documentFileWrapper.addFileWrapper(bubbleFileWrapper)
+            }
+        }
+        
         if fileWrappers[imageFilename] == nil, let image = image {
             let imageReps = image.representations
             var data = NSBitmapImageRep.representationOfImageReps(in: imageReps,
@@ -160,13 +183,49 @@ class Document: NSDocument {
 
         return documentFileWrapper
     }
-}
 
-extension Document: NSTextFieldDelegate {
-    func controlTextDidChange(_ notification: Notification) {
-        if let textField = notification.object as? NSTextField {
-            text = textField.stringValue
-            updateChangeCount(.changeDone)
+    // !!! There should be a selection class that can handle this push-out of selections
+    func expand(selection: Set<Bubble>) -> Set<Bubble> {
+        var destinationSet = selection
+
+        // !!! this is O(N^2).  May need to have a lookup by ID?
+        // !!! of course, wait until we see it appear in instruments
+        for bubble in selection {
+            for connection in bubble.connections {
+                let connectedBubble = bubbles.first { $0.ID == connection }
+                if let connectedBubble = connectedBubble {
+                    destinationSet.insert(connectedBubble)
+                }
+            }
+        }
+
+        return destinationSet
+    }
+
+    // Did we see a control-X float by? If so, if we see the next keystroke as a control-S,
+    // the save. (emacs save-document combo)
+    var controlXLatch = false
+
+    func forceSave() {
+        NSApp.sendAction(#selector(NSDocument.save(_:)), to: nil, from: self)
+    }
+    func handleKeypress(_ event: NSEvent) {
+        switch event.characters {
+
+        case "\u{18}":  // control-X
+            controlXLatch = true
+
+        case "\u{13}":  // control-S
+            if controlXLatch {
+                Swift.print("SAVE")
+                forceSave()
+            } else {
+                Swift.print("SEARCH-placeholder")
+            }
+            controlXLatch = false
+
+        default:
+            controlXLatch = false
         }
     }
 }
@@ -177,11 +236,25 @@ extension Document {
         image = sender.image
         updateChangeCount(.changeDone)
     }
-}
 
+    @IBAction func selectAll(_ sender: Any) {
+        bubbleCanvas.selectBubbles(Set(bubbles))
+    }
+    
+    @IBAction func expandSelection(_ sender: Any) {
+        bubbleCanvas.selectedBubbles = expand(selection: bubbleCanvas.selectedBubbles)
+    }
+    
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        switch menuItem.action {
+        case #selector(expandSelection(_:)):
+            return bubbleCanvas.selectedBubbles.count > 0
+        default:
+            break
+        }
+        return menuItem.isEnabled
+    }
 
-extension Document {
-    // Comes in via responder chain.
     @IBAction func importScapple(_ sender: AnyObject) {
         let panel = NSOpenPanel()
         panel.allowedFileTypes = ["scap"]

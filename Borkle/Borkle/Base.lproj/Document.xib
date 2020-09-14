@@ -9,14 +9,15 @@
         <customObject id="-2" userLabel="File's Owner" customClass="Document" customModule="Borkle" customModuleProvider="target">
             <connections>
                 <outlet property="BubbleCanvas" destination="Yd2-k3-bEp" id="QSA-d4-ja7"/>
+                <outlet property="bubbleCanvas" destination="Yd2-k3-bEp" id="avl-AQ-6PD"/>
+                <outlet property="bubbleScroller" destination="kz4-mA-D4k" id="Nxv-ec-PHs"/>
                 <outlet property="imageView" destination="021-kA-8LX" id="Fm8-P6-vAP"/>
-                <outlet property="label" destination="0fv-uL-aak" id="E0C-FM-nVt"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="xOd-HO-29H" userLabel="Window">
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="BorkleDocumentWindow" animationBehavior="default" id="xOd-HO-29H" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="133" y="235" width="331" height="407"/>
@@ -37,33 +38,34 @@
                             <action selector="imageDrop:" target="-2" id="x7U-mF-AyQ"/>
                         </connections>
                     </imageView>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0fv-uL-aak">
-                        <rect key="frame" x="20" y="341" width="163" height="46"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="46" id="gc4-7h-A3a"/>
-                        </constraints>
-                        <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="ymy-Gf-b8A">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                        <connections>
-                            <outlet property="delegate" destination="-2" id="NZO-RZ-9RG"/>
-                        </connections>
-                    </textField>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="Yd2-k3-bEp" customClass="BubbleCanvas" customModule="Borkle" customModuleProvider="target">
-                        <rect key="frame" x="20" y="20" width="291" height="270"/>
-                    </customView>
+                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kz4-mA-D4k">
+                        <rect key="frame" x="0.0" y="0.0" width="331" height="291"/>
+                        <clipView key="contentView" id="Xa2-Az-D99">
+                            <rect key="frame" x="1" y="1" width="329" height="289"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yd2-k3-bEp" customClass="BubbleCanvas" customModule="Borkle" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="19" width="291" height="270"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                </customView>
+                            </subviews>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="omz-UR-9om">
+                            <rect key="frame" x="-100" y="-100" width="291" height="15"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="WvQ-xN-ka1">
+                            <rect key="frame" x="-100" y="-100" width="15" height="285"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="Yd2-k3-bEp" secondAttribute="bottom" constant="20" id="8Qn-zo-SZl"/>
-                    <constraint firstItem="0fv-uL-aak" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" constant="20" id="K2A-Th-WGm"/>
+                    <constraint firstAttribute="bottom" secondItem="kz4-mA-D4k" secondAttribute="bottom" id="9q2-sh-41r"/>
+                    <constraint firstItem="kz4-mA-D4k" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" id="A3s-1y-d4r"/>
                     <constraint firstItem="021-kA-8LX" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="20" id="O5v-tb-g5r"/>
-                    <constraint firstItem="Yd2-k3-bEp" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" constant="20" id="Y7p-Jh-CDe"/>
-                    <constraint firstItem="021-kA-8LX" firstAttribute="leading" secondItem="0fv-uL-aak" secondAttribute="trailing" constant="8" id="h4U-F3-KLh"/>
-                    <constraint firstAttribute="trailing" secondItem="Yd2-k3-bEp" secondAttribute="trailing" constant="20" id="hej-Ww-sWj"/>
-                    <constraint firstItem="0fv-uL-aak" firstAttribute="top" secondItem="021-kA-8LX" secondAttribute="top" id="kb6-yj-rL2"/>
-                    <constraint firstItem="Yd2-k3-bEp" firstAttribute="top" secondItem="021-kA-8LX" secondAttribute="bottom" constant="8" id="oUD-5B-gwd"/>
+                    <constraint firstAttribute="trailing" secondItem="kz4-mA-D4k" secondAttribute="trailing" id="ejq-dJ-FKq"/>
+                    <constraint firstItem="kz4-mA-D4k" firstAttribute="top" secondItem="021-kA-8LX" secondAttribute="bottom" constant="7" id="sXZ-Sa-1LS"/>
                     <constraint firstAttribute="trailing" secondItem="021-kA-8LX" secondAttribute="trailing" constant="20" id="sek-wq-4Ql"/>
                 </constraints>
             </view>
