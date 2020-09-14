@@ -251,13 +251,34 @@ next:
 
 - [X] mouse motion
 - [X] hit testing
-- [ ] dragging
+- [X] equatable for bubbles
+- [X] dragging
+- [X] undo
+- [X] multiple selection + drag
+- [X] select cluster
+- [X] watch keystrokes - ^X^S
+- [X] properly set bounds
+
+- [ ] play with reduce()
+- [ ] fix drawing performance - the bubble highlighting is causing scrolling hiccups.
+
+Different kinds of dragging
+- [ ] rubberband
 - [ ] making connections
+- [ ] grab-hand scroll
+
+Need text editing
 - [ ] double-click to make
 
+Need text highlighting
+- [ ] ^S search
 
+Next text logic for measuring text, calculating heights
 - [ ] centering text in bubble
 - [ ] resizing bubble height to match text
+
+Invalidate
+- [ ] efficiency - spiking CPU on redraws
 
 ----------
 
@@ -324,3 +345,66 @@ reminder for converting points
         selectBubble(at: viewLocation)
     }
 ```
+
+----------
+
+Added mouse-down handling.  Mouse-over will highlight subtly the bubble. Click selects.
+
+----------
+
+OK! a bit of undo!  Let the canvas tell someone about the update.  Right now transmit out the two
+points.  But as we get into this, will probably need to tweedle how we do undo.
+
+This pattern
+```
+
+        bubbleCanvas.bubbleMoveUndoCompletion = { bubble, start, end in
+            self.setBubblePosition(bubble: bubble, start: end, end: start)
+        }
+
+    func setBubblePosition(bubble: Bubble, start: CGPoint, end: CGPoint) {
+        bubble.position = end
+        bubbleCanvas.needsDisplay = true
+
+        undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
+                self.setBubblePosition(bubble: bubble, start: end, end: start)
+            })
+    }
+```
+
+----------
+
+10.14.4 adds command-shift-A system wide shortcut for open Apropos in Terminal.
+W.T.F?  I love the terminal, but that's a bizarre one to inflict on the system.
+
+https://intellij-support.jetbrains.com/hc/en-us/articles/360005137400-Cmd-Shift-A-hotkey-opens-Terminal-with-apropos-search-instead-of-the-Find-Action-dialog
+
+----------
+
+Got select-all working (got rid of the text fields because responder chain was eating Command.
+Now for expand-selection (command-shift-A).  It's showing the menu item disabled.
+
+```
+    @IBAction func expandSelection(_ sender: Any) {
+        Swift.print("expand selection all")
+    }
+    
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        switch menuItem.action {
+        case #selector(expandSelection(_:)):
+            return bubbleCanvas.selectedBubbles.count > 0
+        default:
+            break
+        }
+        return menuItem.isEnabled
+    }
+```
+
+now to actually do that.  Pretty easy - walk through each bubble and add its companions.
+
+----------
+
+similarly for resizing the canvas when appropriate.
+There's a performance issue - when doing the 'hey highlight this cell", it
+redraws the WHOLE CANVAS, burning a lot of time doing all the drawing, so
+there's hiccups.
