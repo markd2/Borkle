@@ -38,3 +38,9 @@ around, mouse-motion highlight, scrolling, undo
 
 ![](assets/borkle2.gif)
 
+### Text Measurement
+
+Figured out how to measure text and get the bubble to resize itself vertically.
+
+![](assets/borkle3.png)
+
