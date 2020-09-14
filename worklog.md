@@ -391,33 +391,14 @@ there's hiccups.
 ==================================================
 # Monday September 14, 2020
 
-Rolled forward the ever-growing TODO. Might need to move this into somewhere else.
-
-for next time
-
-- [ ] play with reduce()
-- [ ] fix drawing performance - the bubble highlighting is causing scrolling hiccups.
-
-Different kinds of dragging architecture
-- [ ] rubberband
-- [ ] making connections
-- [ ] grab-hand scroll
-
-Need text editing
-- [ ] double-click to make
-
-Need text highlighting
-- [ ] ^S search
-
-Next text logic for measuring text, calculating heights
-- [ ] centering text in bubble
-- [ ] resizing bubble height to match text
-
-Invalidate
-- [ ] efficiency - spiking CPU on redraws
-
-
-----------
+(during #dndeux)
 
 Consolidated some of the utilites that have accumulated.
+
+Moved TODO into a github project - https://github.com/markd2/Borkle/projects/1 a.k.a. _pibbit_
+
+Maybe try some string measuring and centering.
+
+
+
 
