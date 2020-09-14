@@ -50,6 +50,13 @@ extension CGRect {
     var center: CGPoint {
         CGPoint(x: midX, y: midY)
     }
+
+    static public func + (left: CGRect, right: CGSize) -> CGRect {
+        let rect = CGRect(x: left.minX, y: left.minY,
+            width: left.width + right.width,
+            height: left.height + right.height)
+        return rect
+    }
 }
 
 
