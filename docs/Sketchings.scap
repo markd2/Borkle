@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ScappleDocument Version="1.1" ID="A1050E71-89D2-40BA-95CA-2E599998DDE6">
     <Notes>
-        <Note ID="74" FontSize="12.0" Position="761.132812,106.0" Width="111.0">
+        <Note ID="74" FontSize="12.0" Position="756.035156,116.371094" Width="111.0">
             <Appearance>
                 <Alignment>Left</Alignment>
                 <Border Weight="1"></Border>
@@ -63,7 +63,7 @@
             <String>Maybe two CR to separate the two</String>
             <ConnectedNoteIDs>79</ConnectedNoteIDs>
         </Note>
-        <Note ID="81" FontSize="12.0" Position="746.132812,212.0" Width="117.0">
+        <Note ID="81" FontSize="12.0" Position="782.214844,222.507812" Width="117.0">
             <Appearance>
                 <Alignment>Left</Alignment>
                 <Border Weight="1"></Border>
@@ -152,7 +152,7 @@
             <String>Embedded documents</String>
             <ConnectedNoteIDs>75, 90, 92</ConnectedNoteIDs>
         </Note>
-        <Note ID="92" FontSize="12.0" Position="582.132812,202.0" Width="143.0">
+        <Note ID="92" FontSize="12.0" Position="565.457031,248.421875" Width="143.0">
             <Appearance>
                 <Alignment>Left</Alignment>
                 <Border Weight="1"></Border>
@@ -269,7 +269,7 @@
             <String>Annoyance fixes</String>
             <ConnectedNoteIDs>103, 107, 110, 126, 129-130, 166, 220</ConnectedNoteIDs>
         </Note>
-        <Note ID="105" FontSize="12.0" Position="286.132812,583.0" Width="57.0">
+        <Note ID="105" FontSize="12.0" Position="301.941406,571.710938" Width="57.0">
             <Appearance>
                 <Alignment>Left</Alignment>
                 <Border Weight="1"></Border>
@@ -323,7 +323,7 @@
             <String>Wrap bubbles to nice proportions</String>
             <ConnectedNoteIDs>104</ConnectedNoteIDs>
         </Note>
-        <Note ID="111" FontSize="12.0" Position="557.132812,354.0" Width="145.0">
+        <Note ID="111" FontSize="12.0" Position="551.199219,312.777344" Width="145.0">
             <Appearance>
                 <Alignment>Left</Alignment>
                 <Border Weight="1"></Border>
@@ -448,7 +448,7 @@
             <String>Keep relative to a divider</String>
             <ConnectedNoteIDs>118, 125</ConnectedNoteIDs>
         </Note>
-        <Note ID="125" FontSize="12.0" Position="1001.132812,318.0" Width="145.0">
+        <Note ID="125" FontSize="12.0" Position="994.113281,319.132812" Width="145.0">
             <Appearance>
                 <Alignment>Left</Alignment>
                 <Border Weight="1"></Border>
@@ -565,7 +565,7 @@
             <String>maybe long-click</String>
             <ConnectedNoteIDs>131</ConnectedNoteIDs>
         </Note>
-        <Note ID="138" FontSize="12.0" Position="119.132812,385.0" Width="140.0">
+        <Note ID="138" FontSize="12.0" Position="177.152344,411.332031" Width="140.0">
             <Appearance>
                 <Alignment>Left</Alignment>
                 <Border Weight="1"></Border>
@@ -574,7 +574,7 @@
             <String>Free-form text document</String>
             <ConnectedNoteIDs>139</ConnectedNoteIDs>
         </Note>
-        <Note ID="139" FontSize="12.0" Position="126.132812,443.0" Width="132.0">
+        <Note ID="139" FontSize="12.0" Position="101.722656,466.457031" Width="132.0">
             <Appearance>
                 <Alignment>Left</Alignment>
                 <Border Weight="1"></Border>

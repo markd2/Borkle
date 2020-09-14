@@ -28,5 +28,13 @@ Might be fun to see the [elvisloution](https://www.youtube.com/watch?v=knc9LKjuk
 Imports Scapple documents and draws (crudely) the mindmap.  The text field and flumph are
 opened and saved to figure out bundle documents.
 
-![](docs/screenshot-1.png)
+![](assets/screenshot-1.png)
+
+
+### Adds some UI
+
+Adds basic interaction - selecting bubbles (click / shift-click / command-click), dragging them
+around, mouse-motion highlight, scrolling, undo
+
+![](assets/borkle2.gif)
 
