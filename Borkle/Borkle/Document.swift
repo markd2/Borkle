@@ -176,6 +176,24 @@ class Document: NSDocument {
 
         return documentFileWrapper
     }
+
+    // !!! There should be a selection class that can handle this push-out of selections
+    func expand(selection: Set<Bubble>) -> Set<Bubble> {
+        var destinationSet = selection
+
+        // !!! this is O(N^2).  May need to have a lookup by ID?
+        // !!! of course, wait until we see it appear in instruments
+        for bubble in selection {
+            for connection in bubble.connections {
+                let connectedBubble = bubbles.first { $0.ID == connection }
+                if let connectedBubble = connectedBubble {
+                    destinationSet.insert(connectedBubble)
+                }
+            }
+        }
+
+        return destinationSet
+    }
 }
 
 
@@ -190,7 +208,17 @@ extension Document {
     }
     
     @IBAction func expandSelection(_ sender: Any) {
-        Swift.print("expand selection all")
+        bubbleCanvas.selectedBubbles = expand(selection: bubbleCanvas.selectedBubbles)
+    }
+    
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        switch menuItem.action {
+        case #selector(expandSelection(_:)):
+            return bubbleCanvas.selectedBubbles.count > 0
+        default:
+            break
+        }
+        return menuItem.isEnabled
     }
 }
 

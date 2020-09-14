@@ -176,7 +176,11 @@
                                     <action selector="selectAll:" target="-1" id="VNm-Mi-diN"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Expand Selection" keyEquivalent="A" id="Rbb-7E-KnB"/>
+                            <menuItem title="Expand Selection" keyEquivalent="A" id="Rbb-7E-KnB">
+                                <connections>
+                                    <action selector="expandSelection:" target="-1" id="3B8-XP-EIj"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="uyl-h8-XO2"/>
                             <menuItem title="Find" id="4EN-yA-p0u">
                                 <modifierMask key="keyEquivalentModifierMask"/>

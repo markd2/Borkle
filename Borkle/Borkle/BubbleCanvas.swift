@@ -3,7 +3,11 @@ import Cocoa
 class BubbleCanvas: NSView {
     static let background = NSColor(red: 228.0 / 255.0, green: 232.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
 
-    var selectedBubbles = Set<Bubble>()
+    var selectedBubbles = Set<Bubble>() {
+        didSet {
+            needsDisplay = true
+        }
+    }
 
     /// public API to select a chunka bubbles
     func selectBubbles(_ bubbles: Set<Bubble>) {
