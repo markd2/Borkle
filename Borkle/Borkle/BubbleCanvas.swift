@@ -37,7 +37,20 @@ class BubbleCanvas: NSView {
     var bubbles: [Bubble] = [] {
         didSet {
             needsDisplay = true
+            resizeCanvas()
         }
+    }
+
+    let extraPadding = CGSize(width: 80, height: 60)
+
+    func resizeCanvas() {
+        var union = CGRect.zero
+        
+        for bubble in bubbles {
+            union = union.union(bubble.rect)
+        }
+        union = union + extraPadding
+        frame = union
     }
 
     required init?(coder: NSCoder) {
@@ -198,7 +211,6 @@ class BubbleCanvas: NSView {
 // mouse and tracking area foobage.
 extension BubbleCanvas {
     override func updateTrackingAreas() {
-        Swift.print("SNORGLE update tracking areas")
         if let trackingArea = trackingArea {
             removeTrackingArea(trackingArea)
             self.trackingArea = nil
@@ -293,6 +305,7 @@ extension BubbleCanvas {
             }
             bubbleMoveUndoCompletion?(bubble, bubble.position, originalPosition)
         }
+        resizeCanvas()
     }
 
     override var acceptsFirstResponder: Bool { return true }

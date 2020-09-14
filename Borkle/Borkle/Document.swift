@@ -48,7 +48,6 @@ class Document: NSDocument {
         bubbleScroller.contentView.backgroundColor = BubbleCanvas.background
         bubbleScroller.hasHorizontalScroller = true
         bubbleScroller.hasVerticalScroller = true
-        bubbleCanvas.frame = CGRect(x: 0, y: 0, width: 1200, height: 950)
 
         bubbleCanvas.bubbleMoveUndoCompletion = { bubble, start, end in
             self.setBubblePosition(bubble: bubble, start: end, end: start)
@@ -66,6 +65,9 @@ class Document: NSDocument {
 
         undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
                 self.setBubblePosition(bubble: bubble, start: end, end: start)
+
+                // !!! Need to do this at the end of a bunch of undos rather than every time
+                self.bubbleCanvas.resizeCanvas()
             })
     }
 
