@@ -259,27 +259,6 @@ next:
 - [X] watch keystrokes - ^X^S
 - [X] properly set bounds
 
-- [ ] play with reduce()
-- [ ] fix drawing performance - the bubble highlighting is causing scrolling hiccups.
-
-Different kinds of dragging
-- [ ] rubberband
-- [ ] making connections
-- [ ] grab-hand scroll
-
-Need text editing
-- [ ] double-click to make
-
-Need text highlighting
-- [ ] ^S search
-
-Next text logic for measuring text, calculating heights
-- [ ] centering text in bubble
-- [ ] resizing bubble height to match text
-
-Invalidate
-- [ ] efficiency - spiking CPU on redraws
-
 ----------
 
 Get some work in before _two_ games today.
@@ -408,3 +387,37 @@ similarly for resizing the canvas when appropriate.
 There's a performance issue - when doing the 'hey highlight this cell", it
 redraws the WHOLE CANVAS, burning a lot of time doing all the drawing, so
 there's hiccups.
+
+==================================================
+# Monday September 14, 2020
+
+Rolled forward the ever-growing TODO. Might need to move this into somewhere else.
+
+for next time
+
+- [ ] play with reduce()
+- [ ] fix drawing performance - the bubble highlighting is causing scrolling hiccups.
+
+Different kinds of dragging architecture
+- [ ] rubberband
+- [ ] making connections
+- [ ] grab-hand scroll
+
+Need text editing
+- [ ] double-click to make
+
+Need text highlighting
+- [ ] ^S search
+
+Next text logic for measuring text, calculating heights
+- [ ] centering text in bubble
+- [ ] resizing bubble height to match text
+
+Invalidate
+- [ ] efficiency - spiking CPU on redraws
+
+
+----------
+
+Consolidated some of the utilites that have accumulated.
+
