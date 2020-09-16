@@ -10,6 +10,7 @@ class BubbleCanvas: NSView {
     }
     
     var spaceDown: Bool = false
+    var currentCursor: Cursor
 
     /// public API to select a chunka bubbles
     func selectBubbles(_ bubbles: Set<Bubble>) {
@@ -59,11 +60,13 @@ class BubbleCanvas: NSView {
     }
 
     required init?(coder: NSCoder) {
+        currentCursor = .arrow
         super.init(coder: coder)
         addTrackingAreas()
     }
     
     override init(frame: CGRect) {
+        currentCursor = .arrow
         super.init(frame: frame)
         addTrackingAreas()
     }
@@ -224,6 +227,7 @@ extension BubbleCanvas {
 
     override func mouseMoved(with event: NSEvent) {
         if spaceDown { return }
+
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil)
         let bubble = hitTestBubble(at: viewLocation)
@@ -301,7 +305,6 @@ extension BubbleCanvas {
             let rawDelta = locationInWindow - initialDragPoint
             let flippedX = CGPoint(x: rawDelta.x, y: -rawDelta.y)
             let newOrigin = scrollOrigin + flippedX
-            Swift.print("NEW ORIGIN \(newOrigin)")
             scroll(newOrigin)
             return
         }
@@ -365,10 +368,14 @@ extension BubbleCanvas {
         }
     }
 
+    override func resetCursorRects() {
+        addCursorRect(bounds, cursor: currentCursor.nscursor)
+    }
+
     func setCursor(_ cursor: Cursor) {
-        Swift.print("SET CURSOR \(cursor)")
-        resetCursorRects()
-        addCursorRect(bounds, cursor: cursor.nscursor)
+        currentCursor = cursor
+        cursor.nscursor.set()
+        window?.invalidateCursorRects(for: self)
     }
 
     override func keyDown(with event: NSEvent) {
