@@ -397,8 +397,135 @@ Consolidated some of the utilites that have accumulated.
 
 Moved TODO into a github project - https://github.com/markd2/Borkle/projects/1 a.k.a. _pibbit_
 
-Maybe try some string measuring and centering.
+Maybe try some string measuring and centering.  yes!  Worked great.
+
+----------
+
+From apple docs from 2006.
+
+http://mirror.informatimago.com/next/developer.apple.com/documentation/Cocoa/Conceptual/TextLayout/TextLayout.pdf
+
+Note: You don’t need to use this technique to find the height of a
+single line of text. The NSLayoutManager method
+defaultLineHeightForFont: returns that value. The default line height
+is the sum of a font’s tallest ascender, plus the absolute value of
+its deepest descender, plus its leading.
+
+----------
+
+For calculating height given a fixed width and text
+
+The basic technique for calculating text height uses the three basic
+nonview components of the text system: NSTextStorage, NSTextContainer,
+and NSLayoutManager
+
+The text storage object holds the string to be measured; 
+The text container specifies the width of the layout area; 
+The layout manager does the layout and returns the width.
 
 
+To set up the text system for the calculation, you need 
+  - the text string to be measured
+  - a font for the string
+  - a width for the area modeled by the text container.
+
+float heightForStringDrawing(NSString *myString, NSFont *myFont, float *myWidth) {
+    // First, you instantiate the needed text objects and hook them together.
+    NSTextStorage *textStorage = [[[NSTextStorage alloc] initWithString:myString] autorelease];
+    NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize: NSMakeSize(myWidth, FLT_MAX)];
+    NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+
+    // Once the text objects are created, you can hook them together:
+    [layoutManager addTextContainer:textContainer];
+    [textStorage addLayoutManager:layoutManager];
+
+    // Next, set the font by adding the font attribute to the range of
+    // the entire string in the text storage object. Set the line
+    // fragment padding to 0 to get an accurate width measurement.
+    [textStorage addAttribute: NSFontAttributeName 
+           value: myFont 
+           range: NSMakeRange(0, [textStorage length]) ];
+    [textContainer setLineFragmentPadding: 0.0];
+
+    // Finally, because the layout manager performs layout lazily, on
+    // demand, you must force it to lay out the text, even though you
+    // don’t need the glyph range returned by this function.
+    
+    (void)  [layoutManager glyphRangeForTextContainer: textContainer];
+    return [layoutManager usedRectForTextContainer: textContainer].size.height;
+}
+```
+
+----------
+
+OK!  Got some text laying out. Some gimmick with the margin to get it to reneder, but
+looks fairly decent.
+
+
+==================================================
+# Tuesday September 15, 2020
+
+Grab hand scrolling.
+
+- [-] hand cursor when spacebar is down
+- [ ] click and drag move (c.f. http://borkware.com/quickies/do-search?search=grab+hand)
+
+ugh. event flags vs swift's Character/Int/utf16/deprecations/UGH.
+
+What about just keycodes.  https://boredzo.org/blog/archives/2007-05-22/virtual-key-codes
+Spacebar is 49
+
+some idiot wrote: 
+ and also use the NSCursor open/closedHandCursor
+  oh yeah, cursor rect.
+
+```
+    func handCursor(on: Bool) {
+        resetCursorRects()
+        if on {
+            addCursorRect(bounds, cursor: .openHand)
+        } else {
+            addCursorRect(bounds, cursor: .arrow)
+        }
+    }
+```
+
+That doesn't feel right, but works.
+
+So, trying to do the scrolling. It kind of works, but:
+- the first bit of scrolling drops the canvas by 15? pixels
+- vertical scrolling gets stuck if the window is resized small
+- the hand cursor is return to an arrow without me doing anything :-(
+
+kind of a weird transition
+
+```
+NEW ORIGIN (10.02734375, 201.3359375)
+SET CURSOR openHand
+SET CURSOR closedHand
+NEW ORIGIN (10.0, 358.734375)
+```
+
+SO, the bit of scrolling drops - if "horizontal bar" isn't turned in IN THE XIB it
+doesn't account for it if you turn it on programatically.
+
+The getting stuck seems to be related to not clearing out the interim variables.
+
+the cursor getting reset it still annoying.
+
+ok, needed to do proper cursor handling
+
+```
+    func setCursor(_ cursor: Cursor) {
+        currentCursor = cursor
+        cursor.nscursor.set()
+        window?.invalidateCursorRects(for: self)
+    }
+
+    // called by invalidate cursor rects
+    override func resetCursorRects() {
+        addCursorRect(bounds, cursor: currentCursor.nscursor)
+    }
+```
 
 
