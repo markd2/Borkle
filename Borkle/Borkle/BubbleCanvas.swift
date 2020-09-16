@@ -8,6 +8,9 @@ class BubbleCanvas: NSView {
             needsDisplay = true
         }
     }
+    
+    var spaceDown: Bool = false
+    var currentCursor: Cursor
 
     /// public API to select a chunka bubbles
     func selectBubbles(_ bubbles: Set<Bubble>) {
@@ -22,6 +25,8 @@ class BubbleCanvas: NSView {
     /// Where a click-drag originated.  nil if there's no active drag happening.
     /// might make enum with associated object when there's additional dragging behaviors.
     var initialDragPoint: CGPoint?
+
+    var scrollOrigin: CGPoint?
 
     /// The bubble being dragged, original position, to calculate delta when dragging
     /// and eventually for undo.
@@ -55,11 +60,13 @@ class BubbleCanvas: NSView {
     }
 
     required init?(coder: NSCoder) {
+        currentCursor = .arrow
         super.init(coder: coder)
         addTrackingAreas()
     }
     
     override init(frame: CGRect) {
+        currentCursor = .arrow
         super.init(frame: frame)
         addTrackingAreas()
     }
@@ -209,6 +216,8 @@ class BubbleCanvas: NSView {
 // mouse and tracking area foobage.
 extension BubbleCanvas {
     override func updateTrackingAreas() {
+        if spaceDown { return }
+
         if let trackingArea = trackingArea {
             removeTrackingArea(trackingArea)
             self.trackingArea = nil
@@ -217,6 +226,8 @@ extension BubbleCanvas {
     }
 
     override func mouseMoved(with event: NSEvent) {
+        if spaceDown { return }
+
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil)
         let bubble = hitTestBubble(at: viewLocation)
@@ -224,11 +235,23 @@ extension BubbleCanvas {
     }
 
     override func mouseDown(with event: NSEvent) {
+        let locationInWindow = event.locationInWindow
+        let viewLocation = convert(locationInWindow, from: nil)
+
+        if spaceDown {
+            guard let clipview = superview as? NSClipView else {
+                Swift.print("no clip vieW?")
+                return
+            }
+            setCursor(.closedHand)
+            initialDragPoint = locationInWindow
+            scrollOrigin = clipview.bounds.origin
+            return
+        }
+
         let addToSelection = event.modifierFlags.contains(.shift)
         let toggleSelection = event.modifierFlags.contains(.command)
 
-        let locationInWindow = event.locationInWindow
-        let viewLocation = convert(locationInWindow, from: nil)
         let bubble = hitTestBubble(at: viewLocation)
         initialDragPoint = nil
 
@@ -274,11 +297,20 @@ extension BubbleCanvas {
     }
 
     override func mouseDragged(with event: NSEvent) {
-        guard let initialDragPoint = initialDragPoint else { return }
-        guard selectedBubbles.count > 0 else { return }
-
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil) as CGPoint
+
+        if spaceDown {
+            guard let initialDragPoint = initialDragPoint, let scrollOrigin = scrollOrigin  else { return }
+            let rawDelta = locationInWindow - initialDragPoint
+            let flippedX = CGPoint(x: rawDelta.x, y: -rawDelta.y)
+            let newOrigin = scrollOrigin + flippedX
+            scroll(newOrigin)
+            return
+        }
+
+        guard let initialDragPoint = initialDragPoint else { return }
+        guard selectedBubbles.count > 0 else { return }
 
         let delta = initialDragPoint - viewLocation
         selectedBubbles.forEach { bubble in
@@ -292,6 +324,17 @@ extension BubbleCanvas {
     }
     
     override func mouseUp(with event: NSEvent) {
+        defer {
+            initialDragPoint = nil
+            scrollOrigin = nil
+        }
+
+        if spaceDown {
+            setCursor(.openHand)
+
+            return
+        }
+
         guard initialDragPoint != nil else { return }
 
         selectedBubbles.forEach { bubble in
@@ -306,7 +349,55 @@ extension BubbleCanvas {
 
     override var acceptsFirstResponder: Bool { return true }
 
+    // thank you peter! https://boredzo.org/blog/archives/2007-05-22/virtual-key-codes
+    enum Keycodes: UInt16 {
+        case spacebar = 49
+    }
+
+    enum Cursor {
+        case arrow
+        case openHand
+        case closedHand
+
+        var nscursor: NSCursor {
+            switch self {
+            case .arrow: return NSCursor.arrow
+            case .openHand: return NSCursor.openHand
+            case .closedHand: return NSCursor.closedHand
+            }
+        }
+    }
+
+    override func resetCursorRects() {
+        addCursorRect(bounds, cursor: currentCursor.nscursor)
+    }
+
+    func setCursor(_ cursor: Cursor) {
+        currentCursor = cursor
+        cursor.nscursor.set()
+        window?.invalidateCursorRects(for: self)
+    }
+
     override func keyDown(with event: NSEvent) {
-        keypressHandler?(event)
+        if event.keyCode == Keycodes.spacebar.rawValue {
+            if !spaceDown {
+                spaceDown = true
+                setCursor(.openHand)
+            }
+        } else {
+            setCursor(.arrow)
+            keypressHandler?(event)
+            spaceDown = false
+        }
+    }
+    
+    override func keyUp(with event: NSEvent) {
+        if event.keyCode == Keycodes.spacebar.rawValue {
+            spaceDown = false
+            setCursor(.arrow)
+        } else {
+            keypressHandler?(event)
+        }
     }
 }
+
