@@ -44,7 +44,7 @@ Figured out how to measure text and get the bubble to resize itself vertically.
 
 ![](assets/borkle3.png)
 
-### Grabbing Hand Grabs All It Cand
+### Grabbing Hand Grabs All It Can
 
 Hold down _space_ to engage the grabbing hand for scrolling.
 
