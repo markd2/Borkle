@@ -89,9 +89,11 @@ class BubbleCanvas: NSView {
 
         bubbles.forEach {
             if let rect = idToRectMap[$0.ID] {
-                renderBubble($0, in: rect, 
-                    selected: selectedBubbles.contains($0),
-                    highlighted: $0.ID == (highlightedID ?? -666))
+                if rect.intersects(areaToDrawPlzKthx) {
+                    renderBubble($0, in: rect, 
+                        selected: selectedBubbles.contains($0),
+                        highlighted: $0.ID == (highlightedID ?? -666))
+                }
             } else {
                 Swift.print("unexpected not-rendering a bubble")
             }
@@ -201,8 +203,10 @@ class BubbleCanvas: NSView {
 
     func highlightBubble(_ bubble: Bubble?) {
         guard let bubble = bubble else {
-            highlightedID = nil
-            needsDisplay = true
+            if highlightedID != nil {
+                highlightedID = nil
+                needsDisplay = true
+            }
             return
         }
 
