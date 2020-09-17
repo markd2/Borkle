@@ -4,8 +4,11 @@ class BubbleCanvas: NSView {
     static let background = NSColor(red: 228.0 / 255.0, green: 232.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
 
     var selectedBubbles = Set<Bubble>() {
+        willSet {
+            selectedBubbles.forEach { invalidateBubble($0) }
+        }
         didSet {
-            needsDisplay = true
+            selectedBubbles.forEach { invalidateBubble($0) }
         }
     }
     
@@ -14,9 +17,10 @@ class BubbleCanvas: NSView {
 
     /// public API to select a chunka bubbles
     func selectBubbles(_ bubbles: Set<Bubble>) {
-
+        selectedBubbles.forEach { invalidateBubble($0) }
         selectedBubbles = bubbles
-        needsDisplay = true
+
+        bubbles.forEach { invalidateBubble($0) }
     }
 
     /// Highlighted bubble, for mouse-motion indication.  Shown as a dashed line or something.
@@ -39,6 +43,7 @@ class BubbleCanvas: NSView {
     var keypressHandler: ((_ event: NSEvent) -> Void)?
 
     override var isFlipped: Bool { return true }
+
     var bubbles: [Bubble] = [] {
         didSet {
             bubbles.forEach { $0._effectiveHeight = nil }
@@ -56,7 +61,10 @@ class BubbleCanvas: NSView {
             union = union.union(bubble.rect)
         }
         union = union + extraPadding
-        frame = union
+
+        if frame != union {
+            frame = union
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -89,9 +97,11 @@ class BubbleCanvas: NSView {
 
         bubbles.forEach {
             if let rect = idToRectMap[$0.ID] {
-                renderBubble($0, in: rect, 
-                    selected: selectedBubbles.contains($0),
-                    highlighted: $0.ID == (highlightedID ?? -666))
+                if needsToDraw(rect) {
+                    renderBubble($0, in: rect, 
+                        selected: selectedBubbles.contains($0),
+                        highlighted: $0.ID == (highlightedID ?? -666))
+                }
             } else {
                 Swift.print("unexpected not-rendering a bubble")
             }
@@ -183,7 +193,6 @@ class BubbleCanvas: NSView {
         
         if !selectedBubbles.contains(bubble) {
             selectedBubbles.insert(bubble)
-            needsDisplay = true
         }
     }
 
@@ -191,24 +200,37 @@ class BubbleCanvas: NSView {
         guard let bubble = bubble else { return }
 
         selectedBubbles.toggle(bubble)
-        needsDisplay = true
+        invalidateBubble(bubble)
     }
 
     func deselectAllBubbles() {
         selectedBubbles.removeAll()
-        needsDisplay = true
+    }
+
+    func invalidateBubble(_ bubble: Bubble) {
+        invalidateBubble(bubble.ID)
+    }
+    func invalidateBubble(_ bubbleID: Int) {
+        guard let rect = idToRectMap[bubbleID] else { return }
+        let rectWithPadding = rect.insetBy(dx: -5, dy: -5)
+        setNeedsDisplay(rectWithPadding)
     }
 
     func highlightBubble(_ bubble: Bubble?) {
         guard let bubble = bubble else {
-            highlightedID = nil
-            needsDisplay = true
+            if let highlightedID = highlightedID {
+                invalidateBubble(highlightedID)
+
+                self.highlightedID = nil
+            }
             return
         }
 
         if highlightedID != bubble.ID {
             highlightedID = bubble.ID
-            needsDisplay = true
+            if let highlightedID = highlightedID {
+                invalidateBubble(highlightedID)
+            }
         }
     }
 }
@@ -319,10 +341,13 @@ extension BubbleCanvas {
                 return
             }
             bubble.position = originalPosition + delta
+            
+            // the area to redraw is kind of complex - like if there's connected 
+            // bubbles need to make sure connecting lines are redrawn.
+            setNeedsDisplay(bounds)
         }
-        needsDisplay = true
     }
-    
+
     override func mouseUp(with event: NSEvent) {
         defer {
             initialDragPoint = nil
