@@ -546,6 +546,18 @@ oh noes took a day off. Bad Bork!
 
 now for some thinking about mouse stuff.  Check out mousings.scap
 
+added _lots_ of thoughts.  BubbleSoup and SelectionSoup come to mind.
+
+Want to start making stuff that's testable (because right now UI and data is terribly conflated).
+
+Would be nice to have the soups that the canvas uses, and all the mouse actions and menu actions are
+in terms of the soups.
+  - can make fake soups to test
+    - don't even have to store bubbles, could hard-code return values
+  - simillarly for actions. Pull all that stuff out of the canvas and the bubble class
+
+take a nap and sleep on it :-)
+
 
 
 
