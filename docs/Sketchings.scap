@@ -107,7 +107,7 @@
             <String>card - larger, like the 3-Line NPC</String>
             <ConnectedNoteIDs>83</ConnectedNoteIDs>
         </Note>
-        <Note ID="86" FontSize="12.0" Position="730.132812,280.0" Width="93.0">
+        <Note ID="86" FontSize="12.0" Position="722.0,280.0" Width="101.0">
             <Appearance>
                 <Alignment>Left</Alignment>
                 <Border Weight="1"></Border>
@@ -1392,7 +1392,7 @@ center</String>
     <Labels>
         <Label IDs="202,203">Blah</Label>
     </Labels>
-    <AutoFit>75-78, 81-84, 86-88, 90-95, 97-102, 104-108, 112-113, 116-124, 126-127, 129, 131-134, 136-141, 146-153, 155-162, 167-171, 174, 176-180, 182-184, 186-199, 202-203, 205-212, 217, 219-220, 223-228, 230-234</AutoFit>
+    <AutoFit>75-78, 81-84, 87-88, 90-95, 97-102, 104-108, 112-113, 116-124, 126-127, 129, 131-134, 136-141, 146-153, 155-162, 167-171, 174, 176-180, 182-184, 186-199, 202-203, 205-212, 217, 219-220, 223-228, 230-234</AutoFit>
     <NoteStyles>
         <Style Name="Bubble (Blue)" ID="A9B49CF7-D66E-4F7B-B1CF-F361AE83C800" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
             <BorderThickness>1</BorderThickness>

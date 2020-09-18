@@ -528,4 +528,27 @@ ok, needed to do proper cursor handling
     }
 ```
 
+==================================================
+# Wednesday September 16, 2020
+
+The Dungeon Run Night!
+
+do some performance jazz, reducing redrawing.
+153 bubbles, drawing 111 at a time, ~80 visible.
+
+Took out the every mousemotion redraw (That was crazy)
+
+
+==================================================
+# Friday September 18, 2020
+
+oh noes took a day off. Bad Bork!
+
+now for some thinking about mouse stuff.  Check out mousings.scap
+
+
+
+
+ 
+
 
