@@ -42,19 +42,12 @@ class BubbleCanvas: NSView {
     var keypressHandler: ((_ event: NSEvent) -> Void)?
 
     override var isFlipped: Bool { return true }
-
-    /// On the way out.  Prefer bubble soup
-    var bubbles: [Bubble] = [] {
-        didSet {
-            bubbles.forEach { $0._effectiveHeight = nil }
-            needsDisplay = true
-            resizeCanvas()
-        }
-    }
+    var idToRectMap: [Int: CGRect] = [:]
 
     var bubbleSoup: BubbleSoup! {
         didSet {
             bubbleSoup.invalHook = invalidateBubbleFollowingConnections
+            resizeCanvas()
         }
     }
 
@@ -86,13 +79,11 @@ class BubbleCanvas: NSView {
         addTrackingArea(trackingArea)
     }
 
-    var idToRectMap: [Int: CGRect] = [:]
-    
     override func draw(_ areaToDrawPlzKthx: CGRect) {
         BubbleCanvas.background.set()
         bounds.fill()
 
-        idToRectMap = allBorders(bubbles)
+        idToRectMap = allBorders()
 
         drawConnections(idToRectMap)
 
@@ -109,12 +100,11 @@ class BubbleCanvas: NSView {
         }
     }
 
-    func allBorders(_ bubbles: [Bubble]) -> [Int: CGRect] {
-        var idToRectMap: [Int: CGRect] = [:]
+    func allBorders() -> [Int: CGRect] {
 
-        for bubble in bubbles {
-            let rect = bubble.rect
-            idToRectMap[bubble.ID] = rect
+        bubbleSoup.forEachBubble {
+            let rect = $0.rect
+            idToRectMap[$0.ID] = rect
         }
         return idToRectMap
     }
@@ -125,7 +115,7 @@ class BubbleCanvas: NSView {
         let pattern: [CGFloat] = [3.0, 2.0]
         bezierPath.setLineDash(pattern, count: pattern.count, phase: 0.0)
 
-        for bubble in bubbles {
+        bubbleSoup.forEachBubble { bubble in
             for index in bubble.connections {
 
                 // both sides of the connection exist in bubble.  e.g. if 3 and 175 is connected,

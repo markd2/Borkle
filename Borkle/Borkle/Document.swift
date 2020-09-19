@@ -14,7 +14,6 @@ class Document: NSDocument {
     /// On the way out
     var bubbles: [Bubble] = [] {
         didSet {
-            bubbleCanvas?.bubbles = bubbles
             documentFileWrapper?.remove(filename: bubbleFilename)
 
             bubbleSoup.removeEverything()
@@ -53,7 +52,6 @@ class Document: NSDocument {
 
         bubbleCanvas.bubbleSoup = bubbleSoup
 
-        bubbleCanvas.bubbles = bubbles
         // need to actually drive the frame from the bubbles
         bubbleScroller.contentView.backgroundColor = BubbleCanvas.background
         bubbleScroller.hasHorizontalScroller = true
