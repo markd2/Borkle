@@ -90,6 +90,11 @@ class BubbleSoup {
         invalHook?(bubble)
         bubblesChangedHook?()
     }
+
+    public func hitTestBubble(at point: CGPoint) -> Bubble? {
+        let bubble = bubbles.first(where: { $0.rect.contains(point) })
+        return bubble
+    }
 }
 
 /// Helper Methods

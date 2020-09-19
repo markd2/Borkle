@@ -16,19 +16,21 @@ class Bubble: Codable {
     }
     var connections = IndexSet()
 
-    init(ID: Int) {
+    init(ID: Int, position: CGPoint? = nil, width: CGFloat? = nil) {
         self.ID = ID
+        if let position = position { self.position = position }
+        if let width = width { self.width = width }
     }
 
     var rect: CGRect {
         var rect = CGRect(x: position.x, y: position.y,
                           width: width, height: effectiveHeight)
-        rect.size.height += 2 * margin!
+        rect.size.height += 2 * Bubble.margin
         return rect
     }
 
     // optional as hacky way to opt out of Codable for this.
-    let margin: CGFloat? = 3.0
+    static let margin: CGFloat = 3.0
 
     var _effectiveHeight: CGFloat?
     var effectiveHeight: CGFloat {
@@ -62,7 +64,7 @@ extension Bubble: Hashable {
 extension Bubble {
     func heightForStringDrawing() -> CGFloat {
         let textStorage = NSTextStorage.init(string: text, attributes: nil)
-        let insetWidth = width - (margin! * 2)
+        let insetWidth = width - (Bubble.margin * 2)
         let size = CGSize(width: insetWidth, height: .infinity)
         let textContainer = NSTextContainer.init(containerSize: size)
         let layoutManager = NSLayoutManager()

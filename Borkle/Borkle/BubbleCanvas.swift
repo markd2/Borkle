@@ -158,7 +158,7 @@ class BubbleCanvas: NSView {
 
         let nsstring = "\(bubble.text)" as NSString
 
-        let textRect = rect.insetBy(dx: bubble.margin!, dy: bubble.margin!)
+        let textRect = rect.insetBy(dx: Bubble.margin, dy: Bubble.margin)
         nsstring.draw(in: textRect, withAttributes: nil)
         NSColor.gray.set()
 
@@ -179,17 +179,6 @@ class BubbleCanvas: NSView {
             NSColor.white.set()
             bezierPath.stroke()
         }
-    }
-
-    func hitTestBubble(at point: CGPoint) -> Bubble? {
-        for bubble in bubbles {
-            if let rect = idToRectMap[bubble.ID] {
-                if rect.contains(point) {
-                    return bubble
-                }
-            }
-        }
-        return nil
     }
 
     func selectBubble(_ bubble: Bubble?) {
@@ -271,7 +260,7 @@ extension BubbleCanvas {
 
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil)
-        let bubble = hitTestBubble(at: viewLocation)
+        let bubble = bubbleSoup.hitTestBubble(at: viewLocation)
         highlightBubble(bubble)
     }
 
@@ -293,7 +282,7 @@ extension BubbleCanvas {
         let addToSelection = event.modifierFlags.contains(.shift)
         let toggleSelection = event.modifierFlags.contains(.command)
 
-        let bubble = hitTestBubble(at: viewLocation)
+        let bubble = bubbleSoup.hitTestBubble(at: viewLocation)
         initialDragPoint = nil
 
         // !!! ponder enum/switch for this
