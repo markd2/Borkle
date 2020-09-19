@@ -8,6 +8,7 @@ import Foundation
 class BubbleSoup {
 
     var invalHook: ((Bubble) -> Void)?
+    var bubblesChangedHook: (() -> Void)?
 
     /// How many bubbles we have.
     public var bubbleCount: Int {
@@ -84,6 +85,7 @@ class BubbleSoup {
         }
         undoManager.endUndoGrouping()
         invalHook?(bubble)
+        bubblesChangedHook?()
     }
 }
 

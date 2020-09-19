@@ -47,6 +47,9 @@ class Document: NSDocument {
         if let undoManager = undoManager {
             bubbleSoup.undoManager = undoManager
         }
+        bubbleSoup.bubblesChangedHook = {
+            self.documentFileWrapper?.remove(filename: self.bubbleFilename)
+        }
 
         bubbleCanvas.bubbles = bubbles
         // need to actually drive the frame from the bubbles
@@ -56,26 +59,9 @@ class Document: NSDocument {
 
         bubbleCanvas.bubbleSoup = bubbleSoup
 
-        bubbleCanvas.bubbleMoveUndoCompletion = { bubble, start, end in
-            self.setBubblePosition(bubble: bubble, start: end, end: start)
-        }
         bubbleCanvas.keypressHandler = { event in
             self.handleKeypress(event)
         }
-    }
-
-    func setBubblePosition(bubble: Bubble, start: CGPoint, end: CGPoint) {
-        documentFileWrapper?.remove(filename: bubbleFilename)
-
-        bubble.position = end
-        bubbleCanvas.needsDisplay = true
-
-        undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
-                self.setBubblePosition(bubble: bubble, start: end, end: start)
-
-                // !!! Need to do this at the end of a bunch of undos rather than every time
-                self.bubbleCanvas.resizeCanvas()
-            })
     }
 
     override class var autosavesInPlace: Bool {
