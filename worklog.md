@@ -558,6 +558,22 @@ in terms of the soups.
 
 take a nap and sleep on it :-)
 
+----------
+
+post-nap.
+
+bubbles could turn into structs, the soup vends the bubble struct and makes them have a short
+lifecycle
+
+----------
+
+Started on the soup, still treating bubbles as classes, but aiming for changing them to structs.
+
+Next: 
+  - make the soup
+  - give soup to canvas
+  - start with positioning - removing the undo handler from document.
+
 
 
 
