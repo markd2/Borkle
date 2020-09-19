@@ -575,8 +575,18 @@ Next:
   - start with positioning - removing the undo handler from document.
 
 
+==================================================
+# Saturday September 19, 2020
 
+  - make the soup in the document
+  - give soup to canvas
+  - start with positioning - removing the undo handler from document.
 
- 
-
+undo fun - need a grouping spanning mouse tracking.
+   - but only if actually need to undo something. otherwise empty
+     undos get on the stack
+   - being kind of oogie and counting begins and end and not doing an end if there's not a 
+     corresponding begin.
+  - unfortunatley undomanger.groupingLevel goes to two on the first beginGrouping, so can't
+    rely on the grouping level for doing latched group begins.  oh well
 

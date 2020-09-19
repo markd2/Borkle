@@ -11,12 +11,17 @@ class Document: NSDocument {
     let metadataFilename = "metadata.json"
     let bubbleFilename = "bubbles.json"
 
+    /// On the way out
     var bubbles: [Bubble] = [] {
         didSet {
             bubbleCanvas?.bubbles = bubbles
             documentFileWrapper?.remove(filename: bubbleFilename)
+
+            bubbleSoup.removeEverything()
+            bubbleSoup.add(bubbles: bubbles)
         }
     }
+    var bubbleSoup: BubbleSoup
 
     var image: NSImage? {
         didSet {
@@ -30,6 +35,7 @@ class Document: NSDocument {
     }
 
     override init() {
+        bubbleSoup = BubbleSoup()
         super.init()
         image = NSImage(named: "flumph")!
     }
@@ -37,32 +43,25 @@ class Document: NSDocument {
     override func awakeFromNib() {
         super.awakeFromNib()
         imageView.image = image
+
+        if let undoManager = undoManager {
+            bubbleSoup.undoManager = undoManager
+        }
+        bubbleSoup.bubblesChangedHook = {
+            self.documentFileWrapper?.remove(filename: self.bubbleFilename)
+        }
+
         bubbleCanvas.bubbles = bubbles
         // need to actually drive the frame from the bubbles
         bubbleScroller.contentView.backgroundColor = BubbleCanvas.background
         bubbleScroller.hasHorizontalScroller = true
         bubbleScroller.hasVerticalScroller = true
 
-        bubbleCanvas.bubbleMoveUndoCompletion = { bubble, start, end in
-            self.setBubblePosition(bubble: bubble, start: end, end: start)
-        }
+        bubbleCanvas.bubbleSoup = bubbleSoup
+
         bubbleCanvas.keypressHandler = { event in
             self.handleKeypress(event)
         }
-    }
-
-    func setBubblePosition(bubble: Bubble, start: CGPoint, end: CGPoint) {
-        documentFileWrapper?.remove(filename: bubbleFilename)
-
-        bubble.position = end
-        bubbleCanvas.needsDisplay = true
-
-        undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
-                self.setBubblePosition(bubble: bubble, start: end, end: start)
-
-                // !!! Need to do this at the end of a bunch of undos rather than every time
-                self.bubbleCanvas.resizeCanvas()
-            })
     }
 
     override class var autosavesInPlace: Bool {
