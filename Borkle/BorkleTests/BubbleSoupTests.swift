@@ -112,4 +112,15 @@ extension BubbleSoupTests {
         // make sure the right bubble remains
         XCTAssertNotNil(soup.bubble(byID: 1))
     }
+
+    func test_remove_last_bubbles_undo() {
+        let bubbles = [Bubble(ID: 1), Bubble(ID: 2), Bubble(ID: 3)]
+        soup.add(bubbles: bubbles)
+
+        soup.removeLastBubbles(count: 2)
+        XCTAssertEqual(soup.bubbleCount, 1)
+        soup.undo()
+
+        XCTAssertEqual(soup.bubbleCount, 3)
+    }
 }
