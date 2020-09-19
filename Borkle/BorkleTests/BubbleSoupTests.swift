@@ -26,6 +26,9 @@ class BubbleSoupTests: XCTestCase {
     }
 
     func test_set_bubble_position_undo() {
+        var invalCount = 0
+        soup.invalHook = { _ in invalCount += 1 }
+
         let bubble = Bubble(ID: 23)
         bubble.position = CGPoint(x: 5, y: 10)
         soup.add(bubble: bubble)
@@ -33,12 +36,15 @@ class BubbleSoupTests: XCTestCase {
         soup.move(bubble: bubble, to: CGPoint(x: 10, y: 20))
         let bubble1 = soup.bubble(byID: 23)!
         XCTAssertEqual(bubble1.position, CGPoint(x: 10, y: 20))
+        XCTAssertEqual(invalCount, 1)
 
         soup.undo()
         XCTAssertEqual(bubble1.position, CGPoint(x: 5, y: 10))
+        XCTAssertEqual(invalCount, 2)
 
         soup.redo()
         XCTAssertEqual(bubble1.position, CGPoint(x: 10, y: 20))
+        XCTAssertEqual(invalCount, 3)
     }
 
 }
