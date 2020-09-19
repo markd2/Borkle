@@ -593,3 +593,11 @@ undo fun - need a grouping spanning mouse tracking.
 ----------
 
 move the hit test into the soup too (with tests)
+
+----------
+
+sweet - removed explciti bubble array from the canvas
+
+----------
+
+next - save the soup instead of the bubble array.
