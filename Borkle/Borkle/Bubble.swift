@@ -16,8 +16,10 @@ class Bubble: Codable {
     }
     var connections = IndexSet()
 
-    init(ID: Int) {
+    init(ID: Int, position: CGPoint? = nil, width: CGFloat? = nil) {
         self.ID = ID
+        if let position = position { self.position = position }
+        if let width = width { self.width = width }
     }
 
     var rect: CGRect {
