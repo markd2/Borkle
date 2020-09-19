@@ -11,12 +11,17 @@ class Document: NSDocument {
     let metadataFilename = "metadata.json"
     let bubbleFilename = "bubbles.json"
 
+    /// On the way out
     var bubbles: [Bubble] = [] {
         didSet {
             bubbleCanvas?.bubbles = bubbles
             documentFileWrapper?.remove(filename: bubbleFilename)
+
+            bubbleSoup.removeEverything()
+            bubbleSoup.add(bubbles: bubbles)
         }
     }
+    var bubbleSoup: BubbleSoup
 
     var image: NSImage? {
         didSet {
@@ -30,8 +35,13 @@ class Document: NSDocument {
     }
 
     override init() {
+        bubbleSoup = BubbleSoup()
         super.init()
         image = NSImage(named: "flumph")!
+
+        if let undoManager = undoManager {
+            bubbleSoup.undoManager = undoManager
+        }
     }
 
     override func awakeFromNib() {
@@ -42,6 +52,8 @@ class Document: NSDocument {
         bubbleScroller.contentView.backgroundColor = BubbleCanvas.background
         bubbleScroller.hasHorizontalScroller = true
         bubbleScroller.hasVerticalScroller = true
+
+        bubbleCanvas.bubbleSoup = bubbleSoup
 
         bubbleCanvas.bubbleMoveUndoCompletion = { bubble, start, end in
             self.setBubblePosition(bubble: bubble, start: end, end: start)

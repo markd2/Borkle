@@ -44,6 +44,7 @@ class BubbleCanvas: NSView {
 
     override var isFlipped: Bool { return true }
 
+    /// On the way out.  Prefer bubble soup
     var bubbles: [Bubble] = [] {
         didSet {
             bubbles.forEach { $0._effectiveHeight = nil }
@@ -51,6 +52,8 @@ class BubbleCanvas: NSView {
             resizeCanvas()
         }
     }
+
+    var bubbleSoup: BubbleSoup!
 
     let extraPadding = CGSize(width: 80, height: 60)
 

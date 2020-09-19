@@ -18,7 +18,7 @@ class BubbleSoup {
 
     /// Undo manager responsible for handling undo.  One will be provided if you don't
     /// give us one
-    private let undoManager: UndoManager
+    var undoManager: UndoManager
     
     public init(undoManager: UndoManager? = nil) {
         self.undoManager = undoManager ?? UndoManager()
