@@ -141,6 +141,21 @@ extension BubbleSoupTests {
         XCTAssertEqual(soup.bubbleCount, 2)
     }
 
+    func test_hit_test_bubble() {
+        soup.add(bubble: Bubble(ID: 1, position: CGPoint(x: 10, y: 20), width: 90))
+        soup.add(bubble: Bubble(ID: 2, position: CGPoint(x: 100, y: 200), width: 90))
+
+        // Should find bubbles
+        let bubble1 = soup.hitTestBubble(at: CGPoint(x: 11, y: 21))
+        XCTAssertEqual(bubble1?.ID, 1)
+        let bubble2 = soup.hitTestBubble(at: CGPoint(x: 101, y: 201))
+        XCTAssertEqual(bubble2?.ID, 2)
+
+        // not inside any
+        let bubble3 = soup.hitTestBubble(at: CGPoint(x: 666, y: 666))
+        XCTAssertNil(bubble3)
+    }
+
 }
 
 /// These exercise internal helper methods
