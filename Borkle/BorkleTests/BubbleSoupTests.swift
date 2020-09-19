@@ -170,6 +170,22 @@ extension BubbleSoupTests {
         XCTAssertEqual(rect, expectedRect)
     }
 
+    func test_bubble_iteration() {
+        soup.add(bubble: Bubble(ID: 1))
+        soup.add(bubble: Bubble(ID: 2))
+        soup.add(bubble: Bubble(ID: 3))
+
+        var count = 0
+        var seenIDs = IndexSet()
+        soup.forEachBubble {
+            seenIDs.insert($0.ID)
+            count += 1
+        }
+        
+        XCTAssertEqual(count, 3)
+        XCTAssertEqual(seenIDs, IndexSet(1...3))
+    }
+
 }
 
 /// These exercise internal helper methods

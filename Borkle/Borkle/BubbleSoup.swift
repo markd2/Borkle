@@ -19,6 +19,12 @@ class BubbleSoup {
     /// out to be annoying
     private var bubbles: [Bubble] = []
 
+    /// Iterate over each of the bubbles in some kind of order
+    /// I'm not smart enough to return some kind of sequence/iterator thing
+    public func forEachBubble(_ iterator: (Bubble) -> Void) {
+        bubbles.forEach { iterator($0) }
+    }
+
     /// Undo manager responsible for handling undo.  One will be provided if you don't
     /// give us one
     var undoManager: UndoManager

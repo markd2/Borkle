@@ -96,7 +96,7 @@ class BubbleCanvas: NSView {
 
         drawConnections(idToRectMap)
 
-        bubbles.forEach {
+        bubbleSoup.forEachBubble {
             if let rect = idToRectMap[$0.ID] {
                 if needsToDraw(rect) {
                     renderBubble($0, in: rect, 
