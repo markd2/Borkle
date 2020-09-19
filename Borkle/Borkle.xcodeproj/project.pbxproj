@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,7 @@
 		7D2C9CD6251556C200B1E2DE /* BubbleSoupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CD5251556C200B1E2DE /* BubbleSoupTests.swift */; };
 		7D2C9CDE2516B5E600B1E2DE /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CDD2516B5E600B1E2DE /* Selection.swift */; };
 		7D2C9CE22516B5EE00B1E2DE /* SelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CE12516B5EE00B1E2DE /* SelectionTests.swift */; };
+		7D2C9CEB2516D09700B1E2DE /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = 7D2C9CEA2516D09700B1E2DE /* Yams */; };
 		7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */; };
 		7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDD250E719800884F29 /* LibraryExtensions.swift */; };
 		7D51127F250D6F51004F0E63 /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D51127E250D6F51004F0E63 /* Bubble.swift */; };
@@ -62,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D2C9CEB2516D09700B1E2DE /* Yams in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +143,9 @@
 			dependencies = (
 			);
 			name = Borkle;
+			packageProductDependencies = (
+				7D2C9CEA2516D09700B1E2DE /* Yams */,
+			);
 			productName = Borkle;
 			productReference = 7D93A746250AD8DC00991121 /* Borkle.app */;
 			productType = "com.apple.product-type.application";
@@ -191,6 +196,9 @@
 				Base,
 			);
 			mainGroup = 7D93A73D250AD8DC00991121;
+			packageReferences = (
+				7D2C9CE92516D09700B1E2DE /* XCRemoteSwiftPackageReference "Yams" */,
+			);
 			productRefGroup = 7D93A747250AD8DC00991121 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -510,6 +518,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7D2C9CE92516D09700B1E2DE /* XCRemoteSwiftPackageReference "Yams" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jpsim/Yams.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7D2C9CEA2516D09700B1E2DE /* Yams */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7D2C9CE92516D09700B1E2DE /* XCRemoteSwiftPackageReference "Yams" */;
+			productName = Yams;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7D93A73E250AD8DC00991121 /* Project object */;
 }
