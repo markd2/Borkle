@@ -1,27 +1,34 @@
 import Foundation
 
 class Selection {
-    var selection = Set<Bubble>()
+    private var selection = Set<Bubble>()
+    var invalHook: ((Bubble) -> Void)?
 
-    var bubbleCount: Int {
+    public var bubbleCount: Int {
         return selection.count
     }
     
-    func select(bubble: Bubble) {
+    public func select(bubble: Bubble) {
         select(bubbles: [bubble])
     }
     
-    func select(bubbles: [Bubble]) {
+    public func select(bubbles: [Bubble]) {
         let set = Set(bubbles)
+
+        // only inval hook changes.
+        let changed = Set(bubbles).subtracting(selection)
+
         selection.formUnion(set)
+
+        changed.forEach { invalHook?($0) }
     }
 
-    func isSelected(bubble: Bubble) -> Bool {
+    public func isSelected(bubble: Bubble) -> Bool {
         let selected = selection.contains(bubble)
         return selected
     }
     
-    func toggle(bubble: Bubble) {
+    public func toggle(bubble: Bubble) {
         if isSelected(bubble: bubble) {
             deselect(bubble: bubble)
         } else {
@@ -29,12 +36,14 @@ class Selection {
         }
     }
     
-    func unselectAll() {
+    public func unselectAll() {
+        selection.forEach { invalHook?($0) }
         selection.removeAll()
     }
     
-    func deselect(bubble: Bubble) {
+    public func deselect(bubble: Bubble) {
         selection.remove(bubble)
+        invalHook?(bubble)
     }
 }
 
