@@ -313,8 +313,9 @@ extension BubbleCanvas {
         // All done if there's nothing to actually draga
         guard initialDragPoint != nil else { return }
 
-        originalBubblePositions = selectedBubbles.reduce(into: [:]) { positions, bubble in
-            positions[bubble] = bubble.position
+        originalBubblePositions = [:]
+        bubbleSoup.forEachBubble {
+            originalBubblePositions[$0] = $0.position
         }
 
         // we have a selected bubble. Drag it around.
