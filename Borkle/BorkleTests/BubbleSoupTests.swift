@@ -156,6 +156,20 @@ extension BubbleSoupTests {
         XCTAssertNil(bubble3)
     }
 
+    func test_empty_enclosing_rect() {
+        let rect = soup.enclosingRect
+        XCTAssertEqual(rect, .zero)
+    }
+
+    func test_enclosing_rect() {
+        let expectedRect = CGRect(x: 0, y: 0, width: 190, height: 220) // assuming 20 height
+        soup.add(bubble: Bubble(ID: 1, position: CGPoint(x: 10, y: 20), width: 90))
+        soup.add(bubble: Bubble(ID: 2, position: CGPoint(x: 100, y: 200), width: 90))
+        let rect = soup.enclosingRect
+        
+        XCTAssertEqual(rect, expectedRect)
+    }
+
 }
 
 /// These exercise internal helper methods

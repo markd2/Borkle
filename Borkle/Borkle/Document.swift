@@ -51,13 +51,14 @@ class Document: NSDocument {
             self.documentFileWrapper?.remove(filename: self.bubbleFilename)
         }
 
+        bubbleCanvas.bubbleSoup = bubbleSoup
+
         bubbleCanvas.bubbles = bubbles
         // need to actually drive the frame from the bubbles
         bubbleScroller.contentView.backgroundColor = BubbleCanvas.background
         bubbleScroller.hasHorizontalScroller = true
         bubbleScroller.hasVerticalScroller = true
 
-        bubbleCanvas.bubbleSoup = bubbleSoup
 
         bubbleCanvas.keypressHandler = { event in
             self.handleKeypress(event)
