@@ -117,6 +117,30 @@ extension BubbleSoupTests {
         soup.undo()
         XCTAssertEqual(soup.bubbleCount, 3)
     }
+
+    func test_undo_grouping() {
+        soup.beginGrouping()
+        soup.add(bubble: Bubble(ID: 1))
+        soup.add(bubble: Bubble(ID: 2))
+        soup.add(bubble: Bubble(ID: 3))
+        soup.endGrouping()
+        
+        XCTAssertEqual(soup.bubbleCount, 3)
+        soup.undo()
+        XCTAssertEqual(soup.bubbleCount, 0)
+    }
+    
+    func test_undo_latch() {
+        soup.add(bubble: Bubble(ID: 1))
+        soup.add(bubble: Bubble(ID: 2))
+        soup.add(bubble: Bubble(ID: 3))
+        soup.endGrouping()
+        
+        XCTAssertEqual(soup.bubbleCount, 3)
+        soup.undo()
+        XCTAssertEqual(soup.bubbleCount, 2)
+    }
+
 }
 
 /// These exercise internal helper methods
