@@ -33,10 +33,16 @@ class BubbleSoup {
         }
     }
 
+    /// Unfortunatley, can't use undoManager's groupingLevel to decide if we're in a no-op
+    /// undo situation.  In tests, a beginUndoGrouping goes to a level of two, so something
+    /// is happening For Our Convenience™
+    var  groupingLevel = 0
+
     /// When doing something that spans multiple spins of the event loop (like mouse
     /// tracking), start a grouping before, and end it afterwards
     func beginGrouping() {
         undoManager.beginUndoGrouping()
+        groupingLevel += 1
     }
 
     /// Companion to `beginGrouping`. Call it first.
@@ -44,8 +50,9 @@ class BubbleSoup {
     /// in empty space and doing nothing, so we don't want an empty undo grouping on the stack.
     /// (I am not terribly happy about this. ++md 9/19/2020)
     func endGrouping() {
-        if undoManager.groupingLevel > 0 {
+        if groupingLevel > 0 {
             undoManager.endUndoGrouping()
+            groupingLevel -= 1
         }
     }
     
