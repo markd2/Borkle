@@ -4,6 +4,12 @@ class Selection {
     private var selection = Set<Bubble>()
     var invalHook: ((Bubble) -> Void)?
 
+    /// Iterate over each of the bubbles in some kind of order
+    /// I'm not smart enough to return some kind of sequence/iterator thing
+    public func forEachBubble(_ iterator: (Bubble) -> Void) {
+        selection.forEach { iterator($0) }
+    }
+
     public var bubbleCount: Int {
         return selection.count
     }
