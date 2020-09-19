@@ -114,5 +114,20 @@ class SelectionTests: XCTestCase {
         XCTAssertEqual(invalCount, 5)
     }
 
+    func test_iteration() {
+        let bubbles = [Bubble(ID: 1), Bubble(ID: 2), Bubble(ID: 3)]
+        selection.select(bubbles: bubbles)
+
+        var count = 0
+        var seenIDs = IndexSet()
+        selection.forEachBubble {
+            seenIDs.insert($0.ID)
+            count += 1
+        }
+        
+        XCTAssertEqual(count, 3)
+        XCTAssertEqual(seenIDs, IndexSet(1...3))
+    }
+
 }
 
