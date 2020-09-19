@@ -61,12 +61,7 @@ class BubbleCanvas: NSView {
     let extraPadding = CGSize(width: 80, height: 60)
 
     func resizeCanvas() {
-        var union = CGRect.zero
-        
-        for bubble in bubbles {
-            union = union.union(bubble.rect)
-        }
-        union = union + extraPadding
+        let union = bubbleSoup.enclosingRect + extraPadding
 
         if frame != union {
             frame = union

@@ -91,9 +91,21 @@ class BubbleSoup {
         bubblesChangedHook?()
     }
 
+    /// Given a point, find the first bubble that intersects it.
+    ///
+    /// Currently (9/19/2020) we don't have a z-ordering, so hit-testing overlapping
+    /// bubbles will return arbitrary results.
     public func hitTestBubble(at point: CGPoint) -> Bubble? {
         let bubble = bubbles.first(where: { $0.rect.contains(point) })
         return bubble
+    }
+
+    /// Calculate the rectangle that encloses all the bubbles, anchored at (0, 0)
+    public var enclosingRect: CGRect {
+        let union = bubbles.reduce(into: CGRect.zero) { union, bubble in
+            union = union.union(bubble.rect)
+        }
+        return union
     }
 }
 
