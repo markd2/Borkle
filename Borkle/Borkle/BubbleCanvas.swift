@@ -53,7 +53,11 @@ class BubbleCanvas: NSView {
         }
     }
 
-    var bubbleSoup: BubbleSoup!
+    var bubbleSoup: BubbleSoup! {
+        didSet {
+            bubbleSoup.invalHook = invalidateBubble
+        }
+    }
 
     let extraPadding = CGSize(width: 80, height: 60)
 
@@ -343,7 +347,8 @@ extension BubbleCanvas {
                 Swift.print("unexpectedly missing original bubble position")
                 return
             }
-            bubble.position = originalPosition + delta
+//            bubble.position = originalPosition + delta
+            bubbleSoup.move(bubble: bubble, to: originalPosition + delta)
             
             // the area to redraw is kind of complex - like if there's connected 
             // bubbles need to make sure connecting lines are redrawn.
@@ -365,13 +370,13 @@ extension BubbleCanvas {
 
         guard initialDragPoint != nil else { return }
 
-        selectedBubbles.forEach { bubble in
-            guard let originalPosition = originalBubblePositions[bubble] else {
-                Swift.print("unexpectedly missing bubble position in mouse up")
-                return
-            }
-            bubbleMoveUndoCompletion?(bubble, bubble.position, originalPosition)
-        }
+//        selectedBubbles.forEach { bubble in
+//            guard let originalPosition = originalBubblePositions[bubble] else {
+//                Swift.print("unexpectedly missing bubble position in mouse up")
+//                return
+//            }
+//            bubbleMoveUndoCompletion?(bubble, bubble.position, originalPosition)
+//        }
         resizeCanvas()
     }
 

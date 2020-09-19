@@ -38,15 +38,16 @@ class Document: NSDocument {
         bubbleSoup = BubbleSoup()
         super.init()
         image = NSImage(named: "flumph")!
-
-        if let undoManager = undoManager {
-            bubbleSoup.undoManager = undoManager
-        }
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
         imageView.image = image
+
+        if let undoManager = undoManager {
+            bubbleSoup.undoManager = undoManager
+        }
+
         bubbleCanvas.bubbles = bubbles
         // need to actually drive the frame from the bubbles
         bubbleScroller.contentView.backgroundColor = BubbleCanvas.background

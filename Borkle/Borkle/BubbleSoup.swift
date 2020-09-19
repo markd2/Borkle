@@ -7,6 +7,8 @@ import Foundation
 /// the soup (with undo support)
 class BubbleSoup {
 
+    var invalHook: ((Bubble) -> Void)?
+
     /// How many bubbles we have.
     public var bubbleCount: Int {
         return bubbles.count
@@ -18,11 +20,20 @@ class BubbleSoup {
 
     /// Undo manager responsible for handling undo.  One will be provided if you don't
     /// give us one
-    var undoManager: UndoManager
+    var undoManager: UndoManager {
+        didSet {
+            print("SNORGLE")
+        }
+    }
     
     public init(undoManager: UndoManager? = nil) {
-        self.undoManager = undoManager ?? UndoManager()
-        undoManager?.groupsByEvent = false
+        if let undoManager = undoManager {
+            self.undoManager = undoManager
+        } else {
+            // most likely for tests, so turn off runloop grouping
+            self.undoManager = UndoManager()
+            undoManager?.groupsByEvent = false
+        }
     }
     
     /// Looks up a bubble in the soup by its ID.  Returns nil if not found.
@@ -56,6 +67,7 @@ class BubbleSoup {
             self.move(bubble: bubble, to: oldPoint)
         }
         undoManager.endUndoGrouping()
+        invalHook?(bubble)
     }
 }
 
