@@ -42,6 +42,20 @@ class BubbleSoup {
         add(bubblesArray: bubbles)
     }
 
+    /// Move the bubble's location to a new place.
+    public func move(bubble: Bubble, to newPosition: CGPoint) {
+        undoManager.beginUndoGrouping()
+        let oldPoint = bubble.position
+        bubble.position = newPosition
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            self.move(bubble: bubble, to: oldPoint)
+        }
+        undoManager.endUndoGrouping()
+    }
+}
+
+/// Helper Methods
+extension BubbleSoup {
     /// Helper function for adding bubbles to the soup, has undo support
     internal func add(bubblesArray bubbles: [Bubble]) {
         undoManager.beginUndoGrouping()
@@ -76,15 +90,4 @@ class BubbleSoup {
         undoManager.redo()
     }
 
-    /// Move the bubble's location to a new place.
-    public func move(bubble: Bubble, to newPosition: CGPoint) {
-        undoManager.beginUndoGrouping()
-        let oldPoint = bubble.position
-        bubble.position = newPosition
-        undoManager.registerUndo(withTarget: self) { selfTarget in
-            self.move(bubble: bubble, to: oldPoint)
-        }
-        undoManager.endUndoGrouping()
-    }
-    
 }
