@@ -15,6 +15,49 @@ class BubbleSoupTests: XCTestCase {
         super.tearDown()
     }
 
+    func test_set_bubble_position() {
+        let bubble = Bubble(ID: 23)
+        bubble.position = CGPoint(x: 5, y: 10)
+        soup.add(bubble: bubble)
+
+        soup.move(bubble: bubble, to: CGPoint(x: 10, y: 20))
+        let bubble1 = soup.bubble(byID: 23)!
+        XCTAssertEqual(bubble1.position, CGPoint(x: 10, y: 20))
+    }
+
+    func test_set_bubble_position_undo() {
+        let bubble = Bubble(ID: 23)
+        bubble.position = CGPoint(x: 5, y: 10)
+        soup.add(bubble: bubble)
+
+        soup.move(bubble: bubble, to: CGPoint(x: 10, y: 20))
+        let bubble1 = soup.bubble(byID: 23)!
+        XCTAssertEqual(bubble1.position, CGPoint(x: 10, y: 20))
+
+        soup.undo()
+        XCTAssertEqual(bubble1.position, CGPoint(x: 5, y: 10))
+
+        soup.redo()
+        XCTAssertEqual(bubble1.position, CGPoint(x: 10, y: 20))
+    }
+
+}
+
+/// These exercse adding and removing
+extension BubbleSoupTests {
+    func test_add_bubble() {
+        let bubble = Bubble(ID: 23)
+        soup.add(bubble: bubble)
+        XCTAssertEqual(soup.bubbleCount, 1)
+    }
+
+    func test_add_bubble_undo() {
+        let bubble = Bubble(ID: 23)
+        soup.add(bubble: bubble)
+        soup.undo()
+        XCTAssertEqual(soup.bubbleCount, 0)
+    }
+
     func test_add_bulk_bubbles_to_empty_soup() {
         let bubbles = [Bubble(ID: 1)]
 
@@ -57,8 +100,7 @@ class BubbleSoupTests: XCTestCase {
 
 }
 
-
-// These exercise internal helper methods
+/// These exercise internal helper methods
 extension BubbleSoupTests {
     func test_remove_last_bubbles() {
         let bubbles = [Bubble(ID: 1), Bubble(ID: 2), Bubble(ID: 3)]

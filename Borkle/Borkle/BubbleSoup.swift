@@ -31,6 +31,11 @@ class BubbleSoup {
         return bubble
     }
 
+    /// Add the bubble to the soup.
+    public func add(bubble: Bubble) {
+        add(bubblesArray: [bubble])
+    }
+
     /// Add the bubbles to the soup.  There's no intrinsic order to the bubbles in the soup.
     /// (even though internally it is an array)
     public func add(bubbles: [Bubble]) {
@@ -63,6 +68,23 @@ class BubbleSoup {
     /// NSDocument UndoMangler.
     internal func undo() {
         undoManager.undoNestedGroup()
+    }
+
+    /// Triggers undo. Mainly of use for tests. Presumably you're giving us the
+    /// NSDocument UndoMangler.
+    internal func redo() {
+        undoManager.redo()
+    }
+
+    /// Move the bubble's location to a new place.
+    public func move(bubble: Bubble, to newPosition: CGPoint) {
+        undoManager.beginUndoGrouping()
+        let oldPoint = bubble.position
+        bubble.position = newPosition
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            self.move(bubble: bubble, to: oldPoint)
+        }
+        undoManager.endUndoGrouping()
     }
     
 }
