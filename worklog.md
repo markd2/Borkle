@@ -590,3 +590,6 @@ undo fun - need a grouping spanning mouse tracking.
   - unfortunatley undomanger.groupingLevel goes to two on the first beginGrouping, so can't
     rely on the grouping level for doing latched group begins.  oh well
 
+----------
+
+move the hit test into the soup too (with tests)
