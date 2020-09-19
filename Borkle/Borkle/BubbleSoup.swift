@@ -20,12 +20,8 @@ class BubbleSoup {
 
     /// Undo manager responsible for handling undo.  One will be provided if you don't
     /// give us one
-    var undoManager: UndoManager {
-        didSet {
-            print("SNORGLE")
-        }
-    }
-    
+    var undoManager: UndoManager
+
     public init(undoManager: UndoManager? = nil) {
         if let undoManager = undoManager {
             self.undoManager = undoManager
@@ -33,6 +29,26 @@ class BubbleSoup {
             // most likely for tests, so turn off runloop grouping
             self.undoManager = UndoManager()
             undoManager?.groupsByEvent = false
+        }
+    }
+
+    private var undoDepth = 0
+
+    /// When doing something that spans multiple spins of the event loop (like mouse
+    /// tracking), start a grouping before, and end it afterwards
+    func beginGrouping() {
+        undoManager.beginUndoGrouping()
+        undoDepth += 1
+    }
+
+    /// Companion to `beginGrouping`. Call it first.
+    /// Ok if called without a corresponding begin grouping - say when click-dragging in
+    /// in empty space and doing nothing, so we don't want an empty undo grouping on the stack.
+    /// (I am not terribly happy about this. ++md 9/19/2020)
+    func endGrouping() {
+        if undoDepth > 0 {
+            undoManager.endUndoGrouping()
+            undoDepth -= 1
         }
     }
     
@@ -106,5 +122,4 @@ extension BubbleSoup {
     internal func redo() {
         undoManager.redo()
     }
-
 }

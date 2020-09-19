@@ -55,7 +55,7 @@ class BubbleCanvas: NSView {
 
     var bubbleSoup: BubbleSoup! {
         didSet {
-            bubbleSoup.invalHook = invalidateBubble
+            bubbleSoup.invalHook = invalidateBubbleFollowingConnections
         }
     }
 
@@ -217,9 +217,22 @@ class BubbleCanvas: NSView {
     func invalidateBubble(_ bubble: Bubble) {
         invalidateBubble(bubble.ID)
     }
+
     func invalidateBubble(_ bubbleID: Int) {
         guard let rect = idToRectMap[bubbleID] else { return }
         let rectWithPadding = rect.insetBy(dx: -5, dy: -5)
+        setNeedsDisplay(rectWithPadding)
+    }
+
+    func invalidateBubbleFollowingConnections(_ bubble: Bubble) {
+        var union = bubble.rect
+
+        bubble.connections.forEach {
+            if let connectedBubble = bubbleSoup.bubble(byID: $0) {
+                union = union.union(connectedBubble.rect)
+            }
+        }
+        let rectWithPadding = union.insetBy(dx: -5, dy: -5)
         setNeedsDisplay(rectWithPadding)
     }
 
@@ -294,6 +307,8 @@ extension BubbleCanvas {
         } else {
 
             if let bubble = bubble {
+                bubbleSoup.beginGrouping()
+
                 if selectedBubbles.contains(bubble) {
                     // bubble already selected, so it's a drag of existing selection
                     initialDragPoint = viewLocation
@@ -360,6 +375,7 @@ extension BubbleCanvas {
         defer {
             initialDragPoint = nil
             scrollOrigin = nil
+            bubbleSoup.endGrouping()
         }
 
         if spaceDown {
@@ -370,13 +386,6 @@ extension BubbleCanvas {
 
         guard initialDragPoint != nil else { return }
 
-//        selectedBubbles.forEach { bubble in
-//            guard let originalPosition = originalBubblePositions[bubble] else {
-//                Swift.print("unexpectedly missing bubble position in mouse up")
-//                return
-//            }
-//            bubbleMoveUndoCompletion?(bubble, bubble.position, originalPosition)
-//        }
         resizeCanvas()
     }
 
