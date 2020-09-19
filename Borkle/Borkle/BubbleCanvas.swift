@@ -3,25 +3,10 @@ import Cocoa
 class BubbleCanvas: NSView {
     static let background = NSColor(red: 228.0 / 255.0, green: 232.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
 
-    var selectedBubbles = Set<Bubble>() {
-        willSet {
-            selectedBubbles.forEach { invalidateBubble($0) }
-        }
-        didSet {
-            selectedBubbles.forEach { invalidateBubble($0) }
-        }
-    }
-    
+    var selectedBubbles = Selection()
+
     var spaceDown: Bool = false
     var currentCursor: Cursor
-
-    /// public API to select a chunka bubbles
-    func selectBubbles(_ bubbles: Set<Bubble>) {
-        selectedBubbles.forEach { invalidateBubble($0) }
-        selectedBubbles = bubbles
-
-        bubbles.forEach { invalidateBubble($0) }
-    }
 
     /// Highlighted bubble, for mouse-motion indication.  Shown as a dashed line or something.
     var highlightedID: Int? = nil
@@ -65,12 +50,14 @@ class BubbleCanvas: NSView {
         currentCursor = .arrow
         super.init(coder: coder)
         addTrackingAreas()
+        selectedBubbles.invalHook = invalidateBubbleFollowingConnections
     }
     
     override init(frame: CGRect) {
         currentCursor = .arrow
         super.init(frame: frame)
         addTrackingAreas()
+        selectedBubbles.invalHook = invalidateBubbleFollowingConnections
     }
     var trackingArea: NSTrackingArea!
 
@@ -91,7 +78,7 @@ class BubbleCanvas: NSView {
             if let rect = idToRectMap[$0.ID] {
                 if needsToDraw(rect) {
                     renderBubble($0, in: rect, 
-                        selected: selectedBubbles.contains($0),
+                        selected: selectedBubbles.isSelected(bubble: $0),
                         highlighted: $0.ID == (highlightedID ?? -666))
                 }
             } else {
@@ -164,27 +151,6 @@ class BubbleCanvas: NSView {
             NSColor.white.set()
             bezierPath.stroke()
         }
-    }
-
-    func selectBubble(_ bubble: Bubble?) {
-        guard let bubble = bubble else {
-            return
-        }
-        
-        if !selectedBubbles.contains(bubble) {
-            selectedBubbles.insert(bubble)
-        }
-    }
-
-    func toggleBubble(_ bubble: Bubble?) {
-        guard let bubble = bubble else { return }
-
-        selectedBubbles.toggle(bubble)
-        invalidateBubble(bubble)
-    }
-
-    func deselectAllBubbles() {
-        selectedBubbles.removeAll()
     }
 
     func invalidateBubble(_ bubble: Bubble) {
@@ -272,31 +238,33 @@ extension BubbleCanvas {
 
         // !!! ponder enum/switch for this
         if addToSelection {
-            selectBubble(bubble)
-
+            if let bubble = bubble {
+                selectedBubbles.select(bubble: bubble)
+            }
         } else if toggleSelection {
-            toggleBubble(bubble)
+            if let bubble = bubble {
+                selectedBubbles.toggle(bubble: bubble)
+            }
 
         } else {
-
             if let bubble = bubble {
                 bubbleSoup.beginGrouping()
 
-                if selectedBubbles.contains(bubble) {
+                if selectedBubbles.isSelected(bubble: bubble) {
                     // bubble already selected, so it's a drag of existing selection
                     initialDragPoint = viewLocation
                 } else {
                     // it's a fresh selection, no modifiers, could be a click-and-drag in one gesture
                     // !!! scapple has click-drag 
-                    deselectAllBubbles()
-                    selectBubble(bubble)
+                    selectedBubbles.unselectAll()
+                    selectedBubbles.select(bubble: bubble)
                     initialDragPoint = viewLocation
                 }
                     
                 
             } else {
                 // bubble is nil, so a click into open space, so deselect everything
-                deselectAllBubbles()
+                selectedBubbles.unselectAll()
             }
         }
 
@@ -328,10 +296,10 @@ extension BubbleCanvas {
         }
 
         guard let initialDragPoint = initialDragPoint else { return }
-        guard selectedBubbles.count > 0 else { return }
+        guard selectedBubbles.bubbleCount > 0 else { return }
 
         let delta = initialDragPoint - viewLocation
-        selectedBubbles.forEach { bubble in
+        selectedBubbles.forEachBubble { bubble in
             guard let originalPosition = originalBubblePositions[bubble] else {
                 Swift.print("unexpectedly missing original bubble position")
                 return

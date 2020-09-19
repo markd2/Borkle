@@ -176,22 +176,19 @@ class Document: NSDocument {
         return documentFileWrapper
     }
 
-    // !!! There should be a selection class that can handle this push-out of selections
-    func expand(selection: Set<Bubble>) -> Set<Bubble> {
-        var destinationSet = selection
-
+    // !!! there should be some kind of utility when given a soup and a selection to push it out.
+    // !!! maybe a command patterny thing.
+    func expand(selection: Selection) {
         // !!! this is O(N^2).  May need to have a lookup by ID?
         // !!! of course, wait until we see it appear in instruments
-        for bubble in selection {
+        selection.forEachBubble { bubble in
             for connection in bubble.connections {
                 let connectedBubble = bubbles.first { $0.ID == connection }
                 if let connectedBubble = connectedBubble {
-                    destinationSet.insert(connectedBubble)
+                    selection.select(bubble: connectedBubble)
                 }
             }
         }
-
-        return destinationSet
     }
 
     // Did we see a control-X float by? If so, if we see the next keystroke as a control-S,
@@ -230,17 +227,17 @@ extension Document {
     }
 
     @IBAction func selectAll(_ sender: Any) {
-        bubbleCanvas.selectBubbles(Set(bubbles))
+        bubbleCanvas.selectedBubbles.select(bubbles: bubbles)
     }
     
     @IBAction func expandSelection(_ sender: Any) {
-        bubbleCanvas.selectedBubbles = expand(selection: bubbleCanvas.selectedBubbles)
+        expand(selection: bubbleCanvas.selectedBubbles)
     }
     
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         switch menuItem.action {
         case #selector(expandSelection(_:)):
-            return bubbleCanvas.selectedBubbles.count > 0
+            return bubbleCanvas.selectedBubbles.bubbleCount > 0
         default:
             break
         }
