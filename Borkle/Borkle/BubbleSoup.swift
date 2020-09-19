@@ -7,7 +7,10 @@ import Foundation
 /// the soup (with undo support)
 class BubbleSoup {
 
+    /// Hook that's called when a bubble position changes, so it can be invalidated
     var invalHook: ((Bubble) -> Void)?
+
+    /// Something changed in the bubbles - maybe resize the canvas?
     var bubblesChangedHook: (() -> Void)?
 
     /// How many bubbles we have.
