@@ -596,8 +596,11 @@ move the hit test into the soup too (with tests)
 
 ----------
 
-sweet - removed explciti bubble array from the canvas
+sweet - removed explicit bubble array and selection set from the canvas
 
 ----------
 
 next - save the soup instead of the bubble array.
+
+
+
