@@ -42,6 +42,11 @@ class BubbleSoup {
         add(bubblesArray: bubbles)
     }
 
+    /// Empty out the soup
+    public func removeEverything() {
+        removeLastBubbles(count: bubbles.count)
+    }
+
     /// Move the bubble's location to a new place.
     public func move(bubble: Bubble, to newPosition: CGPoint) {
         undoManager.beginUndoGrouping()

@@ -98,6 +98,25 @@ extension BubbleSoupTests {
         XCTAssertEqual(soup.bubbleCount, 0)
     }
 
+    func test_remove_everything() {
+        let bubbles = [Bubble(ID: 1), Bubble(ID: 2), Bubble(ID: 3)]
+        soup.add(bubbles: bubbles)
+
+        XCTAssertEqual(soup.bubbleCount, 3)
+        soup.removeEverything()
+
+        XCTAssertEqual(soup.bubbleCount, 0)
+    }
+
+    func test_remove_everything_undo() {
+        let bubbles = [Bubble(ID: 1), Bubble(ID: 2), Bubble(ID: 3)]
+        soup.add(bubbles: bubbles)
+
+        soup.removeEverything()
+        XCTAssertEqual(soup.bubbleCount, 0)
+        soup.undo()
+        XCTAssertEqual(soup.bubbleCount, 3)
+    }
 }
 
 /// These exercise internal helper methods
