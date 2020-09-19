@@ -10,6 +10,8 @@
 		7D042C56250D8DB900E65175 /* ScappleImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D042C55250D8DB900E65175 /* ScappleImporter.swift */; };
 		7D2C9CD2251556B900B1E2DE /* BubbleSoup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CD1251556B900B1E2DE /* BubbleSoup.swift */; };
 		7D2C9CD6251556C200B1E2DE /* BubbleSoupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CD5251556C200B1E2DE /* BubbleSoupTests.swift */; };
+		7D2C9CDE2516B5E600B1E2DE /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CDD2516B5E600B1E2DE /* Selection.swift */; };
+		7D2C9CE22516B5EE00B1E2DE /* SelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CE12516B5EE00B1E2DE /* SelectionTests.swift */; };
 		7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */; };
 		7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDD250E719800884F29 /* LibraryExtensions.swift */; };
 		7D51127F250D6F51004F0E63 /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D51127E250D6F51004F0E63 /* Bubble.swift */; };
@@ -36,6 +38,8 @@
 		7D042C55250D8DB900E65175 /* ScappleImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScappleImporter.swift; sourceTree = "<group>"; };
 		7D2C9CD1251556B900B1E2DE /* BubbleSoup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleSoup.swift; sourceTree = "<group>"; };
 		7D2C9CD5251556C200B1E2DE /* BubbleSoupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleSoupTests.swift; sourceTree = "<group>"; };
+		7D2C9CDD2516B5E600B1E2DE /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
+		7D2C9CE12516B5EE00B1E2DE /* SelectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTests.swift; sourceTree = "<group>"; };
 		7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleCanvas.swift; sourceTree = "<group>"; };
 		7D452DDD250E719800884F29 /* LibraryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryExtensions.swift; sourceTree = "<group>"; };
 		7D51127E250D6F51004F0E63 /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 				7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */,
 				7D452DDD250E719800884F29 /* LibraryExtensions.swift */,
 				7D2C9CD1251556B900B1E2DE /* BubbleSoup.swift */,
+				7D2C9CDD2516B5E600B1E2DE /* Selection.swift */,
 			);
 			path = Borkle;
 			sourceTree = "<group>";
@@ -115,6 +120,7 @@
 				7D93A75F250AD8DD00991121 /* BorkleTests.swift */,
 				7D93A761250AD8DD00991121 /* Info.plist */,
 				7D2C9CD5251556C200B1E2DE /* BubbleSoupTests.swift */,
+				7D2C9CE12516B5EE00B1E2DE /* SelectionTests.swift */,
 			);
 			path = BorkleTests;
 			sourceTree = "<group>";
@@ -221,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D2C9CDE2516B5E600B1E2DE /* Selection.swift in Sources */,
 				7D93A74C250AD8DC00991121 /* Document.swift in Sources */,
 				7D51127F250D6F51004F0E63 /* Bubble.swift in Sources */,
 				7D042C56250D8DB900E65175 /* ScappleImporter.swift in Sources */,
@@ -235,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D2C9CE22516B5EE00B1E2DE /* SelectionTests.swift in Sources */,
 				7D2C9CD6251556C200B1E2DE /* BubbleSoupTests.swift in Sources */,
 				7D93A760250AD8DD00991121 /* BorkleTests.swift in Sources */,
 			);
