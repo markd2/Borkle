@@ -638,7 +638,32 @@ The latter should make it a bit easier for undo / bottleneck the changes.
 Then tests can make a scenario, feed in synthetic points, and make sure the proper changes get
 emitted.
 
+Some of the actions that can happen:
+* select this
+* deselcet this
+* toggle this
+
+* temporarily drag these
+* actuallly move these
+
+* connect these
+* disconnect these
+
+* create this
+* duplicate this and put at this place
+* duplicate these and put at this new place
 
 
+* scroll canvas
 
+* add marquee
+* set marquee rectangle
+* remove marquee (automatically removed when processor ends.
+
+A soup-selection-control-protocol that the actions can communicate back through.
+
+----------
+
+to start out with, maybe the rubber-band selection (no modifiers).  This will do
+"hey draw stuff" and also selection manipulation
 

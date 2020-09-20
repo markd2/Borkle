@@ -5,6 +5,8 @@ class BubbleCanvas: NSView {
 
     var selectedBubbles = Selection()
 
+    var currentMouseHandler: MouseHandler?
+
     var spaceDown: Bool = false
     var currentCursor: Cursor
 
@@ -234,6 +236,13 @@ extension BubbleCanvas {
         let toggleSelection = event.modifierFlags.contains(.command)
 
         let bubble = bubbleSoup.hitTestBubble(at: viewLocation)
+
+        if bubble == nil {
+            // space!
+            currentMouseHandler = MouseSpacer()
+            currentMouseHandler?.start(at: viewLocation)
+        }
+
         initialDragPoint = nil
 
         // !!! ponder enum/switch for this
@@ -286,6 +295,12 @@ extension BubbleCanvas {
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil) as CGPoint
 
+
+        if let handler = currentMouseHandler {
+            handler.move(to: viewLocation)
+            return
+        }
+
         if spaceDown {
             guard let initialDragPoint = initialDragPoint, let scrollOrigin = scrollOrigin  else { return }
             let rawDelta = locationInWindow - initialDragPoint
@@ -318,6 +333,12 @@ extension BubbleCanvas {
             initialDragPoint = nil
             scrollOrigin = nil
             bubbleSoup.endGrouping()
+        }
+
+        if let handler = currentMouseHandler {
+            handler.finish()
+            currentMouseHandler = nil
+            return
         }
 
         if spaceDown {
