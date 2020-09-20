@@ -601,6 +601,9 @@ sweet - removed explicit bubble array and selection set from the canvas
 ----------
 
 next - save the soup instead of the bubble array.
+  - going to try with the yaml thing / SPM, see how _that_ goes
+  - e.g. Yams.
+
 
 
 
