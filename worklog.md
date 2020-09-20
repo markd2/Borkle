@@ -621,6 +621,22 @@ urg yikes.
 The colored areas are articulation regions. So could have a 
   "bubble mouse handler" and  "space mouse handler" and a "spce double click handler"
 
+So the event can pump it with things like
+
+* start
+* move to
+* finish
+
+It'll either have read/write access to the soup, or somehow come up with a sequence
+of changes.
+
+"hey, these bubbles should move from here to there" or "these bubbles should go into select and this set
+should go out of selection"
+
+The latter should make it a bit easier for undo / bottleneck the changes.
+
+Then tests can make a scenario, feed in synthetic points, and make sure the proper changes get
+emitted.
 
 
 
