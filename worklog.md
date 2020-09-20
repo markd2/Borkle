@@ -604,6 +604,9 @@ next - save the soup instead of the bubble array.
   - going to try with the yaml thing / SPM, see how _that_ goes
   - e.g. Yams.
 
+File -> Swift Packages -> etc
+
+extension on file wrapper to give it a string
 
 
 
