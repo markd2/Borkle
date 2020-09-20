@@ -1,4 +1,5 @@
 import Cocoa
+import Yams
 
 class Document: NSDocument {
     @IBOutlet var imageView: NSImageView!
@@ -9,7 +10,7 @@ class Document: NSDocument {
 
     let imageFilename = "image.png"
     let metadataFilename = "metadata.json"
-    let bubbleFilename = "bubbles.json"
+    let bubbleFilename = "bubbles.yaml"
 
     /// On the way out
     var bubbles: [Bubble] = [] {
@@ -100,7 +101,7 @@ class Document: NSDocument {
 
         if let bubbleFileWrapper = fileWrappers[bubbleFilename] {
             let bubbleData = bubbleFileWrapper.regularFileContents!
-            let decoder = JSONDecoder()
+            let decoder = YAMLDecoder()
             let bubbles = try! decoder.decode([Bubble].self, from: bubbleData)
             self.bubbles = bubbles
         }
@@ -135,12 +136,11 @@ class Document: NSDocument {
             throw(FileWrapperError.unexpectedlyNilFileWrappers)
         }
 
-        if fileWrappers[bubbleFilename] == nil {
-            let encoder = JSONEncoder()
-            encoder.outputFormatting = .prettyPrinted
+        if fileWrappers[bubbleFilename] == nil || true {
+            let encoder = YAMLEncoder()
 
-            if let bubbleData = try? encoder.encode(bubbles) {
-                let bubbleFileWrapper = FileWrapper(regularFileWithContents: bubbleData)
+            if let bubbleString = try? encoder.encode(bubbles) {
+                let bubbleFileWrapper = FileWrapper(regularFileWithContents: bubbleString.data(using: .utf8)!)
                 bubbleFileWrapper.preferredFilename = bubbleFilename
                 documentFileWrapper.addFileWrapper(bubbleFileWrapper)
             }
@@ -259,8 +259,8 @@ extension Document {
 
     func importScapple(url: URL) {
         do {
-            Swift.print("SNORGLE LOAD \(url)")
             bubbles = try ScappleImporter().importScapple(url: url)
+            bubbleSoup.add(bubbles: bubbles)
         } catch {
             Swift.print("import error \(error)")
         }
