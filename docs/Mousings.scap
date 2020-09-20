@@ -845,7 +845,7 @@
             <String>move selection</String>
             <ConnectedNoteIDs>298</ConnectedNoteIDs>
         </Note>
-        <Note ID="342" FontSize="12.0" Position="632.0,710.0" Width="75.0">
+        <Note ID="342" FontSize="12.0" Position="634.951477,673.07605" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
@@ -872,7 +872,7 @@
             <String>no undo</String>
             <ConnectedNoteIDs>301</ConnectedNoteIDs>
         </Note>
-        <Note ID="345" FontSize="12.0" Position="1248.15332,720.22113" Width="111.0">
+        <Note ID="345" FontSize="12.0" Position="1265.707886,810.359497" Width="111.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
@@ -882,280 +882,280 @@
             <ConnectedNoteIDs>346, 377</ConnectedNoteIDs>
             <PointsToNoteIDs>346, 377</PointsToNoteIDs>
         </Note>
-        <Note ID="346" FontSize="12.0" Position="1282.548096,779.602417" Width="68.0">
+        <Note ID="346" FontSize="12.0" Position="1342.358765,876.469238" Width="68.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
                 <Fill>1.0 0.985996 0.952345</Fill>
             </Appearance>
             <String>mouse down</String>
-            <ConnectedNoteIDs>345, 349-351, 375</ConnectedNoteIDs>
+            <ConnectedNoteIDs>345, 349-351, 407, 412</ConnectedNoteIDs>
         </Note>
-        <Note ID="348" FontSize="12.0" Position="1097.043213,990.755066" Width="75.0">
+        <Note ID="348" FontSize="12.0" Position="1114.597778,1080.893433" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.978418 0.952345 1.0</Fill>
             </Appearance>
             <String>select</String>
             <ConnectedNoteIDs>353, 356</ConnectedNoteIDs>
         </Note>
-        <Note ID="349" FontSize="12.0" Position="1074.661743,838.259277" Width="75.0">
+        <Note ID="349" FontSize="12.0" Position="1092.216309,928.397644" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.978418 0.952345 1.0</Fill>
             </Appearance>
             <String>in bubble</String>
             <ConnectedNoteIDs>346, 352-353</ConnectedNoteIDs>
         </Note>
-        <Note ID="350" FontSize="12.0" Position="1428.070801,758.839355" Width="75.0">
+        <Note ID="350" FontSize="12.0" Position="1417.543091,820.296875" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.861483 0.967315 1.0</Fill>
             </Appearance>
             <String>on line</String>
             <ConnectedNoteIDs>346, 365</ConnectedNoteIDs>
         </Note>
-        <Note ID="351" FontSize="12.0" Position="1319.610474,848.375671" Width="75.0">
+        <Note ID="351" FontSize="12.0" Position="1337.164917,938.514038" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>1.0 0.904672 0.907638</Fill>
             </Appearance>
             <String>in space</String>
             <ConnectedNoteIDs>346, 357-358</ConnectedNoteIDs>
         </Note>
-        <Note ID="352" FontSize="12.0" Position="1027.590332,929.90033" Width="76.0">
+        <Note ID="352" FontSize="12.0" Position="1045.144897,1020.038696" Width="76.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.978418 0.952345 1.0</Fill>
             </Appearance>
             <String>mouse moved</String>
             <ConnectedNoteIDs>349, 354</ConnectedNoteIDs>
         </Note>
-        <Note ID="353" FontSize="12.0" Position="1116.05542,927.108459" Width="52.0">
+        <Note ID="353" FontSize="12.0" Position="1133.609985,1017.246826" Width="52.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.978418 0.952345 1.0</Fill>
             </Appearance>
             <String>mouse up</String>
             <ConnectedNoteIDs>348-349</ConnectedNoteIDs>
         </Note>
-        <Note ID="354" FontSize="12.0" Position="993.463684,992.079468" Width="75.0">
+        <Note ID="354" FontSize="12.0" Position="1011.01825,1082.217773" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.978418 0.952345 1.0</Fill>
             </Appearance>
             <String>drag</String>
             <ConnectedNoteIDs>352, 355</ConnectedNoteIDs>
         </Note>
-        <Note ID="355" FontSize="12.0" Position="986.75885,1046.591797" Width="50.0">
+        <Note ID="355" FontSize="12.0" Position="1004.313354,1136.730225" Width="50.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.978418 0.952345 1.0</Fill>
             </Appearance>
             <String>mouse up</String>
             <ConnectedNoteIDs>354, 364, 366, 371</ConnectedNoteIDs>
         </Note>
-        <Note ID="356" FontSize="12.0" Position="1194.196167,1235.817017" Width="75.0">
+        <Note ID="356" FontSize="12.0" Position="1211.750732,1325.955322" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
                 <Fill>1.0 0.985996 0.952345</Fill>
             </Appearance>
             <String>ƒin</String>
-            <ConnectedNoteIDs>348, 363-364, 367, 373, 376</ConnectedNoteIDs>
+            <ConnectedNoteIDs>348, 363-364, 367, 373, 376, 409</ConnectedNoteIDs>
             <Formatting>
                 <FormatRange Italic="Yes">0,3</FormatRange>
             </Formatting>
         </Note>
-        <Note ID="357" FontSize="12.0" Position="1401.481201,954.468506" Width="75.0">
+        <Note ID="357" FontSize="12.0" Position="1419.035645,1044.606812" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>1.0 0.904672 0.907638</Fill>
             </Appearance>
             <String>unselect all</String>
             <ConnectedNoteIDs>351, 363</ConnectedNoteIDs>
         </Note>
-        <Note ID="358" FontSize="12.0" Position="1280.552246,891.358398" Width="75.0">
+        <Note ID="358" FontSize="12.0" Position="1298.106689,981.496765" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>1.0 0.904672 0.907638</Fill>
             </Appearance>
             <String>mouse moved</String>
             <ConnectedNoteIDs>351, 359</ConnectedNoteIDs>
         </Note>
-        <Note ID="359" FontSize="12.0" Position="1243.660767,946.915771" Width="75.0">
+        <Note ID="359" FontSize="12.0" Position="1261.215332,1037.054199" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>1.0 0.904672 0.907638</Fill>
             </Appearance>
             <String>rubberband</String>
             <ConnectedNoteIDs>358, 360-362</ConnectedNoteIDs>
         </Note>
-        <Note ID="360" FontSize="12.0" Position="1178.708008,1012.629028" Width="98.0">
+        <Note ID="360" FontSize="12.0" Position="1196.262573,1102.767334" Width="98.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>1.0 0.904672 0.907638</Fill>
             </Appearance>
             <String>add to selection</String>
             <ConnectedNoteIDs>359, 363</ConnectedNoteIDs>
         </Note>
-        <Note ID="361" FontSize="12.0" Position="1220.947266,1045.031494" Width="127.0">
+        <Note ID="361" FontSize="12.0" Position="1238.501709,1135.1698" Width="127.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>1.0 0.904672 0.907638</Fill>
             </Appearance>
             <String>remove from selection</String>
             <ConnectedNoteIDs>359, 363</ConnectedNoteIDs>
         </Note>
-        <Note ID="362" FontSize="12.0" Position="1301.797119,989.148987" Width="75.0">
+        <Note ID="362" FontSize="12.0" Position="1319.351685,1079.287354" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>1.0 0.904672 0.907638</Fill>
             </Appearance>
             <String>select</String>
             <ConnectedNoteIDs>359, 363</ConnectedNoteIDs>
         </Note>
-        <Note ID="363" FontSize="12.0" Position="1281.494019,1112.354004" Width="53.0">
+        <Note ID="363" FontSize="12.0" Position="1305.451538,1196.039917" Width="53.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>1.0 0.904672 0.907638</Fill>
             </Appearance>
             <String>mouse up</String>
             <ConnectedNoteIDs>356-357, 360-362</ConnectedNoteIDs>
         </Note>
-        <Note ID="364" FontSize="12.0" Position="967.765869,1108.163452" Width="82.0">
+        <Note ID="364" FontSize="12.0" Position="985.320374,1198.30188" Width="82.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.978418 0.952345 1.0</Fill>
             </Appearance>
             <String>commit move</String>
             <ConnectedNoteIDs>355-356</ConnectedNoteIDs>
         </Note>
-        <Note ID="365" FontSize="12.0" Position="1449.063354,820.379822" Width="75.0">
+        <Note ID="365" FontSize="12.0" Position="1425.364868,765.461609" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.861483 0.967315 1.0</Fill>
             </Appearance>
             <String>TBD</String>
             <ConnectedNoteIDs>350</ConnectedNoteIDs>
         </Note>
-        <Note ID="366" FontSize="12.0" Position="860.530273,1130.019775" Width="107.0">
+        <Note ID="366" FontSize="12.0" Position="878.084839,1220.158081" Width="107.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.978418 0.952345 1.0</Fill>
             </Appearance>
             <String>Add connection</String>
             <ConnectedNoteIDs>355, 367, 369</ConnectedNoteIDs>
         </Note>
-        <Note ID="367" FontSize="12.0" Position="878.425171,1164.154419" Width="75.0">
+        <Note ID="367" FontSize="12.0" Position="895.979736,1254.292725" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.978418 0.952345 1.0</Fill>
             </Appearance>
             <String>(don’t move)</String>
             <ConnectedNoteIDs>356, 366</ConnectedNoteIDs>
         </Note>
-        <Note ID="369" FontSize="12.0" Position="775.057251,1102.354248" Width="100.0">
+        <Note ID="369" FontSize="12.0" Position="792.611816,1192.492676" Width="100.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.978418 0.952345 1.0</Fill>
             </Appearance>
             <String>option: arrow</String>
             <ConnectedNoteIDs>366</ConnectedNoteIDs>
         </Note>
-        <Note ID="371" FontSize="12.0" Position="1053.867432,1104.198486" Width="75.0">
+        <Note ID="371" FontSize="12.0" Position="1071.421997,1194.336792" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.978418 0.952345 1.0</Fill>
             </Appearance>
             <String>duplicate</String>
             <ConnectedNoteIDs>355, 373</ConnectedNoteIDs>
         </Note>
-        <Note ID="373" FontSize="12.0" Position="1061.351562,1143.375" Width="75.0">
+        <Note ID="373" FontSize="12.0" Position="1078.906128,1233.513306" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.978418 0.952345 1.0</Fill>
             </Appearance>
             <String>(don’t move)</String>
             <ConnectedNoteIDs>356, 371</ConnectedNoteIDs>
         </Note>
-        <Note ID="375" FontSize="12.0" Position="1535.989624,1021.250549" Width="69.0">
+        <Note ID="375" FontSize="12.0" Position="1563.113525,1130.84375" Width="69.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.918387 0.904672 1.0</Fill>
             </Appearance>
             <String>mouse moved</String>
-            <ConnectedNoteIDs>346, 376</ConnectedNoteIDs>
+            <ConnectedNoteIDs>376, 412</ConnectedNoteIDs>
         </Note>
-        <Note ID="376" FontSize="12.0" Position="1529.550049,1082.27356" Width="75.0">
+        <Note ID="376" FontSize="12.0" Position="1556.67395,1191.866821" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.918387 0.904672 1.0</Fill>
             </Appearance>
             <String>scroll</String>
             <ConnectedNoteIDs>356, 375</ConnectedNoteIDs>
         </Note>
-        <Note ID="377" FontSize="12.0" Position="1083.801147,720.659485" Width="75.0">
+        <Note ID="377" FontSize="12.0" Position="895.937012,820.715271" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
                 <Fill>1.0 0.985996 0.952345</Fill>
             </Appearance>
             <String>double-click</String>
-            <ConnectedNoteIDs>345, 379, 381</ConnectedNoteIDs>
+            <ConnectedNoteIDs>345, 379, 381, 410</ConnectedNoteIDs>
         </Note>
-        <Note ID="379" FontSize="12.0" Position="984.036743,760.556885" Width="75.0">
+        <Note ID="379" FontSize="12.0" Position="844.984863,862.506226" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>1.0 0.989209 0.861483</Fill>
             </Appearance>
             <String>in space</String>
             <ConnectedNoteIDs>377, 380</ConnectedNoteIDs>
         </Note>
-        <Note ID="380" FontSize="12.0" Position="941.170837,810.394165" Width="75.0">
+        <Note ID="380" FontSize="12.0" Position="823.727478,918.469238" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>1.0 0.989209 0.861483</Fill>
             </Appearance>
             <String>create new bubble</String>
             <ConnectedNoteIDs>379, 382, 389, 401</ConnectedNoteIDs>
         </Note>
-        <Note ID="381" FontSize="12.0" Position="1082.84375,764.894775" Width="75.0">
+        <Note ID="381" FontSize="12.0" Position="914.726929,918.930664" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>0.873586 1.0 0.861483</Fill>
             </Appearance>
             <String>in bubble</String>
             <ConnectedNoteIDs>377, 382</ConnectedNoteIDs>
         </Note>
-        <Note ID="382" FontSize="12.0" Position="933.975769,898.571167" Width="75.0">
+        <Note ID="382" FontSize="12.0" Position="843.650513,1008.695007" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
@@ -1164,40 +1164,93 @@
             <String>Edit</String>
             <ConnectedNoteIDs>380-381, 383</ConnectedNoteIDs>
         </Note>
-        <Note ID="383" FontSize="12.0" Position="876.48761,960.989563" Width="77.0">
+        <Note ID="383" FontSize="12.0" Position="872.384216,1081.239502" Width="77.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
                 <Fill>1.0 0.985996 0.952345</Fill>
             </Appearance>
             <String>ƒin</String>
-            <ConnectedNoteIDs>382</ConnectedNoteIDs>
+            <ConnectedNoteIDs>382, 411</ConnectedNoteIDs>
             <Formatting>
                 <FormatRange Italic="Yes">0,3</FormatRange>
             </Formatting>
         </Note>
-        <Note ID="389" FontSize="12.0" Position="796.0,850.738708" Width="75.0">
+        <Note ID="389" FontSize="12.0" Position="678.556641,958.813782" Width="75.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>1.0 0.989209 0.861483</Fill>
             </Appearance>
             <String>link to last</String>
             <ConnectedNoteIDs>380</ConnectedNoteIDs>
         </Note>
-        <Note ID="401" FontSize="12.0" Position="820.431274,883.844177" Width="76.0">
+        <Note ID="401" FontSize="12.0" Position="702.987915,991.91925" Width="76.0">
             <Appearance>
                 <Alignment>Center</Alignment>
                 <Border Weight="1"></Border>
-                <Fill>1.0 0.985996 0.952345</Fill>
+                <Fill>1.0 0.989209 0.861483</Fill>
             </Appearance>
             <String>arrow to last</String>
             <ConnectedNoteIDs>380</ConnectedNoteIDs>
         </Note>
+        <Note ID="407" FontSize="12.0" Position="1458.175049,880.310242" Width="75.0">
+            <Appearance>
+                <Alignment>Center</Alignment>
+                <Border Weight="1"></Border>
+                <Fill>0.952345 0.982402 1.0</Fill>
+            </Appearance>
+            <String>in divider</String>
+            <ConnectedNoteIDs>346, 408</ConnectedNoteIDs>
+        </Note>
+        <Note ID="408" FontSize="12.0" Position="1500.090332,927.587708" Width="75.0">
+            <Appearance>
+                <Alignment>Center</Alignment>
+                <Border Weight="1"></Border>
+                <Fill>0.952345 0.982402 1.0</Fill>
+            </Appearance>
+            <String>mouse moved</String>
+            <ConnectedNoteIDs>407, 409</ConnectedNoteIDs>
+        </Note>
+        <Note ID="409" FontSize="12.0" Position="1524.326294,992.384888" Width="131.0">
+            <Appearance>
+                <Alignment>Center</Alignment>
+                <Border Weight="1"></Border>
+                <Fill>0.952345 0.982402 1.0</Fill>
+            </Appearance>
+            <String>move righter bubbles and dividers</String>
+            <ConnectedNoteIDs>356, 408</ConnectedNoteIDs>
+        </Note>
+        <Note ID="410" FontSize="12.0" Position="960.239502,853.499695" Width="51.0">
+            <Appearance>
+                <Alignment>Center</Alignment>
+                <Border Weight="1"></Border>
+                <Fill>0.861483 0.967315 1.0</Fill>
+            </Appearance>
+            <String>line</String>
+            <ConnectedNoteIDs>377, 411</ConnectedNoteIDs>
+        </Note>
+        <Note ID="411" FontSize="12.0" Position="1006.577393,891.649231" Width="75.0">
+            <Appearance>
+                <Alignment>Center</Alignment>
+                <Border Weight="1"></Border>
+                <Fill>0.861483 0.967315 1.0</Fill>
+            </Appearance>
+            <String>edit label</String>
+            <ConnectedNoteIDs>383, 410</ConnectedNoteIDs>
+        </Note>
+        <Note ID="412" FontSize="12.0" Position="1556.564575,1086.635254" Width="75.0">
+            <Appearance>
+                <Alignment>Center</Alignment>
+                <Border Weight="1"></Border>
+                <Fill>0.918387 0.904672 1.0</Fill>
+            </Appearance>
+            <String>spacebar</String>
+            <ConnectedNoteIDs>346, 375</ConnectedNoteIDs>
+        </Note>
     </Notes>
     <BackgroundShapes></BackgroundShapes>
     <Labels>
-        <Label IDs="346,375">spacebar</Label>
         <Label IDs="359,361">option</Label>
         <Label IDs="359,360">shift</Label>
         <Label IDs="355,371">option</Label>

@@ -429,6 +429,7 @@ To set up the text system for the calculation, you need
   - a font for the string
   - a width for the area modeled by the text container.
 
+```
 float heightForStringDrawing(NSString *myString, NSFont *myFont, float *myWidth) {
     // First, you instantiate the needed text objects and hook them together.
     NSTextStorage *textStorage = [[[NSTextStorage alloc] initWithString:myString] autorelease];
@@ -607,6 +608,21 @@ next - save the soup instead of the bubble array.
 File -> Swift Packages -> etc
 
 extension on file wrapper to give it a string
+
+==================================================
+# Sunday September 20, 2020
+
+Still thinking about the complexities of mousifiication.
+
+c.f. mouse-state-machien - ![mouse-state-machien](docs/mouse-state-machien.png)
+
+urg yikes.
+
+The colored areas are articulation regions. So could have a 
+  "bubble mouse handler" and  "space mouse handler" and a "spce double click handler"
+
+
+
 
 
 
