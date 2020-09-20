@@ -140,7 +140,7 @@ class Document: NSDocument {
             let encoder = YAMLEncoder()
 
             if let bubbleString = try? encoder.encode(bubbles) {
-                let bubbleFileWrapper = FileWrapper(regularFileWithContents: bubbleString.data(using: .utf8)!)
+                let bubbleFileWrapper = FileWrapper(regularFileWithString: bubbleString)
                 bubbleFileWrapper.preferredFilename = bubbleFilename
                 documentFileWrapper.addFileWrapper(bubbleFileWrapper)
             }

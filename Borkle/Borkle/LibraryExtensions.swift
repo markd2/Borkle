@@ -109,4 +109,8 @@ extension FileWrapper {
             removeFileWrapper(fileWrapper)
         }
     }
+
+    convenience init(regularFileWithString string: String) {
+        self.init(regularFileWithContents: string.data(using: .utf8)!)
+    }
 }
