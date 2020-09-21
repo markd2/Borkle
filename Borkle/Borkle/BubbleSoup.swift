@@ -101,6 +101,7 @@ class BubbleSoup {
         undoManager.endUndoGrouping()
     }
 
+    // Make a new bubble centered at the given point.  ID is max + 1 of existing bubbles.
     public func create(newBubbleAt point: CGPoint) {
         let maxID = maxBubbleID()
         let bubble = Bubble(ID: maxID + 1)
@@ -108,6 +109,7 @@ class BubbleSoup {
         bubble.position = CGPoint(x: point.x - defaultWidth / 2.0, y: point.y - defaultHeight / 2.0)
         bubble.text = "Snorgle"
 
+        add(bubble: bubble)
         invalHook?(bubble)
     }
 
@@ -138,6 +140,7 @@ class BubbleSoup {
         return bubble
     }
 
+    /// Given a rectangle, return all bubbles that intersect the rect.
     public func areaTestBubbles(intersecting rect: CGRect) -> [Bubble]? {
         let intersectingBubbles = bubbles.filter { $0.rect.intersects(rect) }
         let result = intersectingBubbles.count > 0 ? intersectingBubbles : nil
@@ -191,6 +194,8 @@ extension BubbleSoup {
         undoManager.redo()
     }
 
+    /// Returns the largest bubble ID (so you can presumably create a new bubble)
+    /// The IDs are not compact.
     internal func maxBubbleID() -> Int {
         var maxID = 0
 
