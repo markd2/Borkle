@@ -18,6 +18,8 @@ protocol MouseSupport {
 
     var currentScrollOffset: CGPoint { get }
     func scroll(to: CGPoint)
+
+    func createNewBubble(at: CGPoint)
 }
 
 

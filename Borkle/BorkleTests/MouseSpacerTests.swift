@@ -95,3 +95,42 @@ class MouseSpaceTests: XCTestCase {
         XCTAssertEqual(testSupport.selectArgument, [b1, b2])
     }
 }
+
+class MouseDoubleSpaceTests: XCTestCase {
+    var mouser: MouseDoubleSpacer!
+    private var testSupport: TestSupport!
+
+    override func setUp() {
+        super.setUp()
+        testSupport = TestSupport()
+        mouser = MouseDoubleSpacer(withSupport: testSupport)
+    }
+
+    override func tearDown() {
+        mouser = nil
+        testSupport = nil
+        super.tearDown()
+    }
+    
+    func test_double_click_creates_bubble() {
+        mouser.start(at: .zero)
+        mouser.finish()
+        XCTAssertEqual(testSupport.createNewBubbleArgument, CGPoint.zero)
+    }
+
+    func test_double_click_and_drag_short_distance_still_creates() {
+        mouser.start(at: .zero)
+        mouser.move(to: CGPoint(x: MouseDoubleSpacer.slopLimit / 2.0,
+                y: MouseDoubleSpacer.slopLimit / 2.0))
+        mouser.finish()
+        XCTAssertNotNil(testSupport.createNewBubbleArgument)
+    }
+
+    func test_double_click_and_drag_long_distance_doesnt_create() {
+        mouser.start(at: .zero)
+        mouser.move(to: CGPoint(x: MouseDoubleSpacer.slopLimit * 2.0,
+                y: MouseDoubleSpacer.slopLimit * 2.0))
+        mouser.finish()
+        XCTAssertNil(testSupport.createNewBubbleArgument)
+    }
+}

@@ -7,6 +7,9 @@ import Foundation
 /// the soup (with undo support)
 class BubbleSoup {
 
+    let defaultWidth: CGFloat = 100
+    let defaultHeight: CGFloat = 8
+
     /// Hook that's called when a bubble position changes, so it can be invalidated
     var invalHook: ((Bubble) -> Void)?
 
@@ -80,6 +83,34 @@ class BubbleSoup {
     /// (even though internally it is an array)
     public func add(bubbles: [Bubble]) {
         add(bubblesArray: bubbles)
+
+        bubbles.forEach { invalHook?($0) }
+    }
+
+    /// Remove a bunch of bubbles
+    public func remove(bubbles: [Bubble]) {
+        undoManager.beginUndoGrouping()
+        bubbles.forEach { invalHook?($0) }
+
+        let filtered = self.bubbles.filter { return !bubbles.contains($0) }
+        self.bubbles = filtered
+
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            self.add(bubbles: bubbles)
+        }
+        undoManager.endUndoGrouping()
+    }
+
+    // Make a new bubble centered at the given point.  ID is max + 1 of existing bubbles.
+    public func create(newBubbleAt point: CGPoint) {
+        let maxID = maxBubbleID()
+        let bubble = Bubble(ID: maxID + 1)
+        bubble.width = defaultWidth
+        bubble.position = CGPoint(x: point.x - defaultWidth / 2.0, y: point.y - defaultHeight / 2.0)
+        bubble.text = "Snorgle"
+
+        add(bubble: bubble)
+        invalHook?(bubble)
     }
 
     /// Empty out the soup
@@ -109,6 +140,7 @@ class BubbleSoup {
         return bubble
     }
 
+    /// Given a rectangle, return all bubbles that intersect the rect.
     public func areaTestBubbles(intersecting rect: CGRect) -> [Bubble]? {
         let intersectingBubbles = bubbles.filter { $0.rect.intersects(rect) }
         let result = intersectingBubbles.count > 0 ? intersectingBubbles : nil
@@ -146,6 +178,8 @@ extension BubbleSoup {
             self.add(bubbles: lastChunk)
         }
         undoManager.endUndoGrouping()
+
+        lastChunk.forEach { invalHook?($0) }
     }
 
     /// Triggers undo. Mainly of use for tests. Presumably you're giving us the
@@ -158,5 +192,16 @@ extension BubbleSoup {
     /// NSDocument UndoMangler.
     internal func redo() {
         undoManager.redo()
+    }
+
+    /// Returns the largest bubble ID (so you can presumably create a new bubble)
+    /// The IDs are not compact.
+    internal func maxBubbleID() -> Int {
+        var maxID = 0
+
+        forEachBubble { bubble in
+            maxID = max(maxID, bubble.ID)
+        }
+        return maxID
     }
 }

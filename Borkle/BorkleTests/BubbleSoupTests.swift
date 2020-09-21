@@ -75,6 +75,78 @@ class BubbleSoupTests: XCTestCase {
         XCTAssertEqual(selection[1].ID, 2)
     }
 
+    func test_max_bubble_ID() {
+        soup.add(bubbles: [Bubble(ID: 665), Bubble(ID: 23)])
+        XCTAssertEqual(soup.maxBubbleID(), 665)
+    }
+
+    func test_create_bubble() {
+        let point = CGPoint(x: 100, y: 200)
+        soup.create(newBubbleAt: point)
+        XCTAssertEqual(soup.bubbleCount, 1)
+
+        let bubble = soup.bubble(byID: 1)
+        XCTAssertNotNil(bubble)
+
+        // the actual position isn't 100% predictable due to font stuff,
+        // so make sure the bubble contains the new bubble pointfor now.
+        XCTAssertTrue(bubble!.rect.contains(point))
+    }
+
+    func test_create_bubble_undo() {
+        let point = CGPoint(x: 100, y: 200)
+        soup.create(newBubbleAt: point)
+        soup.create(newBubbleAt: point)
+        XCTAssertEqual(soup.bubbleCount, 2)
+
+        soup.undo()
+        XCTAssertEqual(soup.bubbleCount, 1)
+
+        soup.undo()
+        XCTAssertEqual(soup.bubbleCount, 0)
+
+        soup.redo()
+        XCTAssertEqual(soup.bubbleCount, 1)
+    }
+
+    func test_delete_bubble() {
+        let bubbles = [Bubble(ID: 1), Bubble(ID: 5), Bubble(ID: 3)]
+        soup.add(bubbles: bubbles)
+
+        soup.remove(bubbles: [bubbles[1]]) // remove ID 5
+        XCTAssertEqual(soup.bubbleCount, 2)
+
+        XCTAssertNotNil(soup.bubble(byID: 1))
+        XCTAssertNotNil(soup.bubble(byID: 3))
+        XCTAssertNil(soup.bubble(byID: 5))
+    }
+
+    func test_delete_bubble_undo() {
+        let bubbles = [Bubble(ID: 1), Bubble(ID: 5), Bubble(ID: 3)]
+        soup.add(bubbles: bubbles)
+
+        soup.remove(bubbles: [bubbles[1]]) // remove ID 5
+        XCTAssertEqual(soup.bubbleCount, 2)
+
+        soup.remove(bubbles: [bubbles[2]]) // remove ID 3
+        XCTAssertEqual(soup.bubbleCount, 1)
+
+        XCTAssertNotNil(soup.bubble(byID: 1))
+        XCTAssertNil(soup.bubble(byID: 3))
+        XCTAssertNil(soup.bubble(byID: 5))
+        
+        soup.undo()
+        XCTAssertEqual(soup.bubbleCount, 2)
+        XCTAssertNotNil(soup.bubble(byID: 1))
+        XCTAssertNotNil(soup.bubble(byID: 3))
+        XCTAssertNil(soup.bubble(byID: 5))
+        
+        soup.undo()
+        XCTAssertEqual(soup.bubbleCount, 3)
+        XCTAssertNotNil(soup.bubble(byID: 1))
+        XCTAssertNotNil(soup.bubble(byID: 3))
+        XCTAssertNotNil(soup.bubble(byID: 5))
+    }
 }
 
 /// These exercse adding and removing

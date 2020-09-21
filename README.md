@@ -56,3 +56,9 @@ Click and drag in "space" to do a basic rubber band selection
 
 ![](assets/rubber-band.gif)
 
+### Double-click to create
+
+Double-click in space to create a new bubble
+
+![](assets/creation.gif)
+

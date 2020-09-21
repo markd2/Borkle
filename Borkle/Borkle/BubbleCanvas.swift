@@ -265,6 +265,12 @@ extension BubbleCanvas {
             return
         }
 
+        if event.clickCount == 2 {
+            currentMouseHandler = MouseDoubleSpacer(withSupport: self)
+            currentMouseHandler?.start(at: viewLocation)
+            return
+        }
+
         let addToSelection = event.modifierFlags.contains(.shift)
         let toggleSelection = event.modifierFlags.contains(.command)
 
@@ -272,7 +278,13 @@ extension BubbleCanvas {
 
         if bubble == nil {
             // space!
-            currentMouseHandler = MouseSpacer(withSupport: self)
+            if event.clickCount == 1 {
+                currentMouseHandler = MouseSpacer(withSupport: self)
+            } else if event.clickCount == 2 {
+                currentMouseHandler = MouseDoubleSpacer(withSupport: self)
+            } else {
+                // do nothing
+            }
             currentMouseHandler?.start(at: viewLocation)
             return
         }
@@ -468,7 +480,10 @@ extension BubbleCanvas: MouseSupport {
     }
 
     func scroll(to newOrigin: CGPoint) {
-        let windowCoordinates = convert(newOrigin, to: nil)
         scroll(newOrigin)
+    }
+
+    func createNewBubble(at point: CGPoint) {
+        bubbleSoup.create(newBubbleAt: point)
     }
 }

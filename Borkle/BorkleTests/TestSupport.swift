@@ -44,6 +44,11 @@ class TestSupport: MouseSupport {
         scrollArgument = point
     }
 
+    var createNewBubbleArgument: CGPoint?
+    func createNewBubble(at point: CGPoint) {
+        createNewBubbleArgument = point
+    }
+
     func reset() {
         hitTestBubbleArgument = nil
         hitTestBubbleReturn = nil
@@ -57,5 +62,6 @@ class TestSupport: MouseSupport {
         currentScrollOffsetCalled = false
         currentScrollOffsetReturn = CGPoint.zero
         scrollArgument = nil
+        createNewBubbleArgument = nil
     }
 }
