@@ -328,9 +328,12 @@ extension BubbleCanvas {
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil) as CGPoint
 
-
         if let handler = currentMouseHandler {
-            handler.move(to: viewLocation)
+            if handler.prefersWindowCoordinates {
+                handler.move(to: locationInWindow)
+            } else {
+                handler.move(to: viewLocation)
+            }
             return
         }
 
@@ -459,10 +462,14 @@ extension BubbleCanvas: MouseSupport {
             return .zero
         }
 
-        return clipview.bounds.origin
+        let origin = clipview.bounds.origin
+        let viewCoordinates = origin
+
+        return viewCoordinates
     }
 
     func scroll(to newOrigin: CGPoint) {
+        let windowCoordinates = convert(newOrigin, to: nil)
         scroll(newOrigin)
     }
 }

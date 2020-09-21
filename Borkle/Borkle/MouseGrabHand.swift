@@ -6,6 +6,8 @@ class MouseGrabHand: MouseHandler {
 
     var initialDragPoint: CGPoint!
     var scrollOrigin: CGPoint!
+
+    var prefersWindowCoordinates: Bool { return true }
     
     init(withSupport support: MouseSupport) {
         self.support = support
@@ -20,6 +22,7 @@ class MouseGrabHand: MouseHandler {
         let rawDelta = point - initialDragPoint
         let flippedX = CGPoint(x: rawDelta.x, y: -rawDelta.y)
         let newOrigin = scrollOrigin + flippedX
+
         support.scroll(to: newOrigin)
     }
     
