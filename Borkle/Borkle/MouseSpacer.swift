@@ -1,22 +1,6 @@
 import Foundation
 
 /// Mouse handler for clicks that start in space (blank canvas)
-
-protocol MouseHandler {
-    func start(at: CGPoint)
-    func move(to: CGPoint)
-    func finish()
-}
-
-protocol MouseSupport {
-    func hitTestBubble(at: CGPoint) -> Bubble?
-    func areaTestBubbles(intersecting: CGRect) -> [Bubble]?
-    func drawMarquee(around: CGRect)
-
-    func unselectAll()
-    func select(bubbles: [Bubble])
-}
-
 class MouseSpacer: MouseHandler {
     private var support: MouseSupport
     private var anchorPoint: CGPoint!

@@ -14,10 +14,16 @@ class MouseSpaceTests: XCTestCase {
     }
 
     override func tearDown() {
-        super.tearDown()
         mouser = nil
         testSupport = nil
+        super.tearDown()
     }
+
+    func test_window_coordinate_preference() {
+        // We like view coordinates thank you very much
+        XCTAssertFalse(mouser.prefersWindowCoordinates)
+    }
+
 
     func test_just_click_deselects_everything() {
         mouser.start(at: .zero)
@@ -87,49 +93,5 @@ class MouseSpaceTests: XCTestCase {
         mouser.move(to: .zero)
         XCTAssertTrue(testSupport.unselectAllCalled)
         XCTAssertEqual(testSupport.selectArgument, [b1, b2])
-    }
-}
-
-private class TestSupport: MouseSupport {
-
-    var hitTestBubbleArgument: CGPoint? = nil
-    var hitTestBubbleReturn: Bubble? = nil
-    func hitTestBubble(at: CGPoint) -> Bubble? {
-        hitTestBubbleArgument = at
-        return hitTestBubbleReturn
-    }
-
-    var areaTestBubblesArgument: CGRect? = nil
-    var areaTestBubblesReturn: [Bubble]? = nil
-    func areaTestBubbles(intersecting: CGRect) -> [Bubble]? {
-        areaTestBubblesArgument = intersecting
-        return areaTestBubblesReturn
-    }
-
-    var drawMarqueeArgument: CGRect? = nil
-    func drawMarquee(around: CGRect) {
-        drawMarqueeArgument = around
-    }
-
-    var unselectAllCalled = false
-    func unselectAll() {
-        unselectAllCalled = true
-    }
-
-    var selectArgument: [Bubble]? = nil
-    func select(bubbles: [Bubble]) {
-        selectArgument = bubbles
-    }
-
-    func reset() {
-        hitTestBubbleArgument = nil
-        hitTestBubbleReturn = nil
-        areaTestBubblesArgument = nil
-        areaTestBubblesReturn = nil
-        areaTestBubblesArgument = nil
-        areaTestBubblesReturn = nil
-        drawMarqueeArgument = nil
-        unselectAllCalled = false
-        selectArgument = nil
     }
 }

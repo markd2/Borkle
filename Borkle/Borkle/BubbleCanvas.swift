@@ -259,13 +259,9 @@ extension BubbleCanvas {
         let viewLocation = convert(locationInWindow, from: nil)
 
         if spaceDown {
-            guard let clipview = superview as? NSClipView else {
-                Swift.print("no clip vieW?")
-                return
-            }
             setCursor(.closedHand)
-            initialDragPoint = locationInWindow
-            scrollOrigin = clipview.bounds.origin
+            currentMouseHandler = MouseGrabHand(withSupport: self)
+            currentMouseHandler?.start(at: locationInWindow)
             return
         }
 
@@ -278,11 +274,11 @@ extension BubbleCanvas {
             // space!
             currentMouseHandler = MouseSpacer(withSupport: self)
             currentMouseHandler?.start(at: viewLocation)
+            return
         }
 
         initialDragPoint = nil
 
-        // !!! ponder enum/switch for this
         if addToSelection {
             if let bubble = bubble {
                 selectedBubbles.select(bubble: bubble)
@@ -332,18 +328,12 @@ extension BubbleCanvas {
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil) as CGPoint
 
-
         if let handler = currentMouseHandler {
-            handler.move(to: viewLocation)
-            return
-        }
-
-        if spaceDown {
-            guard let initialDragPoint = initialDragPoint, let scrollOrigin = scrollOrigin  else { return }
-            let rawDelta = locationInWindow - initialDragPoint
-            let flippedX = CGPoint(x: rawDelta.x, y: -rawDelta.y)
-            let newOrigin = scrollOrigin + flippedX
-            scroll(newOrigin)
+            if handler.prefersWindowCoordinates {
+                handler.move(to: locationInWindow)
+            } else {
+                handler.move(to: viewLocation)
+            }
             return
         }
 
@@ -356,7 +346,6 @@ extension BubbleCanvas {
                 Swift.print("unexpectedly missing original bubble position")
                 return
             }
-//            bubble.position = originalPosition + delta
             bubbleSoup.move(bubble: bubble, to: originalPosition + delta)
             
             // the area to redraw is kind of complex - like if there's connected 
@@ -375,17 +364,15 @@ extension BubbleCanvas {
             marquee = nil
         }
 
-        if let handler = currentMouseHandler {
-            handler.finish()
-
-            return
-        }
-
         if spaceDown {
             setCursor(.openHand)
+        }
 
+        if let handler = currentMouseHandler {
+            handler.finish()
             return
         }
+
 
         guard initialDragPoint != nil else { return }
 
@@ -468,4 +455,20 @@ extension BubbleCanvas: MouseSupport {
         selectedBubbles.select(bubbles: bubbles)
     }
 
+    var currentScrollOffset: CGPoint {
+        guard let clipview = superview as? NSClipView else {
+            Swift.print("no clip vieW?")
+            return .zero
+        }
+
+        let origin = clipview.bounds.origin
+        let viewCoordinates = origin
+
+        return viewCoordinates
+    }
+
+    func scroll(to newOrigin: CGPoint) {
+        let windowCoordinates = convert(newOrigin, to: nil)
+        scroll(newOrigin)
+    }
 }
