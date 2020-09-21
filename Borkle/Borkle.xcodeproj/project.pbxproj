@@ -15,6 +15,7 @@
 		7D2C9CEB2516D09700B1E2DE /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = 7D2C9CEA2516D09700B1E2DE /* Yams */; };
 		7D2C9CF325181F9800B1E2DE /* MouseSpacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CF225181F9800B1E2DE /* MouseSpacer.swift */; };
 		7D2C9CF725181FAE00B1E2DE /* MouseSpacerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CF625181FAE00B1E2DE /* MouseSpacerTests.swift */; };
+		7D2C9CFF25190EAD00B1E2DE /* MouseSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CFE25190EAD00B1E2DE /* MouseSupport.swift */; };
 		7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */; };
 		7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDD250E719800884F29 /* LibraryExtensions.swift */; };
 		7D51127F250D6F51004F0E63 /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D51127E250D6F51004F0E63 /* Bubble.swift */; };
@@ -45,6 +46,7 @@
 		7D2C9CE12516B5EE00B1E2DE /* SelectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTests.swift; sourceTree = "<group>"; };
 		7D2C9CF225181F9800B1E2DE /* MouseSpacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseSpacer.swift; sourceTree = "<group>"; };
 		7D2C9CF625181FAE00B1E2DE /* MouseSpacerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseSpacerTests.swift; sourceTree = "<group>"; };
+		7D2C9CFE25190EAD00B1E2DE /* MouseSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseSupport.swift; sourceTree = "<group>"; };
 		7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleCanvas.swift; sourceTree = "<group>"; };
 		7D452DDD250E719800884F29 /* LibraryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryExtensions.swift; sourceTree = "<group>"; };
 		7D51127E250D6F51004F0E63 /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				7D2C9CD1251556B900B1E2DE /* BubbleSoup.swift */,
 				7D2C9CDD2516B5E600B1E2DE /* Selection.swift */,
 				7D2C9CF225181F9800B1E2DE /* MouseSpacer.swift */,
+				7D2C9CFE25190EAD00B1E2DE /* MouseSupport.swift */,
 			);
 			path = Borkle;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				7D042C56250D8DB900E65175 /* ScappleImporter.swift in Sources */,
 				7D93A74A250AD8DC00991121 /* AppDelegate.swift in Sources */,
 				7D2C9CD2251556B900B1E2DE /* BubbleSoup.swift in Sources */,
+				7D2C9CFF25190EAD00B1E2DE /* MouseSupport.swift in Sources */,
 				7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */,
 				7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */,
 			);
