@@ -14,10 +14,16 @@ class MouseSpaceTests: XCTestCase {
     }
 
     override func tearDown() {
-        super.tearDown()
         mouser = nil
         testSupport = nil
+        super.tearDown()
     }
+
+    func test_window_coordinate_preference() {
+        // We like view coordinates thank you very much
+        XCTAssertFalse(mouser.prefersWindowCoordinates)
+    }
+
 
     func test_just_click_deselects_everything() {
         mouser.start(at: .zero)

@@ -346,7 +346,6 @@ extension BubbleCanvas {
                 Swift.print("unexpectedly missing original bubble position")
                 return
             }
-//            bubble.position = originalPosition + delta
             bubbleSoup.move(bubble: bubble, to: originalPosition + delta)
             
             // the area to redraw is kind of complex - like if there's connected 
