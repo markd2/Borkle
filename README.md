@@ -62,3 +62,10 @@ Double-click in space to create a new bubble
 
 ![](assets/creation.gif)
 
+### Remove on delete
+
+Press Delete to remove bubles
+
+![](assets/remove.gif)
+
+
