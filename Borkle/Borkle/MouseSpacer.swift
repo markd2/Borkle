@@ -35,6 +35,7 @@ class MouseSpacer: MouseHandler {
         let rect = CGRect(point1: point, point2: anchorPoint)
         support.drawMarquee(around: rect)
 
+        support.unselectAll()
         let bubbles = support.areaTestBubbles(intersecting: rect)
         if let bubbles = bubbles {
             support.select(bubbles: bubbles)

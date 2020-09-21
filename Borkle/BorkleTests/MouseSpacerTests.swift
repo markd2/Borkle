@@ -68,6 +68,26 @@ class MouseSpaceTests: XCTestCase {
         XCTAssertEqual(testSupport.selectArgument, bubbles)
         XCTAssertEqual(testSupport.drawMarqueeArgument, rect)
     }
+
+    func test_expands_and_contracts_deselects() {
+        let b1 = Bubble(ID: 0)
+        let b2 = Bubble(ID: 1)
+        let b3 = Bubble(ID: 2)
+
+        mouser.start(at: .zero)
+
+        // Select 3
+        testSupport.areaTestBubblesReturn = [b1, b2, b3]
+        mouser.move(to: .zero)
+        XCTAssertEqual(testSupport.selectArgument, [b1, b2, b3])
+
+        // Now select two, make sure the selection count is 2
+        testSupport.reset()
+        testSupport.areaTestBubblesReturn = [b1, b2]
+        mouser.move(to: .zero)
+        XCTAssertTrue(testSupport.unselectAllCalled)
+        XCTAssertEqual(testSupport.selectArgument, [b1, b2])
+    }
 }
 
 private class TestSupport: MouseSupport {
@@ -99,5 +119,17 @@ private class TestSupport: MouseSupport {
     var selectArgument: [Bubble]? = nil
     func select(bubbles: [Bubble]) {
         selectArgument = bubbles
+    }
+
+    func reset() {
+        hitTestBubbleArgument = nil
+        hitTestBubbleReturn = nil
+        areaTestBubblesArgument = nil
+        areaTestBubblesReturn = nil
+        areaTestBubblesArgument = nil
+        areaTestBubblesReturn = nil
+        drawMarqueeArgument = nil
+        unselectAllCalled = false
+        selectArgument = nil
     }
 }
