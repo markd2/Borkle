@@ -83,15 +83,39 @@ class BubbleSoup {
     /// (even though internally it is an array)
     public func add(bubbles: [Bubble]) {
         add(bubblesArray: bubbles)
+
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            self.remove(bubbles: bubbles)
+        }
+
+        bubbles.forEach { invalHook?($0) }
+    }
+
+    public func remove(bubbles: [Bubble]) {
+        bubbles.forEach { invalHook?($0) }
+
+        let filtered = self.bubbles.filter { return !bubbles.contains($0) }
+        self.bubbles = filtered
+
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            self.add(bubbles: bubbles)
+        }
     }
 
     public func create(newBubbleAt point: CGPoint) {
+        undoManager.beginUndoGrouping()
         let maxID = maxBubbleID()
         let bubble = Bubble(ID: maxID + 1)
         bubble.width = defaultWidth
         bubble.position = CGPoint(x: point.x - defaultWidth / 2.0, y: point.y - defaultHeight / 2.0)
         bubble.text = "Snorgle"
         add(bubble: bubble)
+
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            selfTarget.remove(bubbles: [bubble])
+        }
+        undoManager.endUndoGrouping()
+
         invalHook?(bubble)
     }
 
