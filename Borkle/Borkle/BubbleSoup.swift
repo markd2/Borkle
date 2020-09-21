@@ -84,14 +84,11 @@ class BubbleSoup {
     public func add(bubbles: [Bubble]) {
         add(bubblesArray: bubbles)
 
-        undoManager.registerUndo(withTarget: self) { selfTarget in
-            self.remove(bubbles: bubbles)
-        }
-
         bubbles.forEach { invalHook?($0) }
     }
 
     public func remove(bubbles: [Bubble]) {
+        print("REMOVE BUBBLE \(bubbles.count)")
         bubbles.forEach { invalHook?($0) }
 
         let filtered = self.bubbles.filter { return !bubbles.contains($0) }
@@ -103,18 +100,11 @@ class BubbleSoup {
     }
 
     public func create(newBubbleAt point: CGPoint) {
-        undoManager.beginUndoGrouping()
         let maxID = maxBubbleID()
         let bubble = Bubble(ID: maxID + 1)
         bubble.width = defaultWidth
         bubble.position = CGPoint(x: point.x - defaultWidth / 2.0, y: point.y - defaultHeight / 2.0)
         bubble.text = "Snorgle"
-        add(bubble: bubble)
-
-        undoManager.registerUndo(withTarget: self) { selfTarget in
-            selfTarget.remove(bubbles: [bubble])
-        }
-        undoManager.endUndoGrouping()
 
         invalHook?(bubble)
     }
@@ -183,6 +173,8 @@ extension BubbleSoup {
             self.add(bubbles: lastChunk)
         }
         undoManager.endUndoGrouping()
+
+        lastChunk.forEach { invalHook?($0) }
     }
 
     /// Triggers undo. Mainly of use for tests. Presumably you're giving us the
