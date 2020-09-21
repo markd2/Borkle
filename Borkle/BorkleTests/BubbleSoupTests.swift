@@ -84,6 +84,11 @@ class BubbleSoupTests: XCTestCase {
     func test_create_bubble_undo() {
     }
 
+    func test_delete_bubble() {
+    }
+
+    func test_delete_bubble_undo() {
+    }
 }
 
 /// These exercse adding and removing
