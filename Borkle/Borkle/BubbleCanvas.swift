@@ -6,14 +6,16 @@ class BubbleCanvas: NSView {
     var selectedBubbles = Selection()
 
     var currentMouseHandler: MouseHandler?
+
+    let marqueeLineWidth: CGFloat = 2.0
     var marquee: CGRect? {
         willSet {
             if let blah = marquee {
-                setNeedsDisplay(blah)
+                setNeedsDisplay(blah.insetBy(dx: -marqueeLineWidth, dy: -marqueeLineWidth))
             }
 
             if let blah = newValue {
-                setNeedsDisplay(blah)
+                setNeedsDisplay(blah.insetBy(dx: -marqueeLineWidth, dy: -marqueeLineWidth))
             }
         }
     }
@@ -99,10 +101,29 @@ class BubbleCanvas: NSView {
             }
         }
 
-        if let marquee = marquee {
-            NSColor.red.set()
-            marquee.frame()
+        renderMarquee()
+    }
+
+    func renderMarquee() {
+        if var marquee = marquee {
+
+            if marquee.height <= 0 {
+                marquee.size.height = 2
+            }
+
+            if marquee.width <= 0 {
+                marquee.size.width = 2
+            }
+
+            NSColor.black.set()
+
+            let bezierPath = NSBezierPath(rect: marquee)
+            let pattern: [CGFloat] = [5.0, 5.0]
+            bezierPath.setLineDash(pattern, count: pattern.count, phase: 0.0)
+            bezierPath.lineWidth = marqueeLineWidth
+            bezierPath.stroke()
         }
+
     }
 
     func allBorders() -> [Int: CGRect] {
