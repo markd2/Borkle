@@ -23,4 +23,21 @@ class MouseGrabHandTests: XCTestCase {
         XCTAssertTrue(mouser.prefersWindowCoordinates)
     }
 
+    func test_click_doesnt_scroll() {
+        mouser.start(at: .zero)
+        mouser.finish()
+        XCTAssertNil(testSupport.scrollArgument)
+    }
+
+    func test_drag_scrolls_same_delta() {
+        testSupport.currentScrollOffsetReturn = CGPoint(x: 100, y: 200)
+        mouser.start(at: .zero)
+
+        // mouse drags down to the right
+        mouser.move(to: CGPoint(x: 10, y: 20)) // delta (10, 30)
+
+        // scroll-to moves up and to the left the same amount.
+        // y is flipped because #Cocoa
+        XCTAssertEqual(testSupport.scrollArgument, CGPoint(x: 90, y: 220))
+    }
 }

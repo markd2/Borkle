@@ -39,7 +39,6 @@ class TestSupport: MouseSupport {
         return currentScrollOffsetReturn
     }
 
-
     var scrollArgument: CGPoint?
     func scroll(to point: CGPoint) {
         scrollArgument = point
