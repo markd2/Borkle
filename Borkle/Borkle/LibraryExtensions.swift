@@ -56,6 +56,10 @@ extension CGRect {
             height: left.height + right.height)
         return rect
     }
+
+    init(at point: CGPoint, width: CGFloat, height: CGFloat) {
+        self.init(x: point.x, y: point.y, width: width, height: height)
+    }
 }
 
 

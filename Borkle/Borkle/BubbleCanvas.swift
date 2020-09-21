@@ -6,6 +6,17 @@ class BubbleCanvas: NSView {
     var selectedBubbles = Selection()
 
     var currentMouseHandler: MouseHandler?
+    var marquee: CGRect? {
+        willSet {
+            if let blah = marquee {
+                setNeedsDisplay(blah)
+            }
+
+            if let blah = newValue {
+                setNeedsDisplay(blah)
+            }
+        }
+    }
 
     var spaceDown: Bool = false
     var currentCursor: Cursor
@@ -86,6 +97,11 @@ class BubbleCanvas: NSView {
             } else {
                 Swift.print("unexpected not-rendering a bubble")
             }
+        }
+
+        if let marquee = marquee {
+            NSColor.red.set()
+            marquee.frame()
         }
     }
 
@@ -239,7 +255,7 @@ extension BubbleCanvas {
 
         if bubble == nil {
             // space!
-            currentMouseHandler = MouseSpacer()
+            currentMouseHandler = MouseSpacer(withSupport: self)
             currentMouseHandler?.start(at: viewLocation)
         }
 
@@ -333,11 +349,14 @@ extension BubbleCanvas {
             initialDragPoint = nil
             scrollOrigin = nil
             bubbleSoup.endGrouping()
+
+            currentMouseHandler = nil
+            marquee = nil
         }
 
         if let handler = currentMouseHandler {
             handler.finish()
-            currentMouseHandler = nil
+
             return
         }
 
@@ -406,3 +425,18 @@ extension BubbleCanvas {
     }
 }
 
+extension BubbleCanvas: MouseSupport {
+    func hitTestBubble(at point: CGPoint) -> Bubble? {
+        let bubble = bubbleSoup.hitTestBubble(at: point)
+        return bubble
+    }
+
+    func areaTestBubbles(in area: CGRect) -> [Bubble]? {
+        return nil
+    }
+
+    func drawMarquee(around rect: CGRect) {
+        marquee = rect
+    }
+
+}
