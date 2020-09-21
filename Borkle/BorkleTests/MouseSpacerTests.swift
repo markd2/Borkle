@@ -95,3 +95,15 @@ class MouseSpaceTests: XCTestCase {
         XCTAssertEqual(testSupport.selectArgument, [b1, b2])
     }
 }
+
+class MouseDoubleSpaceTests: XCTestCase {
+    
+    func test_double_click_creates_bubble() {
+    }
+
+    func test_double_click_and_drag_short_distance_still_creates() {
+    }
+
+    func test_double_click_and_drag_long_distance_doesnt_create() {
+    }
+}

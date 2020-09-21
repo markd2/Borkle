@@ -75,6 +75,15 @@ class BubbleSoupTests: XCTestCase {
         XCTAssertEqual(selection[1].ID, 2)
     }
 
+    func test_max_bubble_ID() {
+    }
+
+    func test_create_bubble() {
+    }
+
+    func test_create_bubble_undo() {
+    }
+
 }
 
 /// These exercse adding and removing
