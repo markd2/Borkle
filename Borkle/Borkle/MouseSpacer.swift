@@ -30,3 +30,37 @@ class MouseSpacer: MouseHandler {
     }
 }
 
+
+class MouseDoubleSpacer: MouseHandler {
+    private var support: MouseSupport
+    // cleared if a move happens, so don't create anything
+    private var startPoint: CGPoint?
+    
+    init(withSupport support: MouseSupport) {
+        self.support = support
+    }
+
+    public func start(at point: CGPoint) {
+        // this will need to go somewhere else when we support shift-dragging
+        support.unselectAll()
+        startPoint = point
+    }
+
+    public func move(to point: CGPoint) {
+        if let startPoint = startPoint {
+            let slop: CGFloat = 3.0
+            
+            let delta = startPoint - point
+            if abs(delta.x) > slop || abs(delta.y) > slop {
+                print("TOO FAR")
+                self.startPoint = nil
+            }
+        }
+    }
+    
+    public func finish() {
+        if let startPoint = startPoint {
+            support.createNewBubble(at: startPoint)
+        }
+    }
+}
