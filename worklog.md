@@ -667,3 +667,22 @@ A soup-selection-control-protocol that the actions can communicate back through.
 to start out with, maybe the rubber-band selection (no modifiers).  This will do
 "hey draw stuff" and also selection manipulation
 
+
+==================================================
+# Monday September 21, 2020
+
+more mousings. Since we've got some arcitecture now, move existing stuff out of canvas.
+
+First with the grabhand
+
+thinking init and start should be combned, getting some `!` creeping in
+
+arg, coordinates. Getting weird jumpy scrolling.
+
+----------
+
+ok, jumpiness caused by using view coordinates - which move as the view is scrolled,
+so the event coordinates change even though the mouse didn't.
+
+
+
