@@ -3,16 +3,30 @@ import XCTest
 
 class MouseSpaceTests: XCTestCase {
     var mouser: MouseSpacer!
+    private var testSupport: TestSupport!
     
     var invalCount = 0
 
     override func setUp() {
         super.setUp()
+        testSupport = TestSupport()
+        mouser = MouseSpacer(withSupport: testSupport)
     }
 
     override func tearDown() {
         super.tearDown()
+        mouser = nil
+        testSupport = nil
     }
+
+    func test_just_click_deselects_everything() {
+        mouser.start(at: .zero)
+        mouser.finish()
+
+        XCTAssertTrue(testSupport.unselectAllCalled)
+        XCTAssertNil(testSupport.selectArgument)
+    }
+}
 
 private class TestSupport: MouseSupport {
 
