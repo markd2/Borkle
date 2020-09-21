@@ -13,4 +13,7 @@ protocol MouseSupport {
 
     func unselectAll()
     func select(bubbles: [Bubble])
+
+    var currentScrollOffset: CGPoint { get }
+    func scroll(to: CGPoint)
 }

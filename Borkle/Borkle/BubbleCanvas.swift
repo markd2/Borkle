@@ -468,4 +468,16 @@ extension BubbleCanvas: MouseSupport {
         selectedBubbles.select(bubbles: bubbles)
     }
 
+    var currentScrollOffset: CGPoint {
+        guard let clipview = superview as? NSClipView else {
+            Swift.print("no clip vieW?")
+            return .zero
+        }
+
+        return clipview.bounds.origin
+    }
+
+    func scroll(to newOrigin: CGPoint) {
+        scroll(newOrigin)
+    }
 }
