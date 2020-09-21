@@ -4,6 +4,8 @@ protocol MouseHandler {
     func start(at: CGPoint)
     func move(to: CGPoint)
     func finish()
+
+    var prefersWindowCoordinates: Bool { get }
 }
 
 protocol MouseSupport {
@@ -16,4 +18,9 @@ protocol MouseSupport {
 
     var currentScrollOffset: CGPoint { get }
     func scroll(to: CGPoint)
+}
+
+
+extension MouseHandler {
+    var prefersWindowCoordinates: Bool { return false }
 }
