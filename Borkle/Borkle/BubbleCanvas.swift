@@ -259,13 +259,9 @@ extension BubbleCanvas {
         let viewLocation = convert(locationInWindow, from: nil)
 
         if spaceDown {
-            guard let clipview = superview as? NSClipView else {
-                Swift.print("no clip vieW?")
-                return
-            }
             setCursor(.closedHand)
-            initialDragPoint = locationInWindow
-            scrollOrigin = clipview.bounds.origin
+            currentMouseHandler = MouseGrabHand(withSupport: self)
+            currentMouseHandler?.start(at: locationInWindow)
             return
         }
 
@@ -278,11 +274,11 @@ extension BubbleCanvas {
             // space!
             currentMouseHandler = MouseSpacer(withSupport: self)
             currentMouseHandler?.start(at: viewLocation)
+            return
         }
 
         initialDragPoint = nil
 
-        // !!! ponder enum/switch for this
         if addToSelection {
             if let bubble = bubble {
                 selectedBubbles.select(bubble: bubble)
@@ -338,15 +334,6 @@ extension BubbleCanvas {
             return
         }
 
-        if spaceDown {
-            guard let initialDragPoint = initialDragPoint, let scrollOrigin = scrollOrigin  else { return }
-            let rawDelta = locationInWindow - initialDragPoint
-            let flippedX = CGPoint(x: rawDelta.x, y: -rawDelta.y)
-            let newOrigin = scrollOrigin + flippedX
-            scroll(newOrigin)
-            return
-        }
-
         guard let initialDragPoint = initialDragPoint else { return }
         guard selectedBubbles.bubbleCount > 0 else { return }
 
@@ -375,17 +362,15 @@ extension BubbleCanvas {
             marquee = nil
         }
 
-        if let handler = currentMouseHandler {
-            handler.finish()
-
-            return
-        }
-
         if spaceDown {
             setCursor(.openHand)
+        }
 
+        if let handler = currentMouseHandler {
+            handler.finish()
             return
         }
+
 
         guard initialDragPoint != nil else { return }
 
