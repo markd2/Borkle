@@ -480,11 +480,10 @@ extension BubbleCanvas: MouseSupport {
     }
 
     func scroll(to newOrigin: CGPoint) {
-        let windowCoordinates = convert(newOrigin, to: nil)
         scroll(newOrigin)
     }
 
     func createNewBubble(at point: CGPoint) {
-        print("CREATAE")
+        bubbleSoup.create(newBubbleAt: point)
     }
 }

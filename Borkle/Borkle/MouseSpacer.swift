@@ -52,7 +52,7 @@ class MouseDoubleSpacer: MouseHandler {
             
             let delta = startPoint - point
             if abs(delta.x) > slop || abs(delta.y) > slop {
-                print("TOO FAR")
+                // too far
                 self.startPoint = nil
             }
         }

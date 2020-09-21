@@ -7,6 +7,9 @@ import Foundation
 /// the soup (with undo support)
 class BubbleSoup {
 
+    let defaultWidth: CGFloat = 100
+    let defaultHeight: CGFloat = 8
+
     /// Hook that's called when a bubble position changes, so it can be invalidated
     var invalHook: ((Bubble) -> Void)?
 
@@ -80,6 +83,16 @@ class BubbleSoup {
     /// (even though internally it is an array)
     public func add(bubbles: [Bubble]) {
         add(bubblesArray: bubbles)
+    }
+
+    public func create(newBubbleAt point: CGPoint) {
+        let maxID = maxBubbleID()
+        let bubble = Bubble(ID: maxID + 1)
+        bubble.width = defaultWidth
+        bubble.position = CGPoint(x: point.x - defaultWidth / 2.0, y: point.y - defaultHeight / 2.0)
+        bubble.text = "Snorgle"
+        add(bubble: bubble)
+        invalHook?(bubble)
     }
 
     /// Empty out the soup
@@ -158,5 +171,14 @@ extension BubbleSoup {
     /// NSDocument UndoMangler.
     internal func redo() {
         undoManager.redo()
+    }
+
+    internal func maxBubbleID() -> Int {
+        var maxID = 0
+
+        forEachBubble { bubble in
+            maxID = max(maxID, bubble.ID)
+        }
+        return maxID
     }
 }
