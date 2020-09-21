@@ -173,13 +173,13 @@ extension BubbleSoup {
     internal func removeLastBubbles(count: Int) {
         undoManager.beginUndoGrouping()
         let lastChunk = Array(self.bubbles.suffix(count))
+        lastChunk.forEach { invalHook?($0) }
         bubbles.removeLast(count)
         undoManager.registerUndo(withTarget: self) { selfTarget in
             self.add(bubbles: lastChunk)
         }
         undoManager.endUndoGrouping()
 
-        lastChunk.forEach { invalHook?($0) }
     }
 
     /// Triggers undo. Mainly of use for tests. Presumably you're giving us the
