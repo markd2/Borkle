@@ -684,5 +684,11 @@ arg, coordinates. Getting weird jumpy scrolling.
 ok, jumpiness caused by using view coordinates - which move as the view is scrolled,
 so the event coordinates change even though the mouse didn't.
 
+----------
 
+how about some double-click action?  Creation is easy.  Of course, undo makes thing harder.
+Need to have `remove` in the soup.
 
+----------
+
+arg, getting lost in the undo miasma again.
