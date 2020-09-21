@@ -46,6 +46,24 @@ class SelectionTests: XCTestCase {
         }
     }
 
+    func test_selected_bubbles_is_empty_for_empty_selection() {
+        XCTAssertEqual(selection.selectedBubbles.count, 0)
+    }
+
+    func test_selected_bubbles() {
+        let b1 = Bubble(ID: 1)
+        let b2 = Bubble(ID: 2)
+        let b3 = Bubble(ID: 3)
+        
+        let bubbles = [Bubble(ID: 1), Bubble(ID: 2), Bubble(ID: 3)]
+        selection.select(bubbles: bubbles)
+
+        XCTAssertEqual(selection.selectedBubbles.count, 3)
+        XCTAssertTrue(selection.selectedBubbles.contains(b1))
+        XCTAssertTrue(selection.selectedBubbles.contains(b2))
+        XCTAssertTrue(selection.selectedBubbles.contains(b3))
+    }
+
     func test_is_selected() {
         let bubbles = [Bubble(ID: 1), Bubble(ID: 2), Bubble(ID: 3)]
         selection.select(bubbles: bubbles)

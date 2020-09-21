@@ -13,6 +13,10 @@ class Selection {
     public var bubbleCount: Int {
         return selection.count
     }
+
+    public var selectedBubbles: [Bubble] {
+        return Array(selection)
+    }
     
     public func select(bubble: Bubble) {
         select(bubbles: [bubble])
