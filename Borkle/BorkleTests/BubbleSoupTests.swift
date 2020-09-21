@@ -15,6 +15,10 @@ class BubbleSoupTests: XCTestCase {
         super.tearDown()
     }
 
+    func test_complete_coverage() {
+        _ = BubbleSoup(undoManager: UndoManager())
+    }
+
     func test_set_bubble_position() {
         let bubble = Bubble(ID: 23)
         bubble.position = CGPoint(x: 5, y: 10)
@@ -45,6 +49,30 @@ class BubbleSoupTests: XCTestCase {
         soup.redo()
         XCTAssertEqual(bubble1.position, CGPoint(x: 10, y: 20))
         XCTAssertEqual(invalCount, 3)
+    }
+
+    func test_select_area_returns_nil_when_no_bubbles() {
+        let selection = soup.areaTestBubbles(intersecting: .zero)
+        XCTAssertNil(selection)
+    }
+
+    func test_select_area_returns_nil_when_no_intersections() {
+        soup.add(bubble: Bubble(ID: 1, position: CGPoint(x: 10, y: 20), width: 90))
+        soup.add(bubble: Bubble(ID: 2, position: CGPoint(x: 100, y: 200), width: 90))
+
+        let selection = soup.areaTestBubbles(intersecting: CGRect(x: 500, y: 500, width: 100, height: 100))
+        XCTAssertNil(selection)
+    }
+
+    func test_select_area_returns_intersections() {
+        soup.add(bubble: Bubble(ID: 1, position: CGPoint(x: 10, y: 20), width: 90))
+        soup.add(bubble: Bubble(ID: 2, position: CGPoint(x: 100, y: 200), width: 90))
+        soup.add(bubble: Bubble(ID: 3, position: CGPoint(x: 1000, y: 2000), width: 90))
+
+        let selection = soup.areaTestBubbles(intersecting: CGRect(x: 5, y: 10, width: 100, height: 200))!
+        XCTAssertEqual(selection.count, 2)
+        XCTAssertEqual(selection[0].ID, 1)
+        XCTAssertEqual(selection[1].ID, 2)
     }
 
 }

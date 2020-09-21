@@ -5,6 +5,21 @@ class BubbleCanvas: NSView {
 
     var selectedBubbles = Selection()
 
+    var currentMouseHandler: MouseHandler?
+
+    let marqueeLineWidth: CGFloat = 2.0
+    var marquee: CGRect? {
+        willSet {
+            if let blah = marquee {
+                setNeedsDisplay(blah.insetBy(dx: -marqueeLineWidth, dy: -marqueeLineWidth))
+            }
+
+            if let blah = newValue {
+                setNeedsDisplay(blah.insetBy(dx: -marqueeLineWidth, dy: -marqueeLineWidth))
+            }
+        }
+    }
+
     var spaceDown: Bool = false
     var currentCursor: Cursor
 
@@ -85,6 +100,30 @@ class BubbleCanvas: NSView {
                 Swift.print("unexpected not-rendering a bubble")
             }
         }
+
+        renderMarquee()
+    }
+
+    func renderMarquee() {
+        if var marquee = marquee {
+
+            if marquee.height <= 0 {
+                marquee.size.height = 2
+            }
+
+            if marquee.width <= 0 {
+                marquee.size.width = 2
+            }
+
+            NSColor.black.set()
+
+            let bezierPath = NSBezierPath(rect: marquee)
+            let pattern: [CGFloat] = [5.0, 5.0]
+            bezierPath.setLineDash(pattern, count: pattern.count, phase: 0.0)
+            bezierPath.lineWidth = marqueeLineWidth
+            bezierPath.stroke()
+        }
+
     }
 
     func allBorders() -> [Int: CGRect] {
@@ -234,6 +273,13 @@ extension BubbleCanvas {
         let toggleSelection = event.modifierFlags.contains(.command)
 
         let bubble = bubbleSoup.hitTestBubble(at: viewLocation)
+
+        if bubble == nil {
+            // space!
+            currentMouseHandler = MouseSpacer(withSupport: self)
+            currentMouseHandler?.start(at: viewLocation)
+        }
+
         initialDragPoint = nil
 
         // !!! ponder enum/switch for this
@@ -286,6 +332,12 @@ extension BubbleCanvas {
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil) as CGPoint
 
+
+        if let handler = currentMouseHandler {
+            handler.move(to: viewLocation)
+            return
+        }
+
         if spaceDown {
             guard let initialDragPoint = initialDragPoint, let scrollOrigin = scrollOrigin  else { return }
             let rawDelta = locationInWindow - initialDragPoint
@@ -318,6 +370,15 @@ extension BubbleCanvas {
             initialDragPoint = nil
             scrollOrigin = nil
             bubbleSoup.endGrouping()
+
+            currentMouseHandler = nil
+            marquee = nil
+        }
+
+        if let handler = currentMouseHandler {
+            handler.finish()
+
+            return
         }
 
         if spaceDown {
@@ -385,3 +446,26 @@ extension BubbleCanvas {
     }
 }
 
+extension BubbleCanvas: MouseSupport {
+    func hitTestBubble(at point: CGPoint) -> Bubble? {
+        let bubble = bubbleSoup.hitTestBubble(at: point)
+        return bubble
+    }
+
+    func areaTestBubbles(intersecting area: CGRect) -> [Bubble]? {
+        return bubbleSoup.areaTestBubbles(intersecting: area)
+    }
+
+    func drawMarquee(around rect: CGRect) {
+        marquee = rect
+    }
+
+    func unselectAll() {
+        selectedBubbles.unselectAll()
+    }
+
+    func select(bubbles: [Bubble]) {
+        selectedBubbles.select(bubbles: bubbles)
+    }
+
+}
