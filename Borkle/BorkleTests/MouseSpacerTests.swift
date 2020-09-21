@@ -26,6 +26,9 @@ class MouseSpaceTests: XCTestCase {
         XCTAssertTrue(testSupport.unselectAllCalled)
         XCTAssertNil(testSupport.selectArgument)
     }
+    func test_drag_encloses_two_points() {
+    }
+
 }
 
 private class TestSupport: MouseSupport {
