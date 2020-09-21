@@ -50,3 +50,9 @@ Hold down _space_ to engage the grabbing hand for scrolling.
 
 ![](assets/grab-hand.gif)
 
+### Rubber-Band Man
+
+Click and drag in "space" to do a basic rubber band selection
+
+![](assets/rubber-band.gif)
+
