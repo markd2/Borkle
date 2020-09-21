@@ -87,8 +87,9 @@ class BubbleSoup {
         bubbles.forEach { invalHook?($0) }
     }
 
+    /// Remove a bunch of bubbles
     public func remove(bubbles: [Bubble]) {
-        print("REMOVE BUBBLE \(bubbles.count)")
+        undoManager.beginUndoGrouping()
         bubbles.forEach { invalHook?($0) }
 
         let filtered = self.bubbles.filter { return !bubbles.contains($0) }
@@ -97,6 +98,7 @@ class BubbleSoup {
         undoManager.registerUndo(withTarget: self) { selfTarget in
             self.add(bubbles: bubbles)
         }
+        undoManager.endUndoGrouping()
     }
 
     public func create(newBubbleAt point: CGPoint) {
