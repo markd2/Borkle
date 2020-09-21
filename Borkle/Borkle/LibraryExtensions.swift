@@ -60,6 +60,14 @@ extension CGRect {
     init(at point: CGPoint, width: CGFloat, height: CGFloat) {
         self.init(x: point.x, y: point.y, width: width, height: height)
     }
+
+    init(point1: CGPoint, point2: CGPoint) {
+        self.init(x: min(point1.x, point2.x),
+                  y: min(point1.y, point2.y),
+                  width: abs(point1.x - point2.x),
+                  height: abs(point1.y - point2.y))
+    }
+
 }
 
 

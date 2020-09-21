@@ -16,25 +16,22 @@ protocol MouseSupport {
 
 class MouseSpacer: MouseHandler {
     private var support: MouseSupport
+    private var anchorPoint: CGPoint!
     
     init(withSupport support: MouseSupport) {
         self.support = support
     }
 
     public func start(at point: CGPoint) {
-        print("Start \(point)")
-        let rect = CGRect(at: point, width: 20, height: 30)
-        support.drawMarquee(around: rect)
+        anchorPoint = point
     }
 
     public func move(to point: CGPoint) {
-        print("Move \(point)")
-        let rect = CGRect(at: point, width: 20, height: 30)
+        let rect = CGRect(point1: point, point2: anchorPoint)
         support.drawMarquee(around: rect)
     }
     
     public func finish() {
-        print("finish")
     }
 }
 
