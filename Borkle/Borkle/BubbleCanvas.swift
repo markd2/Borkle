@@ -396,6 +396,7 @@ extension BubbleCanvas {
     // thank you peter! https://boredzo.org/blog/archives/2007-05-22/virtual-key-codes
     enum Keycodes: UInt16 {
         case spacebar = 49
+        case delete = 51
     }
 
     enum Cursor {
@@ -428,6 +429,9 @@ extension BubbleCanvas {
                 spaceDown = true
                 setCursor(.openHand)
             }
+        } else if event.keyCode == Keycodes.delete.rawValue {
+            setCursor(.arrow)
+            bubbleSoup.remove(bubbles: selectedBubbles.selectedBubbles)
         } else {
             setCursor(.arrow)
             keypressHandler?(event)
