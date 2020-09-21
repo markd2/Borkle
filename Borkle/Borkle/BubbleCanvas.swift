@@ -431,12 +431,20 @@ extension BubbleCanvas: MouseSupport {
         return bubble
     }
 
-    func areaTestBubbles(in area: CGRect) -> [Bubble]? {
-        return nil
+    func areaTestBubbles(intersecting area: CGRect) -> [Bubble]? {
+        return bubbleSoup.areaTestBubbles(intersecting: area)
     }
 
     func drawMarquee(around rect: CGRect) {
         marquee = rect
+    }
+
+    func unselectAll() {
+        selectedBubbles.unselectAll()
+    }
+
+    func select(bubbles: [Bubble]) {
+        selectedBubbles.select(bubbles: bubbles)
     }
 
 }

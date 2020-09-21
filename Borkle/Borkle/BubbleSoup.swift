@@ -109,6 +109,12 @@ class BubbleSoup {
         return bubble
     }
 
+    public func areaTestBubbles(intersecting rect: CGRect) -> [Bubble]? {
+        let intersectingBubbles = bubbles.filter { $0.rect.intersects(rect) }
+        let result = intersectingBubbles.count > 0 ? intersectingBubbles : nil
+        return result
+    }
+
     /// Calculate the rectangle that encloses all the bubbles, anchored at (0, 0)
     public var enclosingRect: CGRect {
         let union = bubbles.reduce(into: CGRect.zero) { union, bubble in

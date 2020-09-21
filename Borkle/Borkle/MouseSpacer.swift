@@ -10,8 +10,11 @@ protocol MouseHandler {
 
 protocol MouseSupport {
     func hitTestBubble(at: CGPoint) -> Bubble?
-    func areaTestBubbles(in: CGRect) -> [Bubble]?
+    func areaTestBubbles(intersecting: CGRect) -> [Bubble]?
     func drawMarquee(around: CGRect)
+
+    func unselectAll()
+    func select(bubbles: [Bubble])
 }
 
 class MouseSpacer: MouseHandler {
@@ -29,6 +32,12 @@ class MouseSpacer: MouseHandler {
     public func move(to point: CGPoint) {
         let rect = CGRect(point1: point, point2: anchorPoint)
         support.drawMarquee(around: rect)
+        support.unselectAll()
+
+        let bubbles = support.areaTestBubbles(intersecting: rect)
+        if let bubbles = bubbles {
+            support.select(bubbles: bubbles)
+        }
     }
     
     public func finish() {
