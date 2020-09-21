@@ -431,7 +431,9 @@ extension BubbleCanvas {
             }
         } else if event.keyCode == Keycodes.delete.rawValue {
             setCursor(.arrow)
-            bubbleSoup.remove(bubbles: selectedBubbles.selectedBubbles)
+            if !selectedBubbles.selectedBubbles.isEmpty {
+                bubbleSoup.remove(bubbles: selectedBubbles.selectedBubbles)
+            }
         } else {
             setCursor(.arrow)
             keypressHandler?(event)
