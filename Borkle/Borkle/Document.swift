@@ -27,8 +27,12 @@ class Document: NSDocument {
     var barriers: [Barrier] = [] {
         didSet {
             documentFileWrapper?.remove(filename: bubbleFilename)
+
+            barrierSoup.removeEverything()
+            barrierSoup.add(barriers: barriers)
         }
     }
+    var barrierSoup: BarrierSoup
 
     var image: NSImage? {
         didSet {
@@ -43,6 +47,7 @@ class Document: NSDocument {
 
     override init() {
         bubbleSoup = BubbleSoup()
+        barrierSoup = BarrierSoup()
         super.init()
         image = NSImage(named: "flumph")!
     }
@@ -53,12 +58,17 @@ class Document: NSDocument {
 
         if let undoManager = undoManager {
             bubbleSoup.undoManager = undoManager
+            barrierSoup.undoManager = undoManager
         }
         bubbleSoup.bubblesChangedHook = {
             self.documentFileWrapper?.remove(filename: self.bubbleFilename)
         }
+        barrierSoup.barriersChangedHook = {
+            self.documentFileWrapper?.remove(filename: self.barrierFilename)
+        }
 
         bubbleCanvas.bubbleSoup = bubbleSoup
+        bubbleCanvas.barrierSoup = barrierSoup
         bubbleCanvas.barriers = barriers
         bubbleCanvas.barriersChangedHook = {
             self.documentFileWrapper?.remove(filename: self.barrierFilename)

@@ -54,6 +54,12 @@ class BubbleCanvas: NSView {
         }
     }
 
+    var barrierSoup: BarrierSoup! {
+        didSet {
+            barrierSoup.invalHook = invalidateBarrier
+        }
+    }
+
     var barriers: [Barrier] = [] {
         didSet {
             needsDisplay = true
@@ -204,6 +210,10 @@ class BubbleCanvas: NSView {
             NSColor.white.set()
             bezierPath.stroke()
         }
+    }
+
+    func invalidateBarrier(_ barrier: Barrier) {
+        needsDisplay = true
     }
 
     func invalidateBubble(_ bubble: Bubble) {

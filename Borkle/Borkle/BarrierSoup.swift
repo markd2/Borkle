@@ -58,7 +58,59 @@ class BarrierSoup {
             groupingLevel -= 1
         }
     }
-    
+
+    /// Add the barriers to the soup.  There's no intrinsic order to the barriers in the soup.
+    /// (even though internally it is an array)
+    public func add(barriers: [Barrier]) {
+        add(barriersArray: barriers)
+
+        barriers.forEach { invalHook?($0) }
+    }
+
+    /// Empty out the soup
+    public func removeEverything() {
+        removeLastBarriers(count: barriers.count)
+    }
+}
+
+
+extension BarrierSoup {
+    /// Helper function for adding barriers to the soup, has undo support
+    internal func add(barriersArray barriers: [Barrier]) {
+        undoManager.beginUndoGrouping()
+        self.barriers += barriers
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            self.removeLastBarriers(count: barriers.count)
+        }
+        undoManager.endUndoGrouping()
+    }
+
+    /// Helper function for removing barriers from the soup, has undo support
+    /// It's the flip-side of `add(barriersArray:)`
+    internal func removeLastBarriers(count: Int) {
+        undoManager.beginUndoGrouping()
+        let lastChunk = Array(self.barriers.suffix(count))
+        lastChunk.forEach { invalHook?($0) }
+        barriers.removeLast(count)
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            self.add(barriers: lastChunk)
+        }
+        undoManager.endUndoGrouping()
+
+    }
+
+    /// Triggers undo. Mainly of use for tests. Presumably you're giving us the
+    /// NSDocument UndoMangler.
+    internal func undo() {
+        undoManager.undoNestedGroup()
+    }
+
+    /// Triggers undo. Mainly of use for tests. Presumably you're giving us the
+    /// NSDocument UndoMangler.
+    internal func redo() {
+        undoManager.redo()
+    }
+
 }
 
 
