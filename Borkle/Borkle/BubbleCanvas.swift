@@ -282,10 +282,9 @@ extension BubbleCanvas {
             return
         }
 
-        
         for barrier in barriers { // not a forEach because of the return
             if barrier.hitTest(point: viewLocation, area: bounds) {
-                currentMouseHandler = MouseBarrier(withSupport: self)
+                currentMouseHandler = MouseBarrier(withSupport: self, barrier: barrier)
                 currentMouseHandler?.start(at: viewLocation)
                 return
             }
@@ -511,5 +510,10 @@ extension BubbleCanvas: MouseSupport {
 
     func createNewBubble(at point: CGPoint) {
         bubbleSoup.create(newBubbleAt: point)
+    }
+
+    func move(barrier: Barrier, to horizontalPosition: CGFloat) {
+        barrier.horizontalPosition = horizontalPosition
+        needsDisplay = true
     }
 }
