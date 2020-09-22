@@ -11,6 +11,7 @@ class Document: NSDocument {
     let imageFilename = "image.png"
     let metadataFilename = "metadata.json"
     let bubbleFilename = "bubbles.yaml"
+    let barrierFilename = "barriers.yaml"
 
     /// On the way out
     var bubbles: [Bubble] = [] {
@@ -22,6 +23,13 @@ class Document: NSDocument {
         }
     }
     var bubbleSoup: BubbleSoup
+
+    var barriers: [Barrier] = [] {
+        didSet {
+            documentFileWrapper?.remove(filename: bubbleFilename)
+            bubbleCanvas.barriers = barriers
+        }
+    }
 
     var image: NSImage? {
         didSet {
@@ -58,10 +66,14 @@ class Document: NSDocument {
         bubbleScroller.hasHorizontalScroller = true
         bubbleScroller.hasVerticalScroller = true
 
-
         bubbleCanvas.keypressHandler = { event in
             self.handleKeypress(event)
         }
+
+        let barrier1 = Barrier(label: "Snorgle", horizontalPosition: 100.0, width: 6.0)
+        let barrier2 = Barrier(label: "Characters", horizontalPosition: 300.0, width: 4.0)
+        let barrier3 = Barrier(label: "Flongwaffle", horizontalPosition: 600.0, width: 8.0)
+        barriers = [barrier1, barrier2, barrier3]
     }
 
     override class var autosavesInPlace: Bool {

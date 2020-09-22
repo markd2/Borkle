@@ -51,6 +51,12 @@ class BubbleCanvas: NSView {
         }
     }
 
+    var barriers: [Barrier] = [] {
+        didSet {
+            needsDisplay = true
+        }
+    }
+
     let extraPadding = CGSize(width: 80, height: 60)
 
     func resizeCanvas() {
@@ -99,6 +105,11 @@ class BubbleCanvas: NSView {
             } else {
                 Swift.print("unexpected not-rendering a bubble")
             }
+        }
+
+        let viewRect = bounds
+        for barrier in barriers {
+            barrier.render(in: viewRect)
         }
 
         renderMarquee()
