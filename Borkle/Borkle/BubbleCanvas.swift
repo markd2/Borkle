@@ -3,6 +3,9 @@ import Cocoa
 class BubbleCanvas: NSView {
     static let background = NSColor(red: 228.0 / 255.0, green: 232.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
 
+    // move to soup
+    var barriersChangedHook: (() -> Void)?
+
     var selectedBubbles = Selection()
 
     var currentMouseHandler: MouseHandler?
@@ -515,5 +518,6 @@ extension BubbleCanvas: MouseSupport {
     func move(barrier: Barrier, to horizontalPosition: CGFloat) {
         barrier.horizontalPosition = horizontalPosition
         needsDisplay = true
+        barriersChangedHook?()
     }
 }

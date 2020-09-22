@@ -27,7 +27,6 @@ class Document: NSDocument {
     var barriers: [Barrier] = [] {
         didSet {
             documentFileWrapper?.remove(filename: bubbleFilename)
-            bubbleCanvas.barriers = barriers
         }
     }
 
@@ -60,6 +59,10 @@ class Document: NSDocument {
         }
 
         bubbleCanvas.bubbleSoup = bubbleSoup
+        bubbleCanvas.barriers = barriers
+        bubbleCanvas.barriersChangedHook = {
+            self.documentFileWrapper?.remove(filename: self.barrierFilename)
+        }
 
         // need to actually drive the frame from the bubbles
         bubbleScroller.contentView.backgroundColor = BubbleCanvas.background
@@ -69,11 +72,6 @@ class Document: NSDocument {
         bubbleCanvas.keypressHandler = { event in
             self.handleKeypress(event)
         }
-
-        let barrier1 = Barrier(label: "Snorgle", horizontalPosition: 100.0, width: 6.0)
-        let barrier2 = Barrier(label: "Characters", horizontalPosition: 300.0, width: 4.0)
-        let barrier3 = Barrier(label: "Flongwaffle", horizontalPosition: 600.0, width: 8.0)
-        barriers = [barrier1, barrier2, barrier3]
     }
 
     override class var autosavesInPlace: Bool {
@@ -117,6 +115,13 @@ class Document: NSDocument {
             let bubbles = try! decoder.decode([Bubble].self, from: bubbleData)
             self.bubbles = bubbles
         }
+
+        if let barrierFileWrapper = fileWrappers[barrierFilename] {
+            let barrierData = barrierFileWrapper.regularFileContents!
+            let decoder = YAMLDecoder()
+            let barriers = try! decoder.decode([Barrier].self, from: barrierData)
+            self.barriers = barriers
+        }
         
         if let imageFileWrapper = fileWrappers[imageFilename] {
             let imageData = imageFileWrapper.regularFileContents!
@@ -155,6 +160,16 @@ class Document: NSDocument {
                 let bubbleFileWrapper = FileWrapper(regularFileWithString: bubbleString)
                 bubbleFileWrapper.preferredFilename = bubbleFilename
                 documentFileWrapper.addFileWrapper(bubbleFileWrapper)
+            }
+        }
+        
+        if fileWrappers[barrierFilename] == nil || true {
+            let encoder = YAMLEncoder()
+
+            if let barrierString = try? encoder.encode(barriers) {
+                let barrierFileWrapper = FileWrapper(regularFileWithString: barrierString)
+                barrierFileWrapper.preferredFilename = barrierFilename
+                documentFileWrapper.addFileWrapper(barrierFileWrapper)
             }
         }
         
