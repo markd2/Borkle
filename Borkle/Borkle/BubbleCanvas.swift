@@ -282,6 +282,15 @@ extension BubbleCanvas {
             return
         }
 
+        
+        for barrier in barriers { // not a forEach because of the return
+            if barrier.hitTest(point: viewLocation, area: bounds) {
+                currentMouseHandler = MouseBarrier(withSupport: self)
+                currentMouseHandler?.start(at: viewLocation)
+                return
+            }
+        }
+
         let addToSelection = event.modifierFlags.contains(.shift)
         let toggleSelection = event.modifierFlags.contains(.command)
 
