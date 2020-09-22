@@ -17,18 +17,39 @@ class Barrier: Codable {
         return rect
     }
 
-    func render(in area: CGRect) {
-        var effectiveRect = area.intersection(lineRect)
-        effectiveRect.size.height -= 20
+    func hitTest(point: CGPoint, area: CGRect) -> Bool {
+        let (drawRect, textRect) = rects(in: area)
+        
+        if drawRect.contains(point) || textRect.contains(point) {
+            return true
+        }
+        return false
+    }
+
+    func rects(in area: CGRect) -> (CGRect, CGRect) { // line rect, text rect
+        var drawRect = effectiveRect(in: area)
+        drawRect.size.height -= 20
 
         let text = label as NSString
         let textSize = text.size(withAttributes: nil)
-        let textRect = CGRect(x: effectiveRect.midX - textSize.width / 2.0, y: effectiveRect.maxY,
+        let textRect = CGRect(x: drawRect.midX - textSize.width / 2.0, y: drawRect.maxY,
             width: textSize.width, height: textSize.height)
-        
-        NSColor.orange.set()
-        effectiveRect.frame()
 
+        return (drawRect, textRect)
+    }
+
+    func effectiveRect(in area: CGRect) -> CGRect {
+        let effectiveRect = area.intersection(lineRect)
+        return effectiveRect
+    }
+
+    func render(in area: CGRect) {
+        let (drawRect, textRect) = rects(in: area)
+
+        NSColor.orange.set()
+        drawRect.frame()
+
+        let text = label as NSString
         text.draw(in: textRect)
     }
 }
