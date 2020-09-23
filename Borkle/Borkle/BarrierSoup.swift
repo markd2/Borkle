@@ -59,6 +59,12 @@ class BarrierSoup {
         }
     }
 
+    /// Looks up a bubble in the soup by its ID.  Returns nil if not found.
+    public func barrier(byID: Int) -> Barrier? {
+        let barrier = barriers.first(where: { $0.ID == byID } )
+        return barrier
+    }
+
     /// Add the barriers to the soup.  There's no intrinsic order to the barriers in the soup.
     /// (even though internally it is an array)
     public func add(barriers: [Barrier]) {

@@ -1,11 +1,14 @@
 import Cocoa
 
 class Barrier: Codable {
+    let ID: Int
+
     var label = "Barrier"
     var horizontalPosition: CGFloat
     var width: CGFloat = 6.0
 
-    init(label: String, horizontalPosition: CGFloat, width: CGFloat) {
+    init(ID: Int, label: String, horizontalPosition: CGFloat, width: CGFloat) {
+        self.ID = ID
         self.label = label
         self.horizontalPosition = horizontalPosition
         self.width = width

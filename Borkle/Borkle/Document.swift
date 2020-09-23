@@ -82,6 +82,13 @@ class Document: NSDocument {
         bubbleCanvas.keypressHandler = { event in
             self.handleKeypress(event)
         }
+
+#if false
+        let barrier1 = Barrier(ID: 1, label: "Snorgle", horizontalPosition: 100.0, width: 6.0)
+        let barrier2 = Barrier(ID: 2, label: "Characters", horizontalPosition: 300.0, width: 4.0)
+        let barrier3 = Barrier(ID: 3, label: "Flongwaffle", horizontalPosition: 600.0, width: 8.0)
+        barriers = [barrier1, barrier2, barrier3]
+#endif
     }
 
     override class var autosavesInPlace: Bool {
