@@ -49,6 +49,26 @@ class TestSupport: MouseSupport {
         createNewBubbleArgument = point
     }
 
+    var bubblesAffectedByArgument: Barrier?
+    var bubblesAffectedByReturn: [Bubble]?
+    func bubblesAffectedBy(barrier: Barrier) -> [Bubble]? {
+        bubblesAffectedByArgument = barrier
+        return bubblesAffectedByReturn
+    }
+
+    var barriersAffectedByArgument: Barrier?
+    var barriersAffectedByReturn: [Barrier]?
+    func barriersAffectedBy(barrier: Barrier) -> [Barrier]? {
+        barriersAffectedByArgument = barrier
+        return barriersAffectedByReturn
+    }
+
+    var moveBarrierArgments: (Barrier, [Bubble]?, [Barrier]?, CGFloat)?
+    var moveBarrierCalled = false
+    func move(barrier: Barrier, affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?, to horizontalPosition: CGFloat) {
+        moveBarrierCalled = true
+    }
+
     func reset() {
         hitTestBubbleArgument = nil
         hitTestBubbleReturn = nil
@@ -63,5 +83,11 @@ class TestSupport: MouseSupport {
         currentScrollOffsetReturn = CGPoint.zero
         scrollArgument = nil
         createNewBubbleArgument = nil
+        bubblesAffectedByArgument = nil
+        bubblesAffectedByReturn = nil
+        barriersAffectedByArgument = nil
+        barriersAffectedByReturn = nil
+        moveBarrierArgments = nil
+        moveBarrierCalled = false
     }
 }
