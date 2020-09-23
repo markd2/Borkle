@@ -56,3 +56,16 @@ class Barrier: Codable {
         text.draw(in: textRect)
     }
 }
+
+
+extension Barrier: Equatable {
+    static func == (thing1: Barrier, thing2: Barrier) -> Bool {
+        return thing1.ID == thing2.ID
+    }
+}
+
+extension Barrier: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ID)
+    }
+}
