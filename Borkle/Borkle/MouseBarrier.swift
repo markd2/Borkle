@@ -10,6 +10,8 @@ class MouseBarrier: MouseHandler {
 
     var prefersWindowCoordinates: Bool { return false }
 
+    var affectedBubbles: [Bubble]?
+
     init(withSupport support: MouseSupport, barrier: Barrier) {
         self.support = support
         self.barrier = barrier
@@ -18,12 +20,13 @@ class MouseBarrier: MouseHandler {
 
     func start(at point: CGPoint) {
         initialPoint = point
+        affectedBubbles = support.bubblesAffectedBy(barrier: barrier)
     }
     
     func move(to point: CGPoint) {
         let horizontalDelta = point.x - initialPoint.x
         let newOffset = initialPosition + horizontalDelta
-        support.move(barrier: barrier, to: newOffset)
+        support.move(barrier: barrier, affectedBubbles: affectedBubbles, to: newOffset)
     }
     
     func finish() {

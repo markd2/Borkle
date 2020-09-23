@@ -530,17 +530,31 @@ extension BubbleCanvas: MouseSupport {
         bubbleSoup.create(newBubbleAt: point)
     }
 
-    func move(barrier: Barrier, to horizontalPosition: CGFloat) {
-        moveAllTheThings(anchoredByBarrier: barrier, horizontalPosition: horizontalPosition)
+    func move(barrier: Barrier, affectedBubbles: [Bubble]?, to horizontalPosition: CGFloat) {
+        moveAllTheThings(anchoredByBarrier: barrier, affectedBubbles: affectedBubbles, to: horizontalPosition)
+    }
+
+    func bubblesAffectedBy(barrier: Barrier) -> [Bubble]? {
+        let rectToRight = CGRect(x: barrier.horizontalPosition, y: -.greatestFiniteMagnitude / 2.0,
+            width: .greatestFiniteMagnitude, height: .greatestFiniteMagnitude)
+
+        let affectedBubbles = bubbleSoup.areaTestBubbles(intersecting: rectToRight)
+        return affectedBubbles
     }
 }
 
 
 // This stuff should move elsewhere since (hopefully) it's purely soup manipulations.
 extension BubbleCanvas {
-    func moveAllTheThings(anchoredByBarrier barrier: Barrier, horizontalPosition: CGFloat) {
-
+    func moveAllTheThings(anchoredByBarrier barrier: Barrier, affectedBubbles: [Bubble]?, to horizontalPosition: CGFloat) {
+        
+        let delta = horizontalPosition - barrier.horizontalPosition
         barrierSoup.move(barrier: barrier, to: horizontalPosition)
+
+        affectedBubbles?.forEach { bubble in
+            let newPosition = CGPoint(x: bubble.position.x + delta, y: bubble.position.y)
+            bubbleSoup.move(bubble: bubble, to: newPosition)
+        }
 
         needsDisplay = true
     }
