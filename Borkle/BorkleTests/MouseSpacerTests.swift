@@ -24,7 +24,6 @@ class MouseSpaceTests: XCTestCase {
         XCTAssertFalse(mouser.prefersWindowCoordinates)
     }
 
-
     func test_just_click_deselects_everything() {
         mouser.start(at: .zero)
         mouser.finish()
