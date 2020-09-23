@@ -77,6 +77,21 @@ class BarrierSoup {
     public func removeEverything() {
         removeLastBarriers(count: barriers.count)
     }
+
+
+    public func move(barrier: Barrier, to newHorizontalPosition: CGFloat) {
+        undoManager.beginUndoGrouping()
+
+        let oldPosition = barrier.horizontalPosition
+        barrier.horizontalPosition = newHorizontalPosition
+
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            selfTarget.move(barrier: barrier, to: oldPosition)
+        }
+        barriersChangedHook?()
+        invalHook?(barrier)
+        undoManager.endUndoGrouping()
+    }
 }
 
 

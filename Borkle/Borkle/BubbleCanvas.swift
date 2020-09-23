@@ -297,6 +297,8 @@ extension BubbleCanvas {
 
         for barrier in barriers { // not a forEach because of the return
             if barrier.hitTest(point: viewLocation, area: bounds) {
+                bubbleSoup.beginGrouping()
+                barrierSoup.beginGrouping()
                 currentMouseHandler = MouseBarrier(withSupport: self, barrier: barrier)
                 currentMouseHandler?.start(at: viewLocation)
                 return
@@ -406,6 +408,9 @@ extension BubbleCanvas {
 
             currentMouseHandler = nil
             marquee = nil
+
+            bubbleSoup.endGrouping()
+            barrierSoup.endGrouping()
         }
 
         if spaceDown {
@@ -526,8 +531,17 @@ extension BubbleCanvas: MouseSupport {
     }
 
     func move(barrier: Barrier, to horizontalPosition: CGFloat) {
-        barrier.horizontalPosition = horizontalPosition
+        moveAllTheThings(anchoredByBarrier: barrier, horizontalPosition: horizontalPosition)
+    }
+}
+
+
+// This stuff should move elsewhere since (hopefully) it's purely soup manipulations.
+extension BubbleCanvas {
+    func moveAllTheThings(anchoredByBarrier barrier: Barrier, horizontalPosition: CGFloat) {
+
+        barrierSoup.move(barrier: barrier, to: horizontalPosition)
+
         needsDisplay = true
-        barriersChangedHook?()
     }
 }
