@@ -92,6 +92,13 @@ class BarrierSoup {
         invalHook?(barrier)
         undoManager.endUndoGrouping()
     }
+
+    /// Given a rectangle, return all barriers that intersect the rect.
+    public func areaTestBarriers(toTheRightOf horizontalPosition: CGFloat) -> [Barrier]? {
+        let intersectingBarriers = barriers.filter { $0.horizontalPosition > horizontalPosition }
+        let result = intersectingBarriers.count > 0 ? intersectingBarriers : nil
+        return result
+    }
 }
 
 

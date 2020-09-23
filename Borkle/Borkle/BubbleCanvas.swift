@@ -530,23 +530,29 @@ extension BubbleCanvas: MouseSupport {
         bubbleSoup.create(newBubbleAt: point)
     }
 
-    func move(barrier: Barrier, affectedBubbles: [Bubble]?, to horizontalPosition: CGFloat) {
-        moveAllTheThings(anchoredByBarrier: barrier, affectedBubbles: affectedBubbles, to: horizontalPosition)
+    func move(barrier: Barrier, affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?,
+        to horizontalPosition: CGFloat) {
+        moveAllTheThings(anchoredByBarrier: barrier, 
+            affectedBubbles: affectedBubbles, affectedBarriers: affectedBarriers,
+            to: horizontalPosition)
     }
 
     func bubblesAffectedBy(barrier: Barrier) -> [Bubble]? {
-        let rectToRight = CGRect(x: barrier.horizontalPosition, y: -.greatestFiniteMagnitude / 2.0,
-            width: .greatestFiniteMagnitude, height: .greatestFiniteMagnitude)
-
-        let affectedBubbles = bubbleSoup.areaTestBubbles(intersecting: rectToRight)
+        let affectedBubbles = bubbleSoup.areaTestBubbles(intersecting: barrier.horizontalPosition.rectToRight)
         return affectedBubbles
+    }
+
+    func barriersAffectedBy(barrier: Barrier) -> [Barrier]? {
+        let affectedBarriers = barrierSoup.areaTestBarriers(toTheRightOf: barrier.horizontalPosition)
+        return affectedBarriers
     }
 }
 
 
 // This stuff should move elsewhere since (hopefully) it's purely soup manipulations.
 extension BubbleCanvas {
-    func moveAllTheThings(anchoredByBarrier barrier: Barrier, affectedBubbles: [Bubble]?, to horizontalPosition: CGFloat) {
+    func moveAllTheThings(anchoredByBarrier barrier: Barrier, 
+        affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?, to horizontalPosition: CGFloat) {
         
         let delta = horizontalPosition - barrier.horizontalPosition
         barrierSoup.move(barrier: barrier, to: horizontalPosition)
@@ -554,6 +560,11 @@ extension BubbleCanvas {
         affectedBubbles?.forEach { bubble in
             let newPosition = CGPoint(x: bubble.position.x + delta, y: bubble.position.y)
             bubbleSoup.move(bubble: bubble, to: newPosition)
+        }
+
+        affectedBarriers?.forEach { barrier in
+            let newPosition = barrier.horizontalPosition + delta
+            barrierSoup.move(barrier: barrier, to: newPosition)
         }
 
         needsDisplay = true
