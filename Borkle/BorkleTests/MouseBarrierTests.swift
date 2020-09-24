@@ -48,7 +48,7 @@ class MouseBarrierTests: XCTestCase {
         mouser.finish()
     }
 
-    func test_empty_affected_arrays_als_do_nothing() {
+    func test_empty_affected_arrays_also_do_nothing() {
         testSupport.bubblesAffectedByReturn = []
         testSupport.barriersAffectedByReturn = []
 
