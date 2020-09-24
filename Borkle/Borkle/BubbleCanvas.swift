@@ -29,18 +29,7 @@ class BubbleCanvas: NSView {
     /// Highlighted bubble, for mouse-motion indication.  Shown as a dashed line or something.
     var highlightedID: Int? = nil
 
-    /// Where a click-drag originated.  nil if there's no active drag happening.
-    /// might make enum with associated object when there's additional dragging behaviors.
-    var initialDragPoint: CGPoint?
-
     var scrollOrigin: CGPoint?
-
-    /// The bubble being dragged, original position, to calculate delta when dragging
-    /// and eventually for undo.
-    /// !!! Maybe copy the bubble, move it around, then on the completion it tells someone the move
-    /// !!! delta for undo.
-    var originalBubblePosition: CGPoint?
-    var originalBubblePositions = [Bubble: CGPoint]()
 
     var keypressHandler: ((_ event: NSEvent) -> Void)?
 
@@ -147,7 +136,6 @@ class BubbleCanvas: NSView {
     }
 
     func allBorders() -> [Int: CGRect] {
-
         bubbleSoup.forEachBubble {
             let rect = $0.rect
             idToRectMap[$0.ID] = rect
@@ -257,7 +245,7 @@ class BubbleCanvas: NSView {
     }
 }
 
-// mouse and tracking area foobage.
+// Mouse tracking
 extension BubbleCanvas {
     override func updateTrackingAreas() {
         if spaceDown { return }
@@ -323,8 +311,6 @@ extension BubbleCanvas {
             return
         }
 
-        initialDragPoint = nil
-
         if addToSelection {
             if let bubble = bubble {
                 selectedBubbles.select(bubble: bubble)
@@ -366,7 +352,6 @@ extension BubbleCanvas {
 
     override func mouseUp(with event: NSEvent) {
         defer {
-            initialDragPoint = nil
             scrollOrigin = nil
             bubbleSoup.endGrouping()
 
@@ -385,8 +370,6 @@ extension BubbleCanvas {
             handler.finish()
             return
         }
-
-        guard initialDragPoint != nil else { return }
 
         resizeCanvas()
     }
