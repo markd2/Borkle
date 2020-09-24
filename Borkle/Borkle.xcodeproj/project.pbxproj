@@ -25,6 +25,8 @@
 		7D2C9D1F251A446600B1E2DE /* MouseBarrierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D1E251A446600B1E2DE /* MouseBarrierTests.swift */; };
 		7D2C9D23251A51CA00B1E2DE /* BarrierSoup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D22251A51CA00B1E2DE /* BarrierSoup.swift */; };
 		7D2C9D27251A51D200B1E2DE /* BarrierSoupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D26251A51D200B1E2DE /* BarrierSoupTests.swift */; };
+		7D2C9D34251CEC2100B1E2DE /* MouseBubbler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D33251CEC2100B1E2DE /* MouseBubbler.swift */; };
+		7D2C9D38251CEC5B00B1E2DE /* MouseBubblerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D37251CEC5B00B1E2DE /* MouseBubblerTests.swift */; };
 		7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */; };
 		7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDD250E719800884F29 /* LibraryExtensions.swift */; };
 		7D51127F250D6F51004F0E63 /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D51127E250D6F51004F0E63 /* Bubble.swift */; };
@@ -65,6 +67,8 @@
 		7D2C9D1E251A446600B1E2DE /* MouseBarrierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseBarrierTests.swift; sourceTree = "<group>"; };
 		7D2C9D22251A51CA00B1E2DE /* BarrierSoup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrierSoup.swift; sourceTree = "<group>"; };
 		7D2C9D26251A51D200B1E2DE /* BarrierSoupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrierSoupTests.swift; sourceTree = "<group>"; };
+		7D2C9D33251CEC2100B1E2DE /* MouseBubbler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseBubbler.swift; sourceTree = "<group>"; };
+		7D2C9D37251CEC5B00B1E2DE /* MouseBubblerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseBubblerTests.swift; sourceTree = "<group>"; };
 		7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleCanvas.swift; sourceTree = "<group>"; };
 		7D452DDD250E719800884F29 /* LibraryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryExtensions.swift; sourceTree = "<group>"; };
 		7D51127E250D6F51004F0E63 /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
@@ -117,6 +121,7 @@
 				7D2C9CFE25190EAD00B1E2DE /* MouseSupport.swift */,
 				7D2C9D022519122600B1E2DE /* MouseGrabHand.swift */,
 				7D2C9D1A251A445E00B1E2DE /* MouseBarrier.swift */,
+				7D2C9D33251CEC2100B1E2DE /* MouseBubbler.swift */,
 			);
 			name = Mouse;
 			sourceTree = "<group>";
@@ -183,6 +188,7 @@
 				7D2C9D16251A3D8900B1E2DE /* BarrierTests.swift */,
 				7D2C9D1E251A446600B1E2DE /* MouseBarrierTests.swift */,
 				7D2C9D26251A51D200B1E2DE /* BarrierSoupTests.swift */,
+				7D2C9D37251CEC5B00B1E2DE /* MouseBubblerTests.swift */,
 			);
 			path = BorkleTests;
 			sourceTree = "<group>";
@@ -295,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D2C9D34251CEC2100B1E2DE /* MouseBubbler.swift in Sources */,
 				7D2C9D032519122600B1E2DE /* MouseGrabHand.swift in Sources */,
 				7D2C9CDE2516B5E600B1E2DE /* Selection.swift in Sources */,
 				7D2C9CF325181F9800B1E2DE /* MouseSpacer.swift in Sources */,
@@ -318,6 +325,7 @@
 			files = (
 				7D2C9D27251A51D200B1E2DE /* BarrierSoupTests.swift in Sources */,
 				7D2C9D072519123500B1E2DE /* MouseGrabHandTests.swift in Sources */,
+				7D2C9D38251CEC5B00B1E2DE /* MouseBubblerTests.swift in Sources */,
 				7D2C9CE22516B5EE00B1E2DE /* SelectionTests.swift in Sources */,
 				7D2C9D17251A3D8900B1E2DE /* BarrierTests.swift in Sources */,
 				7D2C9CD6251556C200B1E2DE /* BubbleSoupTests.swift in Sources */,
