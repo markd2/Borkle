@@ -3,7 +3,6 @@ import Cocoa
 class MouseBubbler: MouseHandler {
     private var support: MouseSupport
 
-    private var bubbleSoup: BubbleSoup
     private var selectedBubbles: Selection
 
     var prefersWindowCoordinates: Bool { return false }
@@ -12,10 +11,8 @@ class MouseBubbler: MouseHandler {
     var originalBubblePositions: [Bubble: CGPoint]!
     var originalBubblePosition: CGPoint!
 
-    init(withSupport support: MouseSupport, 
-         bubbleSoup: BubbleSoup, selectedBubbles: Selection) {
+    init(withSupport support: MouseSupport, selectedBubbles: Selection) {
         self.support = support
-        self.bubbleSoup = bubbleSoup
         self.selectedBubbles = selectedBubbles
     }
 
@@ -41,7 +38,7 @@ class MouseBubbler: MouseHandler {
         // !!! Probably don't need to filter the _entire_ soup for this.
         // !!! also, use reduce.
         originalBubblePositions = [:]
-        bubbleSoup.forEachBubble {
+        selectedBubbles.forEachBubble {
             originalBubblePositions[$0] = $0.position
         }
 
@@ -60,12 +57,8 @@ class MouseBubbler: MouseHandler {
                 Swift.print("unexpectedly missing original bubble position")
                 return
             }
-            // !!! Move to mouse support?
-            bubbleSoup.move(bubble: bubble, to: originalPosition + delta)
-            
-            // the area to redraw is kind of complex - like if there's connected 
-            // bubbles need to make sure connecting lines are redrawn.
-            support.invalEverything()
+
+            support.move(bubble: bubble, to: originalPosition + delta)
         }
     }
 

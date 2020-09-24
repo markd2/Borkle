@@ -324,7 +324,6 @@ extension BubbleCanvas {
             if let bubble = bubble {
                 bubbleSoup.beginGrouping()
                 currentMouseHandler = MouseBubbler(withSupport: self, 
-                                                   bubbleSoup: bubbleSoup, 
                                                    selectedBubbles: selectedBubbles)
                 currentMouseHandler?.start(at: viewLocation,
                                            modifierFlags: event.modifierFlags)
@@ -476,6 +475,14 @@ extension BubbleCanvas: MouseSupport {
         bubbleSoup.create(newBubbleAt: point)
     }
 
+    func move(bubble: Bubble, to point: CGPoint) {
+        bubbleSoup.move(bubble: bubble, to: point)
+            
+        // the area to redraw is kind of complex - like if there's connected 
+        // bubbles need to make sure connecting lines are redrawn.
+        setNeedsDisplay(bounds)
+    }
+
     func move(barrier: Barrier, affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?,
         to horizontalPosition: CGFloat) {
         moveAllTheThings(anchoredByBarrier: barrier, 
@@ -491,11 +498,6 @@ extension BubbleCanvas: MouseSupport {
     func barriersAffectedBy(barrier: Barrier) -> [Barrier]? {
         let affectedBarriers = barrierSoup.areaTestBarriers(toTheRightOf: barrier.horizontalPosition)
         return affectedBarriers
-    }
-
-    func invalEverything() {
-        // this was it originally - is this different effect than just inval?
-        setNeedsDisplay(bounds)
     }
 }
 
