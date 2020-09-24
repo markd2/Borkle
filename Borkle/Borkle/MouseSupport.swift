@@ -20,6 +20,12 @@ protocol MouseSupport {
     func scroll(to: CGPoint)
 
     func createNewBubble(at: CGPoint)
+
+    func bubblesAffectedBy(barrier: Barrier) -> [Bubble]?
+    func barriersAffectedBy(barrier: Barrier) -> [Barrier]?
+    func move(barrier: Barrier, 
+        affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?,
+        to horizontalPosition: CGFloat)
 }
 
 

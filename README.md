@@ -68,4 +68,11 @@ Press Delete to remove bubles
 
 ![](assets/remove.gif)
 
+### Barriers
+
+Moving a barrier moves everything to the right, letting you make sections you can
+easily move stuff in bulk.
+
+![](assets/barriers.gif)
+
 

@@ -10,8 +10,8 @@ class TestSupport: MouseSupport {
         return hitTestBubbleReturn
     }
 
-    var areaTestBubblesArgument: CGRect? = nil
     var areaTestBubblesReturn: [Bubble]? = nil
+    var areaTestBubblesArgument: CGRect? = nil
     func areaTestBubbles(intersecting: CGRect) -> [Bubble]? {
         areaTestBubblesArgument = intersecting
         return areaTestBubblesReturn
@@ -32,8 +32,8 @@ class TestSupport: MouseSupport {
         selectArgument = bubbles
     }
 
-    var currentScrollOffsetCalled = false
     var currentScrollOffsetReturn = CGPoint.zero
+    var currentScrollOffsetCalled = false
     var currentScrollOffset: CGPoint {
         currentScrollOffsetCalled = true
         return currentScrollOffsetReturn
@@ -47,6 +47,27 @@ class TestSupport: MouseSupport {
     var createNewBubbleArgument: CGPoint?
     func createNewBubble(at point: CGPoint) {
         createNewBubbleArgument = point
+    }
+
+    var bubblesAffectedByReturn: [Bubble]?
+    var bubblesAffectedByArgument: Barrier?
+    func bubblesAffectedBy(barrier: Barrier) -> [Bubble]? {
+        bubblesAffectedByArgument = barrier
+        return bubblesAffectedByReturn
+    }
+
+    var barriersAffectedByReturn: [Barrier]?
+    var barriersAffectedByArgument: Barrier?
+    func barriersAffectedBy(barrier: Barrier) -> [Barrier]? {
+        barriersAffectedByArgument = barrier
+        return barriersAffectedByReturn
+    }
+
+    var moveBarrierArguments: (barrier: Barrier, bubbles: [Bubble]?, barriers: [Barrier]?, offset: CGFloat)?
+    var moveBarrierCalled = false
+    func move(barrier: Barrier, affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?, to horizontalPosition: CGFloat) {
+        moveBarrierArguments = (barrier, affectedBubbles, affectedBarriers, horizontalPosition)
+        moveBarrierCalled = true
     }
 
     func reset() {
@@ -63,5 +84,11 @@ class TestSupport: MouseSupport {
         currentScrollOffsetReturn = CGPoint.zero
         scrollArgument = nil
         createNewBubbleArgument = nil
+        bubblesAffectedByArgument = nil
+        bubblesAffectedByReturn = nil
+        barriersAffectedByArgument = nil
+        barriersAffectedByReturn = nil
+        moveBarrierArguments = nil
+        moveBarrierCalled = false
     }
 }

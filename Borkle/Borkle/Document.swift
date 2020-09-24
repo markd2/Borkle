@@ -11,6 +11,7 @@ class Document: NSDocument {
     let imageFilename = "image.png"
     let metadataFilename = "metadata.json"
     let bubbleFilename = "bubbles.yaml"
+    let barrierFilename = "barriers.yaml"
 
     /// On the way out
     var bubbles: [Bubble] = [] {
@@ -22,6 +23,16 @@ class Document: NSDocument {
         }
     }
     var bubbleSoup: BubbleSoup
+
+    var barriers: [Barrier] = [] {
+        didSet {
+            documentFileWrapper?.remove(filename: bubbleFilename)
+
+            barrierSoup.removeEverything()
+            barrierSoup.add(barriers: barriers)
+        }
+    }
+    var barrierSoup: BarrierSoup
 
     var image: NSImage? {
         didSet {
@@ -36,6 +47,7 @@ class Document: NSDocument {
 
     override init() {
         bubbleSoup = BubbleSoup()
+        barrierSoup = BarrierSoup()
         super.init()
         image = NSImage(named: "flumph")!
     }
@@ -46,22 +58,37 @@ class Document: NSDocument {
 
         if let undoManager = undoManager {
             bubbleSoup.undoManager = undoManager
+            barrierSoup.undoManager = undoManager
         }
         bubbleSoup.bubblesChangedHook = {
             self.documentFileWrapper?.remove(filename: self.bubbleFilename)
         }
+        barrierSoup.barriersChangedHook = {
+            self.documentFileWrapper?.remove(filename: self.barrierFilename)
+        }
 
         bubbleCanvas.bubbleSoup = bubbleSoup
+        bubbleCanvas.barrierSoup = barrierSoup
+        bubbleCanvas.barriers = barriers
+        bubbleCanvas.barriersChangedHook = {
+            self.documentFileWrapper?.remove(filename: self.barrierFilename)
+        }
 
         // need to actually drive the frame from the bubbles
         bubbleScroller.contentView.backgroundColor = BubbleCanvas.background
         bubbleScroller.hasHorizontalScroller = true
         bubbleScroller.hasVerticalScroller = true
 
-
         bubbleCanvas.keypressHandler = { event in
             self.handleKeypress(event)
         }
+
+#if false
+        let barrier1 = Barrier(ID: 1, label: "Snorgle", horizontalPosition: 100.0, width: 6.0)
+        let barrier2 = Barrier(ID: 2, label: "Characters", horizontalPosition: 300.0, width: 4.0)
+        let barrier3 = Barrier(ID: 3, label: "Flongwaffle", horizontalPosition: 600.0, width: 8.0)
+        barriers = [barrier1, barrier2, barrier3]
+#endif
     }
 
     override class var autosavesInPlace: Bool {
@@ -105,6 +132,13 @@ class Document: NSDocument {
             let bubbles = try! decoder.decode([Bubble].self, from: bubbleData)
             self.bubbles = bubbles
         }
+
+        if let barrierFileWrapper = fileWrappers[barrierFilename] {
+            let barrierData = barrierFileWrapper.regularFileContents!
+            let decoder = YAMLDecoder()
+            let barriers = try! decoder.decode([Barrier].self, from: barrierData)
+            self.barriers = barriers
+        }
         
         if let imageFileWrapper = fileWrappers[imageFilename] {
             let imageData = imageFileWrapper.regularFileContents!
@@ -143,6 +177,16 @@ class Document: NSDocument {
                 let bubbleFileWrapper = FileWrapper(regularFileWithString: bubbleString)
                 bubbleFileWrapper.preferredFilename = bubbleFilename
                 documentFileWrapper.addFileWrapper(bubbleFileWrapper)
+            }
+        }
+        
+        if fileWrappers[barrierFilename] == nil || true {
+            let encoder = YAMLEncoder()
+
+            if let barrierString = try? encoder.encode(barriers) {
+                let barrierFileWrapper = FileWrapper(regularFileWithString: barrierString)
+                barrierFileWrapper.preferredFilename = barrierFilename
+                documentFileWrapper.addFileWrapper(barrierFileWrapper)
             }
         }
         

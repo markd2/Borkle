@@ -3,6 +3,9 @@ import Cocoa
 class BubbleCanvas: NSView {
     static let background = NSColor(red: 228.0 / 255.0, green: 232.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
 
+    // move to soup
+    var barriersChangedHook: (() -> Void)?
+
     var selectedBubbles = Selection()
 
     var currentMouseHandler: MouseHandler?
@@ -48,6 +51,18 @@ class BubbleCanvas: NSView {
         didSet {
             bubbleSoup.invalHook = invalidateBubbleFollowingConnections
             resizeCanvas()
+        }
+    }
+
+    var barrierSoup: BarrierSoup! {
+        didSet {
+            barrierSoup.invalHook = invalidateBarrier
+        }
+    }
+
+    var barriers: [Barrier] = [] {
+        didSet {
+            needsDisplay = true
         }
     }
 
@@ -99,6 +114,11 @@ class BubbleCanvas: NSView {
             } else {
                 Swift.print("unexpected not-rendering a bubble")
             }
+        }
+
+        let viewRect = bounds
+        for barrier in barriers {
+            barrier.render(in: viewRect)
         }
 
         renderMarquee()
@@ -192,6 +212,10 @@ class BubbleCanvas: NSView {
         }
     }
 
+    func invalidateBarrier(_ barrier: Barrier) {
+        needsDisplay = true
+    }
+
     func invalidateBubble(_ bubble: Bubble) {
         invalidateBubble(bubble.ID)
     }
@@ -269,6 +293,16 @@ extension BubbleCanvas {
             currentMouseHandler = MouseDoubleSpacer(withSupport: self)
             currentMouseHandler?.start(at: viewLocation)
             return
+        }
+
+        for barrier in barriers { // not a forEach because of the return
+            if barrier.hitTest(point: viewLocation, area: bounds) {
+                bubbleSoup.beginGrouping()
+                barrierSoup.beginGrouping()
+                currentMouseHandler = MouseBarrier(withSupport: self, barrier: barrier)
+                currentMouseHandler?.start(at: viewLocation)
+                return
+            }
         }
 
         let addToSelection = event.modifierFlags.contains(.shift)
@@ -374,6 +408,9 @@ extension BubbleCanvas {
 
             currentMouseHandler = nil
             marquee = nil
+
+            bubbleSoup.endGrouping()
+            barrierSoup.endGrouping()
         }
 
         if spaceDown {
@@ -491,5 +528,45 @@ extension BubbleCanvas: MouseSupport {
 
     func createNewBubble(at point: CGPoint) {
         bubbleSoup.create(newBubbleAt: point)
+    }
+
+    func move(barrier: Barrier, affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?,
+        to horizontalPosition: CGFloat) {
+        moveAllTheThings(anchoredByBarrier: barrier, 
+            affectedBubbles: affectedBubbles, affectedBarriers: affectedBarriers,
+            to: horizontalPosition)
+    }
+
+    func bubblesAffectedBy(barrier: Barrier) -> [Bubble]? {
+        let affectedBubbles = bubbleSoup.areaTestBubbles(intersecting: barrier.horizontalPosition.rectToRight)
+        return affectedBubbles
+    }
+
+    func barriersAffectedBy(barrier: Barrier) -> [Barrier]? {
+        let affectedBarriers = barrierSoup.areaTestBarriers(toTheRightOf: barrier.horizontalPosition)
+        return affectedBarriers
+    }
+}
+
+
+// This stuff should move elsewhere since (hopefully) it's purely soup manipulations.
+extension BubbleCanvas {
+    func moveAllTheThings(anchoredByBarrier barrier: Barrier, 
+        affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?, to horizontalPosition: CGFloat) {
+        
+        let delta = horizontalPosition - barrier.horizontalPosition
+        barrierSoup.move(barrier: barrier, to: horizontalPosition)
+
+        affectedBubbles?.forEach { bubble in
+            let newPosition = CGPoint(x: bubble.position.x + delta, y: bubble.position.y)
+            bubbleSoup.move(bubble: bubble, to: newPosition)
+        }
+
+        affectedBarriers?.forEach { barrier in
+            let newPosition = barrier.horizontalPosition + delta
+            barrierSoup.move(barrier: barrier, to: newPosition)
+        }
+
+        needsDisplay = true
     }
 }

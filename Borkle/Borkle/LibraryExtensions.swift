@@ -18,6 +18,14 @@ extension CGFloat {
             return nil
         }
     }
+
+    /// Given a float value, generate a very large rectangle with that value as its
+    /// left edge.
+    var rectToRight: CGRect {
+        let rectToRight = CGRect(x: self, y: -.greatestFiniteMagnitude / 2.0,
+            width: .greatestFiniteMagnitude, height: .greatestFiniteMagnitude)
+        return rectToRight
+    }
 }
 
 extension CGPoint {

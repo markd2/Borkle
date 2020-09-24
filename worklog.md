@@ -691,4 +691,41 @@ Need to have `remove` in the soup.
 
 ----------
 
-arg, getting lost in the undo miasma again.
+arg, getting lost in the undo miasma again.  Some double-accounting
+
+----------
+
+Next up - adding the barrier.
+
+This is a new type added to the soup plus some new interactions.  *plus*
+get something unique going on.
+
+
+==================================================
+# Tuesday September 22, 2020
+
+adding barrier
+  - new barrier type (offset, width, label), just plain old array in the document/canvas for now.
+  - mouse action architecutre is pretty nice, IIDSSM
+  - probably will need a barrier soup so can put undo handling in there
+    - yeah, that's going to be useful.
+  - 
+
+need ID for barriers
+
+
+==================================================
+# Wednesday September 23, 2020
+
+added ID for barriers
+More barrier moving stuff - got bubbles moving properly, got barriers properly moving to.
+
+so the feature works.  Now tests!  :alot: of junk added that needs testing.
+
+out of the gate, barrier soup is 31% coverage and mouseBarrier is 0%
+
+afterwards, 100% barrier soup, 96% mouseBarrier, but covering an || is annoying, so
+letting that float for now.
+
+holy geeze 831 net new lines of code.
+
