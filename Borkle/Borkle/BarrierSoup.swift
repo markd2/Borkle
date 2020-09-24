@@ -65,6 +65,11 @@ class BarrierSoup {
         return barrier
     }
 
+    /// Add the barrier to the soup.
+    public func add(barrier: Barrier) {
+        add(barriersArray: [barrier])
+    }
+
     /// Add the barriers to the soup.  There's no intrinsic order to the barriers in the soup.
     /// (even though internally it is an array)
     public func add(barriers: [Barrier]) {
