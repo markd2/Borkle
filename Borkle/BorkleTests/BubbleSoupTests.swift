@@ -149,7 +149,7 @@ class BubbleSoupTests: XCTestCase {
     }
 }
 
-/// These exercse adding and removing
+/// These exercise adding and removing
 extension BubbleSoupTests {
     func test_add_bubble() {
         let bubble = Bubble(ID: 23)
@@ -247,6 +247,26 @@ extension BubbleSoupTests {
         XCTAssertEqual(soup.bubbleCount, 2)
     }
 
+    func test_bubble_iteration() {
+        soup.add(bubble: Bubble(ID: 1))
+        soup.add(bubble: Bubble(ID: 2))
+        soup.add(bubble: Bubble(ID: 3))
+
+        var count = 0
+        var seenIDs = IndexSet()
+        soup.forEachBubble {
+            seenIDs.insert($0.ID)
+            count += 1
+        }
+        
+        XCTAssertEqual(count, 3)
+        XCTAssertEqual(seenIDs, IndexSet(1...3))
+    }
+}
+
+/// These test UI jazz
+extension BubbleSoupTests {
+
     func test_hit_test_bubble() {
         soup.add(bubble: Bubble(ID: 1, position: CGPoint(x: 10, y: 20), width: 90))
         soup.add(bubble: Bubble(ID: 2, position: CGPoint(x: 100, y: 200), width: 90))
@@ -275,23 +295,6 @@ extension BubbleSoupTests {
         
         XCTAssertEqual(rect, expectedRect)
     }
-
-    func test_bubble_iteration() {
-        soup.add(bubble: Bubble(ID: 1))
-        soup.add(bubble: Bubble(ID: 2))
-        soup.add(bubble: Bubble(ID: 3))
-
-        var count = 0
-        var seenIDs = IndexSet()
-        soup.forEachBubble {
-            seenIDs.insert($0.ID)
-            count += 1
-        }
-        
-        XCTAssertEqual(count, 3)
-        XCTAssertEqual(seenIDs, IndexSet(1...3))
-    }
-
 }
 
 /// These exercise internal helper methods
