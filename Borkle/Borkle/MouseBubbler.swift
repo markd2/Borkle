@@ -1,4 +1,4 @@
-import Foundation
+import Cocoa
 
 class MouseBubbler: MouseHandler {
     private var support: MouseSupport
@@ -9,7 +9,8 @@ class MouseBubbler: MouseHandler {
         self.support = support
     }
 
-    func start(at point: CGPoint) {
+    func start(at point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
+
     }
 
     func move(to point: CGPoint) {

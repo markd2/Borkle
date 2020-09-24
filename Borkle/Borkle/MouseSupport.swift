@@ -1,7 +1,7 @@
-import Foundation
+import Cocoa
 
 protocol MouseHandler {
-    func start(at: CGPoint)
+    func start(at: CGPoint, modifierFlags: NSEvent.ModifierFlags)
     func move(to: CGPoint)
     func finish()
 

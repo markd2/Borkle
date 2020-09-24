@@ -285,13 +285,13 @@ extension BubbleCanvas {
         if spaceDown {
             setCursor(.closedHand)
             currentMouseHandler = MouseGrabHand(withSupport: self)
-            currentMouseHandler?.start(at: locationInWindow)
+            currentMouseHandler?.start(at: locationInWindow, modifierFlags: event.modifierFlags)
             return
         }
 
         if event.clickCount == 2 {
             currentMouseHandler = MouseDoubleSpacer(withSupport: self)
-            currentMouseHandler?.start(at: viewLocation)
+            currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
             return
         }
 
@@ -300,7 +300,7 @@ extension BubbleCanvas {
                 bubbleSoup.beginGrouping()
                 barrierSoup.beginGrouping()
                 currentMouseHandler = MouseBarrier(withSupport: self, barrier: barrier)
-                currentMouseHandler?.start(at: viewLocation)
+                currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
                 return
             }
         }
@@ -319,7 +319,7 @@ extension BubbleCanvas {
             } else {
                 // do nothing
             }
-            currentMouseHandler?.start(at: viewLocation)
+            currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
             return
         }
 
@@ -337,18 +337,10 @@ extension BubbleCanvas {
         } else {
             if let bubble = bubble {
                 bubbleSoup.beginGrouping()
+                currentMouseHandler = MouseBubbler(withSupport: self)
+                currentMouseHandler?.start(at: viewLocation, 
+                                           modifierFlags: event.modifierFlags)
 
-                if selectedBubbles.isSelected(bubble: bubble) {
-                    // bubble already selected, so it's a drag of existing selection
-                    initialDragPoint = viewLocation
-                } else {
-                    // it's a fresh selection, no modifiers, could be a click-and-drag in one gesture
-                    // !!! scapple has click-drag 
-                    selectedBubbles.unselectAll()
-                    selectedBubbles.select(bubble: bubble)
-                    initialDragPoint = viewLocation
-                }
-                    
                 
             } else {
                 // bubble is nil, so a click into open space, so deselect everything

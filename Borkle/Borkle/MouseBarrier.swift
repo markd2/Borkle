@@ -1,4 +1,4 @@
-import Foundation
+import Cocoa
 
 class MouseBarrier: MouseHandler {
     private var support: MouseSupport
@@ -19,7 +19,7 @@ class MouseBarrier: MouseHandler {
         self.initialPosition = barrier.horizontalPosition
     }
 
-    func start(at point: CGPoint) {
+    func start(at point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         initialPoint = point
         affectedBubbles = support.bubblesAffectedBy(barrier: barrier)
         affectedBarriers = support.barriersAffectedBy(barrier: barrier)

@@ -25,7 +25,7 @@ class MouseSpaceTests: XCTestCase {
     }
 
     func test_just_click_deselects_everything() {
-        mouser.start(at: .zero)
+        mouser.start(at: .zero, modifierFlags: [])
         mouser.finish()
 
         XCTAssertTrue(testSupport.unselectAllCalled)
@@ -33,7 +33,7 @@ class MouseSpaceTests: XCTestCase {
     }
 
     func test_drag_in_emptyness_selectes_nothing() {
-        mouser.start(at: .zero)
+        mouser.start(at: .zero, modifierFlags: [])
         mouser.move(to: CGPoint(x: 10, y: 20))
         mouser.finish()
 
@@ -46,7 +46,7 @@ class MouseSpaceTests: XCTestCase {
         let end = CGPoint(x: 110, y: 220)
         let rect = CGRect(point1: start, point2: end)
 
-        mouser.start(at: start)
+        mouser.start(at: start, modifierFlags: [])
         mouser.move(to: end)
         mouser.finish()
 
@@ -64,7 +64,7 @@ class MouseSpaceTests: XCTestCase {
 
         // click at origin, drag to 10,20.
         // we're going to say 3 things were selected, make sure those are passed to the selection
-        mouser.start(at: .zero)
+        mouser.start(at: .zero, modifierFlags: [])
         mouser.move(to: point)
         mouser.finish()
 
@@ -79,7 +79,7 @@ class MouseSpaceTests: XCTestCase {
         let b2 = Bubble(ID: 1)
         let b3 = Bubble(ID: 2)
 
-        mouser.start(at: .zero)
+        mouser.start(at: .zero, modifierFlags: [])
 
         // Select 3
         testSupport.areaTestBubblesReturn = [b1, b2, b3]
@@ -112,13 +112,13 @@ class MouseDoubleSpaceTests: XCTestCase {
     }
     
     func test_double_click_creates_bubble() {
-        mouser.start(at: .zero)
+        mouser.start(at: .zero, modifierFlags: [])
         mouser.finish()
         XCTAssertEqual(testSupport.createNewBubbleArgument, CGPoint.zero)
     }
 
     func test_double_click_and_drag_short_distance_still_creates() {
-        mouser.start(at: .zero)
+        mouser.start(at: .zero, modifierFlags: [])
         mouser.move(to: CGPoint(x: MouseDoubleSpacer.slopLimit / 2.0,
                 y: MouseDoubleSpacer.slopLimit / 2.0))
         mouser.finish()
@@ -126,7 +126,7 @@ class MouseDoubleSpaceTests: XCTestCase {
     }
 
     func test_double_click_and_drag_long_distance_doesnt_create() {
-        mouser.start(at: .zero)
+        mouser.start(at: .zero, modifierFlags: [])
         mouser.move(to: CGPoint(x: MouseDoubleSpacer.slopLimit * 2.0,
                 y: MouseDoubleSpacer.slopLimit * 2.0))
         mouser.finish()

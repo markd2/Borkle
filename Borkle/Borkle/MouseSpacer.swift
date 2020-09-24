@@ -1,4 +1,4 @@
-import Foundation
+import Cocoa
 
 /// Mouse handler for clicks that start in space (blank canvas)
 class MouseSpacer: MouseHandler {
@@ -9,7 +9,7 @@ class MouseSpacer: MouseHandler {
         self.support = support
     }
 
-    public func start(at point: CGPoint) {
+    public func start(at point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         // this will need to go somewhere else when we support shift-dragging
         support.unselectAll()
         anchorPoint = point
@@ -43,7 +43,7 @@ class MouseDoubleSpacer: MouseHandler {
         self.support = support
     }
 
-    public func start(at point: CGPoint) {
+    public func start(at point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         // this will need to go somewhere else when we support shift-dragging
         support.unselectAll()
         startPoint = point
