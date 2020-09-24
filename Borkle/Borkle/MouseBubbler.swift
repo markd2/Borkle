@@ -39,6 +39,8 @@ class MouseBubbler: MouseHandler {
         }
 
         // !!! Probably don't need to filter the _entire_ soup for this.
+        // !!! also, use reduce.
+        originalBubblePositions = [:]
         bubbleSoup.forEachBubble {
             originalBubblePositions[$0] = $0.position
         }
