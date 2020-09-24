@@ -337,28 +337,16 @@ extension BubbleCanvas {
         } else {
             if let bubble = bubble {
                 bubbleSoup.beginGrouping()
-                currentMouseHandler = MouseBubbler(withSupport: self)
-                currentMouseHandler?.start(at: viewLocation, 
+                currentMouseHandler = MouseBubbler(withSupport: self, 
+                                                   bubbleSoup: bubbleSoup, 
+                                                   selectedBubbles: selectedBubbles)
+                currentMouseHandler?.start(at: viewLocation,
                                            modifierFlags: event.modifierFlags)
-
                 
             } else {
                 // bubble is nil, so a click into open space, so deselect everything
                 selectedBubbles.unselectAll()
             }
-        }
-
-        // All done if there's nothing to actually draga
-        guard initialDragPoint != nil else { return }
-
-        originalBubblePositions = [:]
-        bubbleSoup.forEachBubble {
-            originalBubblePositions[$0] = $0.position
-        }
-
-        // we have a selected bubble. Drag it around.
-        if let bubble = bubble {
-            originalBubblePosition = bubble.position
         }
     }
 
