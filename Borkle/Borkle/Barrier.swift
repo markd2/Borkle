@@ -7,6 +7,13 @@ class Barrier: Codable {
     var horizontalPosition: CGFloat
     var width: CGFloat = 6.0
 
+    init(ID: Int) {
+        self.ID = ID
+        self.label = "label"
+        self.horizontalPosition = 0.0
+        self.width = 0.0
+    }
+
     init(ID: Int, label: String, horizontalPosition: CGFloat, width: CGFloat) {
         self.ID = ID
         self.label = label
