@@ -24,8 +24,10 @@ protocol MouseSupport {
     func bubblesAffectedBy(barrier: Barrier) -> [Bubble]?
     func barriersAffectedBy(barrier: Barrier) -> [Barrier]?
     func move(barrier: Barrier, 
-        affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?,
-        to horizontalPosition: CGFloat)
+              affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?,
+              to horizontalPosition: CGFloat)
+
+    func invalEverything()
 }
 
 

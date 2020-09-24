@@ -362,22 +362,6 @@ extension BubbleCanvas {
             }
             return
         }
-
-        guard let initialDragPoint = initialDragPoint else { return }
-        guard selectedBubbles.bubbleCount > 0 else { return }
-
-        let delta = initialDragPoint - viewLocation
-        selectedBubbles.forEachBubble { bubble in
-            guard let originalPosition = originalBubblePositions[bubble] else {
-                Swift.print("unexpectedly missing original bubble position")
-                return
-            }
-            bubbleSoup.move(bubble: bubble, to: originalPosition + delta)
-            
-            // the area to redraw is kind of complex - like if there's connected 
-            // bubbles need to make sure connecting lines are redrawn.
-            setNeedsDisplay(bounds)
-        }
     }
 
     override func mouseUp(with event: NSEvent) {
@@ -401,7 +385,6 @@ extension BubbleCanvas {
             handler.finish()
             return
         }
-
 
         guard initialDragPoint != nil else { return }
 
@@ -525,6 +508,11 @@ extension BubbleCanvas: MouseSupport {
     func barriersAffectedBy(barrier: Barrier) -> [Barrier]? {
         let affectedBarriers = barrierSoup.areaTestBarriers(toTheRightOf: barrier.horizontalPosition)
         return affectedBarriers
+    }
+
+    func invalEverything() {
+        // this was it originally - is this different effect than just inval?
+        setNeedsDisplay(bounds)
     }
 }
 

@@ -50,6 +50,21 @@ class MouseBubbler: MouseHandler {
     }
 
     func drag(to point: CGPoint) {
+        guard selectedBubbles.bubbleCount > 0 else { return }
+
+        let delta = initialDragPoint - point
+        selectedBubbles.forEachBubble { bubble in
+            guard let originalPosition = originalBubblePositions[bubble] else {
+                Swift.print("unexpectedly missing original bubble position")
+                return
+            }
+            // !!! Move to mouse support?
+            bubbleSoup.move(bubble: bubble, to: originalPosition + delta)
+            
+            // the area to redraw is kind of complex - like if there's connected 
+            // bubbles need to make sure connecting lines are redrawn.
+            support.invalEverything()
+        }
     }
 
     func finish() {
