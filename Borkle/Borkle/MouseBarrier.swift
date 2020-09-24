@@ -25,7 +25,7 @@ class MouseBarrier: MouseHandler {
         affectedBarriers = support.barriersAffectedBy(barrier: barrier)
     }
     
-    func move(to point: CGPoint) {
+    func drag(to point: CGPoint) {
         if affectedBubbles == nil && affectedBarriers == nil { return }
 
         guard affectedBubbles?.count ?? 0 > 0 || affectedBarriers?.count ?? 0 > 0 else { return }

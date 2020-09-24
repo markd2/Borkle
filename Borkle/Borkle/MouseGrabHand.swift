@@ -18,7 +18,7 @@ class MouseGrabHand: MouseHandler {
         scrollOrigin = support.currentScrollOffset
     }
     
-    func move(to point: CGPoint) {
+    func drag(to point: CGPoint) {
         let rawDelta = point - initialDragPoint
         let flippedX = CGPoint(x: rawDelta.x, y: -rawDelta.y)
         let newOrigin = scrollOrigin + flippedX

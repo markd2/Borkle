@@ -2,7 +2,7 @@ import Cocoa
 
 protocol MouseHandler {
     func start(at: CGPoint, modifierFlags: NSEvent.ModifierFlags)
-    func move(to: CGPoint)
+    func drag(to: CGPoint)
     func finish()
 
     var prefersWindowCoordinates: Bool { get }

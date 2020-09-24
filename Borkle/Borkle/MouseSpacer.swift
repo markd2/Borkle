@@ -15,7 +15,7 @@ class MouseSpacer: MouseHandler {
         anchorPoint = point
     }
 
-    public func move(to point: CGPoint) {
+    public func drag(to point: CGPoint) {
         let rect = CGRect(point1: point, point2: anchorPoint)
         support.drawMarquee(around: rect)
 
@@ -49,7 +49,7 @@ class MouseDoubleSpacer: MouseHandler {
         startPoint = point
     }
 
-    public func move(to point: CGPoint) {
+    public func drag(to point: CGPoint) {
         if let startPoint = startPoint {
             
             let delta = startPoint - point

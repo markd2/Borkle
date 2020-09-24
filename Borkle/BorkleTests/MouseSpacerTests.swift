@@ -34,7 +34,7 @@ class MouseSpaceTests: XCTestCase {
 
     func test_drag_in_emptyness_selectes_nothing() {
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.move(to: CGPoint(x: 10, y: 20))
+        mouser.drag(to: CGPoint(x: 10, y: 20))
         mouser.finish()
 
         XCTAssertTrue(testSupport.unselectAllCalled)
@@ -47,7 +47,7 @@ class MouseSpaceTests: XCTestCase {
         let rect = CGRect(point1: start, point2: end)
 
         mouser.start(at: start, modifierFlags: [])
-        mouser.move(to: end)
+        mouser.drag(to: end)
         mouser.finish()
 
         XCTAssertTrue(testSupport.unselectAllCalled)
@@ -65,7 +65,7 @@ class MouseSpaceTests: XCTestCase {
         // click at origin, drag to 10,20.
         // we're going to say 3 things were selected, make sure those are passed to the selection
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.move(to: point)
+        mouser.drag(to: point)
         mouser.finish()
 
         XCTAssertTrue(testSupport.unselectAllCalled)
@@ -83,13 +83,13 @@ class MouseSpaceTests: XCTestCase {
 
         // Select 3
         testSupport.areaTestBubblesReturn = [b1, b2, b3]
-        mouser.move(to: .zero)
+        mouser.drag(to: .zero)
         XCTAssertEqual(testSupport.selectArgument, [b1, b2, b3])
 
         // Now select two, make sure the selection count is 2
         testSupport.reset()
         testSupport.areaTestBubblesReturn = [b1, b2]
-        mouser.move(to: .zero)
+        mouser.drag(to: .zero)
         XCTAssertTrue(testSupport.unselectAllCalled)
         XCTAssertEqual(testSupport.selectArgument, [b1, b2])
     }
@@ -119,7 +119,7 @@ class MouseDoubleSpaceTests: XCTestCase {
 
     func test_double_click_and_drag_short_distance_still_creates() {
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.move(to: CGPoint(x: MouseDoubleSpacer.slopLimit / 2.0,
+        mouser.drag(to: CGPoint(x: MouseDoubleSpacer.slopLimit / 2.0,
                 y: MouseDoubleSpacer.slopLimit / 2.0))
         mouser.finish()
         XCTAssertNotNil(testSupport.createNewBubbleArgument)
@@ -127,7 +127,7 @@ class MouseDoubleSpaceTests: XCTestCase {
 
     func test_double_click_and_drag_long_distance_doesnt_create() {
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.move(to: CGPoint(x: MouseDoubleSpacer.slopLimit * 2.0,
+        mouser.drag(to: CGPoint(x: MouseDoubleSpacer.slopLimit * 2.0,
                 y: MouseDoubleSpacer.slopLimit * 2.0))
         mouser.finish()
         XCTAssertNil(testSupport.createNewBubbleArgument)

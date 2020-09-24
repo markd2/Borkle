@@ -49,7 +49,7 @@ class MouseBubbler: MouseHandler {
         }
     }
 
-    func move(to point: CGPoint) {
+    func drag(to point: CGPoint) {
     }
 
     func finish() {

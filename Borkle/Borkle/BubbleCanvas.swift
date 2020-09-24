@@ -356,9 +356,9 @@ extension BubbleCanvas {
 
         if let handler = currentMouseHandler {
             if handler.prefersWindowCoordinates {
-                handler.move(to: locationInWindow)
+                handler.drag(to: locationInWindow)
             } else {
-                handler.move(to: viewLocation)
+                handler.drag(to: viewLocation)
             }
             return
         }
