@@ -1,8 +1,8 @@
 - ID: 74
   text: irony of using scapple to design its replacement is not lost on me
   position:
-  - 8.3526171825e+2
-  - 1.0546875e+2
+  - 9.6212109325e+2
+  - 2.4375e+2
   width: 1.11e+2
   connections:
     indexes: []
@@ -10,8 +10,8 @@
 - ID: 75
   text: scapple bubbles
   position:
-  - 2.379218745e+2
-  - 1.1357421875e+2
+  - 4.2996484325e+2
+  - 1.303671875e+2
   width: 9.5e+1
   connections:
     indexes:
@@ -33,8 +33,8 @@
 - ID: 76
   text: Text Documents / Verbose Text
   position:
-  - 3.4470703075e+2
-  - 2.3747265625e+2
+  - 5.367499995e+2
+  - 2.54265625e+2
   width: 1.74e+2
   connections:
     indexes:
@@ -46,8 +46,8 @@
 - ID: 77
   text: Like More-3 enter key
   position:
-  - 3.6970703075e+2
-  - 3.0847265625e+2
+  - 5.617499995e+2
+  - 3.25265625e+2
   width: 1.25e+2
   connections:
     indexes:
@@ -57,8 +57,8 @@
 - ID: 78
   text: One-liner / title
   position:
-  - 1.739218745e+2
-  - 1.7657421875e+2
+  - 3.6596484325e+2
+  - 1.933671875e+2
   width: 8.7e+1
   connections:
     indexes:
@@ -68,8 +68,8 @@
 - ID: 79
   text: More info if bubble is embiggened
   position:
-  - 1.909218745e+2
-  - 2.1557421875e+2
+  - 3.8296484325e+2
+  - 2.323671875e+2
   width: 1.12e+2
   connections:
     indexes:
@@ -81,8 +81,8 @@
 - ID: 80
   text: Maybe two CR to separate the two
   position:
-  - 1.859218745e+2
-  - 2.8357421875e+2
+  - 3.7796484325e+2
+  - 3.003671875e+2
   width: 1.19e+2
   connections:
     indexes:
@@ -92,8 +92,8 @@
 - ID: 81
   text: Live drag of bubbles
   position:
-  - 9.539374995e+2
-  - 2.148359375e+2
+  - 1.19710546825e+3
+  - 2.358125e+2
   width: 1.17e+2
   connections:
     indexes: []
@@ -101,8 +101,8 @@
 - ID: 82
   text: Template Cards
   position:
-  - 8.03945312e+2
-  - 2.8e+1
+  - 1.02884765575e+3
+  - 4.479296875e+1
   width: 9.3e+1
   connections:
     indexes:
@@ -112,8 +112,8 @@
 - ID: 83
   text: bubble vs card?
   position:
-  - 3.159218745e+2
-  - 5.757421875e+1
+  - 5.0796484325e+2
+  - 7.43671875e+1
   width: 9.3e+1
   connections:
     indexes:
@@ -125,8 +125,8 @@
 - ID: 84
   text: bubble - small
   position:
-  - 2.959218745e+2
-  - 1.057421875e+1
+  - 4.8796484325e+2
+  - 2.73671875e+1
   width: 8.3e+1
   connections:
     indexes:
@@ -136,8 +136,8 @@
 - ID: 85
   text: card - larger, like the 3-Line NPC
   position:
-  - 4.189218745e+2
-  - 7.57421875e+0
+  - 6.1096484325e+2
+  - 2.43671875e+1
   width: 2e+2
   connections:
     indexes:
@@ -147,8 +147,8 @@
 - ID: 86
   text: Anchor Bubbles
   position:
-  - 9.85335937e+2
-  - 2.928984375e+2
+  - 1.22850390575e+3
+  - 3.13875e+2
   width: 9.3e+1
   connections:
     indexes:
@@ -158,8 +158,8 @@
 - ID: 87
   text: "So can select \u201Caway from this\u201D"
   position:
-  - 7.786406245e+2
-  - 3.388984375e+2
+  - 1.02180859325e+3
+  - 3.59875e+2
   width: 1.69e+2
   connections:
     indexes:
@@ -171,8 +171,8 @@
 - ID: 88
   text: Perhaps cmd-A modifier
   position:
-  - 9.4331640575e+2
-  - 3.94e+2
+  - 1.1864843745e+3
+  - 4.149765625e+2
   width: 1.37e+2
   connections:
     indexes:
@@ -182,8 +182,8 @@
 - ID: 90
   text: hoist to focus
   position:
-  - 4.5670703075e+2
-  - 2.0947265625e+2
+  - 6.487499995e+2
+  - 2.26265625e+2
   width: 7.9e+1
   connections:
     indexes:
@@ -193,8 +193,8 @@
 - ID: 91
   text: Embedded documents
   position:
-  - 3.789218745e+2
-  - 1.4757421875e+2
+  - 5.7096484325e+2
+  - 1.643671875e+2
   width: 1.29e+2
   connections:
     indexes:
@@ -208,8 +208,8 @@
 - ID: 92
   text: Open in second window?
   position:
-  - 5.3537890575e+2
-  - 2.0195703125e+2
+  - 7.274218745e+2
+  - 2.1875e+2
   width: 1.43e+2
   connections:
     indexes:
@@ -219,8 +219,8 @@
 - ID: 93
   text: Scapple import
   position:
-  - 1.3665937495e+3
-  - 1.71e+2
+  - 1.59149609325e+3
+  - 1.8779296875e+2
   width: 8.9e+1
   connections:
     indexes:
@@ -230,8 +230,8 @@
 - ID: 94
   text: Outine mode
   position:
-  - 5.46101562e+2
-  - 4.298984375e+2
+  - 7.3814453075e+2
+  - 4.4669140625e+2
   width: 7.7e+1
   connections:
     indexes:
@@ -241,8 +241,8 @@
 - ID: 95
   text: Give it an anchor
   position:
-  - 5.39773437e+2
-  - 4.698984375e+2
+  - 7.3181640575e+2
+  - 4.8669140625e+2
   width: 9.9e+1
   connections:
     indexes:
@@ -254,8 +254,8 @@
 - ID: 96
   text: could get some emergently weird slicing and dicing
   position:
-  - 9.2793359325e+2
-  - 5.12453125e+2
+  - 1.2147499995e+3
+  - 5.4255078125e+2
   width: 1.18e+2
   connections:
     indexes:
@@ -265,8 +265,8 @@
 - ID: 97
   text: Attribute
   position:
-  - 3.05101562e+2
-  - 4.158984375e+2
+  - 4.9714453075e+2
+  - 4.3269140625e+2
   width: 5.3e+1
   connections:
     indexes:
@@ -276,8 +276,8 @@
 - ID: 98
   text: Rich Text
   position:
-  - 2.4631640575e+2
-  - 4.54e+2
+  - 4.383593745e+2
+  - 4.7079296875e+2
   width: 5.8e+1
   connections:
     indexes:
@@ -289,8 +289,8 @@
 - ID: 99
   text: Image
   position:
-  - 3.70101562e+2
-  - 4.678984375e+2
+  - 5.6214453075e+2
+  - 4.8469140625e+2
   width: 4.2e+1
   connections:
     indexes:
@@ -300,8 +300,8 @@
 - ID: 100
   text: Template
   position:
-  - 4.49101562e+2
-  - 4.168984375e+2
+  - 6.4114453075e+2
+  - 4.3369140625e+2
   width: 5.7e+1
   connections:
     indexes:
@@ -311,8 +311,8 @@
 - ID: 101
   text: Pre-formed text
   position:
-  - 7.96664062e+2
-  - 6e+1
+  - 1.02156640575e+3
+  - 7.679296875e+1
   width: 9.1e+1
   connections:
     indexes:
@@ -322,8 +322,8 @@
 - ID: 102
   text: Or maybe key/value fill in
   position:
-  - 1.1130624995e+3
-  - 7e+1
+  - 1.33796484325e+3
+  - 8.679296875e+1
   width: 1.43e+2
   connections:
     indexes:
@@ -333,8 +333,8 @@
 - ID: 103
   text: click to paste to paste note there
   position:
-  - 4.5709765575e+2
-  - 6.639921875e+2
+  - 6.491406245e+2
+  - 6.8078515625e+2
   width: 1.45e+2
   connections:
     indexes:
@@ -344,8 +344,8 @@
 - ID: 104
   text: Annoyance fixes
   position:
-  - 4.86882812e+2
-  - 6.24890625e+2
+  - 6.7892578075e+2
+  - 6.4168359375e+2
   width: 9.7e+1
   connections:
     indexes:
@@ -367,8 +367,8 @@
 - ID: 105
   text: Gestures
   position:
-  - 2.3131640575e+2
-  - 5.83e+2
+  - 4.233593745e+2
+  - 5.9979296875e+2
   width: 5.7e+1
   connections:
     indexes:
@@ -378,8 +378,8 @@
 - ID: 106
   text: Bubble-on-Bubble action
   position:
-  - 1.4731640575e+2
-  - 6.4e+2
+  - 3.393593745e+2
+  - 6.5679296875e+2
   width: 1.4e+2
   connections:
     indexes:
@@ -389,8 +389,8 @@
 - ID: 107
   text: incremental search
   position:
-  - 6.360468745e+2
-  - 6.39796875e+2
+  - 8.2808984325e+2
+  - 6.5658984375e+2
   width: 1.1e+2
   connections:
     indexes:
@@ -402,8 +402,8 @@
 - ID: 108
   text: Markdown
   position:
-  - 2.3631640575e+2
-  - 5.06e+2
+  - 4.283593745e+2
+  - 5.2279296875e+2
   width: 6.4e+1
   connections:
     indexes:
@@ -413,8 +413,8 @@
 - ID: 109
   text: Text ruler for template bubbles
   position:
-  - 5.741796825e+1
-  - 5.132421875e+2
+  - 2.49460937e+2
+  - 5.3003515625e+2
   width: 1.08e+2
   connections:
     indexes:
@@ -424,8 +424,8 @@
 - ID: 110
   text: Wrap bubbles to nice proportions
   position:
-  - 5.09882812e+2
-  - 5.30890625e+2
+  - 7.0192578075e+2
+  - 5.4768359375e+2
   width: 1.08e+2
   connections:
     indexes:
@@ -435,8 +435,8 @@
 - ID: 111
   text: drag and drop out template bubbles
   position:
-  - 5.0696484325e+2
-  - 2.9938671875e+2
+  - 6.99007812e+2
+  - 3.161796875e+2
   width: 1.45e+2
   connections:
     indexes:
@@ -446,8 +446,8 @@
 - ID: 112
   text: keep it fast and fluid
   position:
-  - 9.3432421825e+2
-  - 4.5189453125e+2
+  - 1.177492187e+3
+  - 4.7287109375e+2
   width: 1.15e+2
   connections:
     indexes: []
@@ -455,8 +455,8 @@
 - ID: 113
   text: Campaign Logger
   position:
-  - 1.4525937495e+3
-  - 3e+2
+  - 1.67749609325e+3
+  - 3.1679296875e+2
   width: 1.04e+2
   connections:
     indexes:
@@ -468,8 +468,8 @@
 - ID: 114
   text: "Side panel that\u2019ll send to CL?"
   position:
-  - 1.51333203075e+3
-  - 2.57e+2
+  - 1.7382343745e+3
+  - 2.7379296875e+2
   width: 9.7e+1
   connections:
     indexes:
@@ -479,8 +479,8 @@
 - ID: 115
   text: Pop up images for players
   position:
-  - 1.160992187e+3
-  - 1.16e+2
+  - 1.38589453075e+3
+  - 1.3279296875e+2
   width: 1.45e+2
   connections:
     indexes:
@@ -490,8 +490,8 @@
 - ID: 116
   text: mmHmm integration?
   position:
-  - 1.22849609325e+3
-  - 1.73e+2
+  - 1.453398437e+3
+  - 1.8979296875e+2
   width: 1.23e+2
   connections:
     indexes:
@@ -503,8 +503,8 @@
 - ID: 117
   text: presentation mode
   position:
-  - 1.3435937495e+3
-  - 1.29e+2
+  - 1.56849609325e+3
+  - 1.4579296875e+2
   width: 1.08e+2
   connections:
     indexes:
@@ -514,8 +514,8 @@
 - ID: 118
   text: Panes
   position:
-  - 1.02569921825e+3
-  - 2.7562890625e+2
+  - 1.268867187e+3
+  - 2.9660546875e+2
   width: 4.3e+1
   connections:
     indexes:
@@ -527,8 +527,8 @@
 - ID: 119
   text: e.g. NPC bubbles
   position:
-  - 1.1543749995e+3
-  - 3.35e+2
+  - 1.37927734325e+3
+  - 3.5179296875e+2
   width: 1.03e+2
   connections:
     indexes:
@@ -538,8 +538,8 @@
 - ID: 120
   text: Chrome
   position:
-  - 1.21815234325e+3
-  - 4.89e+2
+  - 1.443054687e+3
+  - 5.0579296875e+2
   width: 5.1e+1
   connections:
     indexes:
@@ -549,8 +549,8 @@
 - ID: 121
   text: Number of notes
   position:
-  - 1.2563437495e+3
-  - 4.06e+2
+  - 1.48124609325e+3
+  - 4.2279296875e+2
   width: 9.7e+1
   connections:
     indexes:
@@ -560,8 +560,8 @@
 - ID: 122
   text: Zoom / Reset
   position:
-  - 1.3872968745e+3
-  - 4.54e+2
+  - 1.61219921825e+3
+  - 4.7079296875e+2
   width: 8.1e+1
   connections:
     indexes:
@@ -571,8 +571,8 @@
 - ID: 123
   text: Existing Scapple
   position:
-  - 1.25949609325e+3
-  - 4.85e+2
+  - 1.484398437e+3
+  - 5.0179296875e+2
   width: 9.7e+1
   connections:
     indexes:
@@ -582,8 +582,8 @@
 - ID: 124
   text: Keep relative to a divider
   position:
-  - 1.21445703075e+3
-  - 2.73e+2
+  - 1.4393593745e+3
+  - 2.8979296875e+2
   width: 1.41e+2
   connections:
     indexes:
@@ -595,8 +595,8 @@
 - ID: 125
   text: move divider to make more room for main area
   position:
-  - 1.2093437495e+3
-  - 3.18e+2
+  - 1.43424609325e+3
+  - 3.3479296875e+2
   width: 1.45e+2
   connections:
     indexes:
@@ -606,8 +606,8 @@
 - ID: 126
   text: Push-layout
   position:
-  - 6.575156245e+2
-  - 6.8761328125e+2
+  - 8.4955859325e+2
+  - 7.0440625e+2
   width: 7.2e+1
   connections:
     indexes:
@@ -619,8 +619,8 @@
 - ID: 127
   text: For making wedges
   position:
-  - 8.34882812e+2
-  - 7.149921875e+2
+  - 1.05978515575e+3
+  - 7.3178515625e+2
   width: 1.13e+2
   connections:
     indexes:
@@ -632,8 +632,8 @@
 - ID: 128
   text: Like castle-lantern central square
   position:
-  - 9.792499995e+2
-  - 6.947890625e+2
+  - 1.20415234325e+3
+  - 7.1158203125e+2
   width: 1e+2
   connections:
     indexes:
@@ -643,8 +643,8 @@
 - ID: 129
   text: paste and match style
   position:
-  - 4.60882812e+2
-  - 5.79890625e+2
+  - 6.5292578075e+2
+  - 5.9668359375e+2
   width: 1.25e+2
   connections:
     indexes:
@@ -656,8 +656,8 @@
 - ID: 130
   text: Color chooser with better swatch management
   position:
-  - 4.25960937e+2
-  - 7.2337109375e+2
+  - 6.1800390575e+2
+  - 7.401640625e+2
   width: 1.45e+2
   connections:
     indexes:
@@ -667,8 +667,8 @@
 - ID: 131
   text: Lines
   position:
-  - -2.288671925e+1
-  - 1.36e+2
+  - 8.92187495e+1
+  - 1.5250390625e+2
   width: 3.7e+1
   connections:
     indexes:
@@ -680,8 +680,8 @@
 - ID: 132
   text: Dashed
   position:
-  - -3.5929688e+1
-  - 1.03e+2
+  - 1.7155078075e+2
+  - 7.90859375e+1
   width: 5e+1
   connections:
     indexes:
@@ -691,8 +691,8 @@
 - ID: 133
   text: Solid
   position:
-  - -2.07031255e+1
-  - 1.75e+2
+  - 2.08054687e+2
+  - 2.11609375e+2
   width: 3.5e+1
   connections:
     indexes:
@@ -702,8 +702,8 @@
 - ID: 134
   text: Line label
   position:
-  - -4.5773438e+1
-  - 1.8e+2
+  - 8.391796825e+1
+  - 2.0526953125e+2
   width: 6e+1
   connections:
     indexes:
@@ -713,8 +713,8 @@
 - ID: 135
   text: Jochen generators inside the app
   position:
-  - 1.44927734325e+3
-  - 1.23e+2
+  - 1.674179687e+3
+  - 1.3979296875e+2
   width: 1.45e+2
   connections:
     indexes:
@@ -724,8 +724,8 @@
 - ID: 136
   text: arrow(s)
   position:
-  - -3.7476563e+1
-  - 1.26e+2
+  - 1.9364453075e+2
+  - 1.430390625e+2
   width: 5.2e+1
   connections:
     indexes:
@@ -735,8 +735,8 @@
 - ID: 137
   text: maybe long-click
   position:
-  - -8.34531255e+1
-  - 1.553125e+1
+  - 2.8664062e+1
+  - 4.451953125e+1
   width: 9.8e+1
   connections:
     indexes:
@@ -746,8 +746,8 @@
 - ID: 138
   text: Free-form text document
   position:
-  - -1.2612109425e+2
-  - 3.85e+2
+  - 1.689453075e+1
+  - 3.979375e+2
   width: 1.4e+2
   connections:
     indexes:
@@ -757,8 +757,8 @@
 - ID: 139
   text: "like Logic\u2019s notes panel"
   position:
-  - -1.1794140675e+2
-  - 4.43e+2
+  - 3.04843745e+1
+  - 4.8746484375e+2
   width: 1.32e+2
   connections:
     indexes:
@@ -768,8 +768,8 @@
 - ID: 140
   text: External Integrations
   position:
-  - 1.3733749995e+3
-  - 2.17e+2
+  - 1.59827734325e+3
+  - 2.3379296875e+2
   width: 1.19e+2
   connections:
     indexes:
@@ -785,8 +785,8 @@
 - ID: 141
   text: Web View?
   position:
-  - 1.50010546825e+3
-  - 3.45e+2
+  - 1.725007812e+3
+  - 3.6179296875e+2
   width: 6.9e+1
   connections:
     indexes:
@@ -796,8 +796,8 @@
 - ID: 142
   text: Annotation for hidden information
   position:
-  - 2.019218745e+2
-  - 3.757421875e+1
+  - 3.7098046825e+2
+  - 3.7296875e+1
   width: 8.9e+1
   connections:
     indexes:
@@ -807,8 +807,8 @@
 - ID: 143
   text: Background container bubbles
   position:
-  - -7.39218755e+1
-  - 2.2957421875e+2
+  - 8.49999995e+1
+  - 2.463671875e+2
   width: 1.09e+2
   connections:
     indexes:
@@ -820,8 +820,8 @@
 - ID: 144
   text: "Grow to contain \u201Ccontents\u201D"
   position:
-  - -5.82031255e+1
-  - 2.8257421875e+2
+  - 1.9535546825e+2
+  - 2.993671875e+2
   width: 9.3e+1
   connections:
     indexes:
@@ -831,8 +831,8 @@
 - ID: 145
   text: or, lock to the background?
   position:
-  - -4.824609425e+1
-  - 3.1357421875e+2
+  - 2.8232421825e+2
+  - 3.6668359375e+2
   width: 8.3e+1
   connections:
     indexes:
@@ -842,8 +842,8 @@
 - ID: 146
   text: Dev Plan
   position:
-  - 1.4305937495e+3
-  - 5.61e+2
+  - 1.65549609325e+3
+  - 5.7779296875e+2
   width: 5.7e+1
   connections:
     indexes: []
@@ -851,8 +851,8 @@
 - ID: 147
   text: UI
   position:
-  - 1.30978515575e+3
-  - 6.53e+2
+  - 1.5346874995e+3
+  - 6.6979296875e+2
   width: 2e+1
   connections:
     indexes:
@@ -866,8 +866,8 @@
 - ID: 148
   text: Dragging bubbles around
   position:
-  - 1.178898437e+3
-  - 7.01e+2
+  - 1.40380078075e+3
+  - 7.1779296875e+2
   width: 1.43e+2
   connections:
     indexes:
@@ -877,8 +877,8 @@
 - ID: 149
   text: make connections
   position:
-  - 1.26511328075e+3
-  - 7.33e+2
+  - 1.4900156245e+3
+  - 7.4979296875e+2
   width: 1.05e+2
   connections:
     indexes:
@@ -888,8 +888,8 @@
 - ID: 150
   text: Embedded Text Editor
   position:
-  - 1.3633749995e+3
-  - 6.98e+2
+  - 1.58827734325e+3
+  - 7.1479296875e+2
   width: 1.26e+2
   connections:
     indexes:
@@ -899,8 +899,8 @@
 - ID: 151
   text: Data
   position:
-  - 1.62241796825e+3
-  - 6.61e+2
+  - 1.847320312e+3
+  - 6.7779296875e+2
   width: 3.4e+1
   connections:
     indexes:
@@ -918,8 +918,8 @@
 - ID: 152
   text: Bubble Sorage
   position:
-  - 1.50613671825e+3
-  - 7.07e+2
+  - 1.731039062e+3
+  - 7.2379296875e+2
   width: 8.8e+1
   connections:
     indexes:
@@ -931,8 +931,8 @@
 - ID: 153
   text: connections
   position:
-  - 1.664070312e+3
-  - 7.04e+2
+  - 1.88897265575e+3
+  - 7.2079296875e+2
   width: 7.3e+1
   connections:
     indexes:
@@ -946,8 +946,8 @@
 - ID: 154
   text: low-rent - UUIDs for bubbles
   position:
-  - 1.587773437e+3
-  - 7.67e+2
+  - 1.81267578075e+3
+  - 7.8379296875e+2
   width: 9.7e+1
   connections:
     indexes:
@@ -957,8 +957,8 @@
 - ID: 155
   text: attributes
   position:
-  - 1.74495703075e+3
-  - 7.26e+2
+  - 1.9698593745e+3
+  - 7.4279296875e+2
   width: 5.8e+1
   connections:
     indexes:
@@ -972,8 +972,8 @@
 - ID: 156
   text: line style
   position:
-  - 1.84173046825e+3
-  - 6.79e+2
+  - 2.066632812e+3
+  - 6.9579296875e+2
   width: 5.5e+1
   connections:
     indexes:
@@ -987,8 +987,8 @@
 - ID: 157
   text: dashes
   position:
-  - 1.8784218745e+3
-  - 6.6e+2
+  - 2.10332421825e+3
+  - 6.7679296875e+2
   width: 4.7e+1
   connections:
     indexes:
@@ -998,8 +998,8 @@
 - ID: 158
   text: arrows
   position:
-  - 1.917445312e+3
-  - 7e+2
+  - 2.14234765575e+3
+  - 7.1679296875e+2
   width: 4.5e+1
   connections:
     indexes:
@@ -1009,8 +1009,8 @@
 - ID: 159
   text: label
   position:
-  - 1.86873046825e+3
-  - 7.58e+2
+  - 2.093632812e+3
+  - 7.7479296875e+2
   width: 3.4e+1
   connections:
     indexes:
@@ -1020,8 +1020,8 @@
 - ID: 160
   text: force direction
   position:
-  - 1.83430078075e+3
-  - 6.29e+2
+  - 2.0592031245e+3
+  - 6.4579296875e+2
   width: 8.4e+1
   connections:
     indexes:
@@ -1033,8 +1033,8 @@
 - ID: 161
   text: (for force-layout)
   position:
-  - 1.868445312e+3
-  - 5.82e+2
+  - 2.09334765575e+3
+  - 5.9879296875e+2
   width: 9.7e+1
   connections:
     indexes:
@@ -1044,8 +1044,8 @@
 - ID: 162
   text: Tags
   position:
-  - 3.2870703075e+2
-  - 3.2547265625e+2
+  - 5.207499995e+2
+  - 3.42265625e+2
   width: 3.4e+1
   connections:
     indexes:
@@ -1057,8 +1057,8 @@
 - ID: 163
   text: show / hide tags
   position:
-  - 2.529218745e+2
-  - 3.3857421875e+2
+  - 4.4496484325e+2
+  - 3.553671875e+2
   width: 5.9e+1
   connections:
     indexes:
@@ -1068,8 +1068,8 @@
 - ID: 164
   text: select bubble before campaign logging
   position:
-  - 3.6070703075e+2
-  - 3.5147265625e+2
+  - 5.527499995e+2
+  - 3.68265625e+2
   width: 1.2e+2
   connections:
     indexes:
@@ -1079,8 +1079,8 @@
 - ID: 165
   text: Maybe islands can keep shape, but get moved around
   position:
-  - 1.12369921825e+3
-  - 6.449921875e+2
+  - 1.348601562e+3
+  - 6.6178515625e+2
   width: 1.45e+2
   connections:
     indexes:
@@ -1090,8 +1090,8 @@
 - ID: 166
   text: live updating while dragging
   position:
-  - 3.16101562e+2
-  - 6.7930859375e+2
+  - 5.0814453075e+2
+  - 6.961015625e+2
   width: 9.1e+1
   connections:
     indexes:
@@ -1101,8 +1101,8 @@
 - ID: 167
   text: tags
   position:
-  - 1.622242187e+3
-  - 6.49e+2
+  - 1.84714453075e+3
+  - 6.6579296875e+2
   width: 3.1e+1
   connections:
     indexes:
@@ -1112,8 +1112,8 @@
 - ID: 168
   text: markdown text
   position:
-  - 1.48210546825e+3
-  - 7.58e+2
+  - 1.707007812e+3
+  - 7.7479296875e+2
   width: 8.7e+1
   connections:
     indexes:
@@ -1123,8 +1123,8 @@
 - ID: 169
   text: Template
   position:
-  - 1.51396484325e+3
-  - 6.12e+2
+  - 1.738867187e+3
+  - 6.2879296875e+2
   width: 5.7e+1
   connections:
     indexes:
@@ -1136,8 +1136,8 @@
 - ID: 170
   text: Might not be a distinction
   position:
-  - 1.60724609325e+3
-  - 5.51e+2
+  - 1.832148437e+3
+  - 5.6779296875e+2
   width: 1.41e+2
   connections:
     indexes:
@@ -1147,8 +1147,8 @@
 - ID: 171
   text: marked
   position:
-  - 3.899218745e+2
-  - 8.757421875e+1
+  - 5.8196484325e+2
+  - 1.043671875e+2
   width: 4.9e+1
   connections:
     indexes:
@@ -1162,8 +1162,8 @@
 - ID: 172
   text: "like a \u2018permanent\u2019 selection"
   position:
-  - 5.234687495e+2
-  - 5.257421875e+1
+  - 7.1551171825e+2
+  - 6.93671875e+1
   width: 8.4e+1
   connections:
     indexes:
@@ -1173,8 +1173,8 @@
 - ID: 174
   text: maybe related to tags
   position:
-  - 4.689218745e+2
-  - 1.1657421875e+2
+  - 6.6096484325e+2
+  - 1.333671875e+2
   width: 1.24e+2
   connections:
     indexes:
@@ -1184,8 +1184,8 @@
 - ID: 176
   text: arrow keys
   position:
-  - 1.4055937495e+3
-  - 6.49e+2
+  - 1.63049609325e+3
+  - 6.6579296875e+2
   width: 6.7e+1
   connections:
     indexes:
@@ -1195,8 +1195,8 @@
 - ID: 177
   text: Marking
   position:
-  - 1.69924609325e+3
-  - 6.03e+2
+  - 1.924148437e+3
+  - 6.1979296875e+2
   width: 5.1e+1
   connections:
     indexes:
@@ -1206,8 +1206,8 @@
 - ID: 178
   text: Layout
   position:
-  - 1.69124609325e+3
-  - 8.37e+2
+  - 1.916148437e+3
+  - 8.5379296875e+2
   width: 4.5e+1
   connections:
     indexes: []
@@ -1215,8 +1215,8 @@
 - ID: 179
   text: Selections
   position:
-  - 1.79937890575e+3
-  - 8.43e+2
+  - 2.0242812495e+3
+  - 8.5979296875e+2
   width: 6.4e+1
   connections:
     indexes: []
@@ -1224,8 +1224,8 @@
 - ID: 180
   text: click and drag lines too
   position:
-  - 1.2223437495e+3
-  - 6.01e+2
+  - 1.44724609325e+3
+  - 6.1779296875e+2
   width: 1.31e+2
   connections:
     indexes:
@@ -1235,8 +1235,8 @@
 - ID: 181
   text: Scapple Document Format
   position:
-  - 1.892117188e+3
-  - 1.20644531e+2
+  - 2.11701953175e+3
+  - 1.3743749975e+2
   width: 1.45e+2
   connections:
     indexes:
@@ -1256,8 +1256,8 @@
 - ID: 182
   text: non-features
   position:
-  - 1.6888906245e+3
-  - 5.37e+2
+  - 1.91379296825e+3
+  - 5.5379296875e+2
   width: 7.6e+1
   connections:
     indexes:
@@ -1267,8 +1267,8 @@
 - ID: 183
   text: printing
   position:
-  - 1.78737109325e+3
-  - 5.74e+2
+  - 2.012273437e+3
+  - 5.9079296875e+2
   width: 4.8e+1
   connections:
     indexes:
@@ -1278,8 +1278,8 @@
 - ID: 184
   text: XML
   position:
-  - 1.735585938e+3
-  - 9.9644531e+1
+  - 1.96048828175e+3
+  - 1.1643749975e+2
   width: 3.3e+1
   connections:
     indexes:
@@ -1289,8 +1289,8 @@
 - ID: 185
   text: or maybe just incrementing vaue
   position:
-  - 1.70733984325e+3
-  - 7.83e+2
+  - 1.932242187e+3
+  - 7.9979296875e+2
   width: 1.02e+2
   connections:
     indexes:
@@ -1300,8 +1300,8 @@
 - ID: 186
   text: Notes
   position:
-  - 1.82336328175e+3
-  - 1.79644531e+2
+  - 2.0482656255e+3
+  - 1.9643749975e+2
   width: 4e+1
   connections:
     indexes:
@@ -1313,8 +1313,8 @@
 - ID: 187
   text: Note
   position:
-  - 1.87071484425e+3
-  - 2.45644531e+2
+  - 2.095617188e+3
+  - 2.6243749975e+2
   width: 3.4e+1
   connections:
     indexes:
@@ -1332,8 +1332,8 @@
 - ID: 188
   text: ID=74
   position:
-  - 1.80035546925e+3
-  - 2.06644531e+2
+  - 2.025257813e+3
+  - 2.2343749975e+2
   width: 4.1e+1
   connections:
     indexes:
@@ -1343,8 +1343,8 @@
 - ID: 189
   text: attr
   position:
-  - 1.747585938e+3
-  - 2.40644531e+2
+  - 1.97248828175e+3
+  - 2.5743749975e+2
   width: 2.6e+1
   connections:
     indexes:
@@ -1358,8 +1358,8 @@
 - ID: 190
   text: FontSize=12
   position:
-  - 1.75335546925e+3
-  - 2.35644531e+2
+  - 1.978257813e+3
+  - 2.5243749975e+2
   width: 7.6e+1
   connections:
     indexes:
@@ -1369,8 +1369,8 @@
 - ID: 191
   text: Position=X,Y
   position:
-  - 1.75235546925e+3
-  - 2.80644531e+2
+  - 1.977257813e+3
+  - 2.9743749975e+2
   width: 7.8e+1
   connections:
     indexes:
@@ -1380,8 +1380,8 @@
 - ID: 192
   text: X,Y
   position:
-  - 1.536476562e+3
-  - 6.34e+2
+  - 1.76137890575e+3
+  - 6.5079296875e+2
   width: 2.8e+1
   connections:
     indexes:
@@ -1393,8 +1393,8 @@
 - ID: 193
   text: Relative to Pane
   position:
-  - 1.51233203075e+3
-  - 6.66e+2
+  - 1.7372343745e+3
+  - 6.8279296875e+2
   width: 9.7e+1
   connections:
     indexes:
@@ -1404,8 +1404,8 @@
 - ID: 194
   text: Width=110
   position:
-  - 1.80436328175e+3
-  - 2.79644531e+2
+  - 2.0292656255e+3
+  - 2.9643749975e+2
   width: 6.5e+1
   connections:
     indexes:
@@ -1415,8 +1415,8 @@
 - ID: 195
   text: Appearance
   position:
-  - 1.8449062505e+3
-  - 3.28644531e+2
+  - 2.06980859425e+3
+  - 3.4543749975e+2
   width: 7.3e+1
   connections:
     indexes:
@@ -1430,8 +1430,8 @@
 - ID: 196
   text: Alignment=Left
   position:
-  - 1.74306640675e+3
-  - 3.67644531e+2
+  - 1.9679687505e+3
+  - 3.8443749975e+2
   width: 8.9e+1
   connections:
     indexes:
@@ -1441,8 +1441,8 @@
 - ID: 197
   text: Border
   position:
-  - 1.78606640675e+3
-  - 4.01644531e+2
+  - 2.0109687505e+3
+  - 4.1843749975e+2
   width: 4.5e+1
   connections:
     indexes:
@@ -1454,8 +1454,8 @@
 - ID: 198
   text: Fill=RGB
   position:
-  - 1.7138750005e+3
-  - 4.18644531e+2
+  - 1.93877734425e+3
+  - 4.3543749975e+2
   width: 5.7e+1
   connections:
     indexes:
@@ -1465,8 +1465,8 @@
 - ID: 199
   text: String
   position:
-  - 1.917429688e+3
-  - 2.28644531e+2
+  - 2.14233203175e+3
+  - 2.4543749975e+2
   width: 4e+1
   connections:
     indexes:
@@ -1476,8 +1476,8 @@
 - ID: 200
   text: ConnectedNoteIDs=76,78-81,83
   position:
-  - 1.98965234425e+3
-  - 2.71644531e+2
+  - 2.214554688e+3
+  - 2.8843749975e+2
   width: 1.45e+2
   connections:
     indexes:
@@ -1489,8 +1489,8 @@
 - ID: 201
   text: kinda cool - use ranges of connection
   position:
-  - 2.0720000005e+3
-  - 2.21644531e+2
+  - 2.29690234425e+3
+  - 2.3843749975e+2
   width: 1.45e+2
   connections:
     indexes:
@@ -1502,8 +1502,8 @@
 - ID: 202
   text: oop
   position:
-  - 1.93994921825e+3
-  - 4.04e+2
+  - 2.164851562e+3
+  - 4.2079296875e+2
   width: 2.9e+1
   connections:
     indexes:
@@ -1513,8 +1513,8 @@
 - ID: 203
   text: ack
   position:
-  - 2.00651171825e+3
-  - 4.93e+2
+  - 2.231414062e+3
+  - 5.0979296875e+2
   width: 2.7e+1
   connections:
     indexes:
@@ -1524,8 +1524,8 @@
 - ID: 205
   text: BackgroundShapes
   position:
-  - 1.95476953175e+3
-  - 1.84644531e+2
+  - 2.1796718755e+3
+  - 2.0143749975e+2
   width: 1.13e+2
   connections:
     indexes:
@@ -1535,8 +1535,8 @@
 - ID: 206
   text: Labels
   position:
-  - 2.1073281255e+3
-  - 1.45644531e+2
+  - 2.33223046925e+3
+  - 1.6243749975e+2
   width: 4.4e+1
   connections:
     indexes:
@@ -1548,8 +1548,8 @@
 - ID: 207
   text: Label IDs=202,203
   position:
-  - 2.14292578175e+3
-  - 1.56644531e+2
+  - 2.3678281255e+3
+  - 1.7343749975e+2
   width: 1.1e+2
   connections:
     indexes:
@@ -1559,8 +1559,8 @@
 - ID: 208
   text: PointsToNoteIDs
   position:
-  - 1.965445313e+3
-  - 3.55644531e+2
+  - 2.19034765675e+3
+  - 3.7243749975e+2
   width: 9.8e+1
   connections:
     indexes:
@@ -1570,8 +1570,8 @@
 - ID: 209
   text: Auto-Fit
   position:
-  - 2.0316718755e+3
-  - 9.7644531e+1
+  - 2.25657421925e+3
+  - 1.1443749975e+2
   width: 5.1e+1
   connections:
     indexes:
@@ -1583,8 +1583,8 @@
 - ID: 210
   text: maybe indexset
   position:
-  - 2.153710938e+3
-  - 2.73644531e+2
+  - 2.37861328175e+3
+  - 2.9043749975e+2
   width: 9.3e+1
   connections:
     indexes:
@@ -1594,8 +1594,8 @@
 - ID: 211
   text: NoteStyles
   position:
-  - 1.919710938e+3
-  - 8.4644531e+1
+  - 2.14461328175e+3
+  - 1.0143749975e+2
   width: 6.7e+1
   connections:
     indexes:
@@ -1607,8 +1607,8 @@
 - ID: 212
   text: easy extend up top
   position:
-  - 3.80882812e+2
-  - 5.46890625e+2
+  - 5.7292578075e+2
+  - 5.6368359375e+2
   width: 1.1e+2
   connections:
     indexes:
@@ -1618,8 +1618,8 @@
 - ID: 213
   text: attr
   position:
-  - 1.92893359425e+3
-  - 5.8644531e+1
+  - 2.153835938e+3
+  - 7.543749975e+1
   width: 3.3e+1
   connections:
     indexes:
@@ -1631,8 +1631,8 @@
 - ID: 217
   text: Ignoring
   position:
-  - 1.85371484425e+3
-  - 4.6644531e+1
+  - 2.078617188e+3
+  - 6.343749975e+1
   width: 5.2e+1
   connections:
     indexes:
@@ -1642,8 +1642,8 @@
 - ID: 218
   text: things not explicity resized
   position:
-  - 2.10792578175e+3
-  - 7.4644531e+1
+  - 2.3328281255e+3
+  - 9.143749975e+1
   width: 1.45e+2
   connections:
     indexes:
@@ -1653,8 +1653,8 @@
 - ID: 219
   text: PrintSettings
   position:
-  - 1.99876953175e+3
-  - 4.3644531e+1
+  - 2.2236718755e+3
+  - 6.043749975e+1
   width: 7.7e+1
   connections:
     indexes:
@@ -1664,8 +1664,8 @@
 - ID: 220
   text: ^X^S save
   position:
-  - 3.6859765575e+2
-  - 6.1262890625e+2
+  - 5.606406245e+2
+  - 6.29421875e+2
   width: 6.4e+1
   connections:
     indexes:
@@ -1677,8 +1677,8 @@
 
     center'
   position:
-  - 8.8546875e+1
-  - 7.248007815e+2
+  - 2.8058984375e+2
+  - 7.4159375025e+2
   width: 1.45e+2
   connections:
     indexes: []
@@ -1688,8 +1688,8 @@
 
     center'
   position:
-  - 3.0899609375e+2
-  - 7.91761719e+2
+  - 5.010390625e+2
+  - 8.0855468775e+2
   width: 1.45e+2
   connections:
     indexes: []
@@ -1697,8 +1697,8 @@
 - ID: 223
   text: FormatRange
   position:
-  - 1.880429688e+3
-  - 4.32644531e+2
+  - 2.10533203175e+3
+  - 4.4943749975e+2
   width: 8.2e+1
   connections:
     indexes:
@@ -1710,8 +1710,8 @@
 - ID: 224
   text: 34,5
   position:
-  - 1.8944062505e+3
-  - 4.74644531e+2
+  - 2.11930859425e+3
+  - 4.9143749975e+2
   width: 3.2e+1
   connections:
     indexes:
@@ -1721,8 +1721,8 @@
 - ID: 225
   text: attr
   position:
-  - 1.960710938e+3
-  - 4.63644531e+2
+  - 2.18561328175e+3
+  - 4.8043749975e+2
   width: 2.6e+1
   connections:
     indexes:
@@ -1734,8 +1734,8 @@
 - ID: 226
   text: Bold
   position:
-  - 1.95633203175e+3
-  - 5.02644531e+2
+  - 2.1812343755e+3
+  - 5.1943749975e+2
   width: 3.3e+1
   connections:
     indexes:
@@ -1745,8 +1745,8 @@
 - ID: 227
   text: Underline
   position:
-  - 1.98806640675e+3
-  - 5.45644531e+2
+  - 2.2129687505e+3
+  - 5.6243749975e+2
   width: 6e+1
   connections:
     indexes:
@@ -1756,8 +1756,8 @@
 - ID: 228
   text: Struckthrough
   position:
-  - 2.0016718755e+3
-  - 5.10644531e+2
+  - 2.22657421925e+3
+  - 5.2743749975e+2
   width: 8.3e+1
   connections:
     indexes:
@@ -1767,8 +1767,8 @@
 - ID: 230
   text: attr
   position:
-  - 1.82204296925e+3
-  - 4.40644531e+2
+  - 2.046945313e+3
+  - 4.5743749975e+2
   width: 2.6e+1
   connections:
     indexes:
@@ -1780,8 +1780,8 @@
 - ID: 231
   text: Weight
   position:
-  - 1.74794140675e+3
-  - 4.64644531e+2
+  - 1.9728437505e+3
+  - 4.8143749975e+2
   width: 4.6e+1
   connections:
     indexes:
@@ -1791,8 +1791,8 @@
 - ID: 232
   text: Style
   position:
-  - 1.86271484425e+3
-  - 4.71644531e+2
+  - 2.087617188e+3
+  - 4.8843749975e+2
   width: 3.5e+1
   connections:
     indexes:
@@ -1804,8 +1804,8 @@
 - ID: 233
   text: Cloud
   position:
-  - 1.8655781255e+3
-  - 5.21644531e+2
+  - 2.09048046925e+3
+  - 5.3843749975e+2
   width: 4e+1
   connections:
     indexes:
@@ -1815,8 +1815,8 @@
 - ID: 234
   text: Jagged
   position:
-  - 1.79306640675e+3
-  - 5.25644531e+2
+  - 2.0179687505e+3
+  - 5.4243749975e+2
   width: 4.8e+1
   connections:
     indexes:
