@@ -170,7 +170,7 @@ class Document: NSDocument {
             throw(FileWrapperError.unexpectedlyNilFileWrappers)
         }
 
-        if fileWrappers[bubbleFilename] == nil || true {
+        if fileWrappers[bubbleFilename] == nil {
             let encoder = YAMLEncoder()
 
             if let bubbleString = try? encoder.encode(bubbles) {
@@ -180,7 +180,7 @@ class Document: NSDocument {
             }
         }
         
-        if fileWrappers[barrierFilename] == nil || true {
+        if fileWrappers[barrierFilename] == nil {
             let encoder = YAMLEncoder()
 
             if let barrierString = try? encoder.encode(barriers) {
