@@ -17,9 +17,39 @@ class MouseBubbler: MouseHandler {
     }
 
     func start(at point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
+        let addToSelection = modifierFlags.contains(.shift)
+        let toggleSelection = modifierFlags.contains(.command)
+
+        let hitBubble = support.hitTestBubble(at: point)
+
+        if addToSelection {
+            if let hitBubble = hitBubble {
+                selectedBubbles.select(bubble: hitBubble)
+            }
+        } else if toggleSelection {
+            if let hitBubble = hitBubble {
+                selectedBubbles.toggle(bubble: hitBubble)
+            }
+        } else {
+            
+            if let hitBubble = hitBubble {
+                if selectedBubbles.isSelected(bubble: hitBubble) {
+                    // dragging selection
+                }  else {
+                    // No other modifiers, so deselect all and drag
+                    selectedBubbles.unselectAll()
+                }
+
+            } else {
+                // !!! Probably should never get here, the spacer would get
+                // !!! here.
+                // bubble is nil, so a click into open space, so deselect everything
+                print("SNORGLE OOPS BORK FLONGWAFFLE")
+            }
+        }
+
         // !!! still kind of split between canvas and here with bubble selection
         // !!! and stuff
-        let hitBubble = support.hitTestBubble(at: point)
 
         initialDragPoint = point
 
@@ -29,8 +59,12 @@ class MouseBubbler: MouseHandler {
             } else {
                 // it's a fresh selection, no modifiers, could be a click-and-drag in one gesture
                 // !!! scapple has click-drag 
-                selectedBubbles.unselectAll()
-                selectedBubbles.select(bubble: hitBubble)
+//                selectedBubbles.unselectAll()
+
+                // if we toggled a selection, don't select
+                if !toggleSelection {
+                    selectedBubbles.select(bubble: hitBubble)
+                }
                 initialDragPoint = point
             }
         }

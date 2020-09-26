@@ -293,9 +293,6 @@ extension BubbleCanvas {
             }
         }
 
-        let addToSelection = event.modifierFlags.contains(.shift)
-        let toggleSelection = event.modifierFlags.contains(.command)
-
         let bubble = bubbleSoup.hitTestBubble(at: viewLocation)
 
         if bubble == nil {
@@ -311,6 +308,16 @@ extension BubbleCanvas {
             return
         }
 
+        let addToSelection = event.modifierFlags.contains(.shift)
+        let toggleSelection = event.modifierFlags.contains(.command)
+
+        bubbleSoup.beginGrouping()
+        currentMouseHandler = MouseBubbler(withSupport: self, 
+                                           selectedBubbles: selectedBubbles)
+        currentMouseHandler?.start(at: viewLocation,
+                                   modifierFlags: event.modifierFlags)
+
+#if false        
         if addToSelection {
             if let bubble = bubble {
                 selectedBubbles.select(bubble: bubble)
@@ -328,11 +335,13 @@ extension BubbleCanvas {
                 currentMouseHandler?.start(at: viewLocation,
                                            modifierFlags: event.modifierFlags)
                 
+
             } else {
                 // bubble is nil, so a click into open space, so deselect everything
                 selectedBubbles.unselectAll()
             }
         }
+#endif
     }
 
     override func mouseDragged(with event: NSEvent) {
