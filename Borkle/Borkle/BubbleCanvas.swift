@@ -309,9 +309,6 @@ extension BubbleCanvas {
         }
 
         // Catch-all selecting and dragging.
-        let addToSelection = event.modifierFlags.contains(.shift)
-        let toggleSelection = event.modifierFlags.contains(.command)
-
         bubbleSoup.beginGrouping()
         currentMouseHandler = MouseBubbler(withSupport: self, 
                                            selectedBubbles: selectedBubbles)
