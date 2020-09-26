@@ -29,7 +29,7 @@ class MouseBarrierTests: XCTestCase {
 
     func test_just_click_moves_nothing() {
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.finish()
+        mouser.finish(modifierFlags: [])
 
         // it does ask first what dealios are affected
         XCTAssertNotNil(testSupport.bubblesAffectedByArgument)
@@ -41,11 +41,11 @@ class MouseBarrierTests: XCTestCase {
 
     func test_drag_doesnt_move_nothing() {
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.drag(to: CGPoint(x: 10, y: -20))
+        mouser.drag(to: CGPoint(x: 10, y: -20), modifierFlags: [])
 
         XCTAssertNil(testSupport.moveBarrierArguments)
 
-        mouser.finish()
+        mouser.finish(modifierFlags: [])
     }
 
     func test_empty_affected_arrays_also_do_nothing() {
@@ -53,11 +53,11 @@ class MouseBarrierTests: XCTestCase {
         testSupport.barriersAffectedByReturn = []
 
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.drag(to: CGPoint(x: 10, y: -20))
+        mouser.drag(to: CGPoint(x: 10, y: -20), modifierFlags: [])
 
         XCTAssertNil(testSupport.moveBarrierArguments)
 
-        mouser.finish()
+        mouser.finish(modifierFlags: [])
     }
     
     func newBarrier(ID: Int) -> Barrier {
@@ -74,35 +74,35 @@ class MouseBarrierTests: XCTestCase {
         testSupport.barriersAffectedByReturn = [barrier]
         mouser.start(at: .zero, modifierFlags: [])
 
-        mouser.drag(to: CGPoint(x: 10, y: -20))
+        mouser.drag(to: CGPoint(x: 10, y: -20), modifierFlags: [])
         XCTAssertEqual(testSupport.moveBarrierArguments?.offset, 10)
 
         testSupport.reset()
 
-        mouser.drag(to: CGPoint(x: -666, y: 3.1415))
+        mouser.drag(to: CGPoint(x: -666, y: 3.1415), modifierFlags: [])
         XCTAssertEqual(testSupport.moveBarrierArguments?.offset, -666)
 
-        mouser.finish()
+        mouser.finish(modifierFlags: [])
     }
 
     func test_bubbles_but_no_barriers_trigger_move() {
         testSupport.bubblesAffectedByReturn = [newBubble(ID: 2)]
         mouser.start(at: .zero, modifierFlags: [])
 
-        mouser.drag(to: CGPoint(x: 10, y: -20))
+        mouser.drag(to: CGPoint(x: 10, y: -20), modifierFlags: [])
         XCTAssertEqual(testSupport.moveBarrierArguments?.offset, 10)
 
-        mouser.finish()
+        mouser.finish(modifierFlags: [])
     }
 
     func test_barriers_but_no_bubbles_trigger_move() {
         testSupport.barriersAffectedByReturn = [newBarrier(ID: 2)]
         mouser.start(at: .zero, modifierFlags: [])
 
-        mouser.drag(to: CGPoint(x: 10, y: -20))
+        mouser.drag(to: CGPoint(x: 10, y: -20), modifierFlags: [])
         XCTAssertEqual(testSupport.moveBarrierArguments?.offset, 10)
 
-        mouser.finish()
+        mouser.finish(modifierFlags: [])
     }
 
     func test_move_given_all_the_right_stuff() {
@@ -112,7 +112,7 @@ class MouseBarrierTests: XCTestCase {
         testSupport.barriersAffectedByReturn = [anotherBarrier]
         mouser.start(at: .zero, modifierFlags: [])
 
-        mouser.drag(to: CGPoint(x: -1.234, y: 666.0))
+        mouser.drag(to: CGPoint(x: -1.234, y: 666.0), modifierFlags: [])
 
         let args = testSupport.moveBarrierArguments
         XCTAssertEqual(args!.barrier, self.barrier)
@@ -120,7 +120,7 @@ class MouseBarrierTests: XCTestCase {
         XCTAssertEqual(args?.barriers, [anotherBarrier])
         XCTAssertEqual(args?.offset, -1.234)
 
-        mouser.finish()
+        mouser.finish(modifierFlags: [])
     }
 }
 

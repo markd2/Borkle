@@ -25,7 +25,7 @@ class MouseGrabHandTests: XCTestCase {
 
     func test_click_doesnt_scroll() {
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.finish()
+        mouser.finish(modifierFlags: [])
         XCTAssertNil(testSupport.scrollArgument)
     }
 
@@ -34,7 +34,7 @@ class MouseGrabHandTests: XCTestCase {
         mouser.start(at: .zero, modifierFlags: [])
 
         // mouse drags down to the right
-        mouser.drag(to: CGPoint(x: 10, y: 20)) // delta (10, 30)
+        mouser.drag(to: CGPoint(x: 10, y: 20), modifierFlags: []) // delta (10, 30)
 
         // scroll-to moves up and to the left the same amount.
         // y is flipped because #Cocoa

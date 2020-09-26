@@ -15,7 +15,7 @@ class MouseSpacer: MouseHandler {
         anchorPoint = point
     }
 
-    public func drag(to point: CGPoint) {
+    public func drag(to point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         let rect = CGRect(point1: point, point2: anchorPoint)
         support.drawMarquee(around: rect)
 
@@ -26,7 +26,7 @@ class MouseSpacer: MouseHandler {
         }
     }
     
-    public func finish() {
+    public func finish(modifierFlags: NSEvent.ModifierFlags) {
     }
 }
 
@@ -49,7 +49,7 @@ class MouseDoubleSpacer: MouseHandler {
         startPoint = point
     }
 
-    public func drag(to point: CGPoint) {
+    public func drag(to point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         if let startPoint = startPoint {
             
             let delta = startPoint - point
@@ -60,7 +60,7 @@ class MouseDoubleSpacer: MouseHandler {
         }
     }
     
-    public func finish() {
+    public func finish(modifierFlags: NSEvent.ModifierFlags) {
         if let startPoint = startPoint {
             support.createNewBubble(at: startPoint)
         }

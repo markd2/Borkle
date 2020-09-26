@@ -25,7 +25,7 @@ class MouseBarrier: MouseHandler {
         affectedBarriers = support.barriersAffectedBy(barrier: barrier)
     }
     
-    func drag(to point: CGPoint) {
+    func drag(to point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         if affectedBubbles == nil && affectedBarriers == nil { return }
 
         guard affectedBubbles?.count ?? 0 > 0 || affectedBarriers?.count ?? 0 > 0 else { return }
@@ -34,6 +34,6 @@ class MouseBarrier: MouseHandler {
         support.move(barrier: barrier, affectedBubbles: affectedBubbles, affectedBarriers: affectedBarriers, to: newOffset)
     }
     
-    func finish() {
+    func finish(modifierFlags: NSEvent.ModifierFlags) {
     }
 }

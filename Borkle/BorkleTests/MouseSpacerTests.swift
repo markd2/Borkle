@@ -26,7 +26,7 @@ class MouseSpaceTests: XCTestCase {
 
     func test_just_click_deselects_everything() {
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.finish()
+        mouser.finish(modifierFlags: [])
 
         XCTAssertTrue(testSupport.unselectAllCalled)
         XCTAssertNil(testSupport.selectArgument)
@@ -34,8 +34,8 @@ class MouseSpaceTests: XCTestCase {
 
     func test_drag_in_emptyness_selectes_nothing() {
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.drag(to: CGPoint(x: 10, y: 20))
-        mouser.finish()
+        mouser.drag(to: CGPoint(x: 10, y: 20), modifierFlags: [])
+        mouser.finish(modifierFlags: [])
 
         XCTAssertTrue(testSupport.unselectAllCalled)
         XCTAssertNil(testSupport.selectArgument)
@@ -47,8 +47,8 @@ class MouseSpaceTests: XCTestCase {
         let rect = CGRect(point1: start, point2: end)
 
         mouser.start(at: start, modifierFlags: [])
-        mouser.drag(to: end)
-        mouser.finish()
+        mouser.drag(to: end, modifierFlags: [])
+        mouser.finish(modifierFlags: [])
 
         XCTAssertTrue(testSupport.unselectAllCalled)
         XCTAssertEqual(testSupport.areaTestBubblesArgument, rect)
@@ -65,8 +65,8 @@ class MouseSpaceTests: XCTestCase {
         // click at origin, drag to 10,20.
         // we're going to say 3 things were selected, make sure those are passed to the selection
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.drag(to: point)
-        mouser.finish()
+        mouser.drag(to: point, modifierFlags: [])
+        mouser.finish(modifierFlags: [])
 
         XCTAssertTrue(testSupport.unselectAllCalled)
         XCTAssertEqual(testSupport.areaTestBubblesArgument, rect)
@@ -83,13 +83,13 @@ class MouseSpaceTests: XCTestCase {
 
         // Select 3
         testSupport.areaTestBubblesReturn = [b1, b2, b3]
-        mouser.drag(to: .zero)
+        mouser.drag(to: .zero, modifierFlags: [])
         XCTAssertEqual(testSupport.selectArgument, [b1, b2, b3])
 
         // Now select two, make sure the selection count is 2
         testSupport.reset()
         testSupport.areaTestBubblesReturn = [b1, b2]
-        mouser.drag(to: .zero)
+        mouser.drag(to: .zero, modifierFlags: [])
         XCTAssertTrue(testSupport.unselectAllCalled)
         XCTAssertEqual(testSupport.selectArgument, [b1, b2])
     }
@@ -113,23 +113,23 @@ class MouseDoubleSpaceTests: XCTestCase {
     
     func test_double_click_creates_bubble() {
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.finish()
+        mouser.finish(modifierFlags: [])
         XCTAssertEqual(testSupport.createNewBubbleArgument, CGPoint.zero)
     }
 
     func test_double_click_and_drag_short_distance_still_creates() {
         mouser.start(at: .zero, modifierFlags: [])
         mouser.drag(to: CGPoint(x: MouseDoubleSpacer.slopLimit / 2.0,
-                y: MouseDoubleSpacer.slopLimit / 2.0))
-        mouser.finish()
+                y: MouseDoubleSpacer.slopLimit / 2.0), modifierFlags: [])
+        mouser.finish(modifierFlags: [])
         XCTAssertNotNil(testSupport.createNewBubbleArgument)
     }
 
     func test_double_click_and_drag_long_distance_doesnt_create() {
         mouser.start(at: .zero, modifierFlags: [])
         mouser.drag(to: CGPoint(x: MouseDoubleSpacer.slopLimit * 2.0,
-                y: MouseDoubleSpacer.slopLimit * 2.0))
-        mouser.finish()
+                y: MouseDoubleSpacer.slopLimit * 2.0), modifierFlags: [])
+        mouser.finish(modifierFlags: [])
         XCTAssertNil(testSupport.createNewBubbleArgument)
     }
 }

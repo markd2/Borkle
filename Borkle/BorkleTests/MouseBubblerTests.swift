@@ -8,7 +8,7 @@ class MouseBubblerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         testSupport = TestSupport()
-        mouser = MouseBubbler(withSupport: testSupport, bubbleSoup: BubbleSoup(), selectedBubbles: Selection())
+        mouser = MouseBubbler(withSupport: testSupport, selectedBubbles: Selection())
     }
 
     override func tearDown() {

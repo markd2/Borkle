@@ -48,7 +48,7 @@ class MouseBubbler: MouseHandler {
         }
     }
 
-    func drag(to point: CGPoint) {
+    func drag(to point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         guard selectedBubbles.bubbleCount > 0 else { return }
 
         let delta = initialDragPoint - point
@@ -62,6 +62,6 @@ class MouseBubbler: MouseHandler {
         }
     }
 
-    func finish() {
+    func finish(modifierFlags: NSEvent.ModifierFlags) {
     }
 }
