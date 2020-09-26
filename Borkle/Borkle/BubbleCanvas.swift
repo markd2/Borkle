@@ -308,6 +308,7 @@ extension BubbleCanvas {
             return
         }
 
+        // Catch-all selecting and dragging.
         let addToSelection = event.modifierFlags.contains(.shift)
         let toggleSelection = event.modifierFlags.contains(.command)
 
@@ -316,32 +317,6 @@ extension BubbleCanvas {
                                            selectedBubbles: selectedBubbles)
         currentMouseHandler?.start(at: viewLocation,
                                    modifierFlags: event.modifierFlags)
-
-#if false        
-        if addToSelection {
-            if let bubble = bubble {
-                selectedBubbles.select(bubble: bubble)
-            }
-        } else if toggleSelection {
-            if let bubble = bubble {
-                selectedBubbles.toggle(bubble: bubble)
-            }
-
-        } else {
-            if let bubble = bubble {
-                bubbleSoup.beginGrouping()
-                currentMouseHandler = MouseBubbler(withSupport: self, 
-                                                   selectedBubbles: selectedBubbles)
-                currentMouseHandler?.start(at: viewLocation,
-                                           modifierFlags: event.modifierFlags)
-                
-
-            } else {
-                // bubble is nil, so a click into open space, so deselect everything
-                selectedBubbles.unselectAll()
-            }
-        }
-#endif
     }
 
     override func mouseDragged(with event: NSEvent) {
@@ -354,7 +329,6 @@ extension BubbleCanvas {
             } else {
                 handler.drag(to: viewLocation, modifierFlags: event.modifierFlags)
             }
-            return
         }
     }
 
