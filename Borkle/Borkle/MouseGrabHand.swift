@@ -1,4 +1,4 @@
-import Foundation
+import Cocoa
 
 /// Mouse handler for grab-hand scrolling
 class MouseGrabHand: MouseHandler {
@@ -13,12 +13,12 @@ class MouseGrabHand: MouseHandler {
         self.support = support
     }
 
-    func start(at point: CGPoint) {
+    func start(at point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         initialDragPoint = point
         scrollOrigin = support.currentScrollOffset
     }
     
-    func move(to point: CGPoint) {
+    func drag(to point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         let rawDelta = point - initialDragPoint
         let flippedX = CGPoint(x: rawDelta.x, y: -rawDelta.y)
         let newOrigin = scrollOrigin + flippedX
@@ -26,6 +26,6 @@ class MouseGrabHand: MouseHandler {
         support.scroll(to: newOrigin)
     }
     
-    func finish() {
+    func finish(modifierFlags: NSEvent.ModifierFlags) {
     }
 }

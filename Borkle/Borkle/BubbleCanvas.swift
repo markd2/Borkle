@@ -29,18 +29,7 @@ class BubbleCanvas: NSView {
     /// Highlighted bubble, for mouse-motion indication.  Shown as a dashed line or something.
     var highlightedID: Int? = nil
 
-    /// Where a click-drag originated.  nil if there's no active drag happening.
-    /// might make enum with associated object when there's additional dragging behaviors.
-    var initialDragPoint: CGPoint?
-
     var scrollOrigin: CGPoint?
-
-    /// The bubble being dragged, original position, to calculate delta when dragging
-    /// and eventually for undo.
-    /// !!! Maybe copy the bubble, move it around, then on the completion it tells someone the move
-    /// !!! delta for undo.
-    var originalBubblePosition: CGPoint?
-    var originalBubblePositions = [Bubble: CGPoint]()
 
     var keypressHandler: ((_ event: NSEvent) -> Void)?
 
@@ -147,7 +136,6 @@ class BubbleCanvas: NSView {
     }
 
     func allBorders() -> [Int: CGRect] {
-
         bubbleSoup.forEachBubble {
             let rect = $0.rect
             idToRectMap[$0.ID] = rect
@@ -257,7 +245,7 @@ class BubbleCanvas: NSView {
     }
 }
 
-// mouse and tracking area foobage.
+// Mouse tracking
 extension BubbleCanvas {
     override func updateTrackingAreas() {
         if spaceDown { return }
@@ -285,13 +273,13 @@ extension BubbleCanvas {
         if spaceDown {
             setCursor(.closedHand)
             currentMouseHandler = MouseGrabHand(withSupport: self)
-            currentMouseHandler?.start(at: locationInWindow)
+            currentMouseHandler?.start(at: locationInWindow, modifierFlags: event.modifierFlags)
             return
         }
 
         if event.clickCount == 2 {
             currentMouseHandler = MouseDoubleSpacer(withSupport: self)
-            currentMouseHandler?.start(at: viewLocation)
+            currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
             return
         }
 
@@ -300,13 +288,10 @@ extension BubbleCanvas {
                 bubbleSoup.beginGrouping()
                 barrierSoup.beginGrouping()
                 currentMouseHandler = MouseBarrier(withSupport: self, barrier: barrier)
-                currentMouseHandler?.start(at: viewLocation)
+                currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
                 return
             }
         }
-
-        let addToSelection = event.modifierFlags.contains(.shift)
-        let toggleSelection = event.modifierFlags.contains(.command)
 
         let bubble = bubbleSoup.hitTestBubble(at: viewLocation)
 
@@ -319,55 +304,16 @@ extension BubbleCanvas {
             } else {
                 // do nothing
             }
-            currentMouseHandler?.start(at: viewLocation)
+            currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
             return
         }
 
-        initialDragPoint = nil
-
-        if addToSelection {
-            if let bubble = bubble {
-                selectedBubbles.select(bubble: bubble)
-            }
-        } else if toggleSelection {
-            if let bubble = bubble {
-                selectedBubbles.toggle(bubble: bubble)
-            }
-
-        } else {
-            if let bubble = bubble {
-                bubbleSoup.beginGrouping()
-
-                if selectedBubbles.isSelected(bubble: bubble) {
-                    // bubble already selected, so it's a drag of existing selection
-                    initialDragPoint = viewLocation
-                } else {
-                    // it's a fresh selection, no modifiers, could be a click-and-drag in one gesture
-                    // !!! scapple has click-drag 
-                    selectedBubbles.unselectAll()
-                    selectedBubbles.select(bubble: bubble)
-                    initialDragPoint = viewLocation
-                }
-                    
-                
-            } else {
-                // bubble is nil, so a click into open space, so deselect everything
-                selectedBubbles.unselectAll()
-            }
-        }
-
-        // All done if there's nothing to actually draga
-        guard initialDragPoint != nil else { return }
-
-        originalBubblePositions = [:]
-        bubbleSoup.forEachBubble {
-            originalBubblePositions[$0] = $0.position
-        }
-
-        // we have a selected bubble. Drag it around.
-        if let bubble = bubble {
-            originalBubblePosition = bubble.position
-        }
+        // Catch-all selecting and dragging.
+        bubbleSoup.beginGrouping()
+        currentMouseHandler = MouseBubbler(withSupport: self, 
+                                           selectedBubbles: selectedBubbles)
+        currentMouseHandler?.start(at: viewLocation,
+                                   modifierFlags: event.modifierFlags)
     }
 
     override func mouseDragged(with event: NSEvent) {
@@ -376,33 +322,15 @@ extension BubbleCanvas {
 
         if let handler = currentMouseHandler {
             if handler.prefersWindowCoordinates {
-                handler.move(to: locationInWindow)
+                handler.drag(to: locationInWindow, modifierFlags: event.modifierFlags)
             } else {
-                handler.move(to: viewLocation)
+                handler.drag(to: viewLocation, modifierFlags: event.modifierFlags)
             }
-            return
-        }
-
-        guard let initialDragPoint = initialDragPoint else { return }
-        guard selectedBubbles.bubbleCount > 0 else { return }
-
-        let delta = initialDragPoint - viewLocation
-        selectedBubbles.forEachBubble { bubble in
-            guard let originalPosition = originalBubblePositions[bubble] else {
-                Swift.print("unexpectedly missing original bubble position")
-                return
-            }
-            bubbleSoup.move(bubble: bubble, to: originalPosition + delta)
-            
-            // the area to redraw is kind of complex - like if there's connected 
-            // bubbles need to make sure connecting lines are redrawn.
-            setNeedsDisplay(bounds)
         }
     }
 
     override func mouseUp(with event: NSEvent) {
         defer {
-            initialDragPoint = nil
             scrollOrigin = nil
             bubbleSoup.endGrouping()
 
@@ -418,12 +346,9 @@ extension BubbleCanvas {
         }
 
         if let handler = currentMouseHandler {
-            handler.finish()
+            handler.finish(modifierFlags: event.modifierFlags)
             return
         }
-
-
-        guard initialDragPoint != nil else { return }
 
         resizeCanvas()
     }
@@ -528,6 +453,14 @@ extension BubbleCanvas: MouseSupport {
 
     func createNewBubble(at point: CGPoint) {
         bubbleSoup.create(newBubbleAt: point)
+    }
+
+    func move(bubble: Bubble, to point: CGPoint) {
+        bubbleSoup.move(bubble: bubble, to: point)
+            
+        // the area to redraw is kind of complex - like if there's connected 
+        // bubbles need to make sure connecting lines are redrawn.
+        setNeedsDisplay(bounds)
     }
 
     func move(barrier: Barrier, affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?,

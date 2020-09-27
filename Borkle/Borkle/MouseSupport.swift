@@ -1,9 +1,9 @@
-import Foundation
+import Cocoa
 
 protocol MouseHandler {
-    func start(at: CGPoint)
-    func move(to: CGPoint)
-    func finish()
+    func start(at: CGPoint, modifierFlags: NSEvent.ModifierFlags)
+    func drag(to: CGPoint, modifierFlags: NSEvent.ModifierFlags)
+    func finish(modifierFlags: NSEvent.ModifierFlags)
 
     var prefersWindowCoordinates: Bool { get }
 }
@@ -23,9 +23,10 @@ protocol MouseSupport {
 
     func bubblesAffectedBy(barrier: Barrier) -> [Bubble]?
     func barriersAffectedBy(barrier: Barrier) -> [Barrier]?
+    func move(bubble: Bubble, to: CGPoint)
     func move(barrier: Barrier, 
-        affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?,
-        to horizontalPosition: CGFloat)
+              affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?,
+              to horizontalPosition: CGFloat)
 }
 
 
