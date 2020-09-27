@@ -729,3 +729,37 @@ letting that float for now.
 
 holy geeze 831 net new lines of code.
 
+==================================================
+# Thursday September 24, 2020
+
+start moving the mouse logic to a handler.  First pass is a kind of hacky
+move all the things, then a second pass will clean things up and make prettier.
+Actualy pretty nice.
+
+[ ] still needs to make the modifier-drag work again.
+[ ] and now we can write tests for it!
+
+
+==================================================
+# Friday September 25, 2020
+
+[X] still needs to make the modifier-drag work again.
+[ ] and now we can write tests for it!
+
+So, making the modifier drag work again.  Thinking that the bubblemouser will need
+to hand the single-click stuff as well - basically all the crap out of canvas.
+
+But might make the bubble mouser too complex (but again it'll be more testable...)
+
+[ ] need to add modifier key to the space mouser
+
+next up - tests!
+
+
+==================================================
+# Sunday September 27, 2020
+
+Tests for mouse bubbler.  Started at zero percent coverage (yay)
+
+Ended up 97% - the missing lines are guards that shouldn't happen
+
