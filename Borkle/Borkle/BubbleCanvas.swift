@@ -298,7 +298,7 @@ extension BubbleCanvas {
         if bubble == nil {
             // space!
             if event.clickCount == 1 {
-                currentMouseHandler = MouseSpacer(withSupport: self)
+                currentMouseHandler = MouseSpacer(withSupport: self, selection: selectedBubbles)
             } else if event.clickCount == 2 {
                 currentMouseHandler = MouseDoubleSpacer(withSupport: self)
             } else {
