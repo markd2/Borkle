@@ -4,18 +4,21 @@ import XCTest
 class MouseSpaceTests: XCTestCase {
     var mouser: MouseSpacer!
     private var testSupport: TestSupport!
+    private var selection: Selection!
     
     var invalCount = 0
 
     override func setUp() {
         super.setUp()
         testSupport = TestSupport()
-        mouser = MouseSpacer(withSupport: testSupport)
+        selection = Selection()
+        mouser = MouseSpacer(withSupport: testSupport, selection: selection)
     }
 
     override func tearDown() {
         mouser = nil
         testSupport = nil
+        selection = nil
         super.tearDown()
     }
 
@@ -38,7 +41,7 @@ class MouseSpaceTests: XCTestCase {
         mouser.finish(modifierFlags: [])
 
         XCTAssertTrue(testSupport.unselectAllCalled)
-        XCTAssertNil(testSupport.selectArgument)
+        XCTAssertEqual(testSupport.selectArgument, [])
     }
 
     func test_drag_encloses_two_points() {
