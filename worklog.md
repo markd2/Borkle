@@ -763,3 +763,13 @@ Tests for mouse bubbler.  Started at zero percent coverage (yay)
 
 Ended up 97% - the missing lines are guards that shouldn't happen
 
+
+==================================================
+# Sunday October 11, 2020
+
+Need to do some stuff with modifier keys
+  - if shift is down, preserve existing selection while unioning in the newly selected stuff.
+
+Also needed to fix some test flakiness in the bubble mover mouse gasket - the selection
+being a Set was confusing the ordering of moved items. A bit of comparable and sorting
+later fixes it.

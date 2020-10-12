@@ -3,15 +3,30 @@ import Cocoa
 /// Mouse handler for clicks that start in space (blank canvas)
 class MouseSpacer: MouseHandler {
     private var support: MouseSupport
+    private var selection: Selection
     private var anchorPoint: CGPoint!
+    private var originalSelection: [Bubble] = []
     
-    init(withSupport support: MouseSupport) {
+    
+    init(withSupport support: MouseSupport, selection: Selection) {
         self.support = support
+        self.selection = selection
     }
 
+    /// !!! BORK - behavior is
+    /// !!! if shift is down, preserve initial selection but do the exact same
+    /// !!! stuff as before, just unioning in the prior selection.
+    // !!! what's here now is kind of sticky
     public func start(at point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         // this will need to go somewhere else when we support shift-dragging
-        support.unselectAll()
+
+        if modifierFlags.contains(.shift) {
+            originalSelection = selection.selectedBubbles
+        } else {
+            support.unselectAll()
+            originalSelection = []
+        }
+
         anchorPoint = point
     }
 
@@ -20,10 +35,14 @@ class MouseSpacer: MouseHandler {
         support.drawMarquee(around: rect)
 
         support.unselectAll()
+        var effectiveBubbles = originalSelection
+
         let bubbles = support.areaTestBubbles(intersecting: rect)
         if let bubbles = bubbles {
-            support.select(bubbles: bubbles)
+            effectiveBubbles += bubbles
         }
+        support.select(bubbles: effectiveBubbles)
+
     }
     
     public func finish(modifierFlags: NSEvent.ModifierFlags) {

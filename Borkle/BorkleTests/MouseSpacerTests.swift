@@ -4,18 +4,21 @@ import XCTest
 class MouseSpaceTests: XCTestCase {
     var mouser: MouseSpacer!
     private var testSupport: TestSupport!
+    private var selection: Selection!
     
     var invalCount = 0
 
     override func setUp() {
         super.setUp()
         testSupport = TestSupport()
-        mouser = MouseSpacer(withSupport: testSupport)
+        selection = Selection()
+        mouser = MouseSpacer(withSupport: testSupport, selection: selection)
     }
 
     override func tearDown() {
         mouser = nil
         testSupport = nil
+        selection = nil
         super.tearDown()
     }
 
@@ -38,7 +41,7 @@ class MouseSpaceTests: XCTestCase {
         mouser.finish(modifierFlags: [])
 
         XCTAssertTrue(testSupport.unselectAllCalled)
-        XCTAssertNil(testSupport.selectArgument)
+        XCTAssertEqual(testSupport.selectArgument, [])
     }
 
     func test_drag_encloses_two_points() {
@@ -92,6 +95,26 @@ class MouseSpaceTests: XCTestCase {
         mouser.drag(to: .zero, modifierFlags: [])
         XCTAssertTrue(testSupport.unselectAllCalled)
         XCTAssertEqual(testSupport.selectArgument, [b1, b2])
+    }
+
+    func test_shift_appends_to_selection() {
+        let b1 = Bubble(ID: 0)
+        let b2 = Bubble(ID: 1)
+        let b3 = Bubble(ID: 2)
+
+        selection.select(bubble: b1)
+
+        mouser.start(at: .zero, modifierFlags: [.shift])
+
+        // Select 2 more
+        testSupport.areaTestBubblesReturn = [b2, b3]
+        mouser.drag(to: .zero, modifierFlags: [])
+        XCTAssertEqual(testSupport.selectArgument, [b1, b2, b3])
+
+        // then "drag" away from the other two bubble,s the first one should stay selected
+        testSupport.areaTestBubblesReturn = []
+        mouser.drag(to: .zero, modifierFlags: [])
+        XCTAssertEqual(testSupport.selectArgument, [b1])
     }
 }
 
