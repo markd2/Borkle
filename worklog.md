@@ -773,3 +773,37 @@ Need to do some stuff with modifier keys
 Also needed to fix some test flakiness in the bubble mover mouse gasket - the selection
 being a Set was confusing the ordering of moved items. A bit of comparable and sorting
 later fixes it.
+
+----------
+
+Now for embedding a text editor.
+
+https://developer.apple.com/library/archive/documentation/TextFonts/Conceptual/CocoaTextArchitecture/TextFieldsAndViews/TextFieldsAndViews.html
+
+----------
+
+Was able to add a text view via 
+
+```
+    func textEdit(bubble: Bubble) {
+        let rect = bubble.rect.insetBy(dx: -2, dy: 3)
+        let textView = NSTextView(frame: rect)
+        textView.string = bubble.text
+        addSubview(textView)
+        window?.makeFirstResponder(textView)
+    }
+```
+
+Some issues
+- [X] no way to dismiss, and get the text out of it
+- [>] when text field expands, the bubble should expand live (maybe for a polish PR)  (yes)
+- [>] attributed text (probably another PR) (ok, definitely)
+- [X] there's that padding I'm compensating for to fit in the bubble
+   - it's not
+     - textContainerInset
+     - textContainerOrigin
+   - maybe lineFragmentPadding of the TextContainer
+     - yes!  that seems useful
+
+
+oops - bug.  Mouse hits is different Z order than drawing.
