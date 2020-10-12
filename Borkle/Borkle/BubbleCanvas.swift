@@ -256,13 +256,19 @@ class BubbleCanvas: NSView {
             return
         }
 
-        let rect = bubble.rect.insetBy(dx: -2, dy: 3)
-        textEditor.frame = rect
+        let rect = bubble.rect.insetBy(dx: 0, dy: 0)
+        // !!! this logic is kind of duplicated around.
+        let textRect = rect.insetBy(dx: Bubble.margin, dy: Bubble.margin)
+        textEditor.frame = textRect
 
         textEditor.string = bubble.text
         addSubview(textEditor)
         window?.makeFirstResponder(textEditor)
         textEditingBubble = bubble
+
+        textEditor.textContainer?.lineFragmentPadding = 0
+        
+        Swift.print("SNORGLE \(textEditor.textContainer?.lineFragmentPadding)")
     }
 
     func commitEditing(bubble: Bubble) {
