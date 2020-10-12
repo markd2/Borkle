@@ -67,8 +67,8 @@ class MouseBubblerTests: XCTestCase {
     }
 
     func test_drag_in_selection_moves_it() {
-        selection.select(bubble: bubbles[1])
-        selection.select(bubble: bubbles[2])
+        selection.select(bubble: bubbles[1]) // ID 33
+        selection.select(bubble: bubbles[2]) // ID 22
 
         testSupport.hitTestBubbleReturn = bubbles[1]
 
@@ -79,11 +79,13 @@ class MouseBubblerTests: XCTestCase {
         mouser.drag(to: p10_20, modifierFlags: [])
         mouser.drag(to: p20_40, modifierFlags: [])
         
-        XCTAssertEqual(testSupport.moveAccumulator, 
+        let moved = testSupport.moveAccumulator.sorted(by: <)
+        
+        XCTAssertEqual(moved,
                        [BubblePoint(bubbles[1], CGPoint(x: 43, y: 53)),
                         BubblePoint(bubbles[2], CGPoint(x: 230, y: 240)),
                         BubblePoint(bubbles[1], CGPoint(x: 53, y: 73)),
-                        BubblePoint(bubbles[2], CGPoint(x: 240, y: 260))])
+                        BubblePoint(bubbles[2], CGPoint(x: 240, y: 260))].sorted(by: <) )
         mouser.finish(modifierFlags: [])
     }
 
@@ -92,7 +94,7 @@ class MouseBubblerTests: XCTestCase {
 }
 
 // Can't Equatable tuples :-(
-struct BubblePoint: Equatable {
+struct BubblePoint: Equatable, Comparable {
     let bubble: Bubble
     let point: CGPoint
     
@@ -100,6 +102,14 @@ struct BubblePoint: Equatable {
         self.bubble = bubble
         self.point = point
     }
+
+    static func < (lhs: BubblePoint, rhs: BubblePoint) -> Bool {
+        if lhs.bubble.ID < rhs.bubble.ID { return true }
+        else if lhs.point.x < rhs.point.x { return true }
+        else if lhs.point.y < rhs.point.y { return true }
+        else { return false }
+    }
+
 }
 
 
