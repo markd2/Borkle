@@ -243,6 +243,14 @@ class BubbleCanvas: NSView {
             }
         }
     }
+
+    func textEdit(bubble: Bubble) {
+        let rect = bubble.rect.insetBy(dx: -2, dy: 3)
+        let textView = NSTextView(frame: rect)
+        textView.string = bubble.text
+        addSubview(textView)
+        window?.makeFirstResponder(textView)
+    }
 }
 
 // Mouse tracking
@@ -289,7 +297,11 @@ extension BubbleCanvas {
 
         let bubble = bubbleSoup.hitTestBubble(at: viewLocation)
 
-        if bubble == nil {
+        if let bubble = bubble {
+            if event.clickCount == 2 {
+                textEdit(bubble: bubble)
+            }
+        } else {
             // space!
             if event.clickCount == 1 {
                 currentMouseHandler = MouseSpacer(withSupport: self, selection: selectedBubbles)
@@ -302,10 +314,6 @@ extension BubbleCanvas {
             }
             currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
             return
-        } else {
-            if event.clickCount == 2 {
-                Swift.print("SNORGLE")
-            }
         }
 
         // Catch-all selecting and dragging.
