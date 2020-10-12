@@ -75,9 +75,15 @@ easily move stuff in bulk.
 
 ![](assets/barriers.gif)
 
-
 ### Shift-click in space
 
 Shift-click-dragging in space adds to the current selection.
 
 ![](assets/shift-space.gif)
+
+
+### Bubble Editing
+
+Double-click a bubble to edit its text.
+
+![](assets/text-editing.gif)
