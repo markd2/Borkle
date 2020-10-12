@@ -10,6 +10,9 @@ class BubbleCanvas: NSView {
 
     var currentMouseHandler: MouseHandler?
 
+    var textEditor: NSTextView?
+    var textEditingBubble: Bubble?
+
     let marqueeLineWidth: CGFloat = 2.0
     var marquee: CGRect? {
         willSet {
@@ -243,6 +246,41 @@ class BubbleCanvas: NSView {
             }
         }
     }
+
+    func textEdit(bubble: Bubble) {
+        if textEditor == nil {
+            textEditor = NSTextView(frame: .zero)
+        }
+        guard let textEditor = textEditor else {
+            Swift.print("uh... we just made the text editor")
+            return
+        }
+
+        let rect = bubble.rect.insetBy(dx: 0, dy: 0)
+        // !!! this logic is kind of duplicated around.
+        let textRect = rect.insetBy(dx: Bubble.margin, dy: Bubble.margin)
+        textEditor.frame = textRect
+
+        textEditor.string = bubble.text
+        addSubview(textEditor)
+        window?.makeFirstResponder(textEditor)
+        textEditingBubble = bubble
+
+        textEditor.textContainer?.lineFragmentPadding = 0
+    }
+
+    func commitEditing(bubble: Bubble) {
+        guard let textEditor = textEditor else {
+            Swift.print("uh.... we shouldn't get here without a text editor")
+            return
+        }
+        bubble.text = textEditor.string
+
+        textEditor.removeFromSuperview()
+        textEditor.string = ""
+
+        needsDisplay = true
+    }
 }
 
 // Mouse tracking
@@ -270,16 +308,16 @@ extension BubbleCanvas {
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil)
 
+        if let textEditingBubble = textEditingBubble {
+            commitEditing(bubble: textEditingBubble)
+            self.textEditingBubble = nil
+            return
+        }
+
         if spaceDown {
             setCursor(.closedHand)
             currentMouseHandler = MouseGrabHand(withSupport: self)
             currentMouseHandler?.start(at: locationInWindow, modifierFlags: event.modifierFlags)
-            return
-        }
-
-        if event.clickCount == 2 {
-            currentMouseHandler = MouseDoubleSpacer(withSupport: self)
-            currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
             return
         }
 
@@ -295,12 +333,18 @@ extension BubbleCanvas {
 
         let bubble = bubbleSoup.hitTestBubble(at: viewLocation)
 
-        if bubble == nil {
+        if let bubble = bubble {
+            if event.clickCount == 2 {
+                textEdit(bubble: bubble)
+            }
+        } else {
             // space!
             if event.clickCount == 1 {
                 currentMouseHandler = MouseSpacer(withSupport: self, selection: selectedBubbles)
             } else if event.clickCount == 2 {
                 currentMouseHandler = MouseDoubleSpacer(withSupport: self)
+                currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
+                return
             } else {
                 // do nothing
             }
@@ -452,7 +496,8 @@ extension BubbleCanvas: MouseSupport {
     }
 
     func createNewBubble(at point: CGPoint) {
-        bubbleSoup.create(newBubbleAt: point)
+        let bubble = bubbleSoup.create(newBubbleAt: point)
+        textEdit(bubble: bubble)
     }
 
     func move(bubble: Bubble, to point: CGPoint) {

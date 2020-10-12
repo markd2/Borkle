@@ -102,15 +102,15 @@ class BubbleSoup {
     }
 
     // Make a new bubble centered at the given point.  ID is max + 1 of existing bubbles.
-    public func create(newBubbleAt point: CGPoint) {
+    public func create(newBubbleAt point: CGPoint) -> Bubble {
         let maxID = maxBubbleID()
         let bubble = Bubble(ID: maxID + 1)
         bubble.width = defaultWidth
         bubble.position = CGPoint(x: point.x - defaultWidth / 2.0, y: point.y - defaultHeight / 2.0)
-        bubble.text = "Snorgle"
 
         add(bubble: bubble)
         invalHook?(bubble)
+        return bubble
     }
 
     /// Empty out the soup
