@@ -267,8 +267,6 @@ class BubbleCanvas: NSView {
         textEditingBubble = bubble
 
         textEditor.textContainer?.lineFragmentPadding = 0
-        
-        Swift.print("SNORGLE \(textEditor.textContainer?.lineFragmentPadding)")
     }
 
     func commitEditing(bubble: Bubble) {
@@ -498,7 +496,8 @@ extension BubbleCanvas: MouseSupport {
     }
 
     func createNewBubble(at point: CGPoint) {
-        bubbleSoup.create(newBubbleAt: point)
+        let bubble = bubbleSoup.create(newBubbleAt: point)
+        textEdit(bubble: bubble)
     }
 
     func move(bubble: Bubble, to point: CGPoint) {
