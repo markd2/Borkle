@@ -277,12 +277,6 @@ extension BubbleCanvas {
             return
         }
 
-        if event.clickCount == 2 {
-            currentMouseHandler = MouseDoubleSpacer(withSupport: self)
-            currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
-            return
-        }
-
         for barrier in barriers { // not a forEach because of the return
             if barrier.hitTest(point: viewLocation, area: bounds) {
                 bubbleSoup.beginGrouping()
@@ -301,11 +295,17 @@ extension BubbleCanvas {
                 currentMouseHandler = MouseSpacer(withSupport: self, selection: selectedBubbles)
             } else if event.clickCount == 2 {
                 currentMouseHandler = MouseDoubleSpacer(withSupport: self)
+                currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
+                return
             } else {
                 // do nothing
             }
             currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
             return
+        } else {
+            if event.clickCount == 2 {
+                Swift.print("SNORGLE")
+            }
         }
 
         // Catch-all selecting and dragging.
