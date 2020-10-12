@@ -10,6 +10,9 @@ class BubbleCanvas: NSView {
 
     var currentMouseHandler: MouseHandler?
 
+    var textEditor: NSTextView?
+    var textEditingBubble: Bubble?
+
     let marqueeLineWidth: CGFloat = 2.0
     var marquee: CGRect? {
         willSet {
@@ -245,11 +248,34 @@ class BubbleCanvas: NSView {
     }
 
     func textEdit(bubble: Bubble) {
+        if textEditor == nil {
+            textEditor = NSTextView(frame: .zero)
+        }
+        guard let textEditor = textEditor else {
+            Swift.print("uh... we just made the text editor")
+            return
+        }
+
         let rect = bubble.rect.insetBy(dx: -2, dy: 3)
-        let textView = NSTextView(frame: rect)
-        textView.string = bubble.text
-        addSubview(textView)
-        window?.makeFirstResponder(textView)
+        textEditor.frame = rect
+
+        textEditor.string = bubble.text
+        addSubview(textEditor)
+        window?.makeFirstResponder(textEditor)
+        textEditingBubble = bubble
+    }
+
+    func commitEditing(bubble: Bubble) {
+        guard let textEditor = textEditor else {
+            Swift.print("uh.... we shouldn't get here without a text editor")
+            return
+        }
+        bubble.text = textEditor.string
+
+        textEditor.removeFromSuperview()
+        textEditor.string = ""
+
+        needsDisplay = true
     }
 }
 
@@ -277,6 +303,12 @@ extension BubbleCanvas {
     override func mouseDown(with event: NSEvent) {
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil)
+
+        if let textEditingBubble = textEditingBubble {
+            commitEditing(bubble: textEditingBubble)
+            self.textEditingBubble = nil
+            return
+        }
 
         if spaceDown {
             setCursor(.closedHand)
