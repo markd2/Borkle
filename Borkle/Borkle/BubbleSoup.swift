@@ -132,11 +132,9 @@ class BubbleSoup {
     }
 
     /// Given a point, find the first bubble that intersects it.
-    ///
-    /// Currently (9/19/2020) we don't have a z-ordering, so hit-testing overlapping
-    /// bubbles will return arbitrary results.
+    /// Drawing happens front->back, so hit testing happens back->front
     public func hitTestBubble(at point: CGPoint) -> Bubble? {
-        let bubble = bubbles.first(where: { $0.rect.contains(point) })
+        let bubble = bubbles.last(where: { $0.rect.contains(point) })
         return bubble
     }
 

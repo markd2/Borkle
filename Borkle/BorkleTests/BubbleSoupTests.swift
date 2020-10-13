@@ -282,6 +282,14 @@ extension BubbleSoupTests {
         XCTAssertNil(bubble3)
     }
 
+    func test_hit_test_overlapping_bubbles_are_back_to_front() {
+        soup.add(bubble: Bubble(ID: 1, position: CGPoint(x: 10, y: 20), width: 90))
+        soup.add(bubble: Bubble(ID: 2, position: CGPoint(x: 10, y: 20), width: 90))
+
+        let bubble = soup.hitTestBubble(at: CGPoint(x: 12, y: 22))
+        XCTAssertEqual(bubble?.ID, 2)
+    }
+
     func test_empty_enclosing_rect() {
         let rect = soup.enclosingRect
         XCTAssertEqual(rect, .zero)

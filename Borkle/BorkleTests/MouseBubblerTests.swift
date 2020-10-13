@@ -80,12 +80,12 @@ class MouseBubblerTests: XCTestCase {
         mouser.drag(to: p20_40, modifierFlags: [])
         
         let moved = testSupport.moveAccumulator.sorted(by: <)
-        
-        XCTAssertEqual(moved,
-                       [BubblePoint(bubbles[1], CGPoint(x: 43, y: 53)),
+        let expected = [BubblePoint(bubbles[1], CGPoint(x: 43, y: 53)),
                         BubblePoint(bubbles[2], CGPoint(x: 230, y: 240)),
                         BubblePoint(bubbles[1], CGPoint(x: 53, y: 73)),
-                        BubblePoint(bubbles[2], CGPoint(x: 240, y: 260))].sorted(by: <) )
+                        BubblePoint(bubbles[2], CGPoint(x: 240, y: 260))].sorted(by: <)
+        
+        XCTAssertEqual(moved, expected)
         mouser.finish(modifierFlags: [])
     }
 
