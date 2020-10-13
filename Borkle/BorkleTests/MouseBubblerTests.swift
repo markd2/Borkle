@@ -36,7 +36,7 @@ class MouseBubblerTests: XCTestCase {
 
         testSupport.hitTestBubbleReturn = bubbles[3]
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
 
         XCTAssertEqual(selection.bubbleCount, 1)
         XCTAssertEqual(selection.selectedBubbles, [bubbles[3]])
@@ -48,7 +48,7 @@ class MouseBubblerTests: XCTestCase {
 
         testSupport.hitTestBubbleReturn = bubbles[3]
         mouser.start(at: .zero, modifierFlags: [.shift])
-        mouser.finish(modifierFlags: [.shift])
+        mouser.finish(at: .zero, modifierFlags: [.shift])
 
         XCTAssertEqual(selection.bubbleCount, 4)
         XCTAssertEqual(Set(selection.selectedBubbles), Set(bubbles))
@@ -60,7 +60,7 @@ class MouseBubblerTests: XCTestCase {
 
         testSupport.hitTestBubbleReturn = bubbles[2]
         mouser.start(at: .zero, modifierFlags: [.command])
-        mouser.finish(modifierFlags: [.command])
+        mouser.finish(at: .zero, modifierFlags: [.command])
 
         XCTAssertEqual(selection.bubbleCount, 1)
         XCTAssertEqual(selection.selectedBubbles, [bubbles[1]])
@@ -86,7 +86,7 @@ class MouseBubblerTests: XCTestCase {
                         BubblePoint(bubbles[2], CGPoint(x: 240, y: 260))].sorted(by: <)
         
         XCTAssertEqual(moved, expected)
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
     }
 
     func test_click_in_unselected_bubble_and_drag_unselects_first_then_drag() {

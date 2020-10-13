@@ -34,6 +34,6 @@ class MouseBarrier: MouseHandler {
         support.move(barrier: barrier, affectedBubbles: affectedBubbles, affectedBarriers: affectedBarriers, to: newOffset)
     }
     
-    func finish(modifierFlags: NSEvent.ModifierFlags) {
+    func finish(at: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
     }
 }

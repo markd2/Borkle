@@ -29,7 +29,7 @@ class MouseSpaceTests: XCTestCase {
 
     func test_just_click_deselects_everything() {
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
 
         XCTAssertTrue(testSupport.unselectAllCalled)
         XCTAssertNil(testSupport.selectArgument)
@@ -38,7 +38,7 @@ class MouseSpaceTests: XCTestCase {
     func test_drag_in_emptyness_selectes_nothing() {
         mouser.start(at: .zero, modifierFlags: [])
         mouser.drag(to: CGPoint(x: 10, y: 20), modifierFlags: [])
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
 
         XCTAssertTrue(testSupport.unselectAllCalled)
         XCTAssertEqual(testSupport.selectArgument, [])
@@ -51,7 +51,7 @@ class MouseSpaceTests: XCTestCase {
 
         mouser.start(at: start, modifierFlags: [])
         mouser.drag(to: end, modifierFlags: [])
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
 
         XCTAssertTrue(testSupport.unselectAllCalled)
         XCTAssertEqual(testSupport.areaTestBubblesArgument, rect)
@@ -69,7 +69,7 @@ class MouseSpaceTests: XCTestCase {
         // we're going to say 3 things were selected, make sure those are passed to the selection
         mouser.start(at: .zero, modifierFlags: [])
         mouser.drag(to: point, modifierFlags: [])
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
 
         XCTAssertTrue(testSupport.unselectAllCalled)
         XCTAssertEqual(testSupport.areaTestBubblesArgument, rect)
@@ -136,7 +136,7 @@ class MouseDoubleSpaceTests: XCTestCase {
     
     func test_double_click_creates_bubble() {
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
         XCTAssertEqual(testSupport.createNewBubbleArgument, CGPoint.zero)
     }
 
@@ -144,7 +144,7 @@ class MouseDoubleSpaceTests: XCTestCase {
         mouser.start(at: .zero, modifierFlags: [])
         mouser.drag(to: CGPoint(x: MouseDoubleSpacer.slopLimit / 2.0,
                 y: MouseDoubleSpacer.slopLimit / 2.0), modifierFlags: [])
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
         XCTAssertNotNil(testSupport.createNewBubbleArgument)
     }
 
@@ -152,7 +152,7 @@ class MouseDoubleSpaceTests: XCTestCase {
         mouser.start(at: .zero, modifierFlags: [])
         mouser.drag(to: CGPoint(x: MouseDoubleSpacer.slopLimit * 2.0,
                 y: MouseDoubleSpacer.slopLimit * 2.0), modifierFlags: [])
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
         XCTAssertNil(testSupport.createNewBubbleArgument)
     }
 }

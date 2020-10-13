@@ -29,7 +29,7 @@ class MouseBarrierTests: XCTestCase {
 
     func test_just_click_moves_nothing() {
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
 
         // it does ask first what dealios are affected
         XCTAssertNotNil(testSupport.bubblesAffectedByArgument)
@@ -45,7 +45,7 @@ class MouseBarrierTests: XCTestCase {
 
         XCTAssertNil(testSupport.moveBarrierArguments)
 
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
     }
 
     func test_empty_affected_arrays_also_do_nothing() {
@@ -57,7 +57,7 @@ class MouseBarrierTests: XCTestCase {
 
         XCTAssertNil(testSupport.moveBarrierArguments)
 
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
     }
     
     func newBarrier(ID: Int) -> Barrier {
@@ -82,7 +82,7 @@ class MouseBarrierTests: XCTestCase {
         mouser.drag(to: CGPoint(x: -666, y: 3.1415), modifierFlags: [])
         XCTAssertEqual(testSupport.moveBarrierArguments?.offset, -666)
 
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
     }
 
     func test_bubbles_but_no_barriers_trigger_move() {
@@ -92,7 +92,7 @@ class MouseBarrierTests: XCTestCase {
         mouser.drag(to: CGPoint(x: 10, y: -20), modifierFlags: [])
         XCTAssertEqual(testSupport.moveBarrierArguments?.offset, 10)
 
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
     }
 
     func test_barriers_but_no_bubbles_trigger_move() {
@@ -102,7 +102,7 @@ class MouseBarrierTests: XCTestCase {
         mouser.drag(to: CGPoint(x: 10, y: -20), modifierFlags: [])
         XCTAssertEqual(testSupport.moveBarrierArguments?.offset, 10)
 
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
     }
 
     func test_move_given_all_the_right_stuff() {
@@ -120,7 +120,7 @@ class MouseBarrierTests: XCTestCase {
         XCTAssertEqual(args?.barriers, [anotherBarrier])
         XCTAssertEqual(args?.offset, -1.234)
 
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
     }
 }
 

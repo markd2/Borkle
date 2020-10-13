@@ -25,7 +25,7 @@ class MouseGrabHandTests: XCTestCase {
 
     func test_click_doesnt_scroll() {
         mouser.start(at: .zero, modifierFlags: [])
-        mouser.finish(modifierFlags: [])
+        mouser.finish(at: .zero, modifierFlags: [])
         XCTAssertNil(testSupport.scrollArgument)
     }
 

@@ -374,6 +374,9 @@ extension BubbleCanvas {
     }
 
     override func mouseUp(with event: NSEvent) {
+        let locationInWindow = event.locationInWindow
+        let viewLocation = convert(locationInWindow, from: nil) as CGPoint
+
         defer {
             scrollOrigin = nil
             bubbleSoup.endGrouping()
@@ -390,7 +393,7 @@ extension BubbleCanvas {
         }
 
         if let handler = currentMouseHandler {
-            handler.finish(modifierFlags: event.modifierFlags)
+            handler.finish(at: viewLocation, modifierFlags: event.modifierFlags)
             return
         }
 

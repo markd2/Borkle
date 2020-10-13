@@ -26,6 +26,6 @@ class MouseGrabHand: MouseHandler {
         support.scroll(to: newOrigin)
     }
     
-    func finish(modifierFlags: NSEvent.ModifierFlags) {
+    func finish(at: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
     }
 }

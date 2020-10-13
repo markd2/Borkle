@@ -45,7 +45,7 @@ class MouseSpacer: MouseHandler {
 
     }
     
-    public func finish(modifierFlags: NSEvent.ModifierFlags) {
+    public func finish(at: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
     }
 }
 
@@ -79,7 +79,7 @@ class MouseDoubleSpacer: MouseHandler {
         }
     }
     
-    public func finish(modifierFlags: NSEvent.ModifierFlags) {
+    public func finish(at: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         if let startPoint = startPoint {
             support.createNewBubble(at: startPoint)
         }
