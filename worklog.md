@@ -807,3 +807,10 @@ Some issues
 
 
 oops - bug.  Mouse hits is different Z order than drawing.
+
+==================================================
+# Tuesday October 13, 2020
+
+Look at that z-order issue.
+
+yeah, clicks go through.
