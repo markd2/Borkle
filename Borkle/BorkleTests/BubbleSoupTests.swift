@@ -82,7 +82,7 @@ class BubbleSoupTests: XCTestCase {
 
     func test_create_bubble() {
         let point = CGPoint(x: 100, y: 200)
-        soup.create(newBubbleAt: point)
+        _ = soup.create(newBubbleAt: point)
         XCTAssertEqual(soup.bubbleCount, 1)
 
         let bubble = soup.bubble(byID: 1)
@@ -95,8 +95,8 @@ class BubbleSoupTests: XCTestCase {
 
     func test_create_bubble_undo() {
         let point = CGPoint(x: 100, y: 200)
-        soup.create(newBubbleAt: point)
-        soup.create(newBubbleAt: point)
+        _ = soup.create(newBubbleAt: point)
+        _ = soup.create(newBubbleAt: point)
         XCTAssertEqual(soup.bubbleCount, 2)
 
         soup.undo()
