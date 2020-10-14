@@ -34,6 +34,17 @@ class Bubble: Codable {
         return connected
     }
 
+    func connect(to bubble: Bubble) {
+        connections.insert(bubble.ID)
+        bubble.connections.insert(ID)
+        print("connections are \(connections)")
+    }
+
+    func disconnect(bubble: Bubble) {
+        connections.remove(bubble.ID)
+        bubble.connections.remove(ID)
+    }
+
     // optional as hacky way to opt out of Codable for this.
     static let margin: CGFloat = 3.0
 
