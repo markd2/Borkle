@@ -75,15 +75,18 @@ class MouseBubbler: MouseHandler {
         }
         
         let rect = CGRect(x: point.x, y: point.y, width: 1, height: 1)
-        let hitBubbles = support.areaTestBubbles(intersecting: rect) ?? []
+        var hitBubbles = support.areaTestBubbles(intersecting: rect) ?? []
+        hitBubbles.removeAll { $0.ID == hitBubble.ID }
 
-        if hitBubbles.count >= 2, let targetBubble = hitBubbles.last  {
+        if hitBubbles.count >= 1, let targetBubble = hitBubbles.last  {
+            let bubbles = selectedBubbles.selectedBubbles
 
             // if mouse-up inside of a bubble, connect or disconnect.
             if hitBubble.isConnectedTo(targetBubble) {
                 print("DISCONNECT")
+                support.disconnect(bubbles: bubbles, from: targetBubble)
             } else {
-                print("CONNECT")
+                support.connect(bubbles: bubbles, to: targetBubble)
             }
 
             originalBubblePositions.forEach { bubble, position in
