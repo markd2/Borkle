@@ -21,6 +21,9 @@ protocol MouseSupport {
 
     func createNewBubble(at: CGPoint)
 
+    func connect(bubbles: [Bubble], to: Bubble)
+    func disconnect(bubbles: [Bubble], from: Bubble)
+
     func bubblesAffectedBy(barrier: Barrier) -> [Bubble]?
     func barriersAffectedBy(barrier: Barrier) -> [Barrier]?
     func move(bubble: Bubble, to: CGPoint)

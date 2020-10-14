@@ -518,6 +518,20 @@ extension BubbleCanvas: MouseSupport {
             to: horizontalPosition)
     }
 
+    func connect(bubbles: [Bubble], to bubble: Bubble) {
+        bubbles.forEach {
+            bubble.connect(to: $0)
+        }
+        needsDisplay = true
+    }
+
+    func disconnect(bubbles: [Bubble], from bubble: Bubble) {
+        bubbles.forEach {
+            bubble.disconnect(bubble: $0)
+        }
+        needsDisplay = true
+    }
+
     func bubblesAffectedBy(barrier: Barrier) -> [Bubble]? {
         let affectedBubbles = bubbleSoup.areaTestBubbles(intersecting: barrier.horizontalPosition.rectToRight)
         return affectedBubbles
