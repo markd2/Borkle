@@ -10,6 +10,7 @@ class MouseBubbler: MouseHandler {
     var initialDragPoint: CGPoint!
     var originalBubblePositions: [Bubble: CGPoint]!
     var originalBubblePosition: CGPoint!
+    var hitBubble: Bubble?
 
     init(withSupport support: MouseSupport, selectedBubbles: Selection) {
         self.support = support
@@ -21,8 +22,12 @@ class MouseBubbler: MouseHandler {
 
         let addToSelection = modifierFlags.contains(.shift)
         let toggleSelection = modifierFlags.contains(.command)
-
-        guard let hitBubble = support.hitTestBubble(at: point) else { return }
+        
+        guard let hitBubble = support.hitTestBubble(at: point) else {
+            return
+        }
+        
+        self.hitBubble = hitBubble
 
         if addToSelection {
             selectedBubbles.select(bubble: hitBubble)
@@ -65,12 +70,21 @@ class MouseBubbler: MouseHandler {
     }
 
     func finish(at point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
+        guard let hitBubble = hitBubble else {
+            return
+        }
+        
         let rect = CGRect(x: point.x, y: point.y, width: 1, height: 1)
         let hitBubbles = support.areaTestBubbles(intersecting: rect) ?? []
 
-        if hitBubbles.count >= 2 {
-            print("CONNECT")
-            // if mouse-up inside of a bubble, connect
+        if hitBubbles.count >= 2, let targetBubble = hitBubbles.last  {
+
+            // if mouse-up inside of a bubble, connect or disconnect.
+            if hitBubble.isConnectedTo(targetBubble) {
+                print("DISCONNECT")
+            } else {
+                print("CONNECT")
+            }
 
             originalBubblePositions.forEach { bubble, position in
                 support.move(bubble: bubble, to: position)
