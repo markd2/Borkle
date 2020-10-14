@@ -64,6 +64,21 @@ class MouseBubbler: MouseHandler {
         }
     }
 
-    func finish(modifierFlags: NSEvent.ModifierFlags) {
+    func finish(at point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
+        let rect = CGRect(x: point.x, y: point.y, width: 1, height: 1)
+        let hitBubbles = support.areaTestBubbles(intersecting: rect) ?? []
+
+        if hitBubbles.count >= 2 {
+            print("CONNECT")
+            // if mouse-up inside of a bubble, connect
+
+            originalBubblePositions.forEach { bubble, position in
+                support.move(bubble: bubble, to: position)
+            }
+            
+        } else {
+            print("MOOOOOOOVE")
+            // otherwise, do nothing and accept the movex
+        }
     }
 }
