@@ -814,3 +814,19 @@ oops - bug.  Mouse hits is different Z order than drawing.
 Look at that z-order issue.
 
 yeah, clicks go through.
+
+----------
+
+Connecting / disconnecting.
+
+Adding lots of stuff.  Still need
+
+- [X] Undo
+- [ ] highlighting bubbles as they are a potential drop site
+      - Scapple does it by highlighting in gray
+      - they also don't do live dragging, but instead dragging a transparent image over the field
+      - maybe during the mouse drag, see what we're over, and draw that appropriately
+- [ ] tests
+
+
+command-shift-A stopped working
