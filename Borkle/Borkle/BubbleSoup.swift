@@ -152,6 +152,19 @@ class BubbleSoup {
         }
         return union
     }
+    
+    func connect(bubbles: [Bubble], to bubble: Bubble) {
+        bubbles.forEach {
+            bubble.connect(to: $0)
+        }
+    }
+
+    func disconnect(bubbles: [Bubble], from bubble: Bubble) {
+        bubbles.forEach {
+            bubble.disconnect(bubble: $0)
+        }
+    }
+
 }
 
 /// Helper Methods

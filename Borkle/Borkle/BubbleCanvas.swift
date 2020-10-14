@@ -519,16 +519,12 @@ extension BubbleCanvas: MouseSupport {
     }
 
     func connect(bubbles: [Bubble], to bubble: Bubble) {
-        bubbles.forEach {
-            bubble.connect(to: $0)
-        }
+        bubbleSoup.connect(bubbles: bubbles, to: bubble)
         needsDisplay = true
     }
 
     func disconnect(bubbles: [Bubble], from bubble: Bubble) {
-        bubbles.forEach {
-            bubble.disconnect(bubble: $0)
-        }
+        bubbleSoup.disconnect(bubbles: bubbles, from: bubble)
         needsDisplay = true
     }
 
