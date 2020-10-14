@@ -29,6 +29,11 @@ class Bubble: Codable {
         return rect
     }
 
+    func isConnectedTo(_ bubble: Bubble) -> Bool {
+        let connected = connections.contains(bubble.ID)
+        return connected
+    }
+
     // optional as hacky way to opt out of Codable for this.
     static let margin: CGFloat = 3.0
 
