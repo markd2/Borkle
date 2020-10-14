@@ -153,15 +153,33 @@ class BubbleSoup {
         return union
     }
     
+    func connect(bubble: Bubble, to target: Bubble) {
+        bubble.connect(to: target)
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            self.disconnect(bubble: bubble, from: target)
+        }
+    }
+
+    func disconnect(bubble: Bubble, from target: Bubble) {
+        bubble.disconnect(bubble: target)
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            self.connect(bubble: bubble, to: target)
+        }
+    }
+    
     func connect(bubbles: [Bubble], to bubble: Bubble) {
-        bubbles.forEach {
-            bubble.connect(to: $0)
+        bubbles.forEach { target in
+            if !bubble.isConnectedTo(target) {
+                connect(bubble: bubble, to: target)
+            }
         }
     }
 
     func disconnect(bubbles: [Bubble], from bubble: Bubble) {
-        bubbles.forEach {
-            bubble.disconnect(bubble: $0)
+        bubbles.forEach { target in
+            if bubble.isConnectedTo(target) {
+                disconnect(bubble: bubble, from: target)
+            }
         }
     }
 
