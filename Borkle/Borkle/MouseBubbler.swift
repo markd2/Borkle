@@ -68,7 +68,7 @@ class MouseBubbler: MouseHandler {
         // Move selected bubbles to new position.
         let delta = initialDragPoint - point
         selectedBubbles.forEachBubble { bubble in
-            guard let originalPosition = originalBubblePositions[bubble] else {
+            guard let originalPosition = originalBubblePositions?[bubble] else {
                 Swift.print("unexpectedly missing original bubble position")
                 return
             }
