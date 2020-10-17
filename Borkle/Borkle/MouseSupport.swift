@@ -23,6 +23,7 @@ protocol MouseSupport {
 
     func connect(bubbles: [Bubble], to: Bubble)
     func disconnect(bubbles: [Bubble], from: Bubble)
+    func highlightAsDropTarget(bubble: Bubble?) // nil to remove highlight
 
     func bubblesAffectedBy(barrier: Barrier) -> [Bubble]?
     func barriersAffectedBy(barrier: Barrier) -> [Barrier]?
