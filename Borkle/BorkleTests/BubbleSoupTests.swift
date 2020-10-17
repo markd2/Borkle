@@ -303,6 +303,152 @@ extension BubbleSoupTests {
         
         XCTAssertEqual(rect, expectedRect)
     }
+
+    func test_connect_1() {
+        let b1 = Bubble(ID: 1)
+        let b2 = Bubble(ID: 2)
+        let b3 = Bubble(ID: 3)
+        soup.add(bubbles: [b1, b2, b3])
+
+        soup.connect(bubble: b1, to: b2)
+        XCTAssertTrue(b1.isConnectedTo(b2))
+        XCTAssertTrue(b2.isConnectedTo(b1))
+        XCTAssertFalse(b3.isConnectedTo(b1))
+        XCTAssertFalse(b3.isConnectedTo(b2))
+    }
+
+    func test_connect_1_undo() {
+
+        let b1 = Bubble(ID: 1)
+        let b2 = Bubble(ID: 2)
+        let b3 = Bubble(ID: 3)
+        soup.add(bubbles: [b1, b2, b3])
+
+        // manually grouping because this is a helper function.
+        soup.beginGrouping()
+        soup.connect(bubble: b1, to: b2)
+        soup.endGrouping()
+
+        soup.undo()
+
+        XCTAssertFalse(b1.isConnectedTo(b2))
+        XCTAssertFalse(b2.isConnectedTo(b1))
+        XCTAssertFalse(b3.isConnectedTo(b1))
+    }
+
+    func test_disconnect_1() {
+        let b1 = Bubble(ID: 1)
+        let b2 = Bubble(ID: 2)
+        let b3 = Bubble(ID: 3)
+        soup.add(bubbles: [b1, b2, b3])
+        soup.connect(bubbles: [b1], to: b2)
+
+        soup.disconnect(bubble: b1, from: b2)
+
+        XCTAssertFalse(b1.isConnectedTo(b2))
+        XCTAssertFalse(b2.isConnectedTo(b1))
+        XCTAssertFalse(b3.isConnectedTo(b1))
+        XCTAssertFalse(b3.isConnectedTo(b2))
+    }
+
+    func test_disconnect_1_undo() {
+
+        let b1 = Bubble(ID: 1)
+        let b2 = Bubble(ID: 2)
+        let b3 = Bubble(ID: 3)
+        soup.add(bubbles: [b1, b2, b3])
+
+        soup.beginGrouping()
+        soup.connect(bubble: b1, to: b2)
+        soup.endGrouping()
+
+        soup.beginGrouping()
+        soup.disconnect(bubble: b1, from: b2)
+        soup.endGrouping()
+
+        soup.undo()
+
+        XCTAssertTrue(b1.isConnectedTo(b2))
+        XCTAssertTrue(b2.isConnectedTo(b1))
+        XCTAssertFalse(b3.isConnectedTo(b1))
+    }
+
+    func test_connect_batch() {
+        let b1 = Bubble(ID: 1)
+        let b2 = Bubble(ID: 2)
+        let b3 = Bubble(ID: 3)
+        let b4 = Bubble(ID: 4)
+        soup.add(bubbles: [b1, b2, b3, b4])
+        soup.connect(bubble: b4, to: b1)
+
+        soup.connect(bubbles: [b1, b2], to: b3)
+        // make sure connections are made
+        XCTAssertTrue(b1.isConnectedTo(b3))
+        XCTAssertTrue(b2.isConnectedTo(b3))
+
+        // existing connection is preserved
+        XCTAssertTrue(b4.isConnectedTo(b1))
+
+        // and other connection weren't made
+        XCTAssertFalse(b3.isConnectedTo(b4))
+    }
+
+    func test_connect_batch_undo() {
+        let b1 = Bubble(ID: 1)
+        let b2 = Bubble(ID: 2)
+        let b3 = Bubble(ID: 3)
+        let b4 = Bubble(ID: 4)
+        soup.add(bubbles: [b1, b2, b3, b4])
+        soup.connect(bubble: b4, to: b1)
+
+        soup.connect(bubbles: [b1, b2], to: b3)
+        soup.undo()
+
+        // make sure connections are no longer there
+        XCTAssertFalse(b1.isConnectedTo(b3))
+        XCTAssertFalse(b2.isConnectedTo(b3))
+
+        // existing connection is preserved
+        XCTAssertTrue(b4.isConnectedTo(b1))
+
+        // and other connection wasn't made somehow
+        XCTAssertFalse(b3.isConnectedTo(b4))
+    }
+
+    func test_disconnect_batch() {
+        let b1 = Bubble(ID: 1)
+        let b2 = Bubble(ID: 2)
+        let b3 = Bubble(ID: 3)
+        let b4 = Bubble(ID: 4)
+        soup.add(bubbles: [b1, b2, b3, b4])
+        soup.connect(bubbles: [b1], to: b2)
+
+        soup.disconnect(bubbles: [b1], from: b2)
+
+        XCTAssertFalse(b1.isConnectedTo(b2))
+        XCTAssertFalse(b2.isConnectedTo(b1))
+        XCTAssertFalse(b3.isConnectedTo(b1))
+        XCTAssertFalse(b3.isConnectedTo(b2))
+    }
+
+    func test_disconnect_batch_undo() {
+
+        let b1 = Bubble(ID: 1)
+        let b2 = Bubble(ID: 2)
+        let b3 = Bubble(ID: 3)
+        let b4 = Bubble(ID: 4)
+        soup.add(bubbles: [b1, b2, b3, b4])
+
+        soup.connect(bubbles: [b1], to: b2)
+
+        soup.disconnect(bubbles: [b1], from: b2)
+
+        soup.undo()
+
+        XCTAssertTrue(b1.isConnectedTo(b2))
+        XCTAssertTrue(b2.isConnectedTo(b1))
+        XCTAssertFalse(b3.isConnectedTo(b1))
+    }
 }
 
 /// These exercise internal helper methods
