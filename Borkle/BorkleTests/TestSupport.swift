@@ -90,11 +90,13 @@ class TestSupport: MouseSupport {
         moveBarrierCalled = true
     }
 
-    var moveBubbleArguments: (bubble: Bubble, to: CGPoint)?
+    var moveBubbleArguments: [(bubble: Bubble, to: CGPoint)]?
     var moveBubbleCalled = true
     func move(bubble: Bubble, to point: CGPoint) {
-        moveBubbleArguments = (bubble, point)
+        var args = moveBubbleArguments ?? []
+        args += [(bubble, point)]
         moveBubbleCalled = true
+        moveBubbleArguments = args
     }
 
     func reset() {
