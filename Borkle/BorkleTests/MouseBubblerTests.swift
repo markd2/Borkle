@@ -89,7 +89,107 @@ class MouseBubblerTests: XCTestCase {
         mouser.finish(at: .zero, modifierFlags: [])
     }
 
-    func test_click_in_unselected_bubble_and_drag_unselects_first_then_drag() {
+    // mainly for coverage
+    func test_drag_called_with_no_selected_bubbles() {
+        mouser.drag(to: .zero, modifierFlags: [])
+
+        // make sure the subsequent code hasn't been called
+        XCTAssertNil(testSupport.areaTestBubblesArgument)
+    }
+
+    // mainly for coverage
+    func test_drag_with_no_original_position_bails_out() {
+        selection.select(bubble: bubbles[1]) // ID 33
+        mouser.originalBubblePositions = nil
+
+        mouser.start(at: .zero, modifierFlags: [])
+        mouser.drag(to: .zero, modifierFlags: [])
+
+        XCTAssertNil(testSupport.moveBubbleArguments)
+    }
+
+    func test_drag_selected_bubbles_highlights_potential_drop_target() {
+        selection.select(bubbles: [bubbles[0], bubbles[1]])
+
+        // Start the drag.
+        testSupport.hitTestBubbleReturn = bubbles[0]
+        mouser.start(at: .zero, modifierFlags: [])
+
+        // Drag "over" an existing bubble.
+        testSupport.reset()
+        testSupport.areaTestBubblesReturn = [bubbles[2], bubbles[0]] // IDs 22, 11
+
+        mouser.drag(to: .zero, modifierFlags: [])
+
+        // the code takes the last area test.  It should take out bubbles[0] (ID 11) first
+        // because that's what is dragged under the mouse pointer.
+        XCTAssertEqual(testSupport.highlightAsDropTargetArgument?.ID, 22)
+    }
+
+    func test_drag_selected_bubbles_turns_off_highlight_if_no_hit_test() {
+        selection.select(bubbles: [bubbles[0], bubbles[1]])
+
+        // Start the drag.
+        testSupport.hitTestBubbleReturn = bubbles[0]
+        mouser.start(at: .zero, modifierFlags: [])
+
+        // Drag over no bubbles
+        testSupport.reset()
+        testSupport.areaTestBubblesReturn = nil
+
+        mouser.drag(to: .zero, modifierFlags: [])
+
+        // the code takes the last area test.  It should take out bubbles[0] (ID 11) first
+        // because that's what is dragged under the mouse pointer.
+        XCTAssertTrue(testSupport.highlightAsDropTargetCalled)
+        XCTAssertNil(testSupport.highlightAsDropTargetArgument)
+    }
+
+    func test_drop_on_highlighted_bubble_makes_connections_and_resets_positions() {
+    }
+
+    func test_drop_on_highlighted_bubble_makes_disconnections_and_resets_positions() {
+    }
+
+    func test_drop_on_nothing_makes_no_connections_and_moves() {
+        selection.select(bubbles: [bubbles[0], bubbles[1]])
+
+        // Start the drag.
+        testSupport.hitTestBubbleReturn = bubbles[0]
+        mouser.start(at: .zero, modifierFlags: [])
+
+        // Drag "over" no bubble, should move bubbles
+        testSupport.reset()
+        testSupport.areaTestBubblesReturn = nil
+
+        mouser.drag(to: CGPoint(x: 100, y: 200), modifierFlags: [])
+        // make sure it moved
+
+        testSupport.moveBubbleArguments?.forEach {
+            if $0.bubble.ID == bubbles[0].ID {
+                XCTAssertEqual($0.to, CGPoint(x: 111, y: 211))
+            } else if $0.bubble.ID == bubbles[1].ID {
+                XCTAssertEqual($0.to, CGPoint(x: 133, y: 233))
+            }
+        }
+
+        // release on nothing
+        testSupport.reset()
+        mouser.finish(at: CGPoint(x: 200, y: 300), modifierFlags: [])
+
+        // make sure it still was moved, since this is a drag now.
+        testSupport.moveBubbleArguments?.forEach {
+            if $0.bubble.ID == bubbles[0].ID {
+                XCTAssertEqual($0.to, CGPoint(x: 111, y: 211))
+            } else if $0.bubble.ID == bubbles[1].ID {
+                XCTAssertEqual($0.to, CGPoint(x: 133, y: 233))
+            }
+        }
+
+        // Make sure no connections have been made
+        XCTAssertFalse(bubbles[0].isConnectedTo(bubbles[1]))
+        XCTAssertFalse(bubbles[0].isConnectedTo(bubbles[2]))
+        XCTAssertFalse(bubbles[1].isConnectedTo(bubbles[2]))
     }
 }
 
@@ -126,6 +226,7 @@ class BubblerTestSupport: TestSupport {
     override func move(bubble: Bubble, to: CGPoint) {
         print("SNORGLE \(bubble.ID) to \(to)")
         moveAccumulator.append(BubblePoint(bubble, to))
+        super.move(bubble: bubble, to: to)
     }
     
 }
