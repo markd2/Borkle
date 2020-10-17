@@ -2,7 +2,6 @@ import XCTest
 @testable import Borkle
 
 class TestSupport: MouseSupport {
-
     var hitTestBubbleArgument: CGPoint? = nil
     var hitTestBubbleReturn: Bubble? = nil
     func hitTestBubble(at: CGPoint) -> Bubble? {
@@ -48,7 +47,28 @@ class TestSupport: MouseSupport {
     func createNewBubble(at point: CGPoint) {
         createNewBubbleArgument = point
     }
+    
+    var connectBubblesArgument: [Bubble]?
+    var connectBubblesToArgument: Bubble?
+    func connect(bubbles: [Bubble], to: Bubble) {
+        connectBubblesArgument = bubbles
+        connectBubblesToArgument = to
+    }
+    
+    var disconnectBubblesArgument: [Bubble]?
+    var disconnectBubblesFromArgument: Bubble?
+    func disconnect(bubbles: [Bubble], from: Bubble) {
+        disconnectBubblesArgument = bubbles
+        disconnectBubblesFromArgument = from
+    }
 
+    var highlightAsDropTargetArgument: Bubble?
+    var highlightAsDropTargetCalled = false
+    func highlightAsDropTarget(bubble: Bubble?) {
+        highlightAsDropTargetCalled = true
+        highlightAsDropTargetArgument = bubble
+    }
+    
     var bubblesAffectedByReturn: [Bubble]?
     var bubblesAffectedByArgument: Barrier?
     func bubblesAffectedBy(barrier: Barrier) -> [Bubble]? {
@@ -91,6 +111,12 @@ class TestSupport: MouseSupport {
         currentScrollOffsetReturn = CGPoint.zero
         scrollArgument = nil
         createNewBubbleArgument = nil
+        connectBubblesArgument = nil
+        connectBubblesToArgument = nil
+        disconnectBubblesArgument = nil
+        disconnectBubblesFromArgument = nil
+        highlightAsDropTargetArgument = nil
+        highlightAsDropTargetCalled = false
         bubblesAffectedByArgument = nil
         bubblesAffectedByReturn = nil
         barriersAffectedByArgument = nil
