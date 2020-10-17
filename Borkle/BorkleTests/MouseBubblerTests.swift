@@ -105,8 +105,11 @@ struct BubblePoint: Equatable, Comparable {
 
     static func < (lhs: BubblePoint, rhs: BubblePoint) -> Bool {
         if lhs.bubble.ID < rhs.bubble.ID { return true }
+        else if lhs.bubble.ID > lhs.bubble.ID { return false }
         else if lhs.point.x < rhs.point.x { return true }
+        else if lhs.point.x > rhs.point.x {return false }
         else if lhs.point.y < rhs.point.y { return true }
+        else if lhs.point.y > rhs.point.y { return false }
         else { return false }
     }
 
