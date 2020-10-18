@@ -75,8 +75,17 @@ extension ScappleImporter {
             print("Got no useful style attributes from \(attributes)")
             return nil
         }
-        let rangeStart = 11
-        let rangeEnd = 17
+
+        let ranges = rangeString.split(separator: ",")
+        guard ranges.count == 2 else {
+            print("unexpected number of items in range string \(rangeString)")
+            return nil
+        }
+
+        guard let rangeStart = Int(ranges[0]), let rangeEnd = Int(ranges[1]) else {
+            print("unexpected Int processing from range string \(rangeString)")
+            return nil
+        }
 
         let formattingOption = Bubble.FormattingOption(options: options, 
                                                        rangeStart: rangeStart,
