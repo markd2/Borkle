@@ -307,6 +307,7 @@ extension Document {
         do {
             bubbles = try ScappleImporter().importScapple(url: url)
             bubbleSoup.add(bubbles: bubbles)
+            bubbleCanvas.bubbleSoup = bubbleSoup
         } catch {
             Swift.print("import error \(error)")
         }
