@@ -125,5 +125,7 @@ class TestSupport: MouseSupport {
         barriersAffectedByReturn = nil
         moveBarrierArguments = nil
         moveBarrierCalled = false
+        moveBubbleArguments = nil
+        moveBubbleCalled = false
     }
 }
