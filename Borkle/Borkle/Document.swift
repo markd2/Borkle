@@ -282,6 +282,8 @@ extension Document {
         switch menuItem.action {
         case #selector(expandSelection(_:)):
             return bubbleCanvas.selectedBubbles.bubbleCount > 0
+        case #selector(importScapple(_:)):
+            return true
         default:
             break
         }
