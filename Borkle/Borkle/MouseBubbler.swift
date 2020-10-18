@@ -93,7 +93,6 @@ class MouseBubbler: MouseHandler {
 
             // if mouse-up inside of a bubble, connect or disconnect.
             if hitBubble.isConnectedTo(targetBubble) {
-                print("DISCONNECT")
                 support.disconnect(bubbles: bubbles, from: targetBubble)
             } else {
                 support.connect(bubbles: bubbles, to: targetBubble)

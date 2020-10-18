@@ -224,7 +224,6 @@ class BubblerTestSupport: TestSupport {
     
     var moveAccumulator: [BubblePoint]! = []
     override func move(bubble: Bubble, to: CGPoint) {
-        print("SNORGLE \(bubble.ID) to \(to)")
         moveAccumulator.append(BubblePoint(bubble, to))
         super.move(bubble: bubble, to: to)
     }
