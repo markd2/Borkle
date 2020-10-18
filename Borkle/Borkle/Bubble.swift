@@ -6,6 +6,7 @@ class Bubble: Codable {
         static let bold          = FormattingStyle(rawValue: 1 << 0)
         static let italic        = FormattingStyle(rawValue: 1 << 1)
         static let strikethrough = FormattingStyle(rawValue: 1 << 2)
+        static let underline     = FormattingStyle(rawValue: 1 << 3)
     }
 
     let ID: Int
@@ -15,10 +16,23 @@ class Bubble: Codable {
         }
     }
     
-    struct FormattingOption: Codable {
+    struct FormattingOption: Codable, Equatable {
         let options: FormattingStyle
         let rangeStart: Int 
-        let rangeEnd: Int 
+        let rangeLength: Int 
+        
+        init(options: FormattingStyle, rangeStart: Int, rangeLength: Int) {
+            self.options = options
+            self.rangeStart = rangeStart
+            self.rangeLength = rangeLength
+        }
+
+        // concise version for tests.
+        init(_ options: FormattingStyle, _ rangeStart: Int, _ rangeLength: Int) {
+            self.options = options
+            self.rangeStart = rangeStart
+            self.rangeLength = rangeLength
+        }
     }
 
     var formattingOptions: [FormattingOption] = []

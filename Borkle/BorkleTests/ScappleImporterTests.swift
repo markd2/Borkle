@@ -65,6 +65,42 @@ class ScappleImporterTests: XCTestCase {
             XCTFail("\(error)")
         }
     }
+
+
+    // What the corresponding XML looks like
+    //   <String>I seem to be a verb</String>
+    //   <Formatting>
+    //       <FormatRange Italic="Yes">2,4</FormatRange>
+    //       <FormatRange Bold="Yes">7,2</FormatRange>
+    //       <FormatRange Underline="Yes">10,2</FormatRange>
+    //       <FormatRange Struckthrough="Yes">13,1</FormatRange>
+    //       <FormatRange Bold="Yes" Italic="Yes">15,4</FormatRange>
+    //   </Formatting>
+    func test_import_single_styled_bubble() throws {
+        let url = try urlFor(filename: "single-formatted")
+
+        do {
+            let bubbles = try importer.importScapple(url: url)
+            XCTAssertEqual(bubbles.count, 1)
+            let bubble = bubbles[0]
+            XCTAssertEqual(bubble.text, "I seem to be a verb")
+
+            XCTAssertEqual(bubble.formattingOptions.count, 5)
+            
+            let expectedOptions: [Bubble.FormattingOption] = [
+              Bubble.FormattingOption([.italic], 2, 4),
+              Bubble.FormattingOption([.bold], 7, 2),
+              Bubble.FormattingOption([.underline], 10, 2),
+              Bubble.FormattingOption([.strikethrough], 13, 1),
+              Bubble.FormattingOption([.bold, .italic], 15, 4)
+            ]
+            XCTAssertEqual(bubble.formattingOptions, expectedOptions)
+                               
+        } catch {
+            XCTFail("\(error)")
+        }
+
+    }
 }
 
 extension ScappleImporterTests {

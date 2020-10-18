@@ -34,6 +34,7 @@
 		7D5DAABF253C9B1C00893D82 /* empty.scap in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DAABE253C9B1C00893D82 /* empty.scap */; };
 		7D5DAAC5253CA0A700893D82 /* bubble-with-text.scap in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DAAC4253CA0A700893D82 /* bubble-with-text.scap */; };
 		7D5DAAC9253CA2F800893D82 /* two-connected.scap in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DAAC8253CA2F800893D82 /* two-connected.scap */; };
+		7D5DAACD253CA4C000893D82 /* single-formatted.scap in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DAACC253CA4C000893D82 /* single-formatted.scap */; };
 		7D93A74A250AD8DC00991121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93A749250AD8DC00991121 /* AppDelegate.swift */; };
 		7D93A74C250AD8DC00991121 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93A74B250AD8DC00991121 /* Document.swift */; };
 		7D93A74F250AD8DC00991121 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A74D250AD8DC00991121 /* Document.xib */; };
@@ -80,6 +81,7 @@
 		7D5DAABE253C9B1C00893D82 /* empty.scap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = empty.scap; sourceTree = "<group>"; };
 		7D5DAAC4253CA0A700893D82 /* bubble-with-text.scap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "bubble-with-text.scap"; sourceTree = "<group>"; };
 		7D5DAAC8253CA2F800893D82 /* two-connected.scap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "two-connected.scap"; sourceTree = "<group>"; };
+		7D5DAACC253CA4C000893D82 /* single-formatted.scap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "single-formatted.scap"; sourceTree = "<group>"; };
 		7D93A746250AD8DC00991121 /* Borkle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Borkle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D93A749250AD8DC00991121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D93A74B250AD8DC00991121 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				7D5DAABE253C9B1C00893D82 /* empty.scap */,
 				7D5DAAC4253CA0A700893D82 /* bubble-with-text.scap */,
 				7D5DAAC8253CA2F800893D82 /* two-connected.scap */,
+				7D5DAACC253CA4C000893D82 /* single-formatted.scap */,
 			);
 			path = ScappleDocuments;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				7D5DAABF253C9B1C00893D82 /* empty.scap in Resources */,
 				7D5DAAC5253CA0A700893D82 /* bubble-with-text.scap in Resources */,
 				7D5DAAC9253CA2F800893D82 /* two-connected.scap in Resources */,
+				7D5DAACD253CA4C000893D82 /* single-formatted.scap in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

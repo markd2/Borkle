@@ -66,6 +66,7 @@ extension ScappleImporter {
                 case "Bold": options.insert(.bold)
                 case "Italic": options.insert(.italic)
                 case "Struckthrough": options.insert(.strikethrough)
+                case "Underline": options.insert(.underline)
                 default:
                     break
                 }
@@ -82,14 +83,14 @@ extension ScappleImporter {
             return nil
         }
 
-        guard let rangeStart = Int(ranges[0]), let rangeEnd = Int(ranges[1]) else {
+        guard let rangeStart = Int(ranges[0]), let rangeLength = Int(ranges[1]) else {
             print("unexpected Int processing from range string \(rangeString)")
             return nil
         }
 
         let formattingOption = Bubble.FormattingOption(options: options, 
                                                        rangeStart: rangeStart,
-                                                       rangeEnd: rangeEnd)
+                                                       rangeLength: rangeLength)
 
         return formattingOption
     }
