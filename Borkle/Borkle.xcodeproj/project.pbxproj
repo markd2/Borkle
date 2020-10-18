@@ -30,6 +30,8 @@
 		7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */; };
 		7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDD250E719800884F29 /* LibraryExtensions.swift */; };
 		7D51127F250D6F51004F0E63 /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D51127E250D6F51004F0E63 /* Bubble.swift */; };
+		7D5DAABA253C9AD200893D82 /* ScappleImporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5DAAB9253C9AD200893D82 /* ScappleImporterTests.swift */; };
+		7D5DAABF253C9B1C00893D82 /* empty.scap in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DAABE253C9B1C00893D82 /* empty.scap */; };
 		7D93A74A250AD8DC00991121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93A749250AD8DC00991121 /* AppDelegate.swift */; };
 		7D93A74C250AD8DC00991121 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93A74B250AD8DC00991121 /* Document.swift */; };
 		7D93A74F250AD8DC00991121 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A74D250AD8DC00991121 /* Document.xib */; };
@@ -72,6 +74,8 @@
 		7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleCanvas.swift; sourceTree = "<group>"; };
 		7D452DDD250E719800884F29 /* LibraryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryExtensions.swift; sourceTree = "<group>"; };
 		7D51127E250D6F51004F0E63 /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
+		7D5DAAB9253C9AD200893D82 /* ScappleImporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScappleImporterTests.swift; sourceTree = "<group>"; };
+		7D5DAABE253C9B1C00893D82 /* empty.scap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = empty.scap; sourceTree = "<group>"; };
 		7D93A746250AD8DC00991121 /* Borkle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Borkle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D93A749250AD8DC00991121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D93A74B250AD8DC00991121 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -139,6 +143,14 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		7D5DAABD253C9AE700893D82 /* ScappleDocuments */ = {
+			isa = PBXGroup;
+			children = (
+				7D5DAABE253C9B1C00893D82 /* empty.scap */,
+			);
+			path = ScappleDocuments;
+			sourceTree = "<group>";
+		};
 		7D93A73D250AD8DC00991121 = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +201,8 @@
 				7D2C9D1E251A446600B1E2DE /* MouseBarrierTests.swift */,
 				7D2C9D26251A51D200B1E2DE /* BarrierSoupTests.swift */,
 				7D2C9D37251CEC5B00B1E2DE /* MouseBubblerTests.swift */,
+				7D5DAAB9253C9AD200893D82 /* ScappleImporterTests.swift */,
+				7D5DAABD253C9AE700893D82 /* ScappleDocuments */,
 			);
 			path = BorkleTests;
 			sourceTree = "<group>";
@@ -291,6 +305,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D5DAABF253C9B1C00893D82 /* empty.scap in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +338,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D5DAABA253C9AD200893D82 /* ScappleImporterTests.swift in Sources */,
 				7D2C9D27251A51D200B1E2DE /* BarrierSoupTests.swift in Sources */,
 				7D2C9D072519123500B1E2DE /* MouseGrabHandTests.swift in Sources */,
 				7D2C9D38251CEC5B00B1E2DE /* MouseBubblerTests.swift in Sources */,
