@@ -2,18 +2,21 @@ import Foundation
 
 class ScappleImporter: NSObject {
     enum ImporterError: Error {
-        case CouldNotInitializeParser
-        case UnknownParserError
+        case couldNotInitializeParser
+        case unknownParserError
     }
 
     var bubbles: [Bubble] = []
     var currentBubble: Bubble = Bubble(ID: -1)
     var currentString: String = ""
     var currentConnectedNoteString: String?
+    var formattingOptions: [Bubble.FormattingOption]?
+    var currentFormattingOptionsString: String?
+    var currentFormattingOptionsAttributes: [String: String]?
 
     func importScapple(url: URL) throws -> [Bubble] {
         guard let parser = XMLParser(contentsOf: url) else {
-            throw(ImporterError.CouldNotInitializeParser)
+            throw(ImporterError.couldNotInitializeParser)
         }
         parser.delegate = self
 
@@ -22,7 +25,7 @@ class ScappleImporter: NSObject {
         } else if let error = parser.parserError {
             throw error
         } else {
-            throw ImporterError.UnknownParserError
+            throw ImporterError.unknownParserError
         }
     }
 }
@@ -52,6 +55,45 @@ extension ScappleImporter {
         // of the form "76, 78-79, 83, 91, 142-143, 162, 171"
         return connections
     }
+
+    func makeFormatRange(_ attributes: [String: String]?, _ rangeString: String?) -> Bubble.FormattingOption? {
+        guard let attributes = attributes, let rangeString = rangeString else { return nil }
+        var options = Bubble.FormattingStyle()
+
+        for (key, value) in attributes {
+            if value == "Yes" {
+                switch key { 
+                case "Bold": options.insert(.bold)
+                case "Italic": options.insert(.italic)
+                case "Struckthrough": options.insert(.strikethrough)
+                case "Underline": options.insert(.underline)
+                default:
+                    break
+                }
+            }
+        }
+        guard attributes.count > 0 else {
+            print("Got no useful style attributes from \(attributes)")
+            return nil
+        }
+
+        let ranges = rangeString.split(separator: ",")
+        guard ranges.count == 2 else {
+            print("unexpected number of items in range string \(rangeString)")
+            return nil
+        }
+
+        guard let rangeStart = Int(ranges[0]), let rangeLength = Int(ranges[1]) else {
+            print("unexpected Int processing from range string \(rangeString)")
+            return nil
+        }
+
+        let formattingOption = Bubble.FormattingOption(options: options, 
+                                                       rangeStart: rangeStart,
+                                                       rangeLength: rangeLength)
+
+        return formattingOption
+    }
 }
 
 extension ScappleImporter: XMLParserDelegate {
@@ -72,6 +114,11 @@ extension ScappleImporter: XMLParserDelegate {
             currentConnectedNoteString = ""
         case "String":
             currentString = ""
+        case "Formatting":
+            formattingOptions = []
+        case "FormatRange":
+            currentFormattingOptionsString = ""
+            currentFormattingOptionsAttributes = attributes
         default:
             break
         }
@@ -84,7 +131,8 @@ extension ScappleImporter: XMLParserDelegate {
         case "String":
             currentBubble.text = currentString
         case "Notes":
-            Swift.print("BUBBLES! \(bubbles)")
+            break
+            // Swift.print("BUBBLES! \(bubbles)")
         case "Note":
             bubbles.append(currentBubble)
         case "ConnectedNoteIDs":
@@ -92,6 +140,17 @@ extension ScappleImporter: XMLParserDelegate {
                 currentBubble.connections = connections
             }
             currentConnectedNoteString = nil
+        case "Formatting":
+            currentBubble.formattingOptions = formattingOptions ?? [] // [] just to keep optionals happy
+        case "FormatRange":
+            if let formatRange = makeFormatRange(currentFormattingOptionsAttributes,
+                                                 currentFormattingOptionsString),
+               let formattingOptions = formattingOptions {
+                self.formattingOptions = formattingOptions + [formatRange]
+            }
+            currentFormattingOptionsAttributes = nil
+            currentFormattingOptionsString = nil
+
         default:
             break
         }
@@ -101,6 +160,8 @@ extension ScappleImporter: XMLParserDelegate {
 //        Swift.print("string! \(foundCharacters)")
         if currentConnectedNoteString != nil {
             currentConnectedNoteString! += foundCharacters
+        } else if currentFormattingOptionsString != nil {
+            currentFormattingOptionsString! += foundCharacters
         } else {
             currentString += foundCharacters
         }

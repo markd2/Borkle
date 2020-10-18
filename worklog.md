@@ -832,7 +832,9 @@ Adding lots of stuff.  Still need
 command-shift-A stopped working for freshly made bubbles.
 
 ==================================================
-# Friday October 16, 2020
+# Saturday October 17, 2020
+
+Happy birthday to me!
 
 ooooops, discovered the latest bits of changes went straight to master.
 The danger of programming during #dndeux.
@@ -910,3 +912,85 @@ For completing coverage, need
 And actual useful tests
 * [X] drag highlights the bubble dragged over, nil if not.
 * [X] all the bubble drop stuff.
+
+----------
+
+Now, for rich text - that might be the last big MVP feature.
+
+- [X] import Scapple rich text fooble
+  - [X] It's not bringing in :alot: of strings
+- [ ] render bubble rich text into an attributed string
+- [ ] add attributed string to NSTextView
+- [ ] apply styling to NSTextView while editing
+- [ ] decompile attributed string to storage format
+- [ ] add tests for Scapple import
+
+----------
+
+Importing rich text fooble
+
+```
+        <Note>
+            <String>Free Names
+Darrell Southwell
+Smith Dablood
+Tilson Cuzad
+Direnda
+Tandith Axemane
+Thunk Boulderblade
+KROG
+Erin Whitbranch
+Ir-mas Vempati</String>
+            <Formatting>
+                <FormatRange Bold="Yes">0,11</FormatRange>
+                <FormatRange Struckthrough="Yes">11,17</FormatRange>
+                <FormatRange Struckthrough="Yes">43,13</FormatRange>
+            </Formatting>
+        </Note>
+```
+
+The different types:
+  - Bold
+  - Struckthrough
+  - Italic
+
+can be both
+```
+                <FormatRange Bold="Yes" Italic="Yes">16,1</FormatRange>
+```
+
+There's also FontSize on <Note>
+
+----------
+
+Hrm.  Importing is bringing in a lot of empty text bubbles, but not all of them...
+Added to TODO list above
+
+----------
+
+
+==================================================
+# Sunday October 18, 2020
+
+- [X] import Scapple rich text fooble
+  - [X] It's not bringing in :alot: of strings
+- [ ] render bubble rich text into an attributed string
+- [ ] add attributed string to NSTextView
+- [ ] apply styling to NSTextView while editing
+- [ ] decompile attributed string to storage format
+- [X] add tests for Scapple import
+
+Feeling test-y.  So make some Scapple tests.
+
+- [X] empty
+- [*] empty bubble
+    - can't make
+- [X] bubble with text
+- [X] two bubbles with connection
+- [X] bubble with styled text
+- [X] bubble with overlapping styled text
+- [X] malformed file (missing closing tag)
+
+Most of the "this should not happen" stuff doesn't have coverage
+
+

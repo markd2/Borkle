@@ -282,6 +282,8 @@ extension Document {
         switch menuItem.action {
         case #selector(expandSelection(_:)):
             return bubbleCanvas.selectedBubbles.bubbleCount > 0
+        case #selector(importScapple(_:)):
+            return true
         default:
             break
         }
@@ -305,6 +307,7 @@ extension Document {
         do {
             bubbles = try ScappleImporter().importScapple(url: url)
             bubbleSoup.add(bubbles: bubbles)
+            bubbleCanvas.bubbleSoup = bubbleSoup
         } catch {
             Swift.print("import error \(error)")
         }
