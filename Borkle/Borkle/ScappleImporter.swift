@@ -2,8 +2,8 @@ import Foundation
 
 class ScappleImporter: NSObject {
     enum ImporterError: Error {
-        case CouldNotInitializeParser
-        case UnknownParserError
+        case couldNotInitializeParser
+        case unknownParserError
     }
 
     var bubbles: [Bubble] = []
@@ -16,7 +16,7 @@ class ScappleImporter: NSObject {
 
     func importScapple(url: URL) throws -> [Bubble] {
         guard let parser = XMLParser(contentsOf: url) else {
-            throw(ImporterError.CouldNotInitializeParser)
+            throw(ImporterError.couldNotInitializeParser)
         }
         parser.delegate = self
 
@@ -25,7 +25,7 @@ class ScappleImporter: NSObject {
         } else if let error = parser.parserError {
             throw error
         } else {
-            throw ImporterError.UnknownParserError
+            throw ImporterError.unknownParserError
         }
     }
 }

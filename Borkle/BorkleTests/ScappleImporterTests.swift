@@ -137,6 +137,17 @@ class ScappleImporterTests: XCTestCase {
             XCTFail("\(error)")
         }
     }
+
+    func test_malformed_file_throws() throws {
+        let url = try urlFor(filename: "malformed")
+
+        do {
+            _ = try importer.importScapple(url: url)
+            XCTFail("Expected complaint")
+        } catch {
+            // yay!  Right now don't really care what it is
+        }
+    }
 }
 
 extension ScappleImporterTests {
