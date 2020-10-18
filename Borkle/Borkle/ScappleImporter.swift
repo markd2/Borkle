@@ -146,6 +146,8 @@ extension ScappleImporter: XMLParserDelegate {
                let formattingOptions = formattingOptions {
                 self.formattingOptions = formattingOptions + [formatRange]
             }
+            currentFormattingOptionsAttributes = nil
+            currentFormattingOptionsString = nil
 
         default:
             break
