@@ -168,19 +168,23 @@ class BubbleSoup {
     }
     
     func connect(bubbles: [Bubble], to bubble: Bubble) {
+        undoManager.beginUndoGrouping()
         bubbles.forEach { target in
             if !bubble.isConnectedTo(target) {
                 connect(bubble: bubble, to: target)
             }
         }
+        undoManager.endUndoGrouping()
     }
 
     func disconnect(bubbles: [Bubble], from bubble: Bubble) {
+        undoManager.beginUndoGrouping()
         bubbles.forEach { target in
             if bubble.isConnectedTo(target) {
                 disconnect(bubble: bubble, from: target)
             }
         }
+        undoManager.endUndoGrouping()
     }
 
 }

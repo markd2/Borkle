@@ -58,9 +58,17 @@ class MouseBubbler: MouseHandler {
     func drag(to point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         guard selectedBubbles.bubbleCount > 0 else { return }
 
+        // highlight bubble we're dragging over
+        let rect = CGRect(x: point.x, y: point.y, width: 1, height: 1)
+        var hitBubbles = support.areaTestBubbles(intersecting: rect) ?? []
+        hitBubbles.removeAll { $0.ID == hitBubble?.ID } // take the primary dragging bubble out.
+        let targetBubble = hitBubbles.last
+        support.highlightAsDropTarget(bubble: targetBubble)
+
+        // Move selected bubbles to new position.
         let delta = initialDragPoint - point
         selectedBubbles.forEachBubble { bubble in
-            guard let originalPosition = originalBubblePositions[bubble] else {
+            guard let originalPosition = originalBubblePositions?[bubble] else {
                 Swift.print("unexpectedly missing original bubble position")
                 return
             }
@@ -70,6 +78,8 @@ class MouseBubbler: MouseHandler {
     }
 
     func finish(at point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
+        support.highlightAsDropTarget(bubble: nil)
+
         guard let hitBubble = hitBubble else {
             return
         }
@@ -83,7 +93,6 @@ class MouseBubbler: MouseHandler {
 
             // if mouse-up inside of a bubble, connect or disconnect.
             if hitBubble.isConnectedTo(targetBubble) {
-                print("DISCONNECT")
                 support.disconnect(bubbles: bubbles, from: targetBubble)
             } else {
                 support.connect(bubbles: bubbles, to: targetBubble)

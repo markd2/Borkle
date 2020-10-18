@@ -13,6 +13,8 @@ class BubbleCanvas: NSView {
     var textEditor: NSTextView?
     var textEditingBubble: Bubble?
 
+    var dropTargetBubble: Bubble?
+
     let marqueeLineWidth: CGFloat = 2.0
     var marquee: CGRect? {
         willSet {
@@ -101,7 +103,8 @@ class BubbleCanvas: NSView {
                 if needsToDraw(rect) {
                     renderBubble($0, in: rect, 
                         selected: selectedBubbles.isSelected(bubble: $0),
-                        highlighted: $0.ID == (highlightedID ?? -666))
+                        highlighted: $0.ID == (highlightedID ?? -666),
+                        dropTarget: $0.ID == (dropTargetBubble?.ID ?? -666))
                 }
             } else {
                 Swift.print("unexpected not-rendering a bubble")
@@ -172,7 +175,8 @@ class BubbleCanvas: NSView {
         }
     }
 
-    private func renderBubble(_ bubble: Bubble, in rect: CGRect, selected: Bool, highlighted: Bool) {
+    private func renderBubble(_ bubble: Bubble, in rect: CGRect, 
+                              selected: Bool, highlighted: Bool, dropTarget: Bool) {
         let bezierPath = NSBezierPath()
         bezierPath.appendRoundedRect(rect, xRadius: 8, yRadius: 8)
         NSColor.white.set()
@@ -199,6 +203,12 @@ class BubbleCanvas: NSView {
             bezierPath.lineWidth = 1.0
 
             NSColor.white.set()
+            bezierPath.stroke()
+        }
+
+        if dropTarget {
+            NSColor.orange.set()
+            bezierPath.lineWidth = 3.0
             bezierPath.stroke()
         }
     }
@@ -526,6 +536,22 @@ extension BubbleCanvas: MouseSupport {
     func disconnect(bubbles: [Bubble], from bubble: Bubble) {
         bubbleSoup.disconnect(bubbles: bubbles, from: bubble)
         needsDisplay = true
+    }
+
+    func highlightAsDropTarget(bubble: Bubble?) {
+        var damageRects: [CGRect] = []
+
+        if let dropTargetBubble = dropTargetBubble {
+            damageRects += [dropTargetBubble.rect]
+        }
+
+        dropTargetBubble = bubble
+
+        if let bubble = bubble {
+            damageRects += [bubble.rect]
+        }
+
+        damageRects.forEach { setNeedsDisplay($0) }
     }
 
     func bubblesAffectedBy(barrier: Barrier) -> [Bubble]? {

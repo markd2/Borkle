@@ -829,4 +829,84 @@ Adding lots of stuff.  Still need
 - [ ] tests
 
 
-command-shift-A stopped working
+command-shift-A stopped working for freshly made bubbles.
+
+==================================================
+# Friday October 16, 2020
+
+ooooops, discovered the latest bits of changes went straight to master.
+The danger of programming during #dndeux.
+
+
+- [X] Undo
+- [X] highlighting bubbles as they are a potential drop site
+      - Scapple does it by highlighting in gray
+      - they also don't do live dragging, but instead dragging a transparent image over the field
+      - maybe during the mouse drag, see what we're over, and draw that appropriately
+      * decided to go with a thicker orange border.  Covide shows that it's somewhat visible
+        for its different vision types.
+- [ ] tests
+- [ ] probably should break up the mouse support thing - it's starting to sprawl.  maybe some
+      of those responsibilities could be moved to the soup
+
+----------
+
+ok, tests!  Found the reason for the failure of the BubblePoint `<` test.  
+
+```
+        if lhs.bubble.ID < rhs.bubble.ID { return true }
+        else if lhs.point.x < rhs.point.x { return true }
+        else if lhs.point.y < rhs.point.y { return true }
+        else { return false }
+```
+
+Thinking "if LHS isn't less than RHS, then look at the next fields".
+BUT, if RHS is truly bigger than LHS, one of the inner tests could override it.
+So,
+
+```
+        if lhs.bubble.ID < rhs.bubble.ID { return true }
+        else if lhs.bubble.ID > lhs.bubble.ID { return false } << oops, lhs > lhs
+        else if lhs.point.x < rhs.point.x { return true }
+        else if lhs.point.x > rhs.point.x {return false }
+        else if lhs.point.y < rhs.point.y { return true }
+        else if lhs.point.y > rhs.point.y { return false }
+        else { return false }
+```
+
+(probably a better way to write it, but it's Just A Test)
+
+and it's not right.  sigh  after rewriting it, noticed the lhs > lhs above %-)
+
+```
+        if lhs.bubble.ID < rhs.bubble.ID { return true }
+        else if lhs.bubble.ID > lhs.bubble.ID { return false }
+        else if lhs.point.x < rhs.point.x { return true }
+        else if lhs.point.x > rhs.point.x {return false }
+        else if lhs.point.y < rhs.point.y { return true }
+        else if lhs.point.y > rhs.point.y { return false }
+        else { return false }
+```
+
+mouse bubbler and bubble soup went down.  ~need to look at Barrier as well, it's 84%~ (render method)
+
+So need tests for bubble soup.
+* [X] connect 1 + undo
+* [X] disconect 1 + undo
+* [X] connect batch + undo
+* [X] disconnect batch + undo
+
+And for the mouse handling. 
+
+For completing coverage, need
+* [X] drag called with no selected bubbles
+* [X] make originalposition = nil, and call drag. Should bail out not calling support.move.
+* [~] during drag, area test returns the hit bubble in an areaTestBubble
+      - in general, that should always have the hit bubble in it because that's what's under
+        the point.
+      - will get done when writing test
+* [X] in finish, if hitBubble is nil, bails out.
+
+And actual useful tests
+* [X] drag highlights the bubble dragged over, nil if not.
+* [X] all the bubble drop stuff.
