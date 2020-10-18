@@ -131,7 +131,8 @@ extension ScappleImporter: XMLParserDelegate {
         case "String":
             currentBubble.text = currentString
         case "Notes":
-            Swift.print("BUBBLES! \(bubbles)")
+            break
+            // Swift.print("BUBBLES! \(bubbles)")
         case "Note":
             bubbles.append(currentBubble)
         case "ConnectedNoteIDs":
@@ -140,7 +141,7 @@ extension ScappleImporter: XMLParserDelegate {
             }
             currentConnectedNoteString = nil
         case "Formatting":
-            currentBubble.formattingOptions = formattingOptions ?? []
+            currentBubble.formattingOptions = formattingOptions ?? [] // [] just to keep optionals happy
         case "FormatRange":
             if let formatRange = makeFormatRange(currentFormattingOptionsAttributes,
                                                  currentFormattingOptionsString),

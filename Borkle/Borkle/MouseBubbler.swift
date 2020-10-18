@@ -103,7 +103,6 @@ class MouseBubbler: MouseHandler {
             }
             
         } else {
-            print("MOOOOOOOVE")
             // otherwise, do nothing and accept the movex
         }
     }
