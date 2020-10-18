@@ -99,7 +99,43 @@ class ScappleImporterTests: XCTestCase {
         } catch {
             XCTFail("\(error)")
         }
+    }
 
+    // All the ranges have :alot: of overlap
+    //       <Formatting>
+    //           <FormatRange Italic="Yes">5,5</FormatRange>
+    //           <FormatRange Italic="Yes" Struckthrough="Yes">10,5</FormatRange>
+    //           <FormatRange Bold="Yes" Italic="Yes" Struckthrough="Yes">15,5</FormatRange>
+    //           <FormatRange Bold="Yes" Italic="Yes" Underline="Yes" Struckthrough="Yes">20,8</FormatRange>
+    //           <FormatRange Bold="Yes" Italic="Yes" Underline="Yes">28,6</FormatRange>
+    //           <FormatRange Italic="Yes" Underline="Yes">34,11</FormatRange>
+    //           <FormatRange Bold="Yes" Italic="Yes">45,8</FormatRange>
+    //       </Formatting>
+    func test_import_single_styled_bubble_with_overlapping_ranges() throws {
+        let url = try urlFor(filename: "overlapping-styles")
+
+        do {
+            let bubbles = try importer.importScapple(url: url)
+            XCTAssertEqual(bubbles.count, 1)
+            let bubble = bubbles[0]
+            XCTAssertEqual(bubble.text, "This is a very long sentence with overlapping styling")
+
+            XCTAssertEqual(bubble.formattingOptions.count, 7)
+            
+            let expectedOptions: [Bubble.FormattingOption] = [
+              Bubble.FormattingOption([.italic], 5, 5),
+              Bubble.FormattingOption([.italic, .strikethrough], 10, 5),
+              Bubble.FormattingOption([.bold, .italic, .strikethrough], 15, 5),
+              Bubble.FormattingOption([.bold, .italic, .strikethrough, .underline], 20, 8),
+              Bubble.FormattingOption([.bold, .italic, .underline], 28, 6),
+              Bubble.FormattingOption([.italic, .underline], 34, 11),
+              Bubble.FormattingOption([.bold, .italic], 45, 8)
+            ]
+            XCTAssertEqual(bubble.formattingOptions, expectedOptions)
+                               
+        } catch {
+            XCTFail("\(error)")
+        }
     }
 }
 
