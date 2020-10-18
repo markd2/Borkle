@@ -15,13 +15,13 @@ class Bubble: Codable {
         }
     }
     
-    struct FormattingOptions: Codable {
+    struct FormattingOption: Codable {
         let options: FormattingStyle
         let rangeStart: Int 
         let rangeEnd: Int 
     }
 
-    var formattingOptions: [FormattingOptions] = []
+    var formattingOptions: [FormattingOption] = []
 
     var position: CGPoint = .zero
     
