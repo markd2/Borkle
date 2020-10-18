@@ -42,6 +42,29 @@ class ScappleImporterTests: XCTestCase {
             XCTFail("\(error)")
         }
     }
+
+    func test_import_two_bubbles_with_connections() throws {
+        let url = try urlFor(filename: "two-connected")
+
+        do {
+            let bubbles = try importer.importScapple(url: url)
+            XCTAssertEqual(bubbles.count, 2)
+            let b1 = bubbles[0]
+            let b2 = bubbles[1]
+
+            XCTAssertEqual(b1.text, "oop")
+            XCTAssertEqual(b2.text, "ack")
+            XCTAssertEqual(b1.width, 29.0)
+            XCTAssertEqual(b2.width, 27.0)
+            XCTAssertEqual(b1.position, CGPoint(x: 179.0, y: 197.0))
+            XCTAssertEqual(b2.position, CGPoint(x: 304.0, y: 280.0))
+
+            XCTAssertTrue(b1.isConnectedTo(b2))
+            XCTAssertTrue(b2.isConnectedTo(b1))
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
 }
 
 extension ScappleImporterTests {
