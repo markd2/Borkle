@@ -57,8 +57,32 @@ extension ScappleImporter {
     }
 
     func makeFormatRange(_ attributes: [String: String]?, _ rangeString: String?) -> Bubble.FormattingOption? {
-        print("SNORGLE \(attributes) -> \(rangeString)")
-        return nil
+        guard let attributes = attributes, let rangeString = rangeString else { return nil }
+        var options = Bubble.FormattingStyle()
+
+        for (key, value) in attributes {
+            if value == "Yes" {
+                switch key { 
+                case "Bold": options.insert(.bold)
+                case "Italic": options.insert(.italic)
+                case "Struckthrough": options.insert(.strikethrough)
+                default:
+                    break
+                }
+            }
+        }
+        guard attributes.count > 0 else {
+            print("Got no useful style attributes from \(attributes)")
+            return nil
+        }
+        let rangeStart = 11
+        let rangeEnd = 17
+
+        let formattingOption = Bubble.FormattingOption(options: options, 
+                                                       rangeStart: rangeStart,
+                                                       rangeEnd: rangeEnd)
+
+        return formattingOption
     }
 }
 
