@@ -87,3 +87,10 @@ Shift-click-dragging in space adds to the current selection.
 Double-click a bubble to edit its text.
 
 ![](assets/text-editing.gif)
+
+
+### Make connections
+
+Drag bubbles on top of another bubble to make (dis) connections
+
+![](assets/connection.gif)
