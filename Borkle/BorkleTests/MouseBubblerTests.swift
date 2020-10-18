@@ -108,6 +108,13 @@ class MouseBubblerTests: XCTestCase {
         XCTAssertNil(testSupport.moveBubbleArguments)
     }
 
+    // mainly for coverage
+    func test_nil_hit_bubble_bails_out_of_finish() {
+        mouser.hitBubble = nil
+        mouser.finish(at: .zero, modifierFlags: [])
+        XCTAssertNil(testSupport.areaTestBubblesArgument)
+    }
+
     func test_drag_selected_bubbles_highlights_potential_drop_target() {
         selection.select(bubbles: [bubbles[0], bubbles[1]])
 
@@ -146,9 +153,92 @@ class MouseBubblerTests: XCTestCase {
     }
 
     func test_drop_on_highlighted_bubble_makes_connections_and_resets_positions() {
+        selection.select(bubbles: [bubbles[0], bubbles[1]])
+
+        // Start the drag.
+        testSupport.hitTestBubbleReturn = bubbles[0]
+        mouser.start(at: .zero, modifierFlags: [])
+
+        // Drag "over" no bubble, should move bubbles
+        testSupport.reset()
+        testSupport.areaTestBubblesReturn = nil
+
+        mouser.drag(to: CGPoint(x: 100, y: 200), modifierFlags: [])
+        // make sure it moved
+
+        testSupport.moveBubbleArguments?.forEach {
+            if $0.bubble.ID == bubbles[0].ID {
+                XCTAssertEqual($0.to, CGPoint(x: 111, y: 211))
+            } else if $0.bubble.ID == bubbles[1].ID {
+                XCTAssertEqual($0.to, CGPoint(x: 133, y: 233))
+            }
+        }
+
+        // release on something that doesn't have an existing connection
+        testSupport.reset()
+        testSupport.areaTestBubblesReturn = [bubbles[0], bubbles[2]]
+        mouser.finish(at: CGPoint(x: 200, y: 300), modifierFlags: [])
+
+        // make sure stuff reverted to the original position
+        testSupport.moveBubbleArguments?.forEach {
+            if $0.bubble.ID == bubbles[0].ID {
+                XCTAssertEqual($0.to, CGPoint(x: 11, y: 11))
+            } else if $0.bubble.ID == bubbles[1].ID {
+                XCTAssertEqual($0.to, CGPoint(x: 33, y: 33))
+            }
+        }
+
+        // Make sure proper connections were made
+        testSupport.connectBubblesArgument?.forEach {
+            XCTAssertTrue($0.ID == bubbles[0].ID || $0.ID == bubbles[1].ID)
+        }
+        XCTAssertEqual(testSupport.connectBubblesToArgument?.ID, bubbles[2].ID)
     }
 
     func test_drop_on_highlighted_bubble_makes_disconnections_and_resets_positions() {
+        bubbles[0].connect(to: bubbles[1])  // should survive
+        bubbles[0].connect(to: bubbles[2])  // should be broken
+        bubbles[1].connect(to: bubbles[2])
+        selection.select(bubbles: [bubbles[0], bubbles[1]])
+
+        // Start the drag.
+        testSupport.hitTestBubbleReturn = bubbles[0]
+        mouser.start(at: .zero, modifierFlags: [])
+
+        // Drag "over" no bubble, should move bubbles
+        testSupport.reset()
+        testSupport.areaTestBubblesReturn = nil
+
+        mouser.drag(to: CGPoint(x: 100, y: 200), modifierFlags: [])
+        // make sure it moved
+
+        testSupport.moveBubbleArguments?.forEach {
+            if $0.bubble.ID == bubbles[0].ID {
+                XCTAssertEqual($0.to, CGPoint(x: 111, y: 211))
+            } else if $0.bubble.ID == bubbles[1].ID {
+                XCTAssertEqual($0.to, CGPoint(x: 133, y: 233))
+            }
+        }
+
+        // release on something that doesn't have an existing connection
+        testSupport.reset()
+        testSupport.areaTestBubblesReturn = [bubbles[0], bubbles[2]]
+        mouser.finish(at: CGPoint(x: 200, y: 300), modifierFlags: [])
+
+        // make sure stuff reverted to the original position
+        testSupport.moveBubbleArguments?.forEach {
+            if $0.bubble.ID == bubbles[0].ID {
+                XCTAssertEqual($0.to, CGPoint(x: 11, y: 11))
+            } else if $0.bubble.ID == bubbles[1].ID {
+                XCTAssertEqual($0.to, CGPoint(x: 33, y: 33))
+            }
+        }
+
+        // Make sure proper disconnection was made
+        testSupport.connectBubblesArgument?.forEach {
+            XCTAssertTrue($0.ID == bubbles[0].ID || $0.ID == bubbles[1].ID)
+        }
+        XCTAssertEqual(testSupport.disconnectBubblesFromArgument?.ID, bubbles[2].ID)
     }
 
     func test_drop_on_nothing_makes_no_connections_and_moves() {
