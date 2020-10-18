@@ -10,7 +10,9 @@ class ScappleImporter: NSObject {
     var currentBubble: Bubble = Bubble(ID: -1)
     var currentString: String = ""
     var currentConnectedNoteString: String?
-    var formattingOptions: [Bubble.FormattingOptions]?
+    var formattingOptions: [Bubble.FormattingOption]?
+    var currentFormattingOptionsString: String?
+    var currentFormattingOptionsAttributes: [String: String]?
 
     func importScapple(url: URL) throws -> [Bubble] {
         guard let parser = XMLParser(contentsOf: url) else {
@@ -53,6 +55,11 @@ extension ScappleImporter {
         // of the form "76, 78-79, 83, 91, 142-143, 162, 171"
         return connections
     }
+
+    func makeFormatRange(_ attributes: [String: String]?, _ rangeString: String?) -> Bubble.FormattingOption? {
+        print("SNORGLE \(attributes) -> \(rangeString)")
+        return nil
+    }
 }
 
 extension ScappleImporter: XMLParserDelegate {
@@ -75,6 +82,9 @@ extension ScappleImporter: XMLParserDelegate {
             currentString = ""
         case "Formatting":
             formattingOptions = []
+        case "FormatRange":
+            currentFormattingOptionsString = ""
+            currentFormattingOptionsAttributes = attributes
         default:
             break
         }
@@ -97,6 +107,13 @@ extension ScappleImporter: XMLParserDelegate {
             currentConnectedNoteString = nil
         case "Formatting":
             currentBubble.formattingOptions = formattingOptions ?? []
+        case "FormatRange":
+            if let formatRange = makeFormatRange(currentFormattingOptionsAttributes,
+                                                 currentFormattingOptionsString),
+               let formattingOptions = formattingOptions {
+                self.formattingOptions = formattingOptions + [formatRange]
+            }
+
         default:
             break
         }
@@ -106,6 +123,8 @@ extension ScappleImporter: XMLParserDelegate {
 //        Swift.print("string! \(foundCharacters)")
         if currentConnectedNoteString != nil {
             currentConnectedNoteString! += foundCharacters
+        } else if currentFormattingOptionsString != nil {
+            currentFormattingOptionsString! += foundCharacters
         } else {
             currentString += foundCharacters
         }
