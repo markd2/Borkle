@@ -10,6 +10,7 @@ class ScappleImporter: NSObject {
     var currentBubble: Bubble = Bubble(ID: -1)
     var currentString: String = ""
     var currentConnectedNoteString: String?
+    var formattingOptions: [Bubble.FormattingOptions]?
 
     func importScapple(url: URL) throws -> [Bubble] {
         guard let parser = XMLParser(contentsOf: url) else {
@@ -72,6 +73,8 @@ extension ScappleImporter: XMLParserDelegate {
             currentConnectedNoteString = ""
         case "String":
             currentString = ""
+        case "Formatting":
+            formattingOptions = []
         default:
             break
         }
@@ -92,6 +95,8 @@ extension ScappleImporter: XMLParserDelegate {
                 currentBubble.connections = connections
             }
             currentConnectedNoteString = nil
+        case "Formatting":
+            currentBubble.formattingOptions = formattingOptions ?? []
         default:
             break
         }
