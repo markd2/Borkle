@@ -1,12 +1,28 @@
 import Cocoa
 
 class Bubble: Codable {
+    struct FormattingStyle: OptionSet, Codable {
+        let rawValue: Int
+        static let bold          = FormattingStyle(rawValue: 1 << 0)
+        static let italic        = FormattingStyle(rawValue: 1 << 1)
+        static let strikethrough = FormattingStyle(rawValue: 1 << 2)
+    }
+
     let ID: Int
     var text: String = "" {
         didSet {
             _effectiveHeight = nil
         }
     }
+    
+    struct FormattingOptions: Codable {
+        let options: FormattingStyle
+        let rangeStart: Int 
+        let rangeEnd: Int 
+    }
+
+    var formattingOptions: [FormattingOptions] = []
+
     var position: CGPoint = .zero
     
     var width: CGFloat = 0 {
