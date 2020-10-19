@@ -1,6 +1,9 @@
 import Cocoa
 
 class Bubble: Codable {
+    static let defaultFontName = "Helvetica"
+    static let defaultFontSize: CGFloat = 12.0
+
     struct FormattingStyle: OptionSet, Codable {
         let rawValue: Int
         static let bold          = FormattingStyle(rawValue: 1 << 0)
@@ -19,10 +22,30 @@ class Bubble: Codable {
     var attributedString: NSAttributedString {
         let string = NSMutableAttributedString(string: text)
 
+        let font = NSFont(name: Bubble.defaultFontName, size: Bubble.defaultFontSize)!
+        let boldDescriptor = font.fontDescriptor.withSymbolicTraits(.bold)
+        let boldFont = NSFont(descriptor: boldDescriptor, size: Bubble.defaultFontSize)!
+        let italicDescriptor = font.fontDescriptor.withSymbolicTraits(.italic)
+        let italicFont = NSFont(descriptor: italicDescriptor, size: Bubble.defaultFontSize)!
+        let boldItalicDescriptor = font.fontDescriptor.withSymbolicTraits([.italic, .bold])
+        let boldItalicFont = NSFont(descriptor: boldItalicDescriptor, size: Bubble.defaultFontSize)!
+
         formattingOptions.forEach { option in
-            if option.options.contains(.bold) {
-            }
-            if option.options.contains(.italic) {
+            if option.options.contains(.bold) && option.options.contains(.italic) {
+                string.addAttribute(.font,
+                                    value: boldItalicFont,
+                                    range: option.nsrange)
+                
+            } else if option.options.contains(.bold) {
+                string.addAttribute(.font,
+                                    value: boldFont,
+                                    range: option.nsrange)
+                
+            } else if option.options.contains(.italic) {
+                string.addAttribute(.font,
+                                    value: italicFont,
+                                    range: option.nsrange)
+                
             }
             if option.options.contains(.strikethrough) {
                 string.addAttribute(.strikethroughStyle,
