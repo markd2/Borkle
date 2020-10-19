@@ -15,11 +15,37 @@ class Bubble: Codable {
             _effectiveHeight = nil
         }
     }
-    
+
+    var attributedString: NSAttributedString {
+        let string = NSMutableAttributedString(string: text)
+
+        formattingOptions.forEach { option in
+            if option.options.contains(.bold) {
+            }
+            if option.options.contains(.italic) {
+            }
+            if option.options.contains(.strikethrough) {
+                string.addAttribute(.strikethroughStyle,
+                                    value: NSUnderlineStyle.single.rawValue,
+                                    range: option.nsrange)
+            }
+            if option.options.contains(.underline) {
+                string.addAttribute(.underlineStyle,
+                                    value: NSUnderlineStyle.single.rawValue,
+                                    range: option.nsrange)
+            }
+        }
+        return string
+    }
+
     struct FormattingOption: Codable, Equatable {
         let options: FormattingStyle
         let rangeStart: Int 
         let rangeLength: Int 
+
+        var nsrange: NSRange {
+            NSRange(location: rangeStart, length: rangeLength)
+        }
         
         init(options: FormattingStyle, rangeStart: Int, rangeLength: Int) {
             self.options = options
