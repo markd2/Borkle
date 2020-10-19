@@ -181,11 +181,11 @@ class BubbleCanvas: NSView {
         bezierPath.appendRoundedRect(rect, xRadius: 8, yRadius: 8)
         NSColor.white.set()
         bezierPath.fill()
-
-        let nsstring = "\(bubble.text)" as NSString
+        
+        let attributedString = bubble.attributedString
 
         let textRect = rect.insetBy(dx: Bubble.margin, dy: Bubble.margin)
-        nsstring.draw(in: textRect, withAttributes: nil)
+        attributedString.draw(in: textRect)
         NSColor.gray.set()
 
         if selected {
