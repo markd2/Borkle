@@ -19,6 +19,41 @@ class Bubble: Codable {
         }
     }
 
+    func gronkulateAttributedString(_ attr: NSAttributedString) {
+        formattingOptions = []
+
+        let totalRange = NSMakeRange(0, attr.length)
+
+        attr.enumerateAttributes(in: totalRange, options: []) { (attributes: [NSAttributedString.Key : Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) in
+            if let font = attributes[.font] as? NSFont {
+                let traits = font.fontDescriptor.symbolicTraits
+
+                if traits.contains(.italic) && traits.contains(.bold) {
+                    let foption = FormattingOption([.bold, .italic], range: range)
+                    formattingOptions.append(foption)
+
+                } else if traits.contains(.italic) {
+                    let foption = FormattingOption([.italic], range: range)
+                    formattingOptions.append(foption)
+                    
+                } else if traits.contains(.bold) {
+                    let foption = FormattingOption([.bold], range: range)
+                    formattingOptions.append(foption)
+                }
+            }
+                
+            if let _ = attributes[.strikethroughStyle] {
+                let foption = FormattingOption([.strikethrough], range: range)
+                formattingOptions.append(foption)
+            }
+
+            if let _ = attributes[.underlineStyle] {
+                let foption = FormattingOption([.underline], range: range)
+                formattingOptions.append(foption)
+            }
+        }
+    }
+
     var attributedString: NSAttributedString {
         let string = NSMutableAttributedString(string: text)
 
@@ -81,6 +116,12 @@ class Bubble: Codable {
             self.options = options
             self.rangeStart = rangeStart
             self.rangeLength = rangeLength
+        }
+
+        init(_ options: FormattingStyle, range: NSRange) {
+            self.options = options
+            self.rangeStart = range.location
+            self.rangeLength = range.length
         }
     }
 
@@ -175,3 +216,4 @@ extension Bubble {
         return height
     }
 }
+
