@@ -74,6 +74,14 @@ class BubbleSoup {
         return bubble
     }
 
+    private func sanityCheckAdd(bubbles: [Bubble]) {
+        bubbles.forEach {
+            if let _ = bubble(byID: $0.ID) {
+                print("CONFLICT WITH ID \($0.ID)")
+            }
+        }
+    }
+
     /// Add the bubble to the soup.
     public func add(bubble: Bubble) {
         add(bubblesArray: [bubble])
@@ -83,6 +91,8 @@ class BubbleSoup {
     /// Add the bubbles to the soup.  There's no intrinsic order to the bubbles in the soup.
     /// (even though internally it is an array)
     public func add(bubbles: [Bubble]) {
+        sanityCheckAdd(bubbles: bubbles)
+
         add(bubblesArray: bubbles)
 
         bubbles.forEach { invalHook?($0) }
