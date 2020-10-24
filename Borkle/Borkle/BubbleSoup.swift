@@ -77,6 +77,7 @@ class BubbleSoup {
     /// Add the bubble to the soup.
     public func add(bubble: Bubble) {
         add(bubblesArray: [bubble])
+        bubblesChangedHook?()
     }
 
     /// Add the bubbles to the soup.  There's no intrinsic order to the bubbles in the soup.
@@ -85,6 +86,7 @@ class BubbleSoup {
         add(bubblesArray: bubbles)
 
         bubbles.forEach { invalHook?($0) }
+        bubblesChangedHook?()
     }
 
     /// Remove a bunch of bubbles
@@ -99,6 +101,7 @@ class BubbleSoup {
             self.add(bubbles: bubbles)
         }
         undoManager.endUndoGrouping()
+        bubblesChangedHook?()
     }
 
     // Make a new bubble centered at the given point.  ID is max + 1 of existing bubbles.
@@ -116,6 +119,7 @@ class BubbleSoup {
     /// Empty out the soup
     public func removeEverything() {
         removeLastBubbles(count: bubbles.count)
+        bubblesChangedHook?()
     }
 
     /// Move the bubble's location to a new place.
@@ -153,17 +157,25 @@ class BubbleSoup {
         return union
     }
     
-    func connect(bubble: Bubble, to target: Bubble) {
+    func connect(bubble: Bubble, to target: Bubble, callChangeHook: Bool = true) {
         bubble.connect(to: target)
         undoManager.registerUndo(withTarget: self) { selfTarget in
             self.disconnect(bubble: bubble, from: target)
         }
+
+        if callChangeHook {
+            bubblesChangedHook?()
+        }
     }
 
-    func disconnect(bubble: Bubble, from target: Bubble) {
+    func disconnect(bubble: Bubble, from target: Bubble, callChangeHook: Bool = true) {
         bubble.disconnect(bubble: target)
         undoManager.registerUndo(withTarget: self) { selfTarget in
             self.connect(bubble: bubble, to: target)
+        }
+
+        if callChangeHook {
+            bubblesChangedHook?()
         }
     }
     
@@ -171,20 +183,22 @@ class BubbleSoup {
         undoManager.beginUndoGrouping()
         bubbles.forEach { target in
             if !bubble.isConnectedTo(target) {
-                connect(bubble: bubble, to: target)
+                connect(bubble: bubble, to: target, callChangeHook: false)
             }
         }
         undoManager.endUndoGrouping()
+        bubblesChangedHook?()
     }
 
     func disconnect(bubbles: [Bubble], from bubble: Bubble) {
         undoManager.beginUndoGrouping()
         bubbles.forEach { target in
             if bubble.isConnectedTo(target) {
-                disconnect(bubble: bubble, from: target)
+                disconnect(bubble: bubble, from: target, callChangeHook: false)
             }
         }
         undoManager.endUndoGrouping()
+        bubblesChangedHook?()
     }
 
 }

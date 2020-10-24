@@ -481,12 +481,14 @@ extension BubbleSoupTests {
     }
 
     func test_connect_plural_calls_change_hook() {
-        soup.connect(bubbles: [b1], to: b2)
+        soup.connect(bubbles: [b1, b2], to: b2)
         XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_disconnect_plural_calls_change_hook() {
-        soup.disconnect(bubbles: [b1], from: b2)
+        b2.connect(to: b1)
+        b2.connect(to: b3)
+        soup.disconnect(bubbles: [b1, b2], from: b2)
         XCTAssertEqual(changeHookCallCount, 1)
     }
 }
