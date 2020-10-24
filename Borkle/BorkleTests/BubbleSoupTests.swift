@@ -449,6 +449,50 @@ extension BubbleSoupTests {
         XCTAssertTrue(b2.isConnectedTo(b1))
         XCTAssertFalse(b3.isConnectedTo(b1))
     }
+
+    func test_add_bubble_calls_change_hook() {
+        XCTFail()
+    }
+
+    func test_add_bubbles_calls_change_hook() { 
+        XCTFail()
+    }
+
+    func test_remove_calls_change_hook() {
+        XCTFail()
+    }
+
+    func test_remove_bubbles_calls_change_hook() {
+        XCTFail()
+    }
+
+    func test_create_bubble_calls_change_hook() {
+        XCTFail()
+    }
+
+    func test_remove_everything_calls_change_hook() {
+        XCTFail()
+    }
+
+    func test_move_bubble_calls_change_hook() {
+        XCTFail()
+    }
+
+    func test_connect_calls_change_hook() {
+        XCTFail()
+    }
+
+    func test_disconnect_calls_change_hook() {
+        XCTFail()
+    }
+
+    func test_connect_plural_calls_change_hook() {
+        XCTFail()
+    }
+
+    func test_disconnect_plural_calls_change_hook() {
+        XCTFail()
+    }
 }
 
 /// These exercise internal helper methods
