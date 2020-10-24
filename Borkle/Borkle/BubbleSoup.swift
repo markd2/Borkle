@@ -23,7 +23,7 @@ class BubbleSoup {
 
     /// Array storage of bubbles.  Might need to revisit this if array operations turn
     /// out to be annoying
-    private var bubbles: [Bubble] = []
+    var bubbles: [Bubble] = []
 
     /// Iterate over each of the bubbles in some kind of order
     /// I'm not smart enough to return some kind of sequence/iterator thing

@@ -177,7 +177,7 @@ class Document: NSDocument {
         if fileWrappers[bubbleFilename] == nil {
             let encoder = YAMLEncoder()
 
-            if let bubbleString = try? encoder.encode(bubbles) {
+            if let bubbleString = try? encoder.encode(bubbleSoup.bubbles) {
                 let bubbleFileWrapper = FileWrapper(regularFileWithString: bubbleString)
                 bubbleFileWrapper.preferredFilename = bubbleFilename
                 documentFileWrapper.addFileWrapper(bubbleFileWrapper)
