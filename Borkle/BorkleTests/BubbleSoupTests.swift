@@ -4,15 +4,28 @@ import XCTest
 class BubbleSoupTests: XCTestCase {
     
     var soup: BubbleSoup!
+    var b1: Bubble!
+    var b2: Bubble!
+    var b3: Bubble!
+    var b4: Bubble!
 
     override func setUp() {
         super.setUp()
         soup = BubbleSoup()
+
+        b1 = Bubble(ID: 1)
+        b2 = Bubble(ID: 2)
+        b3 = Bubble(ID: 3)
+        b4 = Bubble(ID: 4)
     }
 
     override func tearDown() {
         soup = nil
         super.tearDown()
+        b1 = nil
+        b2 = nil
+        b3 = nil
+        b4 = nil
     }
 
     func test_complete_coverage() {
@@ -305,9 +318,6 @@ extension BubbleSoupTests {
     }
 
     func test_connect_1() {
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
         soup.add(bubbles: [b1, b2, b3])
 
         soup.connect(bubble: b1, to: b2)
@@ -318,10 +328,6 @@ extension BubbleSoupTests {
     }
 
     func test_connect_1_undo() {
-
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
         soup.add(bubbles: [b1, b2, b3])
 
         // manually grouping because this is a helper function.
@@ -337,9 +343,6 @@ extension BubbleSoupTests {
     }
 
     func test_disconnect_1() {
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
         soup.add(bubbles: [b1, b2, b3])
         soup.connect(bubbles: [b1], to: b2)
 
@@ -352,10 +355,6 @@ extension BubbleSoupTests {
     }
 
     func test_disconnect_1_undo() {
-
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
         soup.add(bubbles: [b1, b2, b3])
 
         soup.beginGrouping()
@@ -374,10 +373,6 @@ extension BubbleSoupTests {
     }
 
     func test_connect_batch() {
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
-        let b4 = Bubble(ID: 4)
         soup.add(bubbles: [b1, b2, b3, b4])
         soup.connect(bubble: b4, to: b1)
 
@@ -394,10 +389,6 @@ extension BubbleSoupTests {
     }
 
     func test_connect_batch_undo() {
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
-        let b4 = Bubble(ID: 4)
         soup.add(bubbles: [b1, b2, b3, b4])
         soup.connect(bubble: b4, to: b1)
 
@@ -416,10 +407,6 @@ extension BubbleSoupTests {
     }
 
     func test_disconnect_batch() {
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
-        let b4 = Bubble(ID: 4)
         soup.add(bubbles: [b1, b2, b3, b4])
         soup.connect(bubbles: [b1], to: b2)
 
@@ -432,11 +419,6 @@ extension BubbleSoupTests {
     }
 
     func test_disconnect_batch_undo() {
-
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
-        let b4 = Bubble(ID: 4)
         soup.add(bubbles: [b1, b2, b3, b4])
 
         soup.connect(bubbles: [b1], to: b2)
