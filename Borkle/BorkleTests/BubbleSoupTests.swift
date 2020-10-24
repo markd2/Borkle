@@ -9,6 +9,8 @@ class BubbleSoupTests: XCTestCase {
     var b3: Bubble!
     var b4: Bubble!
 
+    var changeHookCallCount = 0
+
     override func setUp() {
         super.setUp()
         soup = BubbleSoup()
@@ -17,6 +19,10 @@ class BubbleSoupTests: XCTestCase {
         b2 = Bubble(ID: 2)
         b3 = Bubble(ID: 3)
         b4 = Bubble(ID: 4)
+
+        soup.bubblesChangedHook = {
+            self.changeHookCallCount += 1
+        }
     }
 
     override func tearDown() {
@@ -433,47 +439,48 @@ extension BubbleSoupTests {
     }
 
     func test_add_bubble_calls_change_hook() {
-        XCTFail()
+        soup.add(bubble: b1)
+        XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_add_bubbles_calls_change_hook() { 
-        XCTFail()
+        XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_remove_calls_change_hook() {
-        XCTFail()
+        XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_remove_bubbles_calls_change_hook() {
-        XCTFail()
+        XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_create_bubble_calls_change_hook() {
-        XCTFail()
+        XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_remove_everything_calls_change_hook() {
-        XCTFail()
+        XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_move_bubble_calls_change_hook() {
-        XCTFail()
+        XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_connect_calls_change_hook() {
-        XCTFail()
+        XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_disconnect_calls_change_hook() {
-        XCTFail()
+        XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_connect_plural_calls_change_hook() {
-        XCTFail()
+        XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_disconnect_plural_calls_change_hook() {
-        XCTFail()
+        XCTAssertEqual(changeHookCallCount, 1)
     }
 }
 
