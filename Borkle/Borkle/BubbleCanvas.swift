@@ -63,7 +63,12 @@ class BubbleCanvas: NSView {
     let extraPadding = CGSize(width: 80, height: 60)
 
     func resizeCanvas() {
-        let union = bubbleSoup.enclosingRect + extraPadding
+        var union = bubbleSoup.enclosingRect + extraPadding
+
+        // If bubbles are smaller than the useful area, 
+        if let superBounds = superview?.bounds {
+            union = union.union(superBounds)
+        }
 
         if frame != union {
             frame = union
