@@ -975,8 +975,8 @@ Added to TODO list above
 - [X] import Scapple rich text fooble
   - [X] It's not bringing in :alot: of strings
 - [X] render bubble rich text into an attributed string
-- [ ] add attributed string to NSTextView
-- [ ] decompile attributed string to storage format
+- [X] add attributed string to NSTextView
+- [X] decompile attributed string to storage format
 - [ ] apply styling to NSTextView while editing
 - [X] add tests for Scapple import
 
@@ -993,4 +993,79 @@ Feeling test-y.  So make some Scapple tests.
 
 Most of the "this should not happen" stuff doesn't have coverage
 
+==================================================
+# Wednesday October 21, 2020
+
+Adding attribute string to the NSTextView and decompiling on the way out.
+That was pretty easy
+
+setting:
+```
+        textEditor.textStorage?.setAttributedString(bubble.attributedString)
+```
+
+
+getting:
+
+```
+        if let attr = textEditor.textStorage?.attributedSubstring(from: NSMakeRange(0, bubble.text.count)) {
+            bubble.gronkulateAttributedString(attr)
+        }
+```
+and enumerating:
+
+```
+        let totalRange = NSMakeRange(0, attr.length)
+
+        attr.enumerateAttributes(in: totalRange, options: []) { (attributes: [NSAttributedString.Key : Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) in
+            print("SNORGLE \(range)  \(attributes)")
+        }
+```
+
+SNORGLE {0, 5}  [__C.NSAttributedStringKey(_rawValue: NSFont): "Helvetica 12.00 pt. P [] (0x100c49780) fobj=0x100d0fcc0, spc=3.33"]
+SNORGLE {5, 5}  [__C.NSAttributedStringKey(_rawValue: NSFont): "Helvetica-Oblique 12.00 pt. P [] (0x100cba3d0) fobj=0x100b3f410, spc=3.33"]
+SNORGLE {10, 5}  [__C.NSAttributedStringKey(_rawValue: NSStrikethrough): 1, __C.NSAttributedStringKey(_rawValue: NSFont): "Helvetica-Oblique 12.00 pt. P [] (0x100cba3d0) fobj=0x100b3f410, spc=3.33"]
+SNORGLE {15, 5}  [__C.NSAttributedStringKey(_rawValue: NSStrikethrough): 1, __C.NSAttributedStringKey(_rawValue: NSFont): "Helvetica-BoldOblique 12.00 pt. P [] (0x100a32070) fobj=0x100b4a310, spc=3.33"]
+SNORGLE {20, 8}  [__C.NSAttributedStringKey(_rawValue: NSFont): "Helvetica-BoldOblique 12.00 pt. P [] (0x100a32070) fobj=0x100b4a310, spc=3.33", __C.NSAttributedStringKey(_rawValue: NSStrikethrough): 1, __C.NSAttributedStringKey(_rawValue: NSUnderline): 1]
+SNORGLE {28, 6}  [__C.NSAttributedStringKey(_rawValue: NSFont): "Helvetica-BoldOblique 12.00 pt. P [] (0x100a32070) fobj=0x100b4a310, spc=3.33", __C.NSAttributedStringKey(_rawValue: NSUnderline): 1]
+SNORGLE {34, 11}  [__C.NSAttributedStringKey(_rawValue: NSFont): "Helvetica-Oblique 12.00 pt. P [] (0x100cba3d0) fobj=0x100b3f410, spc=3.33", __C.NSAttributedStringKey(_rawValue: NSUnderline): 1]
+SNORGLE {45, 8}  [__C.NSAttributedStringKey(_rawValue: NSFont): "Helvetica-BoldOblique 12.00 pt. P [] (0x100a32070) fobj=0x100b4a310, spc=3.33"]
+
+
+So can see NSFont tags - Helvetica / Oblique / Bold / BoldOblique
+Strikethrough 1, underline 1
+
+A way from NSFont to see if its bold/italic/etc?
+
+ah - 
+
+```
+        attr.enumerateAttributes(in: totalRange, options: []) { (attributes: [NSAttributedString.Key : Any], range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) in
+            if let font = attributes[.font] as? NSFont {
+                let traits = font.fontDescriptor.symbolicTraits
+
+                if traits.contains(.italic) && traits.contains(.bold) {
+                    let foption = FormattingOption([.bold, .italic], range: range)
+                    formattingOptions.append(foption)
+```
+
+==================================================
+# Saturday October 24, 2020
+
+This looks like it left, along with some tests.
+
+- [X] apply styling to NSTextView while editing
+
+That was easy
+
+```
+extension NSTextView {
+    @IBAction func bk_strikethrough(_ sender: Any?) {
+        guard let storage = textStorage else { return }
+
+        storage.addAttributes([.strikethroughStyle: NSUnderlineStyle.single.rawValue],
+                              range: selectedRange)
+    }
+}
+```
 
