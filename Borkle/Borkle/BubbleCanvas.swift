@@ -181,11 +181,11 @@ class BubbleCanvas: NSView {
         bezierPath.appendRoundedRect(rect, xRadius: 8, yRadius: 8)
         NSColor.white.set()
         bezierPath.fill()
-
-        let nsstring = "\(bubble.text)" as NSString
+        
+        let attributedString = bubble.attributedString
 
         let textRect = rect.insetBy(dx: Bubble.margin, dy: Bubble.margin)
-        nsstring.draw(in: textRect, withAttributes: nil)
+        attributedString.draw(in: textRect)
         NSColor.gray.set()
 
         if selected {
@@ -271,7 +271,8 @@ class BubbleCanvas: NSView {
         let textRect = rect.insetBy(dx: Bubble.margin, dy: Bubble.margin)
         textEditor.frame = textRect
 
-        textEditor.string = bubble.text
+        textEditor.textStorage?.setAttributedString(bubble.attributedString)
+
         addSubview(textEditor)
         window?.makeFirstResponder(textEditor)
         textEditingBubble = bubble
@@ -285,10 +286,14 @@ class BubbleCanvas: NSView {
             return
         }
         bubble.text = textEditor.string
+        
+        if let attr = textEditor.textStorage?.attributedSubstring(from: NSMakeRange(0, bubble.text.count)) {
+            bubble.gronkulateAttributedString(attr)
+        }
 
         textEditor.removeFromSuperview()
         textEditor.string = ""
-
+        
         needsDisplay = true
     }
 }
@@ -585,5 +590,12 @@ extension BubbleCanvas {
         }
 
         needsDisplay = true
+    }
+}
+
+
+extension NSTextView {
+    @IBAction func bk_strikethrough(_ sender: Any?) {
+        print("SNORGLE")
     }
 }

@@ -129,8 +129,12 @@ class Document: NSDocument {
         if let bubbleFileWrapper = fileWrappers[bubbleFilename] {
             let bubbleData = bubbleFileWrapper.regularFileContents!
             let decoder = YAMLDecoder()
-            let bubbles = try! decoder.decode([Bubble].self, from: bubbleData)
-            self.bubbles = bubbles
+            do {
+                let bubbles = try decoder.decode([Bubble].self, from: bubbleData)
+                self.bubbles = bubbles
+            } catch {
+                Swift.print("SNORGLE loading got \(error)")
+            }
         }
 
         if let barrierFileWrapper = fileWrappers[barrierFilename] {

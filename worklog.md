@@ -974,10 +974,10 @@ Added to TODO list above
 
 - [X] import Scapple rich text fooble
   - [X] It's not bringing in :alot: of strings
-- [ ] render bubble rich text into an attributed string
+- [X] render bubble rich text into an attributed string
 - [ ] add attributed string to NSTextView
-- [ ] apply styling to NSTextView while editing
 - [ ] decompile attributed string to storage format
+- [ ] apply styling to NSTextView while editing
 - [X] add tests for Scapple import
 
 Feeling test-y.  So make some Scapple tests.
