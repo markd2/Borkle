@@ -13,15 +13,6 @@ class Document: NSDocument {
     let bubbleFilename = "bubbles.yaml"
     let barrierFilename = "barriers.yaml"
 
-    /// On the way out
-    var bubbles: [Bubble] = [] {
-        didSet {
-            documentFileWrapper?.remove(filename: bubbleFilename)
-
-            bubbleSoup.removeEverything()
-            bubbleSoup.add(bubbles: bubbles)
-        }
-    }
     var bubbleSoup: BubbleSoup
 
     var barriers: [Barrier] = [] {
@@ -131,7 +122,7 @@ class Document: NSDocument {
             let decoder = YAMLDecoder()
             do {
                 let bubbles = try decoder.decode([Bubble].self, from: bubbleData)
-                self.bubbles = bubbles
+                self.bubbleSoup.bubbles = bubbles
             } catch {
                 Swift.print("SNORGLE loading got \(error)")
             }
@@ -231,7 +222,7 @@ class Document: NSDocument {
         // !!! of course, wait until we see it appear in instruments
         selection.forEachBubble { bubble in
             for connection in bubble.connections {
-                let connectedBubble = bubbles.first { $0.ID == connection }
+                let connectedBubble = bubbleSoup.bubbles.first { $0.ID == connection }
                 if let connectedBubble = connectedBubble {
                     selection.select(bubble: connectedBubble)
                 }
@@ -275,7 +266,7 @@ extension Document {
     }
 
     @IBAction func selectAll(_ sender: Any) {
-        bubbleCanvas.selectedBubbles.select(bubbles: bubbles)
+        bubbleCanvas.selectedBubbles.select(bubbles: bubbleSoup.bubbles)
     }
     
     @IBAction func expandSelection(_ sender: Any) {
@@ -309,7 +300,7 @@ extension Document {
 
     func importScapple(url: URL) {
         do {
-            bubbles = try ScappleImporter().importScapple(url: url)
+            let bubbles = try ScappleImporter().importScapple(url: url)
             bubbleSoup.add(bubbles: bubbles)
             bubbleCanvas.bubbleSoup = bubbleSoup
         } catch {
