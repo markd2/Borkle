@@ -299,8 +299,14 @@ extension Document {
     }
 
     func importScapple(url: URL) {
+        let ceiling = bubbleSoup.maxBubbleID() + 1
+
         do {
             let bubbles = try ScappleImporter().importScapple(url: url)
+            bubbles.forEach { bubble in
+                bubble.offset(by: ceiling)
+            }
+
             bubbleSoup.add(bubbles: bubbles)
             bubbleCanvas.bubbleSoup = bubbleSoup
         } catch {
