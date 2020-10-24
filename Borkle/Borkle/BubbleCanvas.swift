@@ -592,3 +592,10 @@ extension BubbleCanvas {
         needsDisplay = true
     }
 }
+
+
+extension NSTextView {
+    @IBAction func bk_strikethrough(_ sender: Any?) {
+        print("SNORGLE")
+    }
+}
