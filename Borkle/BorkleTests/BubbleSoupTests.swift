@@ -444,42 +444,49 @@ extension BubbleSoupTests {
     }
 
     func test_add_bubbles_calls_change_hook() { 
-        XCTAssertEqual(changeHookCallCount, 1)
-    }
-
-    func test_remove_calls_change_hook() {
+        soup.add(bubbles: [b1, b2])
         XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_remove_bubbles_calls_change_hook() {
+        // not caring if the remove actually removed stuff.
+        // OK (currently 10/24/2020)
+        soup.remove(bubbles: [b1])
         XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_create_bubble_calls_change_hook() {
+        _ = soup.create(newBubbleAt: .zero)
         XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_remove_everything_calls_change_hook() {
+        soup.removeEverything()
         XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_move_bubble_calls_change_hook() {
+        soup.move(bubble: b1, to: .zero)
         XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_connect_calls_change_hook() {
+        soup.connect(bubble: b1, to: b2)
         XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_disconnect_calls_change_hook() {
+        soup.disconnect(bubble: b1, from: b2)
         XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_connect_plural_calls_change_hook() {
+        soup.connect(bubbles: [b1], to: b2)
         XCTAssertEqual(changeHookCallCount, 1)
     }
 
     func test_disconnect_plural_calls_change_hook() {
+        soup.disconnect(bubbles: [b1], from: b2)
         XCTAssertEqual(changeHookCallCount, 1)
     }
 }
