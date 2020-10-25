@@ -329,8 +329,22 @@ extension Document {
     }
 
     @IBAction func shrinkBubble(_ sender: AnyObject) {
+        bubbleCanvas.selectedBubbles.forEachBubble { bubble in
+            let newWidth = bubble.width - 10
+            if newWidth > 10 {
+                // TODO make this undoable / supported by the soup
+                bubble.width = newWidth
+            }
+            bubbleCanvas.needsDisplay = true
+        }
     }
 
     @IBAction func embiggenBubble(_ sender: AnyObject) {
+        bubbleCanvas.selectedBubbles.forEachBubble { bubble in
+            let newWidth = bubble.width + 10
+            // TODO make this undoable / supported by the soup
+            bubble.width = newWidth
+        }
+        bubbleCanvas.needsDisplay = true
     }
 }
