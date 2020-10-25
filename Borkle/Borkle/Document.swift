@@ -284,6 +284,10 @@ extension Document {
         switch menuItem.action {
         case #selector(expandSelection(_:)):
             return bubbleCanvas.selectedBubbles.bubbleCount > 0
+        case #selector(shrinkBubble(_:)):
+            return bubbleCanvas.selectedBubbles.bubbleCount > 0
+        case #selector(embiggenBubble(_:)):
+            return bubbleCanvas.selectedBubbles.bubbleCount > 0
         case #selector(importScapple(_:)):
             return true
         default:
@@ -322,5 +326,11 @@ extension Document {
         } catch {
             Swift.print("import error \(error)")
         }
+    }
+
+    @IBAction func shrinkBubble(_ sender: AnyObject) {
+    }
+
+    @IBAction func embiggenBubble(_ sender: AnyObject) {
     }
 }
