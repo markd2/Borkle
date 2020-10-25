@@ -1115,3 +1115,8 @@ away on load)
 
 some barriers aren't dragging unless there's a bubble to its right (?)
 
+huh.  had way too restrictive logic in the barrier mouser. "if we're not moving
+bubbles or affect barriers, do nothing".  But that prevented moving the actual
+barrier if there was nothing to the right of it...
+
+
