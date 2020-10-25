@@ -66,7 +66,7 @@ class BubbleCanvas: NSView {
         var union = bubbleSoup.enclosingRect + extraPadding
 
         // If bubbles are smaller than the useful area, 
-        if let superBounds = superview?.bounds {
+        if let superBounds = superview?.superview?.bounds {
             union = union.union(superBounds)
         }
 
