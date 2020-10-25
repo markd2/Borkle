@@ -411,6 +411,19 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Gronk" id="uVM-Cs-CLe" userLabel="Gronk">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Gronk" id="BXp-Rv-zs5">
+                        <items>
+                            <menuItem title="Shrink Width" tag="2" keyEquivalent="=" id="zuV-5p-9Dc">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="shrinkWidth:" target="-1" id="PAg-Jr-cmP"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="View" id="H8h-7b-M4v">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" id="HyV-fh-RgO">
