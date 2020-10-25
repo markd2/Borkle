@@ -411,6 +411,23 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Gronk" id="E27-hW-Q0R">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Gronk" id="sWZ-63-D4U">
+                        <items>
+                            <menuItem title="Shrink Bubble" keyEquivalent="[" id="m0h-Ez-enl">
+                                <connections>
+                                    <action selector="shrinkBubble:" target="-1" id="u2V-Vy-Ctd"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Embiggen Bubble" keyEquivalent="]" id="JZj-CE-xF8">
+                                <connections>
+                                    <action selector="embiggenBubble:" target="-1" id="JsT-EM-hWw"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="View" id="H8h-7b-M4v">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" id="HyV-fh-RgO">

@@ -284,6 +284,10 @@ extension Document {
         switch menuItem.action {
         case #selector(expandSelection(_:)):
             return bubbleCanvas.selectedBubbles.bubbleCount > 0
+        case #selector(shrinkBubble(_:)):
+            return bubbleCanvas.selectedBubbles.bubbleCount > 0
+        case #selector(embiggenBubble(_:)):
+            return bubbleCanvas.selectedBubbles.bubbleCount > 0
         case #selector(importScapple(_:)):
             return true
         default:
@@ -322,5 +326,25 @@ extension Document {
         } catch {
             Swift.print("import error \(error)")
         }
+    }
+
+    @IBAction func shrinkBubble(_ sender: AnyObject) {
+        bubbleCanvas.selectedBubbles.forEachBubble { bubble in
+            let newWidth = bubble.width - 10
+            if newWidth > 10 {
+                // TODO make this undoable / supported by the soup
+                bubble.width = newWidth
+            }
+            bubbleCanvas.needsDisplay = true
+        }
+    }
+
+    @IBAction func embiggenBubble(_ sender: AnyObject) {
+        bubbleCanvas.selectedBubbles.forEachBubble { bubble in
+            let newWidth = bubble.width + 10
+            // TODO make this undoable / supported by the soup
+            bubble.width = newWidth
+        }
+        bubbleCanvas.needsDisplay = true
     }
 }
