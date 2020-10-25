@@ -302,13 +302,16 @@ extension Document {
         let ceiling = bubbleSoup.maxBubbleID() + 1
 
         do {
-            let bubbles = try ScappleImporter().importScapple(url: url)
-            bubbles.forEach { bubble in
+            let incomingBubbles = try ScappleImporter().importScapple(url: url)
+            incomingBubbles.forEach { bubble in
                 bubble.offset(by: ceiling)
             }
 
-            bubbleSoup.add(bubbles: bubbles)
+            bubbleSoup.add(bubbles: incomingBubbles)
             bubbleCanvas.bubbleSoup = bubbleSoup
+
+            bubbleCanvas.selectedBubbles.unselectAll()
+            bubbleCanvas.select(bubbles: incomingBubbles)
         } catch {
             Swift.print("import error \(error)")
         }
