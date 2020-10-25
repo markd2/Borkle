@@ -1119,4 +1119,20 @@ huh.  had way too restrictive logic in the barrier mouser. "if we're not moving
 bubbles or affect barriers, do nothing".  But that prevented moving the actual
 barrier if there was nothing to the right of it...
 
+----------
+
+ok!  Maybe some features for what I was wanting with my lost document
+
+Sizing. - add a shrink width.  That part was easy.
+
+Now asking NSTextView for the widest line.
+
+NSLayoutManager boundingRect(forGlyphRange:in:)
+  - gives a rect for an NSRange glyoh range
+
+ooh, enumerateLineFragments(for glphyh range)x
+
+getting entire glyph range?
+there is numberOfGlyphs 
+
 
