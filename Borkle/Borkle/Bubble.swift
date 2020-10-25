@@ -227,7 +227,36 @@ extension Bubble {
     }
 
     func widestLine() -> CGFloat {
-        return 45
+        let textStorage = NSTextStorage.init(string: text, attributes: nil)
+        // let insetWidth = width + (Bubble.margin * 2)
+        let insetWidth = width - 2.0
+        let size = CGSize(width: insetWidth, height: .infinity)
+        let textContainer = NSTextContainer.init(containerSize: size)
+        let layoutManager = NSLayoutManager()
+
+        Swift.print("WIDEST ID \(ID) \(insetWidth)")
+
+        layoutManager.addTextContainer(textContainer)
+        textStorage.addLayoutManager(layoutManager)
+        
+        // maybe need to add the font attribute textStorage.add
+        textContainer.lineFragmentPadding = 0.0
+        
+        let glyphRange = layoutManager.glyphRange(for: textContainer)
+        
+        var maxLineWidth: CGFloat = 0
+
+        layoutManager.enumerateLineFragments(forGlyphRange: glyphRange) {
+            rect, usedRect, textContainer, glyphRange, stop in
+
+            maxLineWidth = max(maxLineWidth, usedRect.width)
+        }
+
+        if maxLineWidth == 0 {
+            maxLineWidth = width
+        }
+        Swift.print("   ID \(ID) max width is \(maxLineWidth)")
+        return maxLineWidth
     }
 }
 

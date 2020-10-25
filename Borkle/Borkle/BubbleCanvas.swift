@@ -191,6 +191,7 @@ class BubbleCanvas: NSView {
 
         let textRect = rect.insetBy(dx: Bubble.margin, dy: Bubble.margin)
         attributedString.draw(in: textRect)
+        Swift.print("DRAWING ID \(bubble.ID) \(textRect.width)")
         NSColor.gray.set()
 
         if selected {
