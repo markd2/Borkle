@@ -144,7 +144,7 @@ class Bubble: Codable {
             _effectiveHeight = nil
         }
     }
-    var connections = IndexSet()
+    internal var connections = IndexSet()
 
     init(ID: Int, position: CGPoint? = nil, width: CGFloat? = nil) {
         self.ID = ID

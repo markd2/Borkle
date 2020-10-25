@@ -281,6 +281,28 @@ class MouseBubblerTests: XCTestCase {
         XCTAssertFalse(bubbles[0].isConnectedTo(bubbles[2]))
         XCTAssertFalse(bubbles[1].isConnectedTo(bubbles[2]))
     }
+
+    func test_bubble_offset() {
+        bubbles[0].connect(to: bubbles[1])
+        bubbles[0].connect(to: bubbles[2])
+
+        bubbles[0].offset(by: 23)
+
+        // verify bubble ID changed
+        XCTAssertEqual(bubbles[0].ID, 34)
+
+        // verify bubble connections changed
+        XCTAssertTrue(bubbles[0].connections.contains(56)) // [1]
+        XCTAssertTrue(bubbles[0].connections.contains(45)) // [2]
+        XCTAssertFalse(bubbles[0].connections.contains(33)) // [1]
+        XCTAssertFalse(bubbles[0].connections.contains(22)) // [2]
+
+        // verify that connected-to bubbles did _not_ change.
+        // (since this is for document import, and don't want to have weird 
+        // ripple-effect bugs)
+        XCTAssertEqual(bubbles[1].ID, 33)
+        XCTAssertEqual(bubbles[2].ID, 22)
+    }
 }
 
 // Can't Equatable tuples :-(
