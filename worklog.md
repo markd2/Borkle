@@ -1108,4 +1108,10 @@ a real mess.  So select all the incoming bubbles.
 
 ----------
 
+Don't have default barriers on new documents.  Now I do (inside of init, get blown
+away on load)
+
+----------
+
+some barriers aren't dragging unless there's a bubble to its right (?)
 
