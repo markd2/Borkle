@@ -4,15 +4,34 @@ import XCTest
 class BubbleSoupTests: XCTestCase {
     
     var soup: BubbleSoup!
+    var b1: Bubble!
+    var b2: Bubble!
+    var b3: Bubble!
+    var b4: Bubble!
+
+    var changeHookCallCount = 0
 
     override func setUp() {
         super.setUp()
         soup = BubbleSoup()
+
+        b1 = Bubble(ID: 1)
+        b2 = Bubble(ID: 2)
+        b3 = Bubble(ID: 3)
+        b4 = Bubble(ID: 4)
+
+        soup.bubblesChangedHook = {
+            self.changeHookCallCount += 1
+        }
     }
 
     override func tearDown() {
         soup = nil
         super.tearDown()
+        b1 = nil
+        b2 = nil
+        b3 = nil
+        b4 = nil
     }
 
     func test_complete_coverage() {
@@ -305,9 +324,6 @@ extension BubbleSoupTests {
     }
 
     func test_connect_1() {
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
         soup.add(bubbles: [b1, b2, b3])
 
         soup.connect(bubble: b1, to: b2)
@@ -318,10 +334,6 @@ extension BubbleSoupTests {
     }
 
     func test_connect_1_undo() {
-
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
         soup.add(bubbles: [b1, b2, b3])
 
         // manually grouping because this is a helper function.
@@ -337,9 +349,6 @@ extension BubbleSoupTests {
     }
 
     func test_disconnect_1() {
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
         soup.add(bubbles: [b1, b2, b3])
         soup.connect(bubbles: [b1], to: b2)
 
@@ -352,10 +361,6 @@ extension BubbleSoupTests {
     }
 
     func test_disconnect_1_undo() {
-
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
         soup.add(bubbles: [b1, b2, b3])
 
         soup.beginGrouping()
@@ -374,10 +379,6 @@ extension BubbleSoupTests {
     }
 
     func test_connect_batch() {
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
-        let b4 = Bubble(ID: 4)
         soup.add(bubbles: [b1, b2, b3, b4])
         soup.connect(bubble: b4, to: b1)
 
@@ -394,10 +395,6 @@ extension BubbleSoupTests {
     }
 
     func test_connect_batch_undo() {
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
-        let b4 = Bubble(ID: 4)
         soup.add(bubbles: [b1, b2, b3, b4])
         soup.connect(bubble: b4, to: b1)
 
@@ -416,10 +413,6 @@ extension BubbleSoupTests {
     }
 
     func test_disconnect_batch() {
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
-        let b4 = Bubble(ID: 4)
         soup.add(bubbles: [b1, b2, b3, b4])
         soup.connect(bubbles: [b1], to: b2)
 
@@ -432,11 +425,6 @@ extension BubbleSoupTests {
     }
 
     func test_disconnect_batch_undo() {
-
-        let b1 = Bubble(ID: 1)
-        let b2 = Bubble(ID: 2)
-        let b3 = Bubble(ID: 3)
-        let b4 = Bubble(ID: 4)
         soup.add(bubbles: [b1, b2, b3, b4])
 
         soup.connect(bubbles: [b1], to: b2)
@@ -448,6 +436,60 @@ extension BubbleSoupTests {
         XCTAssertTrue(b1.isConnectedTo(b2))
         XCTAssertTrue(b2.isConnectedTo(b1))
         XCTAssertFalse(b3.isConnectedTo(b1))
+    }
+
+    func test_add_bubble_calls_change_hook() {
+        soup.add(bubble: b1)
+        XCTAssertEqual(changeHookCallCount, 1)
+    }
+
+    func test_add_bubbles_calls_change_hook() { 
+        soup.add(bubbles: [b1, b2])
+        XCTAssertEqual(changeHookCallCount, 1)
+    }
+
+    func test_remove_bubbles_calls_change_hook() {
+        // not caring if the remove actually removed stuff.
+        // OK (currently 10/24/2020)
+        soup.remove(bubbles: [b1])
+        XCTAssertEqual(changeHookCallCount, 1)
+    }
+
+    func test_create_bubble_calls_change_hook() {
+        _ = soup.create(newBubbleAt: .zero)
+        XCTAssertEqual(changeHookCallCount, 1)
+    }
+
+    func test_remove_everything_calls_change_hook() {
+        soup.removeEverything()
+        XCTAssertEqual(changeHookCallCount, 1)
+    }
+
+    func test_move_bubble_calls_change_hook() {
+        soup.move(bubble: b1, to: .zero)
+        XCTAssertEqual(changeHookCallCount, 1)
+    }
+
+    func test_connect_calls_change_hook() {
+        soup.connect(bubble: b1, to: b2)
+        XCTAssertEqual(changeHookCallCount, 1)
+    }
+
+    func test_disconnect_calls_change_hook() {
+        soup.disconnect(bubble: b1, from: b2)
+        XCTAssertEqual(changeHookCallCount, 1)
+    }
+
+    func test_connect_plural_calls_change_hook() {
+        soup.connect(bubbles: [b1, b2], to: b2)
+        XCTAssertEqual(changeHookCallCount, 1)
+    }
+
+    func test_disconnect_plural_calls_change_hook() {
+        b2.connect(to: b1)
+        b2.connect(to: b3)
+        soup.disconnect(bubbles: [b1, b2], from: b2)
+        XCTAssertEqual(changeHookCallCount, 1)
     }
 }
 

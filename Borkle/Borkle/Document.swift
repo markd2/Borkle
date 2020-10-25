@@ -13,15 +13,6 @@ class Document: NSDocument {
     let bubbleFilename = "bubbles.yaml"
     let barrierFilename = "barriers.yaml"
 
-    /// On the way out
-    var bubbles: [Bubble] = [] {
-        didSet {
-            documentFileWrapper?.remove(filename: bubbleFilename)
-
-            bubbleSoup.removeEverything()
-            bubbleSoup.add(bubbles: bubbles)
-        }
-    }
     var bubbleSoup: BubbleSoup
 
     var barriers: [Barrier] = [] {
@@ -131,7 +122,7 @@ class Document: NSDocument {
             let decoder = YAMLDecoder()
             do {
                 let bubbles = try decoder.decode([Bubble].self, from: bubbleData)
-                self.bubbles = bubbles
+                self.bubbleSoup.bubbles = bubbles
             } catch {
                 Swift.print("SNORGLE loading got \(error)")
             }
@@ -177,7 +168,7 @@ class Document: NSDocument {
         if fileWrappers[bubbleFilename] == nil {
             let encoder = YAMLEncoder()
 
-            if let bubbleString = try? encoder.encode(bubbles) {
+            if let bubbleString = try? encoder.encode(bubbleSoup.bubbles) {
                 let bubbleFileWrapper = FileWrapper(regularFileWithString: bubbleString)
                 bubbleFileWrapper.preferredFilename = bubbleFilename
                 documentFileWrapper.addFileWrapper(bubbleFileWrapper)
@@ -231,7 +222,7 @@ class Document: NSDocument {
         // !!! of course, wait until we see it appear in instruments
         selection.forEachBubble { bubble in
             for connection in bubble.connections {
-                let connectedBubble = bubbles.first { $0.ID == connection }
+                let connectedBubble = bubbleSoup.bubbles.first { $0.ID == connection }
                 if let connectedBubble = connectedBubble {
                     selection.select(bubble: connectedBubble)
                 }
@@ -275,7 +266,7 @@ extension Document {
     }
 
     @IBAction func selectAll(_ sender: Any) {
-        bubbleCanvas.selectedBubbles.select(bubbles: bubbles)
+        bubbleCanvas.selectedBubbles.select(bubbles: bubbleSoup.bubbles)
     }
     
     @IBAction func expandSelection(_ sender: Any) {
@@ -308,10 +299,19 @@ extension Document {
     }
 
     func importScapple(url: URL) {
+        let ceiling = bubbleSoup.maxBubbleID() + 1
+
         do {
-            bubbles = try ScappleImporter().importScapple(url: url)
-            bubbleSoup.add(bubbles: bubbles)
+            let incomingBubbles = try ScappleImporter().importScapple(url: url)
+            incomingBubbles.forEach { bubble in
+                bubble.offset(by: ceiling)
+            }
+
+            bubbleSoup.add(bubbles: incomingBubbles)
             bubbleCanvas.bubbleSoup = bubbleSoup
+
+            bubbleCanvas.selectedBubbles.unselectAll()
+            bubbleCanvas.select(bubbles: incomingBubbles)
         } catch {
             Swift.print("import error \(error)")
         }

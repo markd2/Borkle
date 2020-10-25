@@ -12,11 +12,21 @@ class Bubble: Codable {
         static let underline     = FormattingStyle(rawValue: 1 << 3)
     }
 
-    let ID: Int
+    var ID: Int
     var text: String = "" {
         didSet {
             _effectiveHeight = nil
         }
+    }
+
+    // Offsets ID values by a fixed amount
+    // useful for importing so that imported stuff avoids clobbering existing bubbles.
+    func offset(by fixedAmount: Int) {
+        ID += fixedAmount
+        let renumberedConnections = connections.reduce(into: IndexSet()) { result, integer in
+            result.insert(integer + fixedAmount)
+        }
+        connections = renumberedConnections
     }
 
     func gronkulateAttributedString(_ attr: NSAttributedString) {
@@ -134,7 +144,7 @@ class Bubble: Codable {
             _effectiveHeight = nil
         }
     }
-    var connections = IndexSet()
+    internal var connections = IndexSet()
 
     init(ID: Int, position: CGPoint? = nil, width: CGFloat? = nil) {
         self.ID = ID
