@@ -39,27 +39,6 @@ class MouseBarrierTests: XCTestCase {
         XCTAssertNil(testSupport.moveBarrierArguments)
     }
 
-    func test_drag_doesnt_move_nothing() {
-        mouser.start(at: .zero, modifierFlags: [])
-        mouser.drag(to: CGPoint(x: 10, y: -20), modifierFlags: [])
-
-        XCTAssertNil(testSupport.moveBarrierArguments)
-
-        mouser.finish(at: .zero, modifierFlags: [])
-    }
-
-    func test_empty_affected_arrays_also_do_nothing() {
-        testSupport.bubblesAffectedByReturn = []
-        testSupport.barriersAffectedByReturn = []
-
-        mouser.start(at: .zero, modifierFlags: [])
-        mouser.drag(to: CGPoint(x: 10, y: -20), modifierFlags: [])
-
-        XCTAssertNil(testSupport.moveBarrierArguments)
-
-        mouser.finish(at: .zero, modifierFlags: [])
-    }
-    
     func newBarrier(ID: Int) -> Barrier {
         let barrier = Barrier(ID: ID, label: "label", horizontalPosition: 0, width: 0)
         return barrier
