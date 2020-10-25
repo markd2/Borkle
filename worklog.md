@@ -1069,3 +1069,43 @@ extension NSTextView {
 }
 ```
 
+----------
+
+trying to write up Orub notes, and discovered NOTHING WORKS.  Couldn't make bubbles,
+couldn't command-A select stuff, and stuff was broken.
+
+----------
+
+Can't make bubbles
+
+* because the useful area is TINY, so clicks go nowhere
+  (thank you view debugger)
+
+----------
+
+Not saving.
+
+Maybe the file wrapper files aren't getting cleared on changes?
+
+Bubble soup change hook not getting called.
+
+... bubblesChangedHook is never ever called :-|
+
+TESTS!  MISSING TESTS!  GOOD WORK TERRIE!
+
+(will need to make sure barriers do that too)
+
+----------
+
+Scapple import clobbering stuff
+
+ID conflicts, so the incoming blew away the new stuff.
+
+----------
+
+usability thing - when importing, it blorts the new stuff on top, potentially making 
+a real mess.  So select all the incoming bubbles.
+
+----------
+
+
