@@ -327,6 +327,10 @@ extension Document {
     }
 
     @IBAction func shrinkWidth(_ sender: AnyObject) {
-        Swift.print("GREEBLE")
+        bubbleCanvas.selectedBubbles.forEachBubble { bubble in
+            let width = bubble.widestLine()
+            bubble.width = width
+            self.bubbleCanvas.invalidateBubble(bubble)
+        }
     }
 }

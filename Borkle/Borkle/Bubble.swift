@@ -225,5 +225,9 @@ extension Bubble {
         let height = layoutManager.usedRect(for: textContainer).height
         return height
     }
+
+    func widestLine() -> CGFloat {
+        return 45
+    }
 }
 
