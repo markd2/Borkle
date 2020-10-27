@@ -119,6 +119,12 @@ extension ScappleImporter: XMLParserDelegate {
         case "FormatRange":
             currentFormattingOptionsString = ""
             currentFormattingOptionsAttributes = attributes
+        case "Border":
+            currentBorderColorString = ""
+            if let weightString = attributes["Weight"],
+               let weight = Int(weightString) {
+                currentBubble.borderThickness = weight
+            }
         default:
             break
         }
