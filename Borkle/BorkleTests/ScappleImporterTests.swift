@@ -176,6 +176,12 @@ extension ScappleImporterTests {
 
 extension NSColor {
     func sortOfEqualTo(red: CGFloat, green: CGFloat, blue: CGFloat) -> Bool {
-        return false
+        var minered: CGFloat = 0
+        var minegreen: CGFloat = 0
+        var mineblue: CGFloat = 0
+
+        getRed(&minered, green: &minegreen, blue: &mineblue, alpha: nil)
+
+        return abs(minered - red) < 0.001 && abs(minegreen - green) < 0.001 && abs(mineblue - blue) < 0.001
     }
 }
