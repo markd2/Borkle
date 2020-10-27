@@ -280,6 +280,18 @@ extension Document {
         expand(selection: bubbleCanvas.selectedBubbles)
     }
     
+    @IBAction func expandComponent(_ sender: Any) {
+        var lastSelectionCount = bubbleCanvas.selectedBubbles.bubbleCount
+        
+        while true {
+            expand(selection: bubbleCanvas.selectedBubbles)
+            if lastSelectionCount == bubbleCanvas.selectedBubbles.bubbleCount {
+                break
+            }
+            lastSelectionCount = bubbleCanvas.selectedBubbles.bubbleCount
+        }
+    }
+    
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         switch menuItem.action {
         case #selector(expandSelection(_:)):

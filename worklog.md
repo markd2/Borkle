@@ -1126,3 +1126,7 @@ Did some level design.  Wanting bubble colors.
 
 Added failing test and scapple document.  added implementation. kind of fun.
 
+-----------
+
+Also wanting a select-component for moving islands around.  so added.
+
