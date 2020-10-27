@@ -184,7 +184,11 @@ class BubbleCanvas: NSView {
                               selected: Bool, highlighted: Bool, dropTarget: Bool) {
         let bezierPath = NSBezierPath()
         bezierPath.appendRoundedRect(rect, xRadius: 8, yRadius: 8)
-        NSColor.white.set()
+        if let fillColor = bubble.fillColor {
+            fillColor.set()
+        } else {
+            NSColor.white.set()
+        }
         bezierPath.fill()
         
         let attributedString = bubble.attributedString
@@ -195,10 +199,13 @@ class BubbleCanvas: NSView {
 
         if selected {
             NSColor.darkGray.set()
-            bezierPath.lineWidth = 4.0
+            let thickness = bubble.borderThickness ?? 4
+            bezierPath.lineWidth = CGFloat(thickness)
         } else {
-            NSColor.darkGray.set()
-            bezierPath.lineWidth = 2.0
+            let borderColor = bubble.borderColor ?? NSColor.darkGray
+            borderColor.set()
+            let thickness = bubble.borderThickness ?? 2
+            bezierPath.lineWidth = CGFloat(thickness)
         }
         bezierPath.stroke()
 
