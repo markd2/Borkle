@@ -19,6 +19,46 @@ class Bubble: Codable {
         }
     }
 
+    struct RGB: Codable {
+        let red: CGFloat
+        let green: CGFloat
+        let blue: CGFloat
+
+        init(string: String?) {
+            guard let string = string else {
+                // no string, be obnoxious green
+                red = 0.0; green = 1.0; blue = 0.0
+                return
+            }
+
+            let chunks = string
+              .split(separator: " ")
+              .compactMap { String($0) }
+              .compactMap { CGFloat($0) }
+
+            guard chunks.count >= 3 else {
+                // not enough chunkage, be obnoxious green
+                red = 0.0; green = 1.0; blue = 0.0
+                return
+            }
+            red = chunks[0]
+            green = chunks[1]
+            blue = chunks[2]
+        }
+    }
+
+    var fillColorRGB: RGB?
+    var fillColor: NSColor? {
+        guard let rgb = fillColorRGB else { return nil }
+        return NSColor.colorFromRGB(rgb)
+    }
+    var borderColorRGB: RGB?
+    var borderColor: NSColor? {
+        guard let rgb = borderColorRGB else { return nil }
+        return NSColor.colorFromRGB(rgb)
+    }
+    var borderThickness: Int?
+
     // Offsets ID values by a fixed amount
     // useful for importing so that imported stuff avoids clobbering existing bubbles.
     func offset(by fixedAmount: Int) {
@@ -208,6 +248,7 @@ extension Bubble: Hashable {
 }
 
 extension Bubble {
+
     func heightForStringDrawing() -> CGFloat {
         let textStorage = NSTextStorage.init(string: text, attributes: nil)
         let insetWidth = width - (Bubble.margin * 2)
@@ -227,3 +268,8 @@ extension Bubble {
     }
 }
 
+extension NSColor {
+    static func colorFromRGB(_ rgb: Bubble.RGB) -> NSColor {
+        NSColor.init(deviceRed: rgb.red, green: rgb.green, blue: rgb.blue, alpha: 1.0)
+    }
+}

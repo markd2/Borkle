@@ -1119,4 +1119,10 @@ huh.  had way too restrictive logic in the barrier mouser. "if we're not moving
 bubbles or affect barriers, do nothing".  But that prevented moving the actual
 barrier if there was nothing to the right of it...
 
+==================================================
+# Monday October 26, 2020
+
+Did some level design.  Wanting bubble colors.
+
+Added failing test and scapple document.  added implementation. kind of fun.
 

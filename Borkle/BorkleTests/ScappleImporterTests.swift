@@ -138,6 +138,23 @@ class ScappleImporterTests: XCTestCase {
         }
     }
 
+    func test_import_single_with_appearance() throws {
+        let url = try urlFor(filename: "single-appearance")
+
+        do {
+            let bubbles = try importer.importScapple(url: url)
+            XCTAssertEqual(bubbles.count, 1)
+            let bubble = bubbles[0]
+
+            XCTAssertEqual(bubble.borderThickness, 3)
+            XCTAssertTrue(try! XCTUnwrap(bubble.borderColor).sortOfEqualTo(red: 0.819, green: 0.034, blue: 0.054))
+            XCTAssertTrue(try! XCTUnwrap(bubble.fillColor).sortOfEqualTo(red: 1.0, green: 0.977, blue: 0.261))
+
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+
     func test_malformed_file_throws() throws {
         let url = try urlFor(filename: "malformed")
 
@@ -154,5 +171,17 @@ extension ScappleImporterTests {
     func urlFor(filename: String) throws -> URL {
         let url = try XCTUnwrap(bundle.url(forResource: filename, withExtension: "scap"))
         return url
+    }
+}
+
+extension NSColor {
+    func sortOfEqualTo(red: CGFloat, green: CGFloat, blue: CGFloat) -> Bool {
+        var minered: CGFloat = 0
+        var minegreen: CGFloat = 0
+        var mineblue: CGFloat = 0
+
+        getRed(&minered, green: &minegreen, blue: &mineblue, alpha: nil)
+
+        return abs(minered - red) < 0.001 && abs(minegreen - green) < 0.001 && abs(mineblue - blue) < 0.001
     }
 }
