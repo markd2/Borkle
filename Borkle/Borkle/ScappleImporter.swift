@@ -13,6 +13,8 @@ class ScappleImporter: NSObject {
     var formattingOptions: [Bubble.FormattingOption]?
     var currentFormattingOptionsString: String?
     var currentFormattingOptionsAttributes: [String: String]?
+    var currentBorderColorString: String?
+    var currentFillString: String?
 
     func importScapple(url: URL) throws -> [Bubble] {
         guard let parser = XMLParser(contentsOf: url) else {
@@ -125,6 +127,8 @@ extension ScappleImporter: XMLParserDelegate {
                let weight = Int(weightString) {
                 currentBubble.borderThickness = weight
             }
+        case "Fill":
+            currentFillString = ""
         default:
             break
         }
@@ -156,7 +160,12 @@ extension ScappleImporter: XMLParserDelegate {
             }
             currentFormattingOptionsAttributes = nil
             currentFormattingOptionsString = nil
-
+        case "Border":
+            currentBubble.borderColorRGB = Bubble.RGB(string: currentBorderColorString)
+            currentBorderColorString = nil
+        case "Fill":
+            currentBubble.fillColorRGB = Bubble.RGB(string: currentFillString)
+            currentFillString = nil
         default:
             break
         }
@@ -168,6 +177,10 @@ extension ScappleImporter: XMLParserDelegate {
             currentConnectedNoteString! += foundCharacters
         } else if currentFormattingOptionsString != nil {
             currentFormattingOptionsString! += foundCharacters
+        } else if currentBorderColorString != nil {
+            currentBorderColorString! += foundCharacters
+        } else if currentFillString != nil {
+            currentFillString! += foundCharacters
         } else {
             currentString += foundCharacters
         }
