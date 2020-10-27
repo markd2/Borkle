@@ -296,6 +296,8 @@ extension Document {
         switch menuItem.action {
         case #selector(expandSelection(_:)):
             return bubbleCanvas.selectedBubbles.bubbleCount > 0
+        case #selector(expandComponent(_:)):
+            return bubbleCanvas.selectedBubbles.bubbleCount > 0
         case #selector(shrinkBubble(_:)):
             return bubbleCanvas.selectedBubbles.bubbleCount > 0
         case #selector(embiggenBubble(_:)):
