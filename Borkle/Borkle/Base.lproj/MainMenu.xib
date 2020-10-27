@@ -181,6 +181,12 @@
                                     <action selector="expandSelection:" target="-1" id="3B8-XP-EIj"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Expand Component" keyEquivalent="a" id="xwn-j3-8tb">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="expandComponent:" target="-1" id="ZrJ-DQ-ljk"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="uyl-h8-XO2"/>
                             <menuItem title="Find" id="4EN-yA-p0u">
                                 <modifierMask key="keyEquivalentModifierMask"/>
