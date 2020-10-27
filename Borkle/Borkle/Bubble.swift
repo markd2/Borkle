@@ -19,6 +19,22 @@ class Bubble: Codable {
         }
     }
 
+    struct RGB: Codable {
+        let red: CGFloat
+        let green: CGFloat
+        let blue: CGFloat
+    }
+
+    var fillColorRGB: RGB?
+    var fillColor: NSColor? {
+        return .red
+    }
+    var borderColorRGB: RGB?
+    var borderColor: NSColor? {
+        return .blue
+    }
+    var borderThickness: Int?
+
     // Offsets ID values by a fixed amount
     // useful for importing so that imported stuff avoids clobbering existing bubbles.
     func offset(by fixedAmount: Int) {
