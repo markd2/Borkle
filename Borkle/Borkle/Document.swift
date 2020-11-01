@@ -379,4 +379,17 @@ extension Document {
         }        
         bubbleCanvas.needsDisplay = true
     }
+
+    @IBAction func exportPDF(_ sender: AnyObject) {
+        Swift.print("saved to Desktop directory as _borkle.pdf_")
+        let data = bubbleCanvas.dataWithPDF(inside: bubbleCanvas.bounds)
+        let url = userDesktopURL().appendingPathComponent("borkle.pdf")
+        try! data.write(to: url)
+    }
+
+    private func userDesktopURL() -> URL {
+        let urls = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)
+        let userDesktopDirectoryURL = urls[0]
+        return userDesktopDirectoryURL
+    }
 }
