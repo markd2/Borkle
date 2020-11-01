@@ -1130,3 +1130,17 @@ Added failing test and scapple document.  added implementation. kind of fun.
 
 Also wanting a select-component for moving islands around.  so added.
 
+----------
+
+==================================================
+# Sunday November 1, 2020
+
+After working on the waterworld borkle, wanting some background colors, maybe
+line weights.
+
+So want a preset-colors chooser up in the flumph bar
+- maybe a one-way, so not needing to keep them in sync right now.
+
+Make a dumb button.
+
+

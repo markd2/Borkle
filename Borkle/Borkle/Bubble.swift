@@ -24,6 +24,12 @@ class Bubble: Codable {
         let green: CGFloat
         let blue: CGFloat
 
+        init(red: CGFloat, green: CGFloat, blue: CGFloat) {
+            self.red = red
+            self.green = green
+            self.blue = blue
+        }
+
         init(string: String?) {
             guard let string = string else {
                 // no string, be obnoxious green
@@ -49,8 +55,17 @@ class Bubble: Codable {
 
     var fillColorRGB: RGB?
     var fillColor: NSColor? {
-        guard let rgb = fillColorRGB else { return nil }
-        return NSColor.colorFromRGB(rgb)
+        get {
+            guard let rgb = fillColorRGB else { return nil }
+            return NSColor.colorFromRGB(rgb)
+        }
+        set(newColor) {
+            if let newColor = newColor {
+                fillColorRGB = newColor.rgbColor()
+            } else {
+                fillColorRGB = nil
+            }
+        }
     }
     var borderColorRGB: RGB?
     var borderColor: NSColor? {
@@ -272,4 +287,14 @@ extension NSColor {
     static func colorFromRGB(_ rgb: Bubble.RGB) -> NSColor {
         NSColor.init(deviceRed: rgb.red, green: rgb.green, blue: rgb.blue, alpha: 1.0)
     }
+
+    func rgbColor() -> Bubble.RGB {
+        var red: CGFloat = 0.0
+        var green: CGFloat = 0.0
+        var blue: CGFloat = 0.0
+
+        getRed(&red, green: &green, blue: &blue, alpha: nil)
+        return Bubble.RGB(red: red, green: green, blue: blue)
+    }
+
 }

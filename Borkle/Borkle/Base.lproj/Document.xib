@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,6 +11,10 @@
                 <outlet property="BubbleCanvas" destination="Yd2-k3-bEp" id="QSA-d4-ja7"/>
                 <outlet property="bubbleCanvas" destination="Yd2-k3-bEp" id="avl-AQ-6PD"/>
                 <outlet property="bubbleScroller" destination="kz4-mA-D4k" id="Nxv-ec-PHs"/>
+                <outlet property="colorButton1" destination="Rbd-4A-v75" id="iUn-97-mDA"/>
+                <outlet property="colorButton2" destination="z3I-AB-tmD" id="eBQ-Dm-q0a"/>
+                <outlet property="colorButton3" destination="yNq-zM-HFe" id="yAC-F6-lNf"/>
+                <outlet property="colorButton4" destination="zeY-lp-D0H" id="jJ5-NY-OFK"/>
                 <outlet property="imageView" destination="021-kA-8LX" id="Fm8-P6-vAP"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
@@ -59,6 +63,22 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rbd-4A-v75" customClass="DumbButton" customModule="Borkle" customModuleProvider="target">
+                        <rect key="frame" x="21" y="356" width="24" height="24"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z3I-AB-tmD" customClass="DumbButton" customModule="Borkle" customModuleProvider="target">
+                        <rect key="frame" x="45" y="356" width="24" height="24"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yNq-zM-HFe" customClass="DumbButton" customModule="Borkle" customModuleProvider="target">
+                        <rect key="frame" x="69" y="356" width="24" height="24"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zeY-lp-D0H" customClass="DumbButton" customModule="Borkle" customModuleProvider="target">
+                        <rect key="frame" x="93" y="356" width="24" height="24"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="kz4-mA-D4k" secondAttribute="bottom" id="9q2-sh-41r"/>
@@ -72,7 +92,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-x8E"/>
             </connections>
-            <point key="canvasLocation" x="36" y="110"/>
+            <point key="canvasLocation" x="35.5" y="109.5"/>
         </window>
     </objects>
 </document>

@@ -6,6 +6,12 @@ class Document: NSDocument {
     @IBOutlet var bubbleCanvas: BubbleCanvas!
     @IBOutlet var bubbleScroller: NSScrollView!
 
+    // I am so lazy...
+    @IBOutlet var colorButton1: DumbButton!
+    @IBOutlet var colorButton2: DumbButton!
+    @IBOutlet var colorButton3: DumbButton!
+    @IBOutlet var colorButton4: DumbButton!
+
     var documentFileWrapper: FileWrapper?
 
     let imageFilename = "image.png"
@@ -80,13 +86,17 @@ class Document: NSDocument {
         bubbleCanvas.keypressHandler = { event in
             self.handleKeypress(event)
         }
+        colorButton1.color = .white
+        colorButton2.color = NSColor(red: 0.896043, green: 0.997437, blue: 0.942763, alpha: 1.0) // greenish
+        colorButton3.color = NSColor(red: 1.0, green: 0.90283, blue: 0.976506, alpha: 1.0) // pinkish
+        colorButton4.color = NSColor(red: 0.893993, green: 0.992872, blue: 1.0, alpha: 1.0) // blueish
 
-#if false
+        #if false
         let barrier1 = Barrier(ID: 1, label: "Snorgle", horizontalPosition: 100.0, width: 6.0)
         let barrier2 = Barrier(ID: 2, label: "Characters", horizontalPosition: 300.0, width: 4.0)
         let barrier3 = Barrier(ID: 3, label: "Flongwaffle", horizontalPosition: 600.0, width: 8.0)
         barriers = [barrier1, barrier2, barrier3]
-#endif
+        #endif
     }
 
     override class var autosavesInPlace: Bool {
@@ -359,6 +369,14 @@ extension Document {
             // TODO make this undoable / supported by the soup
             bubble.width = newWidth
         }
+        bubbleCanvas.needsDisplay = true
+    }
+
+    @IBAction func colorBubble(_ sender: DumbButton) {
+        Swift.print("need to make color changing undoable")
+        bubbleCanvas.selectedBubbles.forEachBubble { bubble in
+            bubble.fillColor = sender.color
+        }        
         bubbleCanvas.needsDisplay = true
     }
 }
