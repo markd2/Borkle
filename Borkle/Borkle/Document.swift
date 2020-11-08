@@ -312,6 +312,8 @@ extension Document {
             return bubbleCanvas.selectedBubbles.bubbleCount > 0
         case #selector(embiggenBubble(_:)):
             return bubbleCanvas.selectedBubbles.bubbleCount > 0
+        case #selector(exportBulletList(_:)):
+            return bubbleCanvas.selectedBubbles.bubbleCount == 1
         case #selector(importScapple(_:)):
             return true
         default:
@@ -391,5 +393,10 @@ extension Document {
         let urls = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)
         let userDesktopDirectoryURL = urls[0]
         return userDesktopDirectoryURL
+    }
+
+    // Idea from Mikey
+    @IBAction func exportBulletList(_ sender: AnyObject) {
+        
     }
 }
