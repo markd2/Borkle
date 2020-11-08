@@ -21,6 +21,9 @@ class Document: NSDocument {
 
     var bubbleSoup: BubbleSoup
 
+    // for walking selections
+    var seenIDs = Set<Int>()
+
     var barriers: [Barrier] = [] {
         didSet {
             documentFileWrapper?.remove(filename: bubbleFilename)
@@ -312,6 +315,8 @@ extension Document {
             return bubbleCanvas.selectedBubbles.bubbleCount > 0
         case #selector(embiggenBubble(_:)):
             return bubbleCanvas.selectedBubbles.bubbleCount > 0
+        case #selector(exportBulletList(_:)):
+            return bubbleCanvas.selectedBubbles.bubbleCount == 1
         case #selector(importScapple(_:)):
             return true
         default:
@@ -391,5 +396,56 @@ extension Document {
         let urls = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)
         let userDesktopDirectoryURL = urls[0]
         return userDesktopDirectoryURL
+    }
+
+    // Idea from Mikey
+    struct Node {
+        let text: String
+        let depth: Int
+    }
+
+    @IBAction func exportBulletList(_ sender: AnyObject) {
+        var nodes: [Node] = []
+
+        let selectedBubble = bubbleCanvas.selectedBubbles.selectedBubbles[0]
+
+        nodes += visitForBulletList(selectedBubble, 0)
+
+        var finalString = ""
+        nodes.forEach { node in
+            let indent = String(repeating: " ", count: node.depth * 4)
+            finalString += indent + "- " + node.text + "\n"
+        }
+
+        guard let data = finalString.data(using: .utf8) else {
+            Swift.print("could not convert string \(finalString)")
+            return
+        }
+
+        Swift.print("saving to Desktop directory as _outline.md_")
+        let url = userDesktopURL().appendingPathComponent("outline.md")
+        try! data.write(to: url)
+        
+        Swift.print(finalString)
+
+        seenIDs = Set<Int>()
+    }
+
+    func visitForBulletList(_ bubble: Bubble, _ depth: Int) -> [Node] {
+        Swift.print("visiting \(bubble.ID) depth \(depth)")
+        var nodes: [Node] = []
+
+        let node = Node(text: bubble.text, depth: depth)
+        nodes += [node]
+
+        seenIDs.insert(bubble.ID)
+
+        bubble.forEachConnection { id in
+            guard let bubble = bubbleSoup.bubble(byID: id),
+                  !seenIDs.contains(bubble.ID) else { return }
+            nodes += self.visitForBulletList(bubble, depth + 1)
+        }
+
+        return nodes
     }
 }

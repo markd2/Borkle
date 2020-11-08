@@ -201,6 +201,10 @@ class Bubble: Codable {
     }
     internal var connections = IndexSet()
 
+    public func forEachConnection(_ iterator: (Int) -> Void) {
+        connections.forEach { iterator($0) }
+    }
+
     init(ID: Int, position: CGPoint? = nil, width: CGFloat? = nil) {
         self.ID = ID
         if let position = position { self.position = position }
