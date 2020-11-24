@@ -172,10 +172,14 @@ class BubbleCanvas: NSView {
 
                 let thing1 = map[bubble.ID]!.center
                 let thing2 = map[index]!.center
-                bezierPath.removeAllPoints()
-                bezierPath.move(to: thing1)
-                bezierPath.line(to: thing2)
-                bezierPath.stroke()
+
+                let rect = CGRect(point1: thing1, point2: thing2)
+                if needsToDraw(rect) {
+                    bezierPath.removeAllPoints()
+                    bezierPath.move(to: thing1)
+                    bezierPath.line(to: thing2)
+                    bezierPath.stroke()
+                }
             }
         }
     }
