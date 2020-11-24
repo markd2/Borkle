@@ -15,6 +15,10 @@ protocol MouseSupport {
 
     func unselectAll()
     func select(bubbles: [Bubble])
+    
+    // set to a selection to make them render less opaque, like for dragging.
+    // set nil to revert to everyone fully opaque
+    func makeTransparent(_ selection: Selection?)
 
     var currentScrollOffset: CGPoint { get }
     func scroll(to: CGPoint)

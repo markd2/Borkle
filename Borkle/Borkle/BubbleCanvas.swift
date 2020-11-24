@@ -7,6 +7,7 @@ class BubbleCanvas: NSView {
     var barriersChangedHook: (() -> Void)?
 
     var selectedBubbles = Selection()
+    var alphaBubbles: Selection?
 
     var currentMouseHandler: MouseHandler?
 
@@ -106,9 +107,11 @@ class BubbleCanvas: NSView {
         bubbleSoup.forEachBubble {
             if let rect = idToRectMap[$0.ID] {
                 if needsToDraw(rect) {
+                    let transparent = alphaBubbles?.isSelected(bubble: $0) ?? false
                     renderBubble($0, in: rect, 
                         selected: selectedBubbles.isSelected(bubble: $0),
                         highlighted: $0.ID == (highlightedID ?? -666),
+                        transparent: transparent,
                         dropTarget: $0.ID == (dropTargetBubble?.ID ?? -666))
                 }
             } else {
@@ -185,7 +188,19 @@ class BubbleCanvas: NSView {
     }
 
     private func renderBubble(_ bubble: Bubble, in rect: CGRect, 
-                              selected: Bool, highlighted: Bool, dropTarget: Bool) {
+                              selected: Bool, highlighted: Bool, 
+                              transparent: Bool, dropTarget: Bool) {
+        let context = NSGraphicsContext.current?.cgContext
+        context?.saveGState()
+        defer {
+            context?.restoreGState()
+        }
+
+        if transparent {
+            context?.setAlpha(0.5)
+        }
+
+    print("DRAWING")
         let bezierPath = NSBezierPath()
         bezierPath.appendRoundedRect(rect, xRadius: 8, yRadius: 8)
         if let fillColor = bubble.fillColor {
@@ -253,6 +268,10 @@ class BubbleCanvas: NSView {
         }
         let rectWithPadding = union.insetBy(dx: -10, dy: -10)
         setNeedsDisplay(rectWithPadding)
+    }
+
+    func invalidateSelection(_ selection: Selection?) {
+        selection?.forEachBubble(invalidateBubble)
     }
 
     func highlightBubble(_ bubble: Bubble?) {
@@ -511,6 +530,12 @@ extension BubbleCanvas: MouseSupport {
 
     func select(bubbles: [Bubble]) {
         selectedBubbles.select(bubbles: bubbles)
+    }
+
+    func makeTransparent(_ selection: Selection?) {
+        invalidateSelection(selection)
+        invalidateSelection(alphaBubbles)
+        alphaBubbles = selection
     }
 
     var currentScrollOffset: CGPoint {

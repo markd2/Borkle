@@ -31,6 +31,13 @@ class TestSupport: MouseSupport {
         selectArgument = bubbles
     }
 
+    var makeTransparentCalled = false
+    var makeTransparentArgument: Selection? = nil
+    func makeTransparent(_ selection: Selection?) {
+        makeTransparentCalled = true
+        makeTransparentArgument = selection
+    }
+
     var currentScrollOffsetReturn = CGPoint.zero
     var currentScrollOffsetCalled = false
     var currentScrollOffset: CGPoint {
@@ -109,6 +116,8 @@ class TestSupport: MouseSupport {
         drawMarqueeArgument = nil
         unselectAllCalled = false
         selectArgument = nil
+        makeTransparentCalled = false
+        makeTransparentArgument = nil
         currentScrollOffsetCalled = false
         currentScrollOffsetReturn = CGPoint.zero
         scrollArgument = nil

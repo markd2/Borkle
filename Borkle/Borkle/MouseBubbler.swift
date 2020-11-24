@@ -41,6 +41,7 @@ class MouseBubbler: MouseHandler {
                 selectedBubbles.unselectAll()
                 selectedBubbles.select(bubble: hitBubble)
             }
+            support.makeTransparent(selectedBubbles)
         }
 
         originalBubblePositions = selectedBubbles.selectedBubbles.reduce(into: [:]) { dict, bubble in
@@ -103,7 +104,8 @@ class MouseBubbler: MouseHandler {
             }
             
         } else {
-            // otherwise, do nothing and accept the movex
+            // otherwise, do nothing and accept the move
         }
+        support.makeTransparent(nil)
     }
 }
