@@ -1194,3 +1194,23 @@ I don't really refer to prior sessions, so reversing it
     | -world- | -PCs- | -NPCs- | Session 4 | Session 3 | Sessiion 2 | Session 1 |
 
 should be fine
+
+==================================================
+# Thursday November 26, 2020
+
+more pondering.
+
+Thinking one big happy soup, and each tab has some subset of the soup
+  - so it's possible for a bubble to be on more than tab
+  - Like NPC cards could be useful
+  - what about connctions?  Are those per-tab?
+  - "copy to another tab with (or without) connections"
+    - that doesn't make me happy
+    - maybe the connections are global, but if a bubble is only one tab, but none of its connected
+      bubbles, the connections exist, but not shown.
+    - totally willing for there to be a usecase that breaks that.
+  - should have some kind of sigil for bubble that's in more than one tab
+    - location, maybe even rectangle? is on a per-tab basis
+  - when we get ability to partially show/hide stuff, that'd be on a per-tab basis.
+
+Also realizing this is going to require the full think-through of all the things.
