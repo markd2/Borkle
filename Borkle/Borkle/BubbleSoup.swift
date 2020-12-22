@@ -104,6 +104,15 @@ class BubbleSoup {
         undoManager.beginUndoGrouping()
         bubbles.forEach { invalHook?($0) }
 
+        // disconnect
+        bubbles.forEach { bubble in
+            bubble.forEachConnection { index in
+                if let otherBubble = self.bubble(byID: index) {
+                    disconnect(bubble: bubble, from: otherBubble)
+                }
+            }
+        }
+
         let filtered = self.bubbles.filter { return !bubbles.contains($0) }
         self.bubbles = filtered
 
