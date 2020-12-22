@@ -200,7 +200,6 @@ class BubbleCanvas: NSView {
             context?.setAlpha(0.5)
         }
 
-    print("DRAWING")
         let bezierPath = NSBezierPath()
         bezierPath.appendRoundedRect(rect, xRadius: 8, yRadius: 8)
         if let fillColor = bubble.fillColor {

@@ -1143,4 +1143,96 @@ So want a preset-colors chooser up in the flumph bar
 
 Make a dumb button.
 
+==================================================
+# Tuedsay November 24, 2020
+
+Did a bunch of small onesies-twosies.
+
+Next kind of important thing is basic tabs.
+
+```
++-----------------------------------------------+
+|                                               |
+| [bubble]     [bubble]                         |
+|                                               |
++-----------------------------------------------+
+| -tab1- | -tab2- | -tab3- |                    |
++--------+--------+--------+--------------------+
+```
+
+Why not at the top?  Tabs at the top feel heavy weight, and take up screen realestate higher
+in my visual sweet spot.  More like excel spreadsheet tabs rather than safari tabs.
+
+* each tab would be a bubble + barrier document
+  - what about IDs?  Can they conflict, or should IDs be document-wide?
+  - or maybe the bubble has info(e) on what tab it is on, so it's all in the same bubble        
+    document.  Same with barriers.
+
+* does each tab get its own selection?  Or a single one?
+
+* need a way to send a selection to another tab
+  - move?
+  - copy?
+    - if copy, need to renumber
+
+* would be kind of cool to have a bubble that's a gateway to another tab
+
+* kind of getting into the design of the deeper linked / complex documents.
+
+* right now I want it to keep the WaterWorld notes document more tractable.  Up to over 500
+  bubbles, and there's a fair amount of scrolling to get to the say the PC's area and
+  the current set of notes.
+
+* each tab would export as a page in the PDF
+
+* so things like
+    | -world- | -PCs- | -NPCs- | Session 1 | Session 2 | Sessiion 3 | Session 4 |
+
+Thought getting to 8 sessions might be a bit much.
+I don't really refer to prior sessions, so reversing it
+
+    | -world- | -PCs- | -NPCs- | Session 4 | Session 3 | Sessiion 2 | Session 1 |
+
+should be fine
+
+==================================================
+# Thursday November 26, 2020
+
+more pondering.
+
+Thinking one big happy soup, and each tab has some subset of the soup
+  - so it's possible for a bubble to be on more than tab
+  - Like NPC cards could be useful
+  - what about connctions?  Are those per-tab?
+  - "copy to another tab with (or without) connections"
+    - that doesn't make me happy
+    - maybe the connections are global, but if a bubble is only one tab, but none of its connected
+      bubbles, the connections exist, but not shown.
+    - totally willing for there to be a usecase that breaks that.
+  - should have some kind of sigil for bubble that's in more than one tab
+    - location, maybe even rectangle? is on a per-tab basis
+  - when we get ability to partially show/hide stuff, that'd be on a per-tab basis.
+
+Also realizing this is going to require the full think-through of all the things.
+
+==================================================
+# Monday December 21, 2020
+
+Actually using Borkle for notes for WaterWorld. There's some rough corners,
+and some things I wish it did, but it was remarkably useful.
+
+Pondering the stuff from the last note, even though it's been a month (almost)
+Plus full of wine, and finished watching Des and Savannah crush everyone
+on HGTV.
+
+- But do want to kind of dig in to it being fundamentally an outliner
+- not 100% happy with the connections baked in to each bubble (so it's two-ways,
+  which may be related to a connection bug saw during waterworld)  If the conncetions
+  were external, then the decision of "there is one connection graph" vs "there's
+  all sorts of connection graphs - on one page, across pages.  Depending on the
+  sophistication of the end documents, I lost my train of thought because Dessert
+  is incoming
+
+pausing now to go fix some bugs
+
 
