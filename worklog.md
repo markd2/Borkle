@@ -1214,3 +1214,25 @@ Thinking one big happy soup, and each tab has some subset of the soup
   - when we get ability to partially show/hide stuff, that'd be on a per-tab basis.
 
 Also realizing this is going to require the full think-through of all the things.
+
+==================================================
+# Monday December 21, 2020
+
+Actually using Borkle for notes for WaterWorld. There's some rough corners,
+and some things I wish it did, but it was remarkably useful.
+
+Pondering the stuff from the last note, even though it's been a month (almost)
+Plus full of wine, and finished watching Des and Savannah crush everyone
+on HGTV.
+
+- But do want to kind of dig in to it being fundamentally an outliner
+- not 100% happy with the connections baked in to each bubble (so it's two-ways,
+  which may be related to a connection bug saw during waterworld)  If the conncetions
+  were external, then the decision of "there is one connection graph" vs "there's
+  all sorts of connection graphs - on one page, across pages.  Depending on the
+  sophistication of the end documents, I lost my train of thought because Dessert
+  is incoming
+
+pausing now to go fix some bugs
+
+
