@@ -1235,4 +1235,10 @@ on HGTV.
 
 pausing now to go fix some bugs
 
+----------
+
+ok, bug.
+
+Make two bubbles (1 and 2). Connect 1 to 2.  delete 2. make a new bubble.
+connect to 1.  Doesn't actually connect
 

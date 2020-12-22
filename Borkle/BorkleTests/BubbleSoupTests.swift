@@ -166,6 +166,14 @@ class BubbleSoupTests: XCTestCase {
         XCTAssertNotNil(soup.bubble(byID: 3))
         XCTAssertNotNil(soup.bubble(byID: 5))
     }
+
+    func test_delete_bubble_removes_connection() {
+        soup.add(bubbles: [b1, b2, b3])
+
+        soup.connect(bubble: b2, to: b3)
+        soup.remove(bubbles: [b3])
+        XCTAssertTrue(b2.connections.count == 0)
+    }
 }
 
 /// These exercise adding and removing
