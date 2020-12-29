@@ -86,6 +86,9 @@ class Document: NSDocument {
         bubbleScroller.hasHorizontalScroller = true
         bubbleScroller.hasVerticalScroller = true
 
+        // zoom
+        bubbleScroller.magnification = 1.0
+
         bubbleCanvas.keypressHandler = { event in
             self.handleKeypress(event)
         }
@@ -396,6 +399,18 @@ extension Document {
         let urls = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)
         let userDesktopDirectoryURL = urls[0]
         return userDesktopDirectoryURL
+    }
+
+    @IBAction func resetZoom(_ sender: AnyObject) {
+        bubbleScroller.magnification = 1.0
+    }
+
+    @IBAction func incZoom(_ sender: AnyObject) {
+        bubbleScroller.magnification += 0.1
+    }
+
+    @IBAction func decZoom(_ sender: AnyObject) {
+        bubbleScroller.magnification -= 0.1
     }
 
     // Idea from Mikey
