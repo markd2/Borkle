@@ -1,0 +1,2531 @@
+- ID: 1
+  text: Bring It On
+  fillColorRGB:
+    red: 8.96043e-1
+    green: 9.97437e-1
+    blue: 9.42763e-1
+  formattingOptions: []
+  position:
+  - 3.975703125e+2
+  - 8.61484375e+1
+  width: 1e+2
+  connections:
+    indexes: []
+  _effectiveHeight: 1.4e+1
+- ID: 2
+  text: Roll for mental state - d6
+  formattingOptions: []
+  position:
+  - 1.258359375e+3
+  - 4.757421875e+2
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 66
+      length: 1
+    - location: 68
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 3
+  text: Discover an ancient evil has awoken in the ruined cathedral
+  formattingOptions: []
+  position:
+  - 1.49262890625e+3
+  - 8.284375e+1
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 61
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 4
+  text: ''
+  formattingOptions: []
+  position:
+  - 1.62275390625e+3
+  - 1.1894140625e+2
+  width: 1e+2
+  connections:
+    indexes: []
+  _effectiveHeight: 1.4e+1
+- ID: 5
+  text: PCs ambushed en route to somewhere
+  formattingOptions: []
+  position:
+  - 1.9865625e+2
+  - 1.1933203125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 6
+      length: 1
+    - location: 10
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 6
+  text: attacked by dryads
+  formattingOptions: []
+  position:
+  - 1.9353515625e+2
+  - 1.8833984375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 5
+      length: 1
+    - location: 7
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 7
+  text: discover a lich living in an abandoned cathedral
+  formattingOptions: []
+  position:
+  - 1.9365234375e+2
+  - 2.5734765625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 6
+      length: 1
+    - location: 8
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 8
+  text: venture inside and face the lich
+  formattingOptions: []
+  position:
+  - 1.806015625e+2
+  - 3.4737109375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 7
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 9
+  text: NPCs
+  fillColorRGB:
+    red: 1e+0
+    green: 9.0283e-1
+    blue: 9.76506e-1
+  formattingOptions: []
+  position:
+  - 6.4096875e+2
+  - 2.092265625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 11
+      length: 3
+  _effectiveHeight: 1.4e+1
+- ID: 10
+  text: Plot
+  fillColorRGB:
+    red: 1e+0
+    green: 9.0283e-1
+    blue: 9.76506e-1
+  formattingOptions: []
+  position:
+  - 1.578046875e+2
+  - 7.93046875e+1
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 5
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 11
+  text: 'Captain Keen
+
+    Captain of the Fogbreaker'
+  formattingOptions:
+  - options: 1
+    rangeStart: 0
+    rangeLength: 12
+  position:
+  - 5.7509765625e+2
+  - 1.4998828125e+2
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 9
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 12
+  text: 'Count Rotz
+
+    Lich Lord of the Cathedral'
+  formattingOptions:
+  - options: 1
+    rangeStart: 0
+    rangeLength: 11
+  position:
+  - 5.6916796875e+2
+  - 2.6703515625e+2
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 9
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 13
+  text: 'Oakitha
+
+    Dryad leader'
+  formattingOptions:
+  - options: 1
+    rangeStart: 0
+    rangeLength: 7
+  position:
+  - 4.9710546875e+2
+  - 2.0544921875e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 9
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 14
+  text: Chapter 1 - Attacked!
+  fillColorRGB:
+    red: 8.93993e-1
+    green: 9.92872e-1
+    blue: 1e+0
+  formattingOptions:
+  - options: 1
+    rangeStart: 0
+    rangeLength: 21
+  position:
+  - 4.703046875e+2
+  - 3.426640625e+2
+  width: 1.3e+2
+  connections:
+    indexes:
+    - location: 22
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 15
+  text: The Fogbreaker
+  formattingOptions: []
+  position:
+  - 6.535234375e+2
+  - 4.047890625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 16
+      length: 2
+    - location: 20
+      length: 1
+    - location: 22
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 16
+  text: airship
+  formattingOptions: []
+  position:
+  - 7.01890625e+2
+  - 3.430703125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 15
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 17
+  text: competent crew
+  formattingOptions: []
+  position:
+  - 7.798046875e+2
+  - 4.0197265625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 15
+      length: 1
+    - location: 18
+      length: 2
+    - location: 21
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 18
+  text: Captained by Captain Keen
+  formattingOptions: []
+  position:
+  - 8.2202734375e+2
+  - 3.3343359375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 17
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 19
+  text: 'Crew Names:
+
+    Porid
+
+    Salmardine
+
+    Abbath
+
+    Crysin
+
+    Embil
+
+    Invie
+
+    Illyin
+
+    Thumbless
+
+    Gorgi
+
+    Domnak
+
+    Andis
+
+    Herb
+
+    Nakyata
+
+    Homsa
+
+    Dreysk'
+  formattingOptions:
+  - options: 1
+    rangeStart: 0
+    rangeLength: 10
+  position:
+  - 9.4819140625e+2
+  - 2.6750390625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 17
+      length: 1
+  _effectiveHeight: 2.24e+2
+- ID: 20
+  text: If PCs try to steal the ship, crew overpowers them and maroons them
+  formattingOptions:
+  - options: 2
+    rangeStart: 0
+    rangeLength: 67
+  position:
+  - 7.42421875e+2
+  - 4.5451953125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 15
+      length: 1
+  _effectiveHeight: 7e+1
+- ID: 21
+  text: 15 sailors + captain
+  formattingOptions: []
+  position:
+  - 8.721171875e+2
+  - 4.378828125e+2
+  width: 7e+1
+  connections:
+    indexes:
+    - location: 17
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 22
+  text: Box text on 3
+  formattingOptions: []
+  position:
+  - 4.8951171875e+2
+  - 4.1085546875e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 14
+      length: 2
+    - location: 23
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 23
+  text: '"Captain Keen who loves his job stands next to you"'
+  formattingOptions: []
+  position:
+  - 4.4658984375e+2
+  - 4.7062109375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 22
+      length: 1
+    - location: 24
+      length: 1
+    - location: 27
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 24
+  text: 'Points out
+
+    * The ship is making good time
+
+    * Passing over a foest known as Brightglade Wood known for its beauty and tranquility
+
+    * The cook has prepared a rabbit stew for dinner'
+  formattingOptions:
+  - options: 1
+    rangeStart: 74
+    rangeLength: 16
+  position:
+  - 2.60984375e+2
+  - 4.3639453125e+2
+  width: 1.6e+2
+  connections:
+    indexes:
+    - location: 23
+      length: 1
+  _effectiveHeight: 1.26e+2
+- ID: 25
+  text: each crew eager to make the next city and spend their salary
+  formattingOptions: []
+  position:
+  - 3.246484375e+2
+  - 5.77890625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 27
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 26
+  text: captain eager to take on cargo for another run
+  formattingOptions: []
+  position:
+  - 6.026640625e+2
+  - 5.5873046875e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 27
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 27
+  text: if players want to hobnob with NPCs
+  formattingOptions:
+  - options: 2
+    rangeStart: 0
+    rangeLength: 35
+  position:
+  - 4.56390625e+2
+  - 5.866484375e+2
+  width: 1.1e+2
+  connections:
+    indexes:
+    - location: 23
+      length: 1
+    - location: 25
+      length: 2
+    - location: 28
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 28
+  text: 'box text - see what looks like a temple half-strangled in the forest below.
+
+    Black beam of pure evil slams into the Fogbreaker'
+  fillColorRGB:
+    red: 8.96043e-1
+    green: 9.97437e-1
+    blue: 9.42763e-1
+  formattingOptions: []
+  position:
+  - 4.36188537597656e+2
+  - 6.59263854980469e+2
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 27
+      length: 1
+    - location: 31
+      length: 1
+  _effectiveHeight: 7e+1
+- ID: 29
+  text: ''
+  formattingOptions: []
+  position:
+  - 3.74166931152344e+3
+  - 9.7932916259766e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 30
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 30
+  text: ''
+  formattingOptions: []
+  position:
+  - 3.13623809814453e+3
+  - 9.7662426757812e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 29
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 31
+  text: Dex DC 14 save / 1d4
+  formattingOptions: []
+  position:
+  - 3.90203125e+2
+  - 7.7174609375e+2
+  width: 1.3e+2
+  connections:
+    indexes:
+    - location: 28
+      length: 1
+    - location: 32
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 32
+  text: wheel not manned / freely spinning
+  formattingOptions: []
+  position:
+  - 3.825234375e+2
+  - 8.0946875e+2
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 31
+      length: 1
+    - location: 33
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 33
+  text: DC 13 STR to get to it
+  formattingOptions: []
+  position:
+  - 3.7594921875e+2
+  - 8.59515625e+2
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 32
+      length: 1
+    - location: 34
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 34
+  text: Controls unresponsive!
+  formattingOptions: []
+  position:
+  - 3.8094921875e+2
+  - 9.012109375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 33
+      length: 1
+    - location: 35
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 35
+  text: Crash!  PCs take 1d6 impact damage
+  formattingOptions: []
+  position:
+  - 3.365546875e+2
+  - 9.5408203125e+2
+  width: 1.3e+2
+  connections:
+    indexes:
+    - location: 34
+      length: 1
+    - location: 36
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 36
+  text: Perception check DC 13
+  formattingOptions: []
+  position:
+  - 3.1790234375e+2
+  - 1.01469140625e+3
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 35
+      length: 1
+    - location: 37
+      length: 1
+    - location: 41
+      length: 2
+  _effectiveHeight: 2.8e+1
+- ID: 37
+  text: 'Success: trees trying to grab the ship'
+  formattingOptions: []
+  position:
+  - 1.8195703125e+2
+  - 9.7872265625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 36
+      length: 1
+    - location: 38
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 38
+  text: they look angry
+  formattingOptions: []
+  position:
+  - 1.7783203125e+2
+  - 1.05333984375e+3
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 37
+      length: 1
+    - location: 39
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 39
+  text: and hungry
+  formattingOptions: []
+  position:
+  - 1.6419140625e+2
+  - 1.093921875e+3
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 38
+      length: 1
+    - location: 40
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 40
+  text: not trying to slow it down, but trying to eat it
+  formattingOptions: []
+  position:
+  - 1.5367578125e+2
+  - 1.1250546875e+3
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 39
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 41
+  text: If this is brightwood, who named it has an amazing sense of humor ... this
+    is a forsaken place
+  formattingOptions:
+  - options: 2
+    rangeStart: 0
+    rangeLength: 94
+  position:
+  - 3.2779296875e+2
+  - 1.07660546875e+3
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 36
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 42
+  text: aftermath
+  fillColorRGB:
+    red: 8.96043e-1
+    green: 9.97437e-1
+    blue: 9.42763e-1
+  formattingOptions: []
+  position:
+  - 4.907265625e+2
+  - 1.01208203125e+3
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 36
+      length: 1
+    - location: 43
+      length: 2
+  _effectiveHeight: 1.4e+1
+- ID: 43
+  text: 'Captain Keen sruvived, but is wounded.
+
+    15 crew down to 10'
+  formattingOptions: []
+  position:
+  - 5.26328125e+2
+  - 9.3073828125e+2
+  width: 1.4e+2
+  connections:
+    indexes:
+    - location: 42
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 44
+  text: ship is damaged
+  formattingOptions: []
+  position:
+  - 6.10328125e+2
+  - 1.02027734375e+3
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 42
+      length: 1
+    - location: 45
+      length: 2
+  _effectiveHeight: 1.4e+1
+- ID: 45
+  text: hopeful can get back up in about a day or two
+  formattingOptions: []
+  position:
+  - 6.3809375e+2
+  - 1.06258203125e+3
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 44
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 46
+  text: characters asked to keep watch while the crew asses the damage
+  formattingOptions: []
+  position:
+  - 7.00203125e+2
+  - 9.2953125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 44
+      length: 1
+    - location: 47
+      length: 1
+  _effectiveHeight: 7e+1
+- ID: 47
+  text: was led to believe Brightglade Wood was meant to be beautiful and pretty
+  formattingOptions: []
+  position:
+  - 6.3861328125e+2
+  - 8.202890625e+2
+  width: 1.8e+2
+  connections:
+    indexes:
+    - location: 46
+      length: 1
+    - location: 48
+      length: 2
+  _effectiveHeight: 4.2e+1
+- ID: 48
+  text: tidal wave (Leaf'Nami)
+  formattingOptions: []
+  position:
+  - 6.0433984375e+2
+  - 7.473984375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 47
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 49
+  text: Six Dryads
+  fillColorRGB:
+    red: 8.96043e-1
+    green: 9.97437e-1
+    blue: 9.42763e-1
+  formattingOptions: []
+  position:
+  - 7.291171875e+2
+  - 7.6547265625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 47
+      length: 1
+    - location: 50
+      length: 1
+    - location: 52
+      length: 2
+    - location: 56
+      length: 1
+    - location: 67
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 50
+  text: any can control the leaf beast
+  formattingOptions: []
+  position:
+  - 6.7696484375e+2
+  - 6.9741015625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 49
+      length: 1
+    - location: 51
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 51
+  text: if all knocked off, leaf beast dissapates
+  formattingOptions: []
+  position:
+  - 6.5035546875e+2
+  - 6.3443359375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 50
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 52
+  text: appear rotten
+  formattingOptions: []
+  position:
+  - 7.898671875e+2
+  - 7.2697265625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 49
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 53
+  text: one has a golden amulet
+  formattingOptions: []
+  position:
+  - 8.815546875e+2
+  - 7.6562109375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 49
+      length: 1
+    - location: 54
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 54
+  text: sacred order of light
+  formattingOptions: []
+  position:
+  - 8.9794921875e+2
+  - 7.1765625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 53
+      length: 1
+    - location: 55
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 55
+  text: lore on page 5
+  formattingOptions: []
+  position:
+  - 9.305703125e+2
+  - 6.794453125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 54
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 56
+  text: Once Defeated
+  fillColorRGB:
+    red: 8.96043e-1
+    green: 9.97437e-1
+    blue: 9.42763e-1
+  formattingOptions: []
+  position:
+  - 8.4750390625e+2
+  - 8.3834765625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 49
+      length: 1
+    - location: 57
+      length: 1
+    - location: 60
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 57
+  text: Bad news. The Cloudbalance Gyroscope has popped a seam. Cannot fly.  Need
+    lead to seal it
+  formattingOptions: []
+  position:
+  - 8.6073046875e+2
+  - 8.956953125e+2
+  width: 1.7e+2
+  connections:
+    indexes:
+    - location: 56
+      length: 1
+    - location: 58
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 58
+  text: He saw the same ruins, thinks they should be easily to get at least 1/2 pound
+    of lead
+  formattingOptions: []
+  position:
+  - 8.385859375e+2
+  - 9.9070703125e+2
+  width: 1.7e+2
+  connections:
+    indexes:
+    - location: 57
+      length: 1
+    - location: 59
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 59
+  text: if PCs have lead. "must be iron-forged lead. yours is too soft"
+  formattingOptions: []
+  position:
+  - 9.8356640625e+2
+  - 1.0778828125e+3
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 58
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 60
+  text: TO CRASH SITE MAP
+  formattingOptions: []
+  position:
+  - 9.8329296875e+2
+  - 8.215390625e+2
+  width: 1.3e+2
+  connections:
+    indexes:
+    - location: 56
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 61
+  text: 'Chapter 2
+
+    The Forest'
+  fillColorRGB:
+    red: 8.93993e-1
+    green: 9.92872e-1
+    blue: 1e+0
+  formattingOptions:
+  - options: 1
+    rangeStart: 0
+    rangeLength: 10
+  - options: 1
+    rangeStart: 10
+    rangeLength: 10
+  position:
+  - 1.3602578125e+3
+  - 1.4626953125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 3
+      length: 1
+    - location: 62
+      length: 2
+  _effectiveHeight: 2.8e+1
+- ID: 62
+  text: PCs meet a madman Dryad who begs them for help.
+  formattingOptions: []
+  position:
+  - 1.240375e+3
+  - 7.548828125e+1
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 61
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 63
+  text: box text page 6
+  formattingOptions: []
+  position:
+  - 1.34296484375e+3
+  - 2.1983203125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 61
+      length: 1
+    - location: 64
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 64
+  text: up ahead you see the ruined outline of a wall marking the edge of a cemetary
+  formattingOptions: []
+  position:
+  - 1.30590625e+3
+  - 2.684921875e+2
+  width: 1.6e+2
+  connections:
+    indexes:
+    - location: 63
+      length: 1
+    - location: 65
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 65
+  text: '... a face emerges from the mass. A withered old face of a dryad'
+  formattingOptions: []
+  position:
+  - 1.2999296875e+3
+  - 3.3859375e+2
+  width: 1.6e+2
+  connections:
+    indexes:
+    - location: 64
+      length: 1
+    - location: 66
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 66
+  text: eyes shine with a GREEN light
+  formattingOptions: []
+  position:
+  - 1.30173046875e+3
+  - 4.0642578125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 2
+      length: 1
+    - location: 65
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 67
+  text: eyes shine with PURPLE light
+  formattingOptions: []
+  position:
+  - 7.8396484375e+2
+  - 6.4686328125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 49
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 68
+  text: she is/was the matriarch of the Dryads. last one left. Rest have turned to
+    corruption and necromancy
+  formattingOptions: []
+  position:
+  - 1.2695e+3
+  - 5.3142578125e+2
+  width: 2.1e+2
+  connections:
+    indexes:
+    - location: 2
+      length: 1
+    - location: 69
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 69
+  text: her goal is to slay the foul eveil within the temple, but it's too powerful
+  formattingOptions: []
+  position:
+  - 1.25366015625e+3
+  - 6.1496484375e+2
+  width: 1.6e+2
+  connections:
+    indexes:
+    - location: 68
+      length: 1
+    - location: 70
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 70
+  text: she gets turned back by his magic. If she had her golden amulet, she might
+    be able to help.
+  formattingOptions: []
+  position:
+  - 1.28152734375e+3
+  - 6.94109375e+2
+  width: 1.6e+2
+  connections:
+    indexes:
+    - location: 69
+      length: 1
+    - location: 71
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 71
+  text: and if she can keep her senses
+  formattingOptions: []
+  position:
+  - 1.30680078125e+3
+  - 7.9601953125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 70
+      length: 1
+    - location: 72
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 72
+  text: (she cannot)
+  formattingOptions: []
+  position:
+  - 1.19932421875e+3
+  - 7.8326953125e+2
+  width: 8e+1
+  connections:
+    indexes:
+    - location: 71
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 73
+  text: Main Doors
+  formattingOptions: []
+  position:
+  - 2.22735986328125e+3
+  - 2.12924011230469e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 97
+      length: 4
+  _effectiveHeight: 1.4e+1
+- ID: 74
+  text: PCs offer to help, or show the gold amulet?
+  formattingOptions: []
+  position:
+  - 1.564796875e+3
+  - 2.0038671875e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 75
+      length: 2
+  _effectiveHeight: 4.2e+1
+- ID: 75
+  text: 'yes'
+  formattingOptions: []
+  position:
+  - 1.57484765625e+3
+  - 2.8116015625e+2
+  width: 4e+1
+  connections:
+    indexes:
+    - location: 74
+      length: 1
+    - location: 78
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 76
+  text: 'no'
+  formattingOptions: []
+  position:
+  - 1.70021875e+3
+  - 1.87625e+2
+  width: 3e+1
+  connections:
+    indexes:
+    - location: 74
+      length: 1
+    - location: 77
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 77
+  text: go to Temptation of the Damned
+  formattingOptions: []
+  position:
+  - 1.78464453125e+3
+  - 2.4858203125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 76
+      length: 1
+    - location: 85
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 78
+  text: box text page 6. "there is another way"
+  formattingOptions: []
+  position:
+  - 1.53460546875e+3
+  - 3.4069140625e+2
+  width: 1.3e+2
+  connections:
+    indexes:
+    - location: 75
+      length: 1
+    - location: 79
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 79
+  text: look to the weeping angel. She guards the dead, and through her you will find
+    a passage within
+  formattingOptions: []
+  position:
+  - 1.52073828125e+3
+  - 4.0746484375e+2
+  width: 1.6e+2
+  connections:
+    indexes:
+    - location: 78
+      length: 1
+    - location: 80
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 80
+  text: once inside, the amulet wll lead them to the evil. They must destry it, but
+    she doesn't know how
+  formattingOptions: []
+  position:
+  - 1.51596875e+3
+  - 4.988515625e+2
+  width: 1.7e+2
+  connections:
+    indexes:
+    - location: 79
+      length: 1
+    - location: 82
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 81
+  text: '    GENDER FLIP DRYAD AND LICH'
+  fillColorRGB:
+    red: 1e+0
+    green: 9.0283e-1
+    blue: 9.76506e-1
+  formattingOptions: []
+  position:
+  - 1.38151953125e+3
+  - 2.8296875e+1
+  width: 2.2e+2
+  connections:
+    indexes: []
+  _effectiveHeight: 1.4e+1
+- ID: 82
+  text: her idea was to face him in open combat and how her strength would be enough.
+  formattingOptions: []
+  position:
+  - 1.491375e+3
+  - 5.8040625e+2
+  width: 1.8e+2
+  connections:
+    indexes:
+    - location: 80
+      length: 1
+    - location: 83
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 83
+  text: anything they find in the temple is theres to keep, including the amulet
+  formattingOptions: []
+  position:
+  - 1.48674609375e+3
+  - 6.469765625e+2
+  width: 1.8e+2
+  connections:
+    indexes:
+    - location: 82
+      length: 1
+    - location: 84
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 84
+  text: there's six stained-glass windows with lead
+  formattingOptions: []
+  position:
+  - 1.61425390625e+3
+  - 7.0784765625e+2
+  width: 1.2e+2
+  connections:
+    indexes:
+    - location: 83
+      length: 1
+    - location: 85
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 85
+  text: temptation of the damned
+  fillColorRGB:
+    red: 8.93993e-1
+    green: 9.92872e-1
+    blue: 1e+0
+  formattingOptions: []
+  position:
+  - 1.73016015625e+3
+  - 3.6530078125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 77
+      length: 1
+    - location: 84
+      length: 1
+    - location: 86
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 86
+  text: as PCs leave the cemetary area
+  formattingOptions: []
+  position:
+  - 1.8046796875e+3
+  - 4.1648828125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 85
+      length: 1
+    - location: 87
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 87
+  text: single tombstone that remains intact
+  formattingOptions: []
+  position:
+  - 1.79433203125e+3
+  - 4.8412890625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 86
+      length: 1
+    - location: 88
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 88
+  text: inlaid are three precious stones, rubies, flawless, easily reach a price of
+    250gp each
+  formattingOptions: []
+  position:
+  - 1.79655078125e+3
+  - 5.56953125e+2
+  width: 1.6e+2
+  connections:
+    indexes:
+    - location: 87
+      length: 1
+    - location: 89
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 89
+  text: tombstone text on page 7
+  formattingOptions:
+  - options: 2
+    rangeStart: 0
+    rangeLength: 24
+  position:
+  - 1.81525e+3
+  - 6.527109375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 88
+      length: 1
+    - location: 90
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 90
+  text: if PCs rob, DC 18 DEX.
+  formattingOptions: []
+  position:
+  - 1.8064609375e+3
+  - 7.11578125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 89
+      length: 1
+    - location: 91
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 91
+  text: pass, take gem, fail, cut finger on gem
+  formattingOptions: []
+  position:
+  - 1.7854609375e+3
+  - 8.01984375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 90
+      length: 1
+    - location: 92
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 92
+  text: The ground shudders and shakes, withered hand punches through the earth
+  formattingOptions: []
+  position:
+  - 1.61995703125e+3
+  - 8.048515625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 91
+      length: 1
+    - location: 93
+      length: 3
+  _effectiveHeight: 7e+1
+- ID: 93
+  text: 'voice: Blood!'
+  formattingOptions: []
+  position:
+  - 1.49022265625e+3
+  - 8.8352734375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 92
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 94
+  text: before defeat, turns into fog and escapes
+  formattingOptions:
+  - options: 1
+    rangeStart: 26
+    rangeLength: 3
+  position:
+  - 1.48821484375e+3
+  - 8.064453125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 92
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 95
+  text: search coffin - small bag of 10 rubies each 50gp
+  formattingOptions: []
+  position:
+  - 1.63291015625e+3
+  - 9.415234375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 92
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 96
+  text: 'Chapter 3:
+
+    The Catacombs'
+  fillColorRGB:
+    red: 8.93993e-1
+    green: 9.92872e-1
+    blue: 1e+0
+  formattingOptions:
+  - options: 1
+    rangeStart: 0
+    rangeLength: 24
+  position:
+  - 2.22421484375e+3
+  - 1.20078125e+1
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 97
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 97
+  text: Getting to the lead in the windows is not as easy as it seems, as someone
+    has protected the cathedral well
+  formattingOptions: []
+  position:
+  - 2.19269934082031e+3
+  - 8.653515625e+1
+  width: 1.9e+2
+  connections:
+    indexes:
+    - location: 73
+      length: 1
+    - location: 96
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 98
+  text: climbing over the rubble is nearly impossible as it shifts easily
+  formattingOptions: []
+  position:
+  - 2.36702917480469e+3
+  - 1.70083129882812e+2
+  width: 1.4e+2
+  connections:
+    indexes:
+    - location: 73
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 99
+  text: can see stained glass inside
+  formattingOptions: []
+  position:
+  - 2.366423828125e+3
+  - 2.35518859863281e+2
+  width: 1.6e+2
+  connections:
+    indexes:
+    - location: 73
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 100
+  text: large statue of an angel weping stands 50' from main entrance. infront of
+    which the entrance to a large tomb lies half-buried
+  formattingOptions: []
+  position:
+  - 2.14792810058594e+3
+  - 2.72870574951172e+2
+  width: 1.9e+2
+  connections:
+    indexes:
+    - location: 73
+      length: 1
+    - location: 101
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 101
+  text: 'DC 14 survival
+
+    someone has come and gone through this tomb in the last 24 hours. unusual tracks'
+  formattingOptions: []
+  position:
+  - 2.24428845214844e+3
+  - 3.80849426269531e+2
+  width: 1.7e+2
+  connections:
+    indexes:
+    - location: 100
+      length: 1
+    - location: 102
+      length: 2
+  _effectiveHeight: 5.6e+1
+- ID: 102
+  text: strange residue, swirling vortex-like pattern. as if something was floating
+    over the ground instead of walking on it, leaving a trail of frigid earth behind
+    it
+  formattingOptions: []
+  position:
+  - 2.02863305664062e+3
+  - 3.67866455078125e+2
+  width: 1.8e+2
+  connections:
+    indexes:
+    - location: 101
+      length: 1
+  _effectiveHeight: 7e+1
+- ID: 103
+  text: steps at the entrance of the tomb, written in old form Elvis are the words
+  formattingOptions: []
+  position:
+  - 2.23480773925781e+3
+  - 4.7695458984375e+2
+  width: 1.4e+2
+  connections:
+    indexes:
+    - location: 101
+      length: 1
+    - location: 104
+      length: 2
+  _effectiveHeight: 4.2e+1
+- ID: 104
+  text: '"Place of the Dead - Rest ye who enter here for oblivion awaits"'
+  formattingOptions: []
+  position:
+  - 2.38936352539062e+3
+  - 4.64455749511719e+2
+  width: 1.9e+2
+  connections:
+    indexes:
+    - location: 103
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 105
+  text: Box Text pg 8
+  formattingOptions: []
+  position:
+  - 2.24323852539062e+3
+  - 5.48826477050781e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 103
+      length: 1
+    - location: 106
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 106
+  text: the trapped floor
+  formattingOptions: []
+  position:
+  - 2.23059765625e+3
+  - 5.8931201171875e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 105
+      length: 1
+    - location: 107
+      length: 1
+    - location: 110
+      length: 1
+    - location: 114
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 107
+  text: small nodules hidden in each tile trigger the wals of the tomb to begin to
+    close
+  formattingOptions: []
+  position:
+  - 2.10798217773438e+3
+  - 5.627958984375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 106
+      length: 1
+    - location: 108
+      length: 1
+  _effectiveHeight: 7e+1
+- ID: 108
+  text: DC 15 perception
+  formattingOptions: []
+  position:
+  - 2.07950073242188e+3
+  - 6.71214294433594e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 107
+      length: 1
+    - location: 109
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 109
+  text: so many of them
+  formattingOptions: []
+  position:
+  - 2.07509851074219e+3
+  - 7.16446716308594e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 108
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 110
+  text: skill challenge
+  formattingOptions: []
+  position:
+  - 2.38988366699219e+3
+  - 5.51749664306641e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 106
+      length: 1
+    - location: 111
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 111
+  text: 3 successes before 2 failures
+  formattingOptions: []
+  position:
+  - 2.53403259277344e+3
+  - 5.32001525878906e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 110
+      length: 1
+    - location: 112
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 112
+  text: any PC can volunteer. can't do another until all have contributed
+  formattingOptions: []
+  position:
+  - 2.55421240234375e+3
+  - 5.83904418945312e+2
+  width: 1.4e+2
+  connections:
+    indexes:
+    - location: 111
+      length: 1
+    - location: 113
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 113
+  text: 'ask for one skill
+
+    perception
+
+    survival
+
+    wisdom
+
+    acrobatics'
+  formattingOptions: []
+  position:
+  - 2.61536169433594e+3
+  - 6.62894104003906e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 112
+      length: 1
+  _effectiveHeight: 7e+1
+- ID: 114
+  text: triggered!
+  formattingOptions: []
+  position:
+  - 2.37727429199219e+3
+  - 6.0567333984375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 106
+      length: 1
+    - location: 115
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 115
+  text: (box text) doors at the far end of the catacomb slam shut
+  formattingOptions: []
+  position:
+  - 2.37864538574219e+3
+  - 6.50100524902344e+2
+  width: 1.2e+2
+  connections:
+    indexes:
+    - location: 114
+      length: 1
+    - location: 116
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 116
+  text: they can dash and escape, and try again
+  formattingOptions: []
+  position:
+  - 2.30911926269531e+3
+  - 7.45844177246094e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 115
+      length: 1
+    - location: 117
+      length: 1
+    - location: 119
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 117
+  text: they can climb into the hicehes with the dead bodies
+  formattingOptions: []
+  position:
+  - 2.4435e+3
+  - 7.08578125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 116
+      length: 1
+    - location: 118
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 118
+  text: 'WIS DC 15, disadvantage iwth darkvision (see faces of the dead)
+
+    fail 1d4 psychic from the terror of being buried alive'
+  formattingOptions: []
+  position:
+  - 2.5026953125e+3
+  - 8.0231640625e+2
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 117
+      length: 1
+  _effectiveHeight: 7e+1
+- ID: 119
+  text: warrior holding a brilliant silver warhammer
+  formattingOptions: []
+  position:
+  - 2.33361328125e+3
+  - 8.1822265625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 116
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 120
+  text: 'Chapter 4:
+
+    The Sepulcher'
+  fillColorRGB:
+    red: 8.93993e-1
+    green: 9.92872e-1
+    blue: 1e+0
+  formattingOptions:
+  - options: 1
+    rangeStart: 0
+    rangeLength: 24
+  position:
+  - 3.0407890625e+3
+  - 9.61328125e+0
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 121
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 121
+  text: A skeleton begs for death, but offers only murder
+  formattingOptions: []
+  position:
+  - 3.0084140625e+3
+  - 6.84609375e+1
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 120
+      length: 1
+    - location: 122
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 122
+  text: magic in this place allowed this skeleton to retain its sentience
+  formattingOptions: []
+  position:
+  - 3.01750390625e+3
+  - 1.30734375e+2
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 121
+      length: 1
+    - location: 123
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 123
+  text: guardian
+  formattingOptions: []
+  position:
+  - 3.00231640625e+3
+  - 2.103359375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 122
+      length: 1
+    - location: 124
+      length: 1
+    - location: 128
+      length: 1
+    - location: 136
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 124
+  text: Thebenes the Elder
+  formattingOptions: []
+  position:
+  - 2.8437265625e+3
+  - 2.0816015625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 123
+      length: 1
+    - location: 125
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 125
+  text: priest of this cathedral years ago
+  formattingOptions: []
+  position:
+  - 2.832359375e+3
+  - 2.7274609375e+2
+  width: 1.3e+2
+  connections:
+    indexes:
+    - location: 124
+      length: 1
+    - location: 126
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 126
+  text: when his master arrived and took control of this place, he was bound to serve
+  formattingOptions: []
+  position:
+  - 2.8220546875e+3
+  - 3.2678125e+2
+  width: 1.4e+2
+  connections:
+    indexes:
+    - location: 125
+      length: 1
+    - location: 127
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 127
+  text: guardian of the portal to the inner sanctum
+  formattingOptions: []
+  position:
+  - 2.86127734375e+3
+  - 4.1559375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 126
+      length: 1
+    - location: 135
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 128
+  text: no mortal may enter
+  formattingOptions: []
+  position:
+  - 3.14082421875e+3
+  - 2.079140625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 123
+      length: 1
+    - location: 129
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 129
+  text: sworn by oath and magic to prevent anyone from doing so
+  formattingOptions: []
+  position:
+  - 3.1829609375e+3
+  - 2.5983203125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 128
+      length: 1
+    - location: 130
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 130
+  text: if he dies, there are incantations that will trigger
+  formattingOptions: []
+  position:
+  - 3.18419921875e+3
+  - 3.4979296875e+2
+  width: 1.6e+2
+  connections:
+    indexes:
+    - location: 129
+      length: 1
+    - location: 133
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 131
+  text: ballista - intelligence check
+  formattingOptions: []
+  position:
+  - 2.52446484375e+3
+  - 8.275390625e+1
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 132
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 132
+  text: 3d10 damage
+  formattingOptions: []
+  position:
+  - 2.57651171875e+3
+  - 1.3909375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 131
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 133
+  text: he doesn't know what, but is certain it will bring only doom to those who
+    slay him
+  formattingOptions: []
+  position:
+  - 3.16916796875e+3
+  - 4.2237109375e+2
+  width: 1.4e+2
+  connections:
+    indexes:
+    - location: 130
+      length: 1
+    - location: 134
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 134
+  text: claiming PC soul, he can become mortal and escape this place
+  formattingOptions: []
+  position:
+  - 3.1766328125e+3
+  - 5.2384765625e+2
+  width: 1.4e+2
+  connections:
+    indexes:
+    - location: 133
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 135
+  text: confirm all the stained glass windows are in inner sanctum, and contain lead.
+  formattingOptions: []
+  position:
+  - 2.8695078125e+3
+  - 5.03171875e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 127
+      length: 1
+  _effectiveHeight: 7e+1
+- ID: 136
+  text: if PCs choose to sacrifice, or kill Thebenes, chamber becomes quiet
+  formattingOptions: []
+  position:
+  - 2.9898359375e+3
+  - 2.67921875e+2
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 123
+      length: 1
+    - location: 137
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 137
+  text: dark presence, Count Rotz appears
+  formattingOptions: []
+  position:
+  - 3.00655859375e+3
+  - 3.4215234375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 136
+      length: 1
+    - location: 138
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 138
+  text: collapsing ruins
+  formattingOptions: []
+  position:
+  - 2.9995546875e+3
+  - 4.3559375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 137
+      length: 1
+    - location: 139
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 139
+  text: 'DC 13 DEX to avoid falling debris
+
+    1d8 bludgeoning'
+  formattingOptions: []
+  position:
+  - 2.98800390625e+3
+  - 4.7862109375e+2
+  width: 1.1e+2
+  connections:
+    indexes:
+    - location: 138
+      length: 1
+    - location: 140
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 140
+  text: Inner sanctum locked behind massive doors
+  formattingOptions: []
+  position:
+  - 3.01152734375e+3
+  - 5.506875e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 139
+      length: 1
+    - location: 141
+      length: 2
+  _effectiveHeight: 4.2e+1
+- ID: 141
+  text: doors sealed with magic
+  formattingOptions: []
+  position:
+  - 2.95688671875e+3
+  - 6.2842578125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 140
+      length: 1
+    - location: 148
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 142
+  text: heavy chest been knocked open, resting near a pillar at the back of the room
+  formattingOptions: []
+  position:
+  - 3.091328125e+3
+  - 6.48625e+2
+  width: 1.4e+2
+  connections:
+    indexes:
+    - location: 140
+      length: 1
+    - location: 143
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 143
+  text: a bow and six arrows
+  formattingOptions: []
+  position:
+  - 3.1221328125e+3
+  - 7.5002734375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 142
+      length: 1
+    - location: 144
+      length: 4
+  _effectiveHeight: 2.8e+1
+- ID: 144
+  text: bow made of ivor / bright white
+  formattingOptions: []
+  position:
+  - 3.255328125e+3
+  - 7.0605859375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 143
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 145
+  text: arrows from black ebony
+  formattingOptions: []
+  position:
+  - 3.251296875e+3
+  - 7.5936328125e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 143
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 146
+  text: counts as a composite long bow
+  formattingOptions: []
+  position:
+  - 3.25504296875e+3
+  - 8.1921484375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 143
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 147
+  text: DC 15 performance check before, it ca ntravel double the normal range
+  formattingOptions: []
+  position:
+  - 3.08840234375e+3
+  - 8.2848828125e+2
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 143
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 148
+  text: Thebenes returns
+  formattingOptions: []
+  position:
+  - 2.9262109375e+3
+  - 6.8657421875e+2
+  width: 1.2e+2
+  connections:
+    indexes:
+    - location: 141
+      length: 1
+    - location: 149
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 149
+  text: Box text page 11
+  formattingOptions: []
+  position:
+  - 2.92640234375e+3
+  - 7.2071875e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 148
+      length: 1
+    - location: 150
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 150
+  text: guards over a long rest
+  formattingOptions: []
+  position:
+  - 2.92187109375e+3
+  - 7.6569921875e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 149
+      length: 1
+    - location: 151
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 151
+  text: getting past the door - takes a Blow of Conviction to break the magic
+  formattingOptions: []
+  position:
+  - 2.89083984375e+3
+  - 8.26609375e+2
+  width: 1.2e+2
+  connections:
+    indexes:
+    - location: 150
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 152
+  text: 'Chapter 5:
+
+    Inner Sanctum'
+  fillColorRGB:
+    red: 8.93993e-1
+    green: 9.92872e-1
+    blue: 1e+0
+  formattingOptions:
+  - options: 1
+    rangeStart: 0
+    rangeLength: 24
+  position:
+  - 3.62751953125e+3
+  - 1.6890625e+1
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 153
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 153
+  text: The PCs face off against Count Rotz. But first they must find him.
+  formattingOptions: []
+  position:
+  - 3.59299609375e+3
+  - 7.834765625e+1
+  width: 1.5e+2
+  connections:
+    indexes:
+    - location: 152
+      length: 1
+    - location: 154
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 154
+  text: The Door
+  formattingOptions: []
+  position:
+  - 3.61953125e+3
+  - 1.4604296875e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 153
+      length: 1
+    - location: 155
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 155
+  text: 'DC investigation to examine the door.
+
+    success - made of incredibly old wood. A heavy blow at the exact point - old bronze
+    sigil in the very center of the door, might cause it to shatter'
+  formattingOptions: []
+  position:
+  - 3.54861328125e+3
+  - 1.96046875e+2
+  width: 2.2e+2
+  connections:
+    indexes:
+    - location: 154
+      length: 1
+    - location: 156
+      length: 3
+  _effectiveHeight: 7e+1
+- ID: 156
+  text: PCs get +1d10 damage
+  formattingOptions: []
+  position:
+  - 3.430765625e+3
+  - 1.815e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 155
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 157
+  text: Door has 50hp
+  formattingOptions: []
+  position:
+  - 3.4210625e+3
+  - 2.5247265625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 155
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 158
+  text: The FOG
+  formattingOptions: []
+  position:
+  - 3.59309375e+3
+  - 3.0115625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 155
+      length: 1
+    - location: 159
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 159
+  text: box text page 12
+  formattingOptions: []
+  position:
+  - 3.59531640625e+3
+  - 3.4225390625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 158
+      length: 1
+    - location: 161
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 160
+  text: 'NEED:
+
+    [ ] Rotz token
+
+    [ ] Thabenes token
+
+    [ ] dryad token
+
+    [ ] bring over jessica and sam'
+  formattingOptions: []
+  position:
+  - 3.25153125e+3
+  - 3.621875e+1
+  width: 1.4e+2
+  connections:
+    indexes: []
+  _effectiveHeight: 8.4e+1
+- ID: 161
+  text: fog maze
+  formattingOptions: []
+  position:
+  - 3.58737890625e+3
+  - 3.76515625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 159
+      length: 1
+    - location: 162
+      length: 2
+    - location: 168
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 162
+  text: Rotz appears to be moving walls, creating new ones, and destroying old ones
+  formattingOptions: []
+  position:
+  - 3.42600390625e+3
+  - 3.54640625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 161
+      length: 1
+  _effectiveHeight: 8.4e+1
+- ID: 163
+  text: Skill Challenge DC 14
+  formattingOptions: []
+  position:
+  - 3.72448828125e+3
+  - 3.673984375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 161
+      length: 1
+    - location: 164
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 164
+  text: 4 successes before 3 failures
+  formattingOptions: []
+  position:
+  - 3.72888671875e+3
+  - 4.200625e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 163
+      length: 1
+    - location: 165
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 165
+  text: if fail channelge, take 1s6+2 acid
+  formattingOptions: []
+  position:
+  - 3.73036328125e+3
+  - 4.6776171875e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 164
+      length: 1
+  _effectiveHeight: 2.8e+1
+- ID: 166
+  text: second time through, fog arcs with lightning.
+  formattingOptions: []
+  position:
+  - 3.73833203125e+3
+  - 5.2571484375e+2
+  width: 1e+2
+  connections:
+    indexes: []
+  _effectiveHeight: 4.2e+1
+- ID: 167
+  text: failed cheks are 1d4+1 electric
+  formattingOptions: []
+  position:
+  - 3.73312109375e+3
+  - 5.906328125e+2
+  width: 1e+2
+  connections:
+    indexes: []
+  _effectiveHeight: 2.8e+1
+- ID: 168
+  text: Bring it On
+  formattingOptions: []
+  position:
+  - 3.56824609375e+3
+  - 4.1412109375e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 161
+      length: 1
+    - location: 169
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 169
+  text: 'When take > 10 hp in an attack, a section of the wall collapses.
+
+
+    1d6 == 1 -> collapses on a PC, mae a DC 14 DEX to avoid 1d6 bludgeoning'
+  formattingOptions: []
+  position:
+  - 3.53580078125e+3
+  - 4.5698828125e+2
+  width: 1.6e+2
+  connections:
+    indexes:
+    - location: 168
+      length: 1
+    - location: 170
+      length: 1
+  _effectiveHeight: 9.8e+1
+- ID: 170
+  text: Rotz defeated
+  formattingOptions: []
+  position:
+  - 3.53170703125e+3
+  - 5.931796875e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 169
+      length: 1
+  _effectiveHeight: 1.4e+1
+- ID: 171
+  text: quick search shows a pile of stained glass iwindows and enough lead to make
+    Captain Keen happy
+  formattingOptions: []
+  position:
+  - 3.5014765625e+3
+  - 6.2629296875e+2
+  width: 2e+2
+  connections:
+    indexes:
+    - location: 172
+      length: 1
+  _effectiveHeight: 4.2e+1
+- ID: 172
+  text: tomb and carving on tomb (pg 13)
+  formattingOptions: []
+  position:
+  - 3.50953125e+3
+  - 7.0548046875e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 171
+      length: 1
+    - location: 173
+      length: 3
+  _effectiveHeight: 2.8e+1
+- ID: 173
+  text: '"She gave her all for the building of the cathedral and in return shapp be
+    granted eternal life"'
+  formattingOptions: []
+  position:
+  - 3.65709765625e+3
+  - 6.9466796875e+2
+  width: 1.6e+2
+  connections:
+    indexes:
+    - location: 172
+      length: 1
+  _effectiveHeight: 5.6e+1
+- ID: 174
+  text: inside tomb, retmains of an old scale mail shirt (AC+4) with a soft green
+    glow.
+  formattingOptions: []
+  position:
+  - 3.40166796875e+3
+  - 7.7123046875e+2
+  width: 1e+2
+  connections:
+    indexes:
+    - location: 172
+      length: 1
+  _effectiveHeight: 8.4e+1
+- ID: 175
+  text: 'identify: breathe underwater and a swim speed of 50ft'
+  formattingOptions: []
+  position:
+  - 3.54202734375e+3
+  - 8.048359375e+2
+  width: 1.7e+2
+  connections:
+    indexes:
+    - location: 172
+      length: 1
+  _effectiveHeight: 2.8e+1
