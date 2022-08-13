@@ -7,7 +7,7 @@ import Foundation
 /// the soup (with undo support)
 class BubbleSoup {
 
-    let defaultWidth: CGFloat = 100
+    let defaultWidth: CGFloat = 160
     let defaultHeight: CGFloat = 8
 
     /// Hook that's called when a bubble position changes, so it can be invalidated
