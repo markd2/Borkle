@@ -23,6 +23,7 @@ Pain points during work:
 * Easily add barriers to the right of everything
 * Resize bubble while typing
 * Find ("wait, what were the kind of mushrooms we found?")
+* copy/paste/duplicate bubbles
 
 * modifer-drag on barrier to not move anything
 * search
