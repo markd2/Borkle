@@ -16,7 +16,28 @@ Kinda want Scapple cross-bred with Scrivener.
 So, this is my (probably incomplete) attempt of making such a tool before I 
 ~get distracted~ get a more pressing assignment.
 
+### Future features
 
+Pain points during work:
+
+* Easily add barriers to the right of everything
+* Resize bubble while typing
+* Find ("wait, what were the kind of mushrooms we found?")
+
+* modifer-drag on barrier to not move anything
+* search
+  - text field at top with search criteria
+  - maybe grow a sidebar with results
+  - key combo to move between them
+  - scroll to bubble when focused
+  - maybe return to original position when leaving search mode (for in-game 
+    note finding)
+* Fix the scroll area bounds
+* Maybe a bit of overscroll at the edges
+* resize bubble when entering text
+* resize off the left side with a keypress
+* More colors
+* color assignable by keystroke
 
 # Screenshot Gallery
 
