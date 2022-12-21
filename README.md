@@ -24,8 +24,8 @@ Pain points during work:
 * Resize bubble while typing
 * Find ("wait, what were the kind of mushrooms we found?")
 * copy/paste/duplicate bubbles
-
 * modifer-drag on barrier to not move anything
+
 * search
   - text field at top with search criteria
   - maybe grow a sidebar with results
@@ -39,6 +39,31 @@ Pain points during work:
 * resize off the left side with a keypress
 * More colors
 * color assignable by keystroke
+
+
+## Deeper Features
+
+Working through a book club book (Building a Second Brain : https://www.buildingasecondbrain.com), thinking more of something like Borkle-styles as the locus of CODEing:
+
+  - Collect - vomit bubbles
+  - Organize - make explicit (link) and implicit (tag, position) connections
+  - Reduce - show/hide/layout based on relevance
+  - Express - Creating Value
+
+Maybe something more tangible will chew its way out of my brain as we work through it.
+
+* would be nice to be able to collapse a hieraerchy (essentially to-the Right/Down),
+  but would also be nice to be able to have multiple sets of connection
+* like a set of cats.  One way to connect them is by breed (Böb: snowshoe,
+  Rusty, Newton, Maggie: Calico), another by owner (Bork: Böb, Newton; Sharz: Böb,
+  Rusty, Kassandra: Maggie). Would be nice to be able to have both of those possble,
+  and show different slices (or maybe both at the same time - greyed lines, or something,
+  or a 3-D projection)
+* Would also be nice to be able to tag things and filter by tags, and also implicitly
+  connect by tags.  Visibility could be by tag too (say for D&D stuffs, have a DM
+  view with :allTheThings:, and one that could be given to the players)
+* Thinking in DoD, a table of tags with bubble ID references. Or a table per tag.
+
 
 # Screenshot Gallery
 
