@@ -21,7 +21,7 @@ class Document: NSDocument {
 
     var bubbleSoup: BubbleSoup
 
-    // for walking selections
+    // for walking selections
     var seenIDs = Set<Int>()
 
     var barriers: [Barrier] = [] {
@@ -261,7 +261,7 @@ class Document: NSDocument {
         NSApp.sendAction(#selector(NSDocument.save(_:)), to: nil, from: self)
     }
     func handleKeypress(_ event: NSEvent) {
-        switch event.characters {
+    switch event.characters {
 
         case "\u{18}":  // control-X
             controlXLatch = true
