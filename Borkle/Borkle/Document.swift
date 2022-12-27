@@ -320,6 +320,8 @@ extension Document {
             return bubbleCanvas.selectedBubbles.bubbleCount > 0
         case #selector(exportBulletList(_:)):
             return bubbleCanvas.selectedBubbles.bubbleCount == 1
+        case #selector(exportPDF(_:)):
+            return true
         case #selector(importScapple(_:)):
             return true
         default:
