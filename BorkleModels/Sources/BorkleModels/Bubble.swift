@@ -1,46 +1,49 @@
 import Cocoa
 
-class Bubble: Codable {
+public class Bubble: Codable {
     static let defaultFontName = "Helvetica"
     static let defaultFontSize: CGFloat = 12.0
+    
+    public struct FormattingStyle: OptionSet, Codable {
+        public init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
 
-    struct FormattingStyle: OptionSet, Codable {
-        let rawValue: Int
-        static let bold          = FormattingStyle(rawValue: 1 << 0)
-        static let italic        = FormattingStyle(rawValue: 1 << 1)
-        static let strikethrough = FormattingStyle(rawValue: 1 << 2)
-        static let underline     = FormattingStyle(rawValue: 1 << 3)
+        public let rawValue: Int
+        static public let bold          = FormattingStyle(rawValue: 1 << 0)
+        static public let italic        = FormattingStyle(rawValue: 1 << 1)
+        static public let strikethrough = FormattingStyle(rawValue: 1 << 2)
+        static public let underline     = FormattingStyle(rawValue: 1 << 3)
     }
 
-    var ID: Int
-    var text: String = "" {
+    public var ID: Int
+    public var text: String = "" {
         didSet {
             _effectiveHeight = nil
         }
     }
 
-    struct RGB: Codable {
+    public struct RGB: Codable {
         let red: CGFloat
         let green: CGFloat
         let blue: CGFloat
 
-        init(red: CGFloat, green: CGFloat, blue: CGFloat) {
+        public init(red: CGFloat, green: CGFloat, blue: CGFloat) {
             self.red = red
             self.green = green
             self.blue = blue
         }
 
-        init(string: String?) {
+        public init(string: String?) {
             guard let string = string else {
                 // no string, be obnoxious green
                 red = 0.0; green = 1.0; blue = 0.0
                 return
             }
 
-            let chunks = string
-              .split(separator: " ")
-              .compactMap { String($0) }
-              .compactMap { CGFloat($0) }
+            let chunks: [CGFloat] = string
+                .components(separatedBy: " ")
+                .compactMap { CGFloat($0) }
 
             guard chunks.count >= 3 else {
                 // not enough chunkage, be obnoxious green
@@ -53,8 +56,8 @@ class Bubble: Codable {
         }
     }
 
-    var fillColorRGB: RGB?
-    var fillColor: NSColor? {
+    public var fillColorRGB: RGB?
+    public var fillColor: NSColor? {
         get {
             guard let rgb = fillColorRGB else { return nil }
             return NSColor.colorFromRGB(rgb)
@@ -67,16 +70,16 @@ class Bubble: Codable {
             }
         }
     }
-    var borderColorRGB: RGB?
-    var borderColor: NSColor? {
+    public var borderColorRGB: RGB?
+    public var borderColor: NSColor? {
         guard let rgb = borderColorRGB else { return nil }
         return NSColor.colorFromRGB(rgb)
     }
-    var borderThickness: Int?
+    public var borderThickness: Int?
 
     // Offsets ID values by a fixed amount
     // useful for importing so that imported stuff avoids clobbering existing bubbles.
-    func offset(by fixedAmount: Int) {
+    public func offset(by fixedAmount: Int) {
         ID += fixedAmount
         let renumberedConnections = connections.reduce(into: IndexSet()) { result, integer in
             result.insert(integer + fixedAmount)
@@ -84,7 +87,7 @@ class Bubble: Codable {
         connections = renumberedConnections
     }
 
-    func gronkulateAttributedString(_ attr: NSAttributedString) {
+    public func gronkulateAttributedString(_ attr: NSAttributedString) {
         formattingOptions = []
 
         let totalRange = NSMakeRange(0, attr.length)
@@ -119,7 +122,7 @@ class Bubble: Codable {
         }
     }
 
-    var attributedString: NSAttributedString {
+    public var attributedString: NSAttributedString {
         let string = NSMutableAttributedString(string: text)
 
         let font = NSFont(name: Bubble.defaultFontName, size: Bubble.defaultFontSize)!
@@ -161,7 +164,7 @@ class Bubble: Codable {
         return string
     }
 
-    struct FormattingOption: Codable, Equatable {
+    public struct FormattingOption: Codable, Equatable {
         let options: FormattingStyle
         let rangeStart: Int 
         let rangeLength: Int 
@@ -170,75 +173,75 @@ class Bubble: Codable {
             NSRange(location: rangeStart, length: rangeLength)
         }
         
-        init(options: FormattingStyle, rangeStart: Int, rangeLength: Int) {
+        public init(options: FormattingStyle, rangeStart: Int, rangeLength: Int) {
             self.options = options
             self.rangeStart = rangeStart
             self.rangeLength = rangeLength
         }
 
         // concise version for tests.
-        init(_ options: FormattingStyle, _ rangeStart: Int, _ rangeLength: Int) {
+        public init(_ options: FormattingStyle, _ rangeStart: Int, _ rangeLength: Int) {
             self.options = options
             self.rangeStart = rangeStart
             self.rangeLength = rangeLength
         }
 
-        init(_ options: FormattingStyle, range: NSRange) {
+        public init(_ options: FormattingStyle, range: NSRange) {
             self.options = options
             self.rangeStart = range.location
             self.rangeLength = range.length
         }
     }
 
-    var formattingOptions: [FormattingOption] = []
+    public var formattingOptions: [FormattingOption] = []
 
-    var position: CGPoint = .zero
+    public var position: CGPoint = .zero
     
-    var width: CGFloat = 0 {
+    public var width: CGFloat = 0 {
         didSet {
             _effectiveHeight = nil
         }
     }
-    internal var connections = IndexSet()
+    public var connections = IndexSet()
 
     public func forEachConnection(_ iterator: (Int) -> Void) {
         connections.forEach { iterator($0) }
     }
 
-    init(ID: Int, position: CGPoint? = nil, width: CGFloat? = nil) {
+    public init(ID: Int, position: CGPoint? = nil, width: CGFloat? = nil) {
         self.ID = ID
         if let position = position { self.position = position }
         if let width = width { self.width = width }
     }
 
-    var rect: CGRect {
+    public var rect: CGRect {
         var rect = CGRect(x: position.x, y: position.y,
                           width: width, height: effectiveHeight)
         rect.size.height += 2 * Bubble.margin
         return rect
     }
 
-    func isConnectedTo(_ bubble: Bubble) -> Bool {
+    public func isConnectedTo(_ bubble: Bubble) -> Bool {
         let connected = connections.contains(bubble.ID)
         return connected
     }
 
-    func connect(to bubble: Bubble) {
+    public func connect(to bubble: Bubble) {
         connections.insert(bubble.ID)
         bubble.connections.insert(ID)
         print("connections are \(connections)")
     }
 
-    func disconnect(bubble: Bubble) {
+    public func disconnect(bubble: Bubble) {
         connections.remove(bubble.ID)
         bubble.connections.remove(ID)
     }
 
     // optional as hacky way to opt out of Codable for this.
-    static let margin: CGFloat = 3.0
+    static public let margin: CGFloat = 3.0
 
     var _effectiveHeight: CGFloat?
-    var effectiveHeight: CGFloat {
+    public var effectiveHeight: CGFloat {
         if let height = _effectiveHeight {
             return height
         } else {
@@ -249,19 +252,19 @@ class Bubble: Codable {
 }
 
 extension Bubble: CustomDebugStringConvertible {
-    var debugDescription: String {
+    public var debugDescription: String {
         return "Bubble(ID: \(ID), text: '\(text)'  at: \(position)  width: \(width))"
     }
 }
 
 extension Bubble: Equatable {
-    static func == (thing1: Bubble, thing2: Bubble) -> Bool {
+    public static func == (thing1: Bubble, thing2: Bubble) -> Bool {
         return thing1.ID == thing2.ID
     }
 }
 
 extension Bubble: Hashable {
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(ID)
     }
 }

@@ -1,4 +1,5 @@
 import Cocoa
+import BorkleModels
 
 class MouseBubbler: MouseHandler {
     private var support: MouseSupport

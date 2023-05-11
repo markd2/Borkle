@@ -1,4 +1,5 @@
 import Cocoa
+import BorkleModels
 
 protocol MouseHandler {
     func start(at: CGPoint, modifierFlags: NSEvent.ModifierFlags)

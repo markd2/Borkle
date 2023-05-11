@@ -2,7 +2,7 @@ import Foundation
 
 extension String {
     /// Returns a version of the string trimmed (off the ends) of whitespace
-    var trimmed: String {
+    public var trimmed: String {
         let trimmedString = self.trimmingCharacters(in: .whitespaces)
         return trimmedString
     }
@@ -11,7 +11,7 @@ extension String {
 
 extension CGFloat {
     /// Make a new CGFloat with the given string, in the same manner as `Double(string)`
-    init?(_ string: String) {
+    public init?(_ string: String) {
         if let double = Double(string) {
             self.init(double)
         } else {
@@ -21,7 +21,7 @@ extension CGFloat {
 
     /// Given a float value, generate a very large rectangle with that value as its
     /// left edge.
-    var rectToRight: CGRect {
+    public var rectToRight: CGRect {
         let rectToRight = CGRect(x: self, y: -.greatestFiniteMagnitude / 2.0,
             width: .greatestFiniteMagnitude, height: .greatestFiniteMagnitude)
         return rectToRight
@@ -31,7 +31,7 @@ extension CGFloat {
 extension CGPoint {
     /// Make a new CGFloat with the given string, in the same manner as `Double(string)`
     /// Takes a string of the format "3.1415,2.718"
-    init?(_ string: String) {
+    public init?(_ string: String) {
         let components = string.split(separator: ",").map { String($0) }
         if components.count != 2 { return nil }
         
@@ -54,7 +54,7 @@ extension CGPoint {
 
 extension CGRect {
     /// Returns the center point of the rectangle
-    var center: CGPoint {
+    public var center: CGPoint {
         CGPoint(x: midX, y: midY)
     }
 
@@ -65,11 +65,11 @@ extension CGRect {
         return rect
     }
 
-    init(at point: CGPoint, width: CGFloat, height: CGFloat) {
+    public init(at point: CGPoint, width: CGFloat, height: CGFloat) {
         self.init(x: point.x, y: point.y, width: width, height: height)
     }
 
-    init(point1: CGPoint, point2: CGPoint) {
+    public init(point1: CGPoint, point2: CGPoint) {
         self.init(x: min(point1.x, point2.x),
                   y: min(point1.y, point2.y),
                   width: abs(point1.x - point2.x),
@@ -82,7 +82,7 @@ extension CGRect {
 extension IndexSet {
     /// Given a string of the form  "76, 78-81, 83, 91, 142-143, 162, 171", turn that into
     /// an index set.  Hypenated ranges are inclusive.
-    static func setFromString(_ string: String) -> IndexSet {
+    static public func setFromString(_ string: String) -> IndexSet {
         var indexSet = Self()
 
         let components = string.split(separator: ",").map { String($0).trimmed }
@@ -107,13 +107,13 @@ extension IndexSet {
 
     /// Given a string of the form  "76, 78-81, 83, 91, 142-143, 162, 171", turn that into
     /// an index set.  Hypenated ranges are inclusive.
-    init?(_ string: String) {
+    public init?(_ string: String) {
         self = Self.setFromString(string)
     }
 }
 
 extension Set {
-    mutating func toggle(_ thing: Element) {
+    public mutating func toggle(_ thing: Element) {
         if contains(thing) {
             remove(thing)
         } else {
@@ -124,13 +124,13 @@ extension Set {
 
 
 extension FileWrapper {
-    func remove(filename: String) {
+    public func remove(filename: String) {
         if let fileWrapper = fileWrappers?[filename] {
             removeFileWrapper(fileWrapper)
         }
     }
 
-    convenience init(regularFileWithString string: String) {
+    public convenience init(regularFileWithString string: String) {
         self.init(regularFileWithContents: string.data(using: .utf8)!)
     }
 }

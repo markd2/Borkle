@@ -28,8 +28,6 @@
 		7D2C9D34251CEC2100B1E2DE /* MouseBubbler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D33251CEC2100B1E2DE /* MouseBubbler.swift */; };
 		7D2C9D38251CEC5B00B1E2DE /* MouseBubblerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D37251CEC5B00B1E2DE /* MouseBubblerTests.swift */; };
 		7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */; };
-		7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDD250E719800884F29 /* LibraryExtensions.swift */; };
-		7D51127F250D6F51004F0E63 /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D51127E250D6F51004F0E63 /* Bubble.swift */; };
 		7D5DAABA253C9AD200893D82 /* ScappleImporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5DAAB9253C9AD200893D82 /* ScappleImporterTests.swift */; };
 		7D5DAABF253C9B1C00893D82 /* empty.scap in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DAABE253C9B1C00893D82 /* empty.scap */; };
 		7D5DAAC5253CA0A700893D82 /* bubble-with-text.scap in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DAAC4253CA0A700893D82 /* bubble-with-text.scap */; };
@@ -46,6 +44,7 @@
 		7D93A76D250B019D00991121 /* flumph.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A76C250B019D00991121 /* flumph.jpg */; };
 		7DB5CCC22547AD57004C8F67 /* single-appearance.scap in Resources */ = {isa = PBXBuildFile; fileRef = 7DB5CCC12547AD57004C8F67 /* single-appearance.scap */; };
 		7DB5CCC9254F3AEC004C8F67 /* DumbButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB5CCC8254F3AEC004C8F67 /* DumbButton.swift */; };
+		7DC7041E2A0D4D0D00F888D2 /* BorkleModels in Frameworks */ = {isa = PBXBuildFile; productRef = 7DC7041D2A0D4D0D00F888D2 /* BorkleModels */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,8 +78,6 @@
 		7D2C9D33251CEC2100B1E2DE /* MouseBubbler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseBubbler.swift; sourceTree = "<group>"; };
 		7D2C9D37251CEC5B00B1E2DE /* MouseBubblerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseBubblerTests.swift; sourceTree = "<group>"; };
 		7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleCanvas.swift; sourceTree = "<group>"; };
-		7D452DDD250E719800884F29 /* LibraryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryExtensions.swift; sourceTree = "<group>"; };
-		7D51127E250D6F51004F0E63 /* Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
 		7D5DAAB9253C9AD200893D82 /* ScappleImporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScappleImporterTests.swift; sourceTree = "<group>"; };
 		7D5DAABE253C9B1C00893D82 /* empty.scap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = empty.scap; sourceTree = "<group>"; };
 		7D5DAAC4253CA0A700893D82 /* bubble-with-text.scap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "bubble-with-text.scap"; sourceTree = "<group>"; };
@@ -102,6 +99,7 @@
 		7D93A76C250B019D00991121 /* flumph.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = flumph.jpg; sourceTree = "<group>"; };
 		7DB5CCC12547AD57004C8F67 /* single-appearance.scap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "single-appearance.scap"; sourceTree = "<group>"; };
 		7DB5CCC8254F3AEC004C8F67 /* DumbButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DumbButton.swift; sourceTree = "<group>"; };
+		7DC7041B2A0D4D0200F888D2 /* BorkleModels */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BorkleModels; path = ../BorkleModels; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +108,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D2C9CEB2516D09700B1E2DE /* Yams in Frameworks */,
+				7DC7041E2A0D4D0D00F888D2 /* BorkleModels in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,7 +149,6 @@
 				7D2C9CDD2516B5E600B1E2DE /* Selection.swift */,
 				7D2C9D12251A3D7F00B1E2DE /* Barrier.swift */,
 				7D042C55250D8DB900E65175 /* ScappleImporter.swift */,
-				7D51127E250D6F51004F0E63 /* Bubble.swift */,
 				7D93A74B250AD8DC00991121 /* Document.swift */,
 				7D93A74D250AD8DC00991121 /* Document.xib */,
 			);
@@ -174,9 +172,11 @@
 		7D93A73D250AD8DC00991121 = {
 			isa = PBXGroup;
 			children = (
+				7DC7041B2A0D4D0200F888D2 /* BorkleModels */,
 				7D93A748250AD8DC00991121 /* Borkle */,
 				7D93A75E250AD8DD00991121 /* BorkleTests */,
 				7D93A747250AD8DC00991121 /* Products */,
+				7DC7041C2A0D4D0D00F888D2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -202,7 +202,6 @@
 				7D93A756250AD8DD00991121 /* Borkle.entitlements */,
 				7D93A76C250B019D00991121 /* flumph.jpg */,
 				7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */,
-				7D452DDD250E719800884F29 /* LibraryExtensions.swift */,
 				7DB5CCC8254F3AEC004C8F67 /* DumbButton.swift */,
 			);
 			path = Borkle;
@@ -228,6 +227,13 @@
 			path = BorkleTests;
 			sourceTree = "<group>";
 		};
+		7DC7041C2A0D4D0D00F888D2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -246,6 +252,7 @@
 			name = Borkle;
 			packageProductDependencies = (
 				7D2C9CEA2516D09700B1E2DE /* Yams */,
+				7DC7041D2A0D4D0D00F888D2 /* BorkleModels */,
 			);
 			productName = Borkle;
 			productReference = 7D93A746250AD8DC00991121 /* Borkle.app */;
@@ -350,13 +357,11 @@
 				7D93A74C250AD8DC00991121 /* Document.swift in Sources */,
 				7D2C9D23251A51CA00B1E2DE /* BarrierSoup.swift in Sources */,
 				7D2C9D1B251A445E00B1E2DE /* MouseBarrier.swift in Sources */,
-				7D51127F250D6F51004F0E63 /* Bubble.swift in Sources */,
 				7D042C56250D8DB900E65175 /* ScappleImporter.swift in Sources */,
 				7D93A74A250AD8DC00991121 /* AppDelegate.swift in Sources */,
 				7D2C9CD2251556B900B1E2DE /* BubbleSoup.swift in Sources */,
 				7D2C9CFF25190EAD00B1E2DE /* MouseSupport.swift in Sources */,
 				7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */,
-				7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */,
 				7D2C9D13251A3D7F00B1E2DE /* Barrier.swift in Sources */,
 				7DB5CCC9254F3AEC004C8F67 /* DumbButton.swift in Sources */,
 			);
@@ -540,7 +545,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = borkware.com.Borkle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -563,7 +568,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = borkware.com.Borkle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -663,6 +668,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7D2C9CE92516D09700B1E2DE /* XCRemoteSwiftPackageReference "Yams" */;
 			productName = Yams;
+		};
+		7DC7041D2A0D4D0D00F888D2 /* BorkleModels */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BorkleModels;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

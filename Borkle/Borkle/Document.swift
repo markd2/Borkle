@@ -1,5 +1,6 @@
 import Cocoa
 import Yams
+import BorkleModels
 
 class Document: NSDocument {
     @IBOutlet var imageView: NSImageView!

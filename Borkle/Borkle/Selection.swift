@@ -1,4 +1,5 @@
 import Foundation
+import BorkleModels
 
 class Selection {
     private var selection = Set<Bubble>()

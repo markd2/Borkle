@@ -1,4 +1,5 @@
 import Cocoa
+import BorkleModels
 
 /// Mouse handler for grab-hand scrolling
 class MouseGrabHand: MouseHandler {

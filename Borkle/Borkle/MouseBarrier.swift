@@ -1,4 +1,5 @@
 import Cocoa
+import BorkleModels
 
 class MouseBarrier: MouseHandler {
     private var support: MouseSupport

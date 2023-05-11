@@ -1,4 +1,5 @@
 import Cocoa
+import BorkleModels
 
 class BubbleCanvas: NSView {
     static let background = NSColor(red: 228.0 / 255.0, green: 232.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)

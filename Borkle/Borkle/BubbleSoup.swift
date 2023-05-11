@@ -1,4 +1,5 @@
 import Foundation
+import BorkleModels
 
 
 /// BubbleSoup - a class that matains the storage miasma of Borkle.

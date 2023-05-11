@@ -1,6 +1,7 @@
 import Foundation
+import BorkleModels
 
-class ScappleImporter: NSObject {
+public class ScappleImporter: NSObject {
     enum ImporterError: Error {
         case couldNotInitializeParser
         case unknownParserError
@@ -100,10 +101,10 @@ extension ScappleImporter {
 
 extension ScappleImporter: XMLParserDelegate {
 
-    func parserDidStartDocument(_ parser: XMLParser) {
+    public func parserDidStartDocument(_ parser: XMLParser) {
     }
 
-    func parser(_ parser: XMLParser, didStartElement element: String, namespaceURI: String?, 
+    public func parser(_ parser: XMLParser, didStartElement element: String, namespaceURI: String?, 
         qualifiedName: String?, attributes: [String: String]) {
         switch element {
         case "Notes":
@@ -135,7 +136,7 @@ extension ScappleImporter: XMLParserDelegate {
 //        Swift.print("did start element \(element)  attributts \(attributes)")
     }
 
-    func parser(_ parser: XMLParser, didEndElement element: String, namespaceURI: String?, qualifiedName: String?) {
+    public func parser(_ parser: XMLParser, didEndElement element: String, namespaceURI: String?, qualifiedName: String?) {
 //        Swift.print("did end element \(element)")
         switch element {
         case "String":
@@ -171,7 +172,7 @@ extension ScappleImporter: XMLParserDelegate {
         }
     }
 
-    func parser(_ parser: XMLParser, foundCharacters: String) {
+    public func parser(_ parser: XMLParser, foundCharacters: String) {
 //        Swift.print("string! \(foundCharacters)")
         if currentConnectedNoteString != nil {
             currentConnectedNoteString! += foundCharacters
@@ -186,7 +187,7 @@ extension ScappleImporter: XMLParserDelegate {
         }
     }
 
-    func parserDidEndDocument(_ parser: XMLParser) {
+    public func parserDidEndDocument(_ parser: XMLParser) {
 //        Swift.print("all done")
     }
     

@@ -1,4 +1,5 @@
 import Cocoa
+import BorkleModels
 
 /// Mouse handler for clicks that start in space (blank canvas)
 class MouseSpacer: MouseHandler {
