@@ -1,21 +1,20 @@
 import Foundation
-import BorkleModels
 
 
 /// BubbleSoup - a class that matains the storage miasma of Borkle.
 ///
 /// It holds the bubbles, lines, and provides an API for updating the contents of
 /// the soup (with undo support)
-class BubbleSoup {
+public class BubbleSoup {
 
     let defaultWidth: CGFloat = 160
     let defaultHeight: CGFloat = 8
 
     /// Hook that's called when a bubble position changes, so it can be invalidated
-    var invalHook: ((Bubble) -> Void)?
+    public var invalHook: ((Bubble) -> Void)?
 
     /// Something changed in the bubbles - maybe resize the canvas?
-    var bubblesChangedHook: (() -> Void)?
+    public var bubblesChangedHook: (() -> Void)?
 
     /// How many bubbles we have.
     public var bubbleCount: Int {
@@ -24,7 +23,7 @@ class BubbleSoup {
 
     /// Array storage of bubbles.  Might need to revisit this if array operations turn
     /// out to be annoying
-    var bubbles: [Bubble] = []
+    public var bubbles: [Bubble] = []
 
     /// Iterate over each of the bubbles in some kind of order
     /// I'm not smart enough to return some kind of sequence/iterator thing
@@ -34,7 +33,7 @@ class BubbleSoup {
 
     /// Undo manager responsible for handling undo.  One will be provided if you don't
     /// give us one
-    var undoManager: UndoManager
+    public var undoManager: UndoManager
 
     public init(undoManager: UndoManager? = nil) {
         if let undoManager = undoManager {
@@ -49,11 +48,11 @@ class BubbleSoup {
     /// Unfortunatley, can't use undoManager's groupingLevel to decide if we're in a no-op
     /// undo situation.  In tests, a beginUndoGrouping goes to a level of two, so something
     /// is happening For Our Convenience™
-    var  groupingLevel = 0
+    var groupingLevel = 0
 
     /// When doing something that spans multiple spins of the event loop (like mouse
     /// tracking), start a grouping before, and end it afterwards
-    func beginGrouping() {
+    public func beginGrouping() {
         undoManager.beginUndoGrouping()
         groupingLevel += 1
     }
@@ -62,7 +61,7 @@ class BubbleSoup {
     /// Ok if called without a corresponding begin grouping - say when click-dragging in
     /// in empty space and doing nothing, so we don't want an empty undo grouping on the stack.
     /// (I am not terribly happy about this. ++md 9/19/2020)
-    func endGrouping() {
+    public func endGrouping() {
         if groupingLevel > 0 {
             undoManager.endUndoGrouping()
             groupingLevel -= 1
@@ -199,7 +198,7 @@ class BubbleSoup {
         }
     }
     
-    func connect(bubbles: [Bubble], to bubble: Bubble) {
+    public func connect(bubbles: [Bubble], to bubble: Bubble) {
         undoManager.beginUndoGrouping()
         bubbles.forEach { target in
             if !bubble.isConnectedTo(target) {
@@ -210,7 +209,7 @@ class BubbleSoup {
         bubblesChangedHook?()
     }
 
-    func disconnect(bubbles: [Bubble], from bubble: Bubble) {
+    public func disconnect(bubbles: [Bubble], from bubble: Bubble) {
         undoManager.beginUndoGrouping()
         bubbles.forEach { target in
             if bubble.isConnectedTo(target) {
@@ -263,7 +262,8 @@ extension BubbleSoup {
 
     /// Returns the largest bubble ID (so you can presumably create a new bubble)
     /// The IDs are not compact.
-    internal func maxBubbleID() -> Int {
+    /// TODO: maybe have a "generate a new ID"
+    public func maxBubbleID() -> Int {
         var maxID = 0
 
         forEachBubble { bubble in

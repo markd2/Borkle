@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7D042C56250D8DB900E65175 /* ScappleImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D042C55250D8DB900E65175 /* ScappleImporter.swift */; };
-		7D2C9CD2251556B900B1E2DE /* BubbleSoup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CD1251556B900B1E2DE /* BubbleSoup.swift */; };
-		7D2C9CD6251556C200B1E2DE /* BubbleSoupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CD5251556C200B1E2DE /* BubbleSoupTests.swift */; };
 		7D2C9CDE2516B5E600B1E2DE /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CDD2516B5E600B1E2DE /* Selection.swift */; };
 		7D2C9CE22516B5EE00B1E2DE /* SelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CE12516B5EE00B1E2DE /* SelectionTests.swift */; };
 		7D2C9CEB2516D09700B1E2DE /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = 7D2C9CEA2516D09700B1E2DE /* Yams */; };
@@ -59,8 +57,6 @@
 
 /* Begin PBXFileReference section */
 		7D042C55250D8DB900E65175 /* ScappleImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScappleImporter.swift; sourceTree = "<group>"; };
-		7D2C9CD1251556B900B1E2DE /* BubbleSoup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleSoup.swift; sourceTree = "<group>"; };
-		7D2C9CD5251556C200B1E2DE /* BubbleSoupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleSoupTests.swift; sourceTree = "<group>"; };
 		7D2C9CDD2516B5E600B1E2DE /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		7D2C9CE12516B5EE00B1E2DE /* SelectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTests.swift; sourceTree = "<group>"; };
 		7D2C9CF225181F9800B1E2DE /* MouseSpacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseSpacer.swift; sourceTree = "<group>"; };
@@ -125,7 +121,6 @@
 		7D2C9D2A251A547200B1E2DE /* Soup */ = {
 			isa = PBXGroup;
 			children = (
-				7D2C9CD1251556B900B1E2DE /* BubbleSoup.swift */,
 				7D2C9D22251A51CA00B1E2DE /* BarrierSoup.swift */,
 			);
 			name = Soup;
@@ -212,7 +207,6 @@
 			children = (
 				7D93A75F250AD8DD00991121 /* BorkleTests.swift */,
 				7D93A761250AD8DD00991121 /* Info.plist */,
-				7D2C9CD5251556C200B1E2DE /* BubbleSoupTests.swift */,
 				7D2C9CE12516B5EE00B1E2DE /* SelectionTests.swift */,
 				7D2C9CF625181FAE00B1E2DE /* MouseSpacerTests.swift */,
 				7D2C9D062519123500B1E2DE /* MouseGrabHandTests.swift */,
@@ -359,7 +353,6 @@
 				7D2C9D1B251A445E00B1E2DE /* MouseBarrier.swift in Sources */,
 				7D042C56250D8DB900E65175 /* ScappleImporter.swift in Sources */,
 				7D93A74A250AD8DC00991121 /* AppDelegate.swift in Sources */,
-				7D2C9CD2251556B900B1E2DE /* BubbleSoup.swift in Sources */,
 				7D2C9CFF25190EAD00B1E2DE /* MouseSupport.swift in Sources */,
 				7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */,
 				7D2C9D13251A3D7F00B1E2DE /* Barrier.swift in Sources */,
@@ -377,7 +370,6 @@
 				7D2C9D38251CEC5B00B1E2DE /* MouseBubblerTests.swift in Sources */,
 				7D2C9CE22516B5EE00B1E2DE /* SelectionTests.swift in Sources */,
 				7D2C9D17251A3D8900B1E2DE /* BarrierTests.swift in Sources */,
-				7D2C9CD6251556C200B1E2DE /* BubbleSoupTests.swift in Sources */,
 				7D2C9D0B251912C500B1E2DE /* TestSupport.swift in Sources */,
 				7D2C9D1F251A446600B1E2DE /* MouseBarrierTests.swift in Sources */,
 				7D93A760250AD8DD00991121 /* BorkleTests.swift in Sources */,
