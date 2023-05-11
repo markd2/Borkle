@@ -72,7 +72,7 @@ class BubbleSoupTests: XCTestCase {
 
     func test_select_area_returns_nil_when_no_bubbles() {
         let selection = soup.areaTestBubbles(intersecting: .zero)
-        XCTAssertNotNil(selection) 
+        XCTAssertNil(selection) 
     }
 
     func test_select_area_returns_nil_when_no_intersections() {

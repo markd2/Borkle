@@ -1,10 +1,10 @@
 import Cocoa
 
-class Barrier: Codable {
-    let ID: Int
+public class Barrier: Codable {
+    public let ID: Int
 
-    var label = "Barrier"
-    var horizontalPosition: CGFloat
+    public var label = "Barrier"
+    public var horizontalPosition: CGFloat
     var width: CGFloat = 6.0
 
     init(ID: Int) {
@@ -14,7 +14,7 @@ class Barrier: Codable {
         self.width = 0.0
     }
 
-    init(ID: Int, label: String, horizontalPosition: CGFloat, width: CGFloat) {
+    public init(ID: Int, label: String, horizontalPosition: CGFloat, width: CGFloat) {
         self.ID = ID
         self.label = label
         self.horizontalPosition = horizontalPosition
@@ -27,7 +27,7 @@ class Barrier: Codable {
         return rect
     }
 
-    func hitTest(point: CGPoint, area: CGRect) -> Bool {
+    public func hitTest(point: CGPoint, area: CGRect) -> Bool {
         let (drawRect, textRect) = rects(in: area)
         
         if drawRect.contains(point) || textRect.contains(point) {
@@ -53,7 +53,7 @@ class Barrier: Codable {
         return effectiveRect
     }
 
-    func render(in area: CGRect) {
+    public func render(in area: CGRect) {
         let (drawRect, textRect) = rects(in: area)
 
         NSColor.orange.set()
@@ -66,13 +66,13 @@ class Barrier: Codable {
 
 
 extension Barrier: Equatable {
-    static func == (thing1: Barrier, thing2: Barrier) -> Bool {
+    public static func == (thing1: Barrier, thing2: Barrier) -> Bool {
         return thing1.ID == thing2.ID
     }
 }
 
 extension Barrier: Hashable {
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(ID)
     }
 }

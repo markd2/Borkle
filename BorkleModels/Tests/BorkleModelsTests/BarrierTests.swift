@@ -1,5 +1,5 @@
 import XCTest
-@testable import Borkle
+@testable import BorkleModels
 
 class BarrierTests: XCTestCase {
     override func setUp() {

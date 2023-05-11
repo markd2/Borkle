@@ -17,8 +17,6 @@
 		7D2C9D032519122600B1E2DE /* MouseGrabHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D022519122600B1E2DE /* MouseGrabHand.swift */; };
 		7D2C9D072519123500B1E2DE /* MouseGrabHandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D062519123500B1E2DE /* MouseGrabHandTests.swift */; };
 		7D2C9D0B251912C500B1E2DE /* TestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D0A251912C500B1E2DE /* TestSupport.swift */; };
-		7D2C9D13251A3D7F00B1E2DE /* Barrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D12251A3D7F00B1E2DE /* Barrier.swift */; };
-		7D2C9D17251A3D8900B1E2DE /* BarrierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D16251A3D8900B1E2DE /* BarrierTests.swift */; };
 		7D2C9D1B251A445E00B1E2DE /* MouseBarrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D1A251A445E00B1E2DE /* MouseBarrier.swift */; };
 		7D2C9D1F251A446600B1E2DE /* MouseBarrierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D1E251A446600B1E2DE /* MouseBarrierTests.swift */; };
 		7D2C9D23251A51CA00B1E2DE /* BarrierSoup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D22251A51CA00B1E2DE /* BarrierSoup.swift */; };
@@ -65,8 +63,6 @@
 		7D2C9D022519122600B1E2DE /* MouseGrabHand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseGrabHand.swift; sourceTree = "<group>"; };
 		7D2C9D062519123500B1E2DE /* MouseGrabHandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseGrabHandTests.swift; sourceTree = "<group>"; };
 		7D2C9D0A251912C500B1E2DE /* TestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSupport.swift; sourceTree = "<group>"; };
-		7D2C9D12251A3D7F00B1E2DE /* Barrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Barrier.swift; sourceTree = "<group>"; };
-		7D2C9D16251A3D8900B1E2DE /* BarrierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrierTests.swift; sourceTree = "<group>"; };
 		7D2C9D1A251A445E00B1E2DE /* MouseBarrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseBarrier.swift; sourceTree = "<group>"; };
 		7D2C9D1E251A446600B1E2DE /* MouseBarrierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseBarrierTests.swift; sourceTree = "<group>"; };
 		7D2C9D22251A51CA00B1E2DE /* BarrierSoup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrierSoup.swift; sourceTree = "<group>"; };
@@ -142,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				7D2C9CDD2516B5E600B1E2DE /* Selection.swift */,
-				7D2C9D12251A3D7F00B1E2DE /* Barrier.swift */,
 				7D042C55250D8DB900E65175 /* ScappleImporter.swift */,
 				7D93A74B250AD8DC00991121 /* Document.swift */,
 				7D93A74D250AD8DC00991121 /* Document.xib */,
@@ -211,7 +206,6 @@
 				7D2C9CF625181FAE00B1E2DE /* MouseSpacerTests.swift */,
 				7D2C9D062519123500B1E2DE /* MouseGrabHandTests.swift */,
 				7D2C9D0A251912C500B1E2DE /* TestSupport.swift */,
-				7D2C9D16251A3D8900B1E2DE /* BarrierTests.swift */,
 				7D2C9D1E251A446600B1E2DE /* MouseBarrierTests.swift */,
 				7D2C9D26251A51D200B1E2DE /* BarrierSoupTests.swift */,
 				7D2C9D37251CEC5B00B1E2DE /* MouseBubblerTests.swift */,
@@ -355,7 +349,6 @@
 				7D93A74A250AD8DC00991121 /* AppDelegate.swift in Sources */,
 				7D2C9CFF25190EAD00B1E2DE /* MouseSupport.swift in Sources */,
 				7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */,
-				7D2C9D13251A3D7F00B1E2DE /* Barrier.swift in Sources */,
 				7DB5CCC9254F3AEC004C8F67 /* DumbButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -369,7 +362,6 @@
 				7D2C9D072519123500B1E2DE /* MouseGrabHandTests.swift in Sources */,
 				7D2C9D38251CEC5B00B1E2DE /* MouseBubblerTests.swift in Sources */,
 				7D2C9CE22516B5EE00B1E2DE /* SelectionTests.swift in Sources */,
-				7D2C9D17251A3D8900B1E2DE /* BarrierTests.swift in Sources */,
 				7D2C9D0B251912C500B1E2DE /* TestSupport.swift in Sources */,
 				7D2C9D1F251A446600B1E2DE /* MouseBarrierTests.swift in Sources */,
 				7D93A760250AD8DD00991121 /* BorkleTests.swift in Sources */,

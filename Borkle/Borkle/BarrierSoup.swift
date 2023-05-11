@@ -1,4 +1,5 @@
 import Foundation
+import BorkleModels
 
 class BarrierSoup {
     /// Hook that's called when a barrier position changes, so it can be invalidated
