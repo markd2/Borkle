@@ -101,5 +101,22 @@ class MouseBarrierTests: XCTestCase {
 
         mouser.finish(at: .zero, modifierFlags: [])
     }
+    
+    func test_move_with_option_modifier_only_moves_barrier() {
+        let bubble = newBubble(ID: 2)
+        let anotherBarrier = newBarrier(ID: 12)
+     
+        testSupport.bubblesAffectedByReturn = [bubble]
+        testSupport.barriersAffectedByReturn = [anotherBarrier]
+
+        mouser.start(at: .zero, modifierFlags: [.option])
+        mouser.drag(to: CGPoint(x: -1.234, y: 666.0), modifierFlags: [])
+        
+        let args = testSupport.moveBarrierArguments
+        XCTAssertEqual(args!.barrier, self.barrier)
+        XCTAssertNil(args?.bubbles)
+        XCTAssertNil(args?.barriers)
+        XCTAssertEqual(args?.offset, -1.234)
+    }
 }
 

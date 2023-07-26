@@ -21,8 +21,16 @@ class MouseBarrier: MouseHandler {
 
     func start(at point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         initialPoint = point
-        affectedBubbles = support.bubblesAffectedBy(barrier: barrier)
-        affectedBarriers = support.barriersAffectedBy(barrier: barrier)
+        
+        // option-drag to just move the selected barrier.
+        // otherwise, move bubbles and barriers too.
+        if modifierFlags.contains(.option) {
+            affectedBubbles = nil
+            affectedBarriers = nil
+        } else {
+            affectedBubbles = support.bubblesAffectedBy(barrier: barrier)
+            affectedBarriers = support.barriersAffectedBy(barrier: barrier)
+        }
     }
     
     func drag(to point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {

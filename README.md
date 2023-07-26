@@ -141,3 +141,16 @@ Double-click a bubble to edit its text.
 Drag bubbles on top of another bubble to make (dis) connections
 
 ![](assets/connection.gif)
+
+
+### Move barriers without affecting others
+
+By default barriers move everything to their right.  Which is what
+you want most of the time. Sometimes you want to move the barrier
+without affecting anything (say for precise positioning, or you've gotten
+a couple of accidental overlaps).
+
+Hold down option when clicking on a barrier to prevent it from moving
+the bubbles and other barriers.
+
+![](assets/option-barrier.gif)
