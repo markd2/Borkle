@@ -1242,3 +1242,12 @@ ok, bug.
 Make two bubbles (1 and 2). Connect 1 to 2.  delete 2. make a new bubble.
 connect to 1.  Doesn't actually connect
 
+==================================================
+# Wednesday July 26, 2023
+
+Wanting to have a modifier key to suppress region bubble moving.
+"I just want to open some space, and I have a some overlapping bubbles
+I don't want to move", especailly useful in the early days of a document.
+
+wow, that was easy - just added an if that looks at the options, and then
+snarf and barf and tweak a test.
