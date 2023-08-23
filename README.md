@@ -20,6 +20,8 @@ So, this is my (probably incomplete) attempt of making such a tool before I
 
 Pain points during work:
 
+* Paste text with nothing selected makes a new bubble at
+  last click location. "here, I want a bubble. cmd-V"
 * Easily add barriers to the right of everything
 * Resize bubble while typing
 * Find ("wait, what were the kind of mushrooms we found?")

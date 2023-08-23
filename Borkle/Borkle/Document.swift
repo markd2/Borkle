@@ -465,4 +465,11 @@ extension Document {
 
         return nodes
     }
+    
+    @IBAction func recalcScrollingBounds(_ sender: NSButton) {
+        // force a recalc of the canvas bounds.  we should do that automatically,
+        // but it's not working.  This is a hack (8/23/2023 - hello me from five years in
+        // the future!) for now.
+        bubbleCanvas.resizeCanvas()
+    }
 }
