@@ -37,6 +37,9 @@ class BubbleCanvas: NSView {
 
     var scrollOrigin: CGPoint?
 
+    /// for things like "hey paste at the last place the user clicked.
+    var lastPoint: CGPoint?
+
     var keypressHandler: ((_ event: NSEvent) -> Void)?
 
     override var isFlipped: Bool { return true }
@@ -356,6 +359,7 @@ extension BubbleCanvas {
     override func mouseDown(with event: NSEvent) {
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil)
+        lastPoint = viewLocation
 
         if let textEditingBubble = textEditingBubble {
             commitEditing(bubble: textEditingBubble)
@@ -412,6 +416,7 @@ extension BubbleCanvas {
     override func mouseDragged(with event: NSEvent) {
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil) as CGPoint
+        lastPoint = viewLocation
 
         if let handler = currentMouseHandler {
             if handler.prefersWindowCoordinates {
@@ -425,6 +430,7 @@ extension BubbleCanvas {
     override func mouseUp(with event: NSEvent) {
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil) as CGPoint
+        lastPoint = viewLocation
 
         defer {
             scrollOrigin = nil
