@@ -13,7 +13,7 @@ an outline processor, along with some templates for things like NPCs or monster 
 
 Kinda want Scapple cross-bred with Scrivener.
 
-So, this is my (probably incomplete) attempt of making such a tool before I 
+So, this is my (mostly incomplete) attempt of making such a tool before I 
 ~get distracted~ get a more pressing assignment.
 
 ### Future features
@@ -27,20 +27,22 @@ Pain points during work:
 * Find ("wait, what were the kind of mushrooms we found?")
 * copy/paste/duplicate bubbles
 * modifer-drag on barrier to not move anything
-
 * search
-  - text field at top with search criteria
-  - maybe grow a sidebar with results
-  - key combo to move between them
-  - scroll to bubble when focused
-  - maybe return to original position when leaving search mode (for in-game 
-    note finding)
+    - text field at top with search criteria
+    - maybe grow a sidebar with results
+    - key combo to move between them
+    - scroll to bubble when focused
+    - maybe return to original position when leaving search mode (for in-game 
+      note finding)
+    - maybe fade out bubbles without a match
+    - highlight the search text
 * Fix the scroll area bounds
 * Maybe a bit of overscroll at the edges
 * resize bubble when entering text
 * resize off the left side with a keypress
 * More colors
 * color assignable by keystroke
+* moving barriers in an empty document makes them disappear
 
 
 ## Deeper Features
