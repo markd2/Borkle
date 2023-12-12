@@ -1,6 +1,8 @@
 import Cocoa
 
 class Bubble: Codable {
+    typealias Identifier = Int
+
     static let defaultFontName = "Helvetica"
     static let defaultFontSize: CGFloat = 12.0
 
@@ -12,7 +14,7 @@ class Bubble: Codable {
         static let underline     = FormattingStyle(rawValue: 1 << 3)
     }
 
-    var ID: Int
+    var ID: Identifier
     var text: String = "" {
         didSet {
             _effectiveHeight = nil
