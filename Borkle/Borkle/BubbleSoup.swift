@@ -1,10 +1,17 @@
 import Foundation
 
 
-/// BubbleSoup - a class that matains the storage miasma of Borkle.
+/// BubbleSoup - a class that matains the storage miasma of all of Borkle's bubbles
 ///
-/// It holds the bubbles, lines, and provides an API for updating the contents of
+/// It holds the bubbles, ~lines~, and provides an API for updating the contents of
 /// the soup (with undo support)
+///
+/// Many visual stuffs are moving to playfields - so things like locations / area-hit-rect
+/// will live there.
+///
+/// Playfield bubble arrays are a subset of the bubbles have, most likely a proper
+/// subset when the documents get bigger
+///
 class BubbleSoup {
 
     let defaultWidth: CGFloat = 160
