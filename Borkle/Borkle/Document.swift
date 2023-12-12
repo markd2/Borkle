@@ -18,7 +18,10 @@ class Document: NSDocument {
     let imageFilename = "image.png"
     let metadataFilename = "metadata.json"
     let legacyBubbleFilename = "bubbles.yaml"
+    let bubbleFilename = "bubbles2.yaml"
     let barrierFilename = "barriers.yaml"
+    let playfieldDirectory = "playfields.yaml"
+    let defaultPlayfieldFilename = "default-playfield.yaml"
 
     var bubbleSoup: BubbleSoup
 
