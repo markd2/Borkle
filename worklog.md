@@ -1251,3 +1251,14 @@ I don't want to move", especailly useful in the early days of a document.
 
 wow, that was easy - just added an if that looks at the options, and then
 snarf and barf and tweak a test.
+
+==================================================
+# Monday December 11, 2023
+
+Time to break apart the bubble / size / location / connection stuff.
+
+Playfields will be the individual worksheets, which will have bubbles,
+and bubbles can have independent size/locations/connections based
+on the worksheets.
+
+branch: markd/introduce-worksheets
