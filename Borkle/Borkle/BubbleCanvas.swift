@@ -5,6 +5,7 @@ class BubbleCanvas: NSView {
 
     // move to soup
     var barriersChangedHook: (() -> Void)?
+    var playfield: Playfield!
 
     var selectedBubbles = Selection()
     var alphaBubbles: Selection?
@@ -107,16 +108,19 @@ class BubbleCanvas: NSView {
 
         drawConnections(idToRectMap)
 
-        bubbleSoup.forEachBubble {
-            if let rect = idToRectMap[$0.ID] {
+        playfield.forEachBubble { id in
+            if let rect = idToRectMap[id] {
                 if needsToDraw(rect) {
-                    let transparent = alphaBubbles?.isSelected(bubble: $0) ?? false
+                    guard let bubble = bubbleSoup.bubble(byID: id) else {
+                        fatalError("couldn't find bubble with expected id \(id)")
+                    }
+                    let transparent = alphaBubbles?.isSelected(bubble: bubble) ?? false
                     renderBubble(
-                      $0, in: rect, 
-                      selected: selectedBubbles.isSelected(bubble: $0),
-                      highlighted: $0.ID == (highlightedID ?? -666),
+                      bubble, in: rect, 
+                      selected: selectedBubbles.isSelected(bubble: bubble),
+                      highlighted: bubble.ID == (highlightedID ?? -666),
                       transparent: transparent,
-                      dropTarget: $0.ID == (dropTargetBubble?.ID ?? -666))
+                      dropTarget: bubble.ID == (dropTargetBubble?.ID ?? -666))
                 }
             } else {
                 Swift.print("unexpected not-rendering a bubble")
