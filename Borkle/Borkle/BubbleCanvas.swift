@@ -111,11 +111,12 @@ class BubbleCanvas: NSView {
             if let rect = idToRectMap[$0.ID] {
                 if needsToDraw(rect) {
                     let transparent = alphaBubbles?.isSelected(bubble: $0) ?? false
-                    renderBubble($0, in: rect, 
-                        selected: selectedBubbles.isSelected(bubble: $0),
-                        highlighted: $0.ID == (highlightedID ?? -666),
-                        transparent: transparent,
-                        dropTarget: $0.ID == (dropTargetBubble?.ID ?? -666))
+                    renderBubble(
+                      $0, in: rect, 
+                      selected: selectedBubbles.isSelected(bubble: $0),
+                      highlighted: $0.ID == (highlightedID ?? -666),
+                      transparent: transparent,
+                      dropTarget: $0.ID == (dropTargetBubble?.ID ?? -666))
                 }
             } else {
                 Swift.print("unexpected not-rendering a bubble")
@@ -558,10 +559,13 @@ extension BubbleCanvas: MouseSupport {
     func scroll(to newOrigin: CGPoint) {
         scroll(newOrigin)
     }
-
-    func createNewBubble(at point: CGPoint) {
+    
+    func createNewBubble(at point: CGPoint, showEditor: Bool) -> Bubble {
         let bubble = bubbleSoup.create(newBubbleAt: point)
-        textEdit(bubble: bubble)
+        if showEditor {
+            textEdit(bubble: bubble)
+        }
+        return bubble
     }
 
     func move(bubble: Bubble, to point: CGPoint) {

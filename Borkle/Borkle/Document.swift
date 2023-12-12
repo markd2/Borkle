@@ -426,12 +426,32 @@ extension Document {
 
         // and need something on the pasteboard to paste
         let pasteboard = NSPasteboard.general
-        let types = pasteboard.availableType(from: [NSPasteboard.PasteboardType.string])
+        let types = pasteboard.availableType(from: [.string])
         return types != nil
     }
 
     @IBAction func paste(_ sender: AnyObject) {
-        Swift.print("PASTE")
+        let pasteboard = NSPasteboard.general
+        guard let string = pasteboard.string(forType: .string),
+              var point = bubbleCanvas.lastPoint else {
+            return
+        }
+        var startPoint = point
+
+        point.x += bubbleSoup.defaultWidth / 2.0
+
+        let bubble = bubbleCanvas.createNewBubble(at: point, showEditor: false)
+        bubble.text = string
+        bubbleCanvas.needsDisplay = true
+        bubbleCanvas.invalidateBubble(bubble.ID)
+
+        // Change the start point so that multiple pastes get
+        // offset.
+        startPoint.x += 30
+        startPoint.y += 30
+        bubbleCanvas.lastPoint = startPoint
+        
+        Swift.print(bubble.text)
     }
 
     // Idea from Mikey
