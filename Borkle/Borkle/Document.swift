@@ -17,7 +17,7 @@ class Document: NSDocument {
 
     let imageFilename = "image.png"
     let metadataFilename = "metadata.json"
-    let bubbleFilename = "bubbles.yaml"
+    let legacyBubbleFilename = "bubbles.yaml"
     let barrierFilename = "barriers.yaml"
 
     var bubbleSoup: BubbleSoup
@@ -27,7 +27,7 @@ class Document: NSDocument {
 
     var barriers: [Barrier] = [] {
         didSet {
-            documentFileWrapper?.remove(filename: bubbleFilename)
+            documentFileWrapper?.remove(filename: legacyBubbleFilename)
 
             barrierSoup.removeEverything()
             barrierSoup.add(barriers: barriers)
@@ -69,7 +69,7 @@ class Document: NSDocument {
             barrierSoup.undoManager = undoManager
         }
         bubbleSoup.bubblesChangedHook = {
-            self.documentFileWrapper?.remove(filename: self.bubbleFilename)
+            self.documentFileWrapper?.remove(filename: self.legacyBubbleFilename)
         }
         barrierSoup.barriersChangedHook = {
             self.documentFileWrapper?.remove(filename: self.barrierFilename)
@@ -141,7 +141,7 @@ class Document: NSDocument {
 
         let fileWrappers = fileWrapper.fileWrappers!
 
-        if let bubbleFileWrapper = fileWrappers[bubbleFilename] {
+        if let bubbleFileWrapper = fileWrappers[legacyBubbleFilename] {
             let bubbleData = bubbleFileWrapper.regularFileContents!
             let decoder = YAMLDecoder()
             do {
@@ -189,12 +189,12 @@ class Document: NSDocument {
             throw(FileWrapperError.unexpectedlyNilFileWrappers)
         }
 
-        if fileWrappers[bubbleFilename] == nil {
+        if fileWrappers[legacyBubbleFilename] == nil {
             let encoder = YAMLEncoder()
 
             if let bubbleString = try? encoder.encode(bubbleSoup.bubbles) {
                 let bubbleFileWrapper = FileWrapper(regularFileWithString: bubbleString)
-                bubbleFileWrapper.preferredFilename = bubbleFilename
+                bubbleFileWrapper.preferredFilename = legacyBubbleFilename
                 documentFileWrapper.addFileWrapper(bubbleFileWrapper)
             }
         }
