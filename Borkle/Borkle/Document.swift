@@ -1,4 +1,5 @@
 import Cocoa
+import AppKit
 import Yams
 
 class Document: NSDocument {
@@ -324,6 +325,8 @@ extension Document {
             return true
         case #selector(importScapple(_:)):
             return true
+        case #selector(paste(_:)):
+            return canPaste()
         default:
             break
         }
@@ -413,6 +416,42 @@ extension Document {
 
     @IBAction func decZoom(_ sender: AnyObject) {
         bubbleScroller.magnification -= 0.1
+    }
+
+    private func canPaste() -> Bool {
+        // need a point to paste at
+        guard let _ = bubbleCanvas.lastPoint else {
+            return false
+        }
+
+        // and need something on the pasteboard to paste
+        let pasteboard = NSPasteboard.general
+        let types = pasteboard.availableType(from: [.string])
+        return types != nil
+    }
+
+    @IBAction func paste(_ sender: AnyObject) {
+        let pasteboard = NSPasteboard.general
+        guard let string = pasteboard.string(forType: .string),
+              var point = bubbleCanvas.lastPoint else {
+            return
+        }
+        var startPoint = point
+
+        point.x += bubbleSoup.defaultWidth / 2.0
+
+        let bubble = bubbleCanvas.createNewBubble(at: point, showEditor: false)
+        bubble.text = string
+        bubbleCanvas.needsDisplay = true
+        bubbleCanvas.invalidateBubble(bubble.ID)
+
+        // Change the start point so that multiple pastes get
+        // offset.
+        startPoint.x += 30
+        startPoint.y += 30
+        bubbleCanvas.lastPoint = startPoint
+        
+        Swift.print(bubble.text)
     }
 
     // Idea from Mikey

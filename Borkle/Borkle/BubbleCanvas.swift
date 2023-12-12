@@ -37,6 +37,9 @@ class BubbleCanvas: NSView {
 
     var scrollOrigin: CGPoint?
 
+    /// for things like "hey paste at the last place the user clicked.
+    var lastPoint: CGPoint?
+
     var keypressHandler: ((_ event: NSEvent) -> Void)?
 
     override var isFlipped: Bool { return true }
@@ -108,11 +111,12 @@ class BubbleCanvas: NSView {
             if let rect = idToRectMap[$0.ID] {
                 if needsToDraw(rect) {
                     let transparent = alphaBubbles?.isSelected(bubble: $0) ?? false
-                    renderBubble($0, in: rect, 
-                        selected: selectedBubbles.isSelected(bubble: $0),
-                        highlighted: $0.ID == (highlightedID ?? -666),
-                        transparent: transparent,
-                        dropTarget: $0.ID == (dropTargetBubble?.ID ?? -666))
+                    renderBubble(
+                      $0, in: rect, 
+                      selected: selectedBubbles.isSelected(bubble: $0),
+                      highlighted: $0.ID == (highlightedID ?? -666),
+                      transparent: transparent,
+                      dropTarget: $0.ID == (dropTargetBubble?.ID ?? -666))
                 }
             } else {
                 Swift.print("unexpected not-rendering a bubble")
@@ -356,6 +360,7 @@ extension BubbleCanvas {
     override func mouseDown(with event: NSEvent) {
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil)
+        lastPoint = viewLocation
 
         if let textEditingBubble = textEditingBubble {
             commitEditing(bubble: textEditingBubble)
@@ -412,6 +417,7 @@ extension BubbleCanvas {
     override func mouseDragged(with event: NSEvent) {
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil) as CGPoint
+        lastPoint = viewLocation
 
         if let handler = currentMouseHandler {
             if handler.prefersWindowCoordinates {
@@ -425,6 +431,7 @@ extension BubbleCanvas {
     override func mouseUp(with event: NSEvent) {
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil) as CGPoint
+        lastPoint = viewLocation
 
         defer {
             scrollOrigin = nil
@@ -552,10 +559,13 @@ extension BubbleCanvas: MouseSupport {
     func scroll(to newOrigin: CGPoint) {
         scroll(newOrigin)
     }
-
-    func createNewBubble(at point: CGPoint) {
+    
+    func createNewBubble(at point: CGPoint, showEditor: Bool) -> Bubble {
         let bubble = bubbleSoup.create(newBubbleAt: point)
-        textEdit(bubble: bubble)
+        if showEditor {
+            textEdit(bubble: bubble)
+        }
+        return bubble
     }
 
     func move(bubble: Bubble, to point: CGPoint) {

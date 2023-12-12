@@ -81,7 +81,7 @@ class MouseDoubleSpacer: MouseHandler {
     
     public func finish(at: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         if let startPoint = startPoint {
-            support.createNewBubble(at: startPoint)
+            _ = support.createNewBubble(at: startPoint, showEditor: true)
         }
     }
 }

@@ -23,7 +23,7 @@ protocol MouseSupport {
     var currentScrollOffset: CGPoint { get }
     func scroll(to: CGPoint)
 
-    func createNewBubble(at: CGPoint)
+    func createNewBubble(at point: CGPoint, showEditor: Bool) -> Bubble
 
     func connect(bubbles: [Bubble], to: Bubble)
     func disconnect(bubbles: [Bubble], from: Bubble)
