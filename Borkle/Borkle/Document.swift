@@ -23,6 +23,8 @@ class Document: NSDocument {
     let playfieldDirectory = "playfields.yaml"
     let defaultPlayfieldFilename = "default-playfield.yaml"
 
+    var defaultPlayfield: Playfield!
+
     var bubbleSoup: BubbleSoup
 
     // for walking selections
@@ -149,7 +151,9 @@ class Document: NSDocument {
             let decoder = YAMLDecoder()
             do {
                 let bubbles = try decoder.decode([Bubble].self, from: bubbleData)
-                self.bubbleSoup.bubbles = bubbles
+                bubbleSoup.bubbles = bubbles
+                defaultPlayfield = Playfield(soup: bubbleSoup)
+                defaultPlayfield.migrateFrom(bubbles: bubbles)
             } catch {
                 Swift.print("SNORGLE loading got \(error)")
             }

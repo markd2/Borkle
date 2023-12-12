@@ -19,4 +19,42 @@ class Playfield: Codable {
     var connections: [Bubble.Identifier: IndexSet] = [:]
     var positions: [Bubble.Identifier: CGPoint] = [:]
     var widths: [Bubble.Identifier: CGFloat] = [:]
+
+    // make optional to quiet "does not conform to De/Encodable"
+    var soup: BubbleSoup? = nil
+
+    private enum CodingKeys: String, CodingKey {
+        case title, description, bubbleIdentifiers
+        case connections, positions, widths
+    }
+
+    init(soup: BubbleSoup) {
+        self.soup = soup
+    }
+
+    func migrateFrom(bubbles: [Bubble]) {
+        for bubble in bubbles {
+            let id = bubble.ID
+            
+            let position = bubble.position
+            positions[id] = position
+            
+            let width = bubble.width
+            widths[id] = width
+            
+            // assume that all the connections are bidi
+            bubble.forEachConnection { otherId in
+                addConnectionBetween(bubbleID: id, to: otherId)
+                addConnectionBetween(bubbleID: otherId, to: id)
+            }
+        }
+        print(connections)
+    }
+
+    func addConnectionBetween(bubbleID: Bubble.Identifier,
+                              to toBubbleID: Bubble.Identifier) {
+        var indexSet = connections[bubbleID, default: IndexSet()]
+        indexSet.insert(toBubbleID)
+        connections[bubbleID] = indexSet
+    }
 }
