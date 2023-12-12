@@ -32,9 +32,20 @@ class Playfield: Codable {
         self.soup = soup
     }
 
+    func forEachBubble(_ iterator: (Bubble.Identifier) -> Void) {
+        for id in bubbleIdentifiers {
+            iterator(id)
+        }
+    }
+
+    // Alpha Thought...
+    var bubbles: [Bubble] = []
+
     func migrateFrom(bubbles: [Bubble]) {
         for bubble in bubbles {
             let id = bubble.ID
+
+            bubbleIdentifiers.append(id)
             
             let position = bubble.position
             positions[id] = position
@@ -48,6 +59,7 @@ class Playfield: Codable {
                 addConnectionBetween(bubbleID: otherId, to: id)
             }
         }
+        self.bubbles = bubbles
         print(connections)
     }
 
