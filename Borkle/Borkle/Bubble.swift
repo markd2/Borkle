@@ -271,6 +271,10 @@ extension Bubble: Hashable {
 extension Bubble {
 
     func heightForStringDrawing() -> CGFloat {
+        return heightForStringDrawing(width: width)
+    }
+
+    func heightForStringDrawing(width: CGFloat) -> CGFloat {
         let textStorage = NSTextStorage.init(string: text, attributes: nil)
         let insetWidth = width - (Bubble.margin * 2)
         let size = CGSize(width: insetWidth, height: .infinity)
