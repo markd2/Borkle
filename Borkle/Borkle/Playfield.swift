@@ -60,7 +60,6 @@ class Playfield: Codable {
             }
         }
         self.bubbles = bubbles
-        print(connections)
     }
 
     func addConnectionBetween(bubbleID: Bubble.Identifier,

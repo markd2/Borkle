@@ -158,9 +158,12 @@ class BubbleCanvas: NSView {
     }
 
     func allBorders() -> [Int: CGRect] {
-        bubbleSoup.forEachBubble {
-            let rect = $0.rect
-            idToRectMap[$0.ID] = rect
+        playfield.forEachBubble { id in
+            guard let bubble = bubbleSoup.bubble(byID: id) else {
+                return
+            }
+            let rect = bubble.rect
+            idToRectMap[bubble.ID] = rect
         }
         return idToRectMap
     }
@@ -171,7 +174,10 @@ class BubbleCanvas: NSView {
         let pattern: [CGFloat] = [3.0, 2.0]
         bezierPath.setLineDash(pattern, count: pattern.count, phase: 0.0)
 
-        bubbleSoup.forEachBubble { bubble in
+        playfield.forEachBubble { id in
+            guard let bubble = bubbleSoup.bubble(byID: id) else {
+                return
+            }
             for index in bubble.connections {
 
                 // both sides of the connection exist in bubble.  e.g. if 3 and 175 is connected,

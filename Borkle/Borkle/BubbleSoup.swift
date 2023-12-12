@@ -33,7 +33,9 @@ class BubbleSoup {
     var bubbles: [Bubble] = []
 
     /// Iterate over each of the bubbles in some kind of order
-    /// I'm not smart enough to return some kind of sequence/iterator thing
+    /// I'm not smart enough to return some kind of sequence/iterator thing.
+    /// Because this is soup-styles, this is every bubble in use in the entire
+    /// application.
     public func forEachBubble(_ iterator: (Bubble) -> Void) {
         bubbles.forEach { iterator($0) }
     }
@@ -272,8 +274,8 @@ extension BubbleSoup {
     internal func maxBubbleID() -> Int {
         var maxID = 0
 
-        forEachBubble { bubble in
-            maxID = max(maxID, bubble.ID)
+        maxID = bubbles.reduce(into: Int.min) { maxval, bubble in
+            maxval = max(maxval, bubble.ID)
         }
         return maxID
     }
