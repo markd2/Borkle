@@ -68,4 +68,32 @@ class Playfield: Codable {
         indexSet.insert(toBubbleID)
         connections[bubbleID] = indexSet
     }
+
+    func rectFor(bubbleID: Bubble.Identifier) -> CGRect {
+        guard let anchor = positions[bubbleID],
+              let width = widths[bubbleID] else {
+            fatalError("did not find anchor or width for \(bubbleID)")
+        }
+
+        guard let bubble = soup?.bubble(byID: bubbleID) else {
+            fatalError("unknown bubble ID \(bubbleID)")
+        }
+        
+        let effectiveHeight = bubble.heightForStringDrawing(width: width)
+
+        var rect = CGRect(x: anchor.x, y: anchor.y,
+                          width: width, height: effectiveHeight)
+
+        rect.size.height += 2 * Bubble.margin
+
+        return rect
+    }
+
+    var enclosingRect: CGRect {
+        let union = bubbleIdentifiers.reduce(into: CGRect.zero) { union, id in
+            union = union.union(rectFor(bubbleID: id))
+        }
+        return union
+    }
+
 }
