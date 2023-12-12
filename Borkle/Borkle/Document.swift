@@ -80,6 +80,7 @@ class Document: NSDocument {
             self.documentFileWrapper?.remove(filename: self.barrierFilename)
         }
 
+        bubbleCanvas.playfield = defaultPlayfield
         bubbleCanvas.bubbleSoup = bubbleSoup
         bubbleCanvas.barrierSoup = barrierSoup
         bubbleCanvas.barriers = barriers
