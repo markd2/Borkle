@@ -1272,11 +1272,11 @@ Got playfields sketched in, so things to do like
 
 - [X] migrate documents from all-in-bubbles in to a single playfield
 - [X] canvas take a playfield
-  - [-] start vectoring all the things through the playfield (if possible)
-- [ ] actually save playfields
+  - [...] start vectoring all the things through the playfield (if possible)
 - [ ] have multiple playfields sharing some subset of bubbles
-- dragonDrop between playfields
-  - drag to link, option-drag to copy
+- [ ] actually save playfields
+- [ ] dragonDrop between playfields
+  - [ ] drag to link, option-drag to copy
 
 THINGS TO MOVEAY
   - hitTestBubble from soup to playfield
