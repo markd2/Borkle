@@ -272,10 +272,9 @@ class BubbleCanvas: NSView {
     }
 
     func invalidateBubbleFollowingConnections(_ bubble: Bubble) {
-        var union = bubble.rect
-
-        bubble.connections.forEach {
-            if let connectedBubble = bubbleSoup.bubble(byID: $0) {
+        var union = playfield.rectFor(bubbleID: bubble.ID)
+        playfield.connectionsForBubble(id: bubble.ID).forEach { id in
+            if let connectedBubble = bubbleSoup.bubble(byID: id) {
                 union = union.union(connectedBubble.rect)
             }
         }

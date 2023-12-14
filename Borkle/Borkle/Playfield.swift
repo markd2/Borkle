@@ -38,6 +38,10 @@ class Playfield: Codable {
         }
     }
 
+    func connectionsForBubble(id: Bubble.Identifier) -> IndexSet {
+        return connections[id] ?? IndexSet()
+    }
+
     // Alpha Thought...
     var bubbles: [Bubble] = []
 
