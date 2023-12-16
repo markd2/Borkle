@@ -8,9 +8,9 @@ class MouseBubbler: MouseHandler {
     var prefersWindowCoordinates: Bool { return false }
 
     var initialDragPoint: CGPoint!
-    var originalBubblePositions: [Bubble: CGPoint]!
+    var originalBubblePositions: [Bubble.Identifier: CGPoint]!
     var originalBubblePosition: CGPoint!
-    var hitBubble: Bubble?
+    var hitBubbleID: Bubble.Identifier?
 
     init(withSupport support: MouseSupport, selectedBubbles: Selection) {
         self.support = support
@@ -23,23 +23,23 @@ class MouseBubbler: MouseHandler {
         let addToSelection = modifierFlags.contains(.shift)
         let toggleSelection = modifierFlags.contains(.command)
         
-        guard let hitBubble = support.hitTestBubble(at: point) else {
+        guard let hitBubbleID = support.hitTestBubble(at: point) else {
             return
         }
         
-        self.hitBubble = hitBubble
+        self.hitBubbleID = hitBubbleID
 
         if addToSelection {
-            selectedBubbles.select(bubble: hitBubble)
+            selectedBubbles.select(bubble: hitBubbleID)
         } else if toggleSelection {
-            selectedBubbles.toggle(bubble: hitBubble)
+            selectedBubbles.toggle(bubble: hitBubbleID)
         } else {
-            if selectedBubbles.isSelected(bubble: hitBubble) {
+            if selectedBubbles.isSelected(bubble: hitBubbleID) {
                 // dragging existing selection
             }  else {
                 // No other modifiers, so deselect all and drag 
                 selectedBubbles.unselectAll()
-                selectedBubbles.select(bubble: hitBubble)
+                selectedBubbles.select(bubble: hitBubbleID)
             }
             support.makeTransparent(selectedBubbles)
         }
@@ -53,7 +53,7 @@ class MouseBubbler: MouseHandler {
             originalBubblePositions[$0] = $0.position
         }
 
-        originalBubblePosition = hitBubble.position
+        originalBubblePosition = hitBubbleID.position
     }
 
     func drag(to point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
@@ -81,7 +81,7 @@ class MouseBubbler: MouseHandler {
     func finish(at point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         support.highlightAsDropTarget(bubble: nil)
 
-        guard let hitBubble = hitBubble else {
+        guard let hitBubble = hitBubbleID else {
             return
         }
         

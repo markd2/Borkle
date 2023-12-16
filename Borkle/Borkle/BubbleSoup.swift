@@ -112,7 +112,10 @@ class BubbleSoup {
         bubblesChangedHook?()
     }
 
-    /// Remove a bunch of bubbles
+    /// Remove a bunch of bubbles permanently.
+    /// Playfields should only remove bubbles they're dealing with, and then
+    /// inform the soup that it got rid of the bubbles.
+    /// TODO: some kind of reference counting or something for bubbles.  maybe tags.  12/15/2023
     public func remove(bubbles: [Bubble]) {
         undoManager.beginUndoGrouping()
         bubbles.forEach { invalHook?($0) }
@@ -165,13 +168,6 @@ class BubbleSoup {
         undoManager.endUndoGrouping()
         invalHook?(bubble)
         bubblesChangedHook?()
-    }
-
-    /// Given a rectangle, return all bubbles that intersect the rect.
-    public func areaTestBubbles(intersecting rect: CGRect) -> [Bubble]? {
-        let intersectingBubbles = bubbles.filter { $0.rect.intersects(rect) }
-        let result = intersectingBubbles.count > 0 ? intersectingBubbles : nil
-        return result
     }
 
     /// Calculate the rectangle that encloses all the bubbles, anchored at (0, 0)

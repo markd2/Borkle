@@ -5,7 +5,7 @@ class MouseSpacer: MouseHandler {
     private var support: MouseSupport
     private var selection: Selection
     private var anchorPoint: CGPoint!
-    private var originalSelection: [Bubble] = []
+    private var originalSelection: [Bubble.Identifier] = []
     
     
     init(withSupport support: MouseSupport, selection: Selection) {
@@ -21,7 +21,7 @@ class MouseSpacer: MouseHandler {
         // this will need to go somewhere else when we support shift-dragging
 
         if modifierFlags.contains(.shift) {
-            originalSelection = selection.selectedBubbles
+            originalSelection = selection.selectedBubbleIDs
         } else {
             support.unselectAll()
             originalSelection = []
@@ -37,8 +37,8 @@ class MouseSpacer: MouseHandler {
         support.unselectAll()
         var effectiveBubbles = originalSelection
 
-        let bubbles = support.areaTestBubbles(intersecting: rect)
-        if let bubbles = bubbles {
+        let identifiers = support.areaTestBubbles(intersecting: rect)
+        if let bubbles = identifiers {
             effectiveBubbles += bubbles
         }
         support.select(bubbles: effectiveBubbles)

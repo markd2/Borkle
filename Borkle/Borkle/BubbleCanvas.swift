@@ -512,8 +512,10 @@ extension BubbleCanvas {
         } else if event.keyCode == Keycodes.delete.rawValue {
             setCursor(.arrow)
             if !selectedBubbles.selectedBubbles.isEmpty {
-                bubbleSoup.remove(bubbles: selectedBubbles.selectedBubbles)
+                playfield.remove(bubbles: selectedBubbles.selectedBubbles)
             }
+            selectedBubbles.unselectAll(callInvalHook: false)
+            setNeedsDisplay(bounds)
         } else {
             setCursor(.arrow)
             keypressHandler?(event)
@@ -532,14 +534,14 @@ extension BubbleCanvas {
 }
 
 extension BubbleCanvas: MouseSupport {
-    func hitTestBubble(at point: CGPoint) -> Bubble? {
+    func hitTestBubble(at point: CGPoint) -> Bubble.Identifier? {
         guard let id = playfield.hitTestBubble(at: point) else { return nil }
         let bubble = bubbleSoup.bubble(byID: id)
         return bubble
     }
 
-    func areaTestBubbles(intersecting area: CGRect) -> [Bubble]? {
-        return bubbleSoup.areaTestBubbles(intersecting: area)
+    func areaTestBubbles(intersecting area: CGRect) -> [Bubble.Identifier]? {
+        return playfield.areaTestBubbles(intersecting: area)
     }
 
     func drawMarquee(around rect: CGRect) {
@@ -550,7 +552,7 @@ extension BubbleCanvas: MouseSupport {
         selectedBubbles.unselectAll()
     }
 
-    func select(bubbles: [Bubble]) {
+    func select(bubbles: [Bubble.Identifier]) {
         selectedBubbles.select(bubbles: bubbles)
     }
 
@@ -576,7 +578,7 @@ extension BubbleCanvas: MouseSupport {
         scroll(newOrigin)
     }
     
-    func createNewBubble(at point: CGPoint, showEditor: Bool) -> Bubble {
+    func createNewBubble(at point: CGPoint, showEditor: Bool) -> Bubble.Identifier {
         let bubble = bubbleSoup.create(newBubbleAt: point)
         if showEditor {
             textEdit(bubble: bubble)
@@ -584,7 +586,7 @@ extension BubbleCanvas: MouseSupport {
         return bubble
     }
 
-    func move(bubble: Bubble, to point: CGPoint) {
+    func move(bubble: Bubble.Identifier, to point: CGPoint) {
         bubbleSoup.move(bubble: bubble, to: point)
             
         // the area to redraw is kind of complex - like if there's connected 
@@ -599,17 +601,17 @@ extension BubbleCanvas: MouseSupport {
             to: horizontalPosition)
     }
 
-    func connect(bubbles: [Bubble], to bubble: Bubble) {
+    func connect(bubbles: [Bubble.Identifier], to bubble: Bubble.Identifier) {
         bubbleSoup.connect(bubbles: bubbles, to: bubble)
         needsDisplay = true
     }
 
-    func disconnect(bubbles: [Bubble], from bubble: Bubble) {
+    func disconnect(bubbles: [Bubble.Identifier], from bubble: Bubble.Identifier) {
         bubbleSoup.disconnect(bubbles: bubbles, from: bubble)
         needsDisplay = true
     }
 
-    func highlightAsDropTarget(bubble: Bubble?) {
+    func highlightAsDropTarget(bubble: Bubble.Identifier?) {
         var damageRects: [CGRect] = []
 
         if let dropTargetBubble = dropTargetBubble {
@@ -625,8 +627,9 @@ extension BubbleCanvas: MouseSupport {
         damageRects.forEach { setNeedsDisplay($0) }
     }
 
-    func bubblesAffectedBy(barrier: Barrier) -> [Bubble]? {
-        let affectedBubbles = bubbleSoup.areaTestBubbles(intersecting: barrier.horizontalPosition.rectToRight)
+    func bubblesAffectedBy(barrier: Barrier) -> [Bubble.Identifier]? {
+        let area = barrier.horizontalPosition.rectToRight
+        let affectedBubbles = playfield.areaTestBubbles(intersecting: area)
         return affectedBubbles
     }
 

@@ -76,6 +76,7 @@ class Playfield: Codable {
     func rectFor(bubbleID: Bubble.Identifier) -> CGRect {
         guard let anchor = positions[bubbleID],
               let width = widths[bubbleID] else {
+            print("OOPS - no bubble for \(bubbleID)")
             fatalError("did not find anchor or width for \(bubbleID)")
         }
 
@@ -105,5 +106,35 @@ class Playfield: Codable {
     public func hitTestBubble(at point: CGPoint) -> Bubble.Identifier? {
         let bubble = bubbles.last(where: { $0.rect.contains(point) })
         return bubble?.ID
+    }
+
+    public func remove(bubbles: [Bubble]) {
+        // TODO: inform the soup we've removed these bubbles. 12/15/2023
+        for bubble in bubbles {
+            let id = bubble.ID
+            bubbleIdentifiers.removeAll { $0 == id }
+            connections.removeValue(forKey: id)
+            positions.removeValue(forKey: id)
+            widths.removeValue(forKey: id)
+            print("REMOVING \(id)")
+        }
+    }
+
+    /// Given a rectangle, return all bubbles that intersect the rect.
+    public func areaTestBubbles(intersecting: CGRect) -> [Bubble.Identifier]? {
+
+        let bubbleIDs = bubbleIdentifiers.reduce(into: []) { bubbleIDs, id in
+            let rect = rectFor(bubbleID: id)
+            if rect.intersects(intersecting) {
+                bubbleIDs.append(id)
+            }
+        }
+
+        return bubbleIDs.count == 0 ? nil : bubbleIDs as? [Bubble.Identifier]
+/*
+        let intersectingBubbles = bubbles.filter { $0.rect.intersects(rect) }
+        let result = intersectingBubbles.count > 0 ? intersectingBubbles : nil
+        return result
+*/
     }
 }
