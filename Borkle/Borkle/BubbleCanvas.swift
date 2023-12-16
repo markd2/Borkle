@@ -362,7 +362,10 @@ extension BubbleCanvas {
 
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil)
-        let bubble = bubbleSoup.hitTestBubble(at: viewLocation)
+        guard let id = playfield.hitTestBubble(at: viewLocation) else {
+            return
+        }
+        let bubble = bubbleSoup.bubble(byID: id)
         highlightBubble(bubble)
     }
 
@@ -394,12 +397,15 @@ extension BubbleCanvas {
             }
         }
 
-        let bubble = bubbleSoup.hitTestBubble(at: viewLocation)
+        if let id = playfield.hitTestBubble(at: viewLocation) {
+            guard let bubble = bubbleSoup.bubble(byID: id) else {
+                return
+            }
 
-        if let bubble = bubble {
             if event.clickCount == 2 {
                 textEdit(bubble: bubble)
             }
+
         } else {
             // space!
             if event.clickCount == 1 {
@@ -527,7 +533,8 @@ extension BubbleCanvas {
 
 extension BubbleCanvas: MouseSupport {
     func hitTestBubble(at point: CGPoint) -> Bubble? {
-        let bubble = bubbleSoup.hitTestBubble(at: point)
+        guard let id = playfield.hitTestBubble(at: point) else { return nil }
+        let bubble = bubbleSoup.bubble(byID: id)
         return bubble
     }
 

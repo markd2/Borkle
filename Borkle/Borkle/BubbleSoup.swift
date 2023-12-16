@@ -80,6 +80,10 @@ class BubbleSoup {
     /// Looks up a bubble in the soup by its ID.  Returns nil if not found.
     public func bubble(byID: Int) -> Bubble? {
         let bubble = bubbles.first(where: { $0.ID == byID } )
+        if bubble == nil {
+            print("should we really be getting nil bubbles if we have a presumably good ID?")
+            return nil
+        }
         return bubble
     }
 
@@ -161,13 +165,6 @@ class BubbleSoup {
         undoManager.endUndoGrouping()
         invalHook?(bubble)
         bubblesChangedHook?()
-    }
-
-    /// Given a point, find the first bubble that intersects it.
-    /// Drawing happens front->back, so hit testing happens back->front
-    public func hitTestBubble(at point: CGPoint) -> Bubble? {
-        let bubble = bubbles.last(where: { $0.rect.contains(point) })
-        return bubble
     }
 
     /// Given a rectangle, return all bubbles that intersect the rect.

@@ -100,4 +100,10 @@ class Playfield: Codable {
         return union
     }
 
+    /// Given a point, find the first bubble that intersects it.
+    /// Drawing happens front->back, so hit testing happens back->front
+    public func hitTestBubble(at point: CGPoint) -> Bubble.Identifier? {
+        let bubble = bubbles.last(where: { $0.rect.contains(point) })
+        return bubble?.ID
+    }
 }
