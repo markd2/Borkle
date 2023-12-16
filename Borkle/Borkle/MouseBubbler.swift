@@ -44,16 +44,17 @@ class MouseBubbler: MouseHandler {
             support.makeTransparent(selectedBubbles)
         }
 
-        originalBubblePositions = selectedBubbles.selectedBubbles.reduce(into: [:]) { dict, bubble in
-            dict[bubble] = bubble.position
+        originalBubblePositions = selectedBubbles.selectedBubbles.reduce(into: [:]) { dict, bubbleID in
+            dict[bubbleID] = support.owningPlayfield.position(for: bubbleID)
         }
 
+        // TODO: this feels similar to the above loop
         originalBubblePositions = [:]
-        selectedBubbles.forEachBubble {
-            originalBubblePositions[$0] = $0.position
+        selectedBubbles.forEachBubble { bubbleID in
+            originalBubblePositions[bubbleID] = support.owningPlayfield.position(for: bubbleID)
         }
 
-        originalBubblePosition = hitBubbleID.position
+        originalBubblePosition = support.owningPlayfield.position(for: hitBubbleID)
     }
 
     func drag(to point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
@@ -62,7 +63,7 @@ class MouseBubbler: MouseHandler {
         // highlight bubble we're dragging over
         let rect = CGRect(x: point.x, y: point.y, width: 1, height: 1)
         var hitBubbles = support.areaTestBubbles(intersecting: rect) ?? []
-        hitBubbles.removeAll { $0.ID == hitBubble?.ID } // take the primary dragging bubble out.
+        hitBubbles.removeAll { $0 == hitBubbleID } // take the primary dragging bubble out.
         let targetBubble = hitBubbles.last
         support.highlightAsDropTarget(bubble: targetBubble)
 
@@ -87,13 +88,13 @@ class MouseBubbler: MouseHandler {
         
         let rect = CGRect(x: point.x, y: point.y, width: 1, height: 1)
         var hitBubbles = support.areaTestBubbles(intersecting: rect) ?? []
-        hitBubbles.removeAll { $0.ID == hitBubble.ID }
+        hitBubbles.removeAll { $0 == hitBubbleID }
 
         if hitBubbles.count >= 1, let targetBubble = hitBubbles.last  {
             let bubbles = selectedBubbles.selectedBubbles
 
             // if mouse-up inside of a bubble, connect or disconnect.
-            if hitBubble.isConnectedTo(targetBubble) {
+            if support.owningPlayfield.isBubble(hitBubble, connectedTo: targetBubble) {
                 support.disconnect(bubbles: bubbles, from: targetBubble)
             } else {
                 support.connect(bubbles: bubbles, to: targetBubble)

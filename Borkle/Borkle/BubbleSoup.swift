@@ -143,8 +143,8 @@ class BubbleSoup {
     public func create(newBubbleAt point: CGPoint) -> Bubble {
         let maxID = maxBubbleID()
         let bubble = Bubble(ID: maxID + 1)
-        bubble.width = defaultWidth
-        bubble.position = CGPoint(x: point.x - defaultWidth / 2.0, y: point.y - defaultHeight / 2.0)
+//        bubble.width = defaultWidth
+//        bubble.position = CGPoint(x: point.x - defaultWidth / 2.0, y: point.y - defaultHeight / 2.0)
 
         add(bubble: bubble)
         invalHook?(bubble)

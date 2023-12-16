@@ -13,9 +13,9 @@ class BubbleCanvas: NSView {
     var currentMouseHandler: MouseHandler?
 
     var textEditor: NSTextView?
-    var textEditingBubble: Bubble?
+    var textEditingBubble: Bubble.Identifier?
 
-    var dropTargetBubble: Bubble?
+    var dropTargetBubble: Bubble.Identifier?
 
     let marqueeLineWidth: CGFloat = 2.0
     var marquee: CGRect? {
@@ -587,7 +587,7 @@ extension BubbleCanvas: MouseSupport {
     }
 
     func move(bubble: Bubble.Identifier, to point: CGPoint) {
-        bubbleSoup.move(bubble: bubble, to: point)
+        playfield.move(bubble, to: point)
             
         // the area to redraw is kind of complex - like if there's connected 
         // bubbles need to make sure connecting lines are redrawn.
@@ -602,12 +602,12 @@ extension BubbleCanvas: MouseSupport {
     }
 
     func connect(bubbles: [Bubble.Identifier], to bubble: Bubble.Identifier) {
-        bubbleSoup.connect(bubbles: bubbles, to: bubble)
+        playfield.addConnectionsBetween(bubbleIDs: bubbles, to: bubble)
         needsDisplay = true
     }
 
     func disconnect(bubbles: [Bubble.Identifier], from bubble: Bubble.Identifier) {
-        bubbleSoup.disconnect(bubbles: bubbles, from: bubble)
+        playfield.disconnect(bubbles: bubbles, from: bubble)
         needsDisplay = true
     }
 
@@ -615,13 +615,12 @@ extension BubbleCanvas: MouseSupport {
         var damageRects: [CGRect] = []
 
         if let dropTargetBubble = dropTargetBubble {
-            damageRects += [dropTargetBubble.rect]
+            damageRects += [playfield.rectFor(bubbleID: dropTargetBubble)]
         }
 
         dropTargetBubble = bubble
-
         if let bubble = bubble {
-            damageRects += [bubble.rect]
+            damageRects += [playfield.rectFor(bubbleID: bubble)]
         }
 
         damageRects.forEach { setNeedsDisplay($0) }

@@ -17,7 +17,7 @@ class Playfield: Codable {
     var bubbleIdentifiers: [Bubble.Identifier] = []
 
     var connections: [Bubble.Identifier: IndexSet] = [:]
-    var positions: [Bubble.Identifier: CGPoint] = [:]
+    private var positions: [Bubble.Identifier: CGPoint] = [:]
     var widths: [Bubble.Identifier: CGFloat] = [:]
 
     // make optional to quiet "does not conform to De/Encodable"
@@ -40,6 +40,24 @@ class Playfield: Codable {
 
     func connectionsForBubble(id: Bubble.Identifier) -> IndexSet {
         return connections[id] ?? IndexSet()
+    }
+
+    func isBubble(_ id: Bubble.Identifier, connectedTo otherId: Bubble.Identifier) -> Bool {
+        let connected = connections[id]?.contains(otherId) ?? false
+        return connected
+    }
+
+    func createNewBubble(at point: CGPoint) {
+        guard let bubble = soup?.create(newBubbleAt: point) else {
+            fatalError("could not make a booblay")
+        }
+        bubbleIdentifiers += [bubble.ID]
+
+        // TODO: pull out these defaults to somewhere else
+        let actualPoint = CGPoint(x: point.x - soup!.defaultWidth / 2.0, 
+                                  y: point.y - soup!.defaultHeight / 2.0)
+        positions[bubble.ID] = actualPoint
+        widths[bubble.ID] = soup!.defaultWidth
     }
 
     // Alpha Thought...
@@ -71,6 +89,12 @@ class Playfield: Codable {
         var indexSet = connections[bubbleID, default: IndexSet()]
         indexSet.insert(toBubbleID)
         connections[bubbleID] = indexSet
+    }
+
+    func addConnectionsBetween(bubbleIDs: [Bubble.Identifier], to bubbleID: Bubble.Identifier) {
+        for id in bubbleIDs {
+            addConnectionBetween(bubbleID: id, to: bubbleID)
+        }
     }
 
     func rectFor(bubbleID: Bubble.Identifier) -> CGRect {
@@ -136,5 +160,24 @@ class Playfield: Codable {
         let result = intersectingBubbles.count > 0 ? intersectingBubbles : nil
         return result
 */
+    }
+
+    func position(for id: Bubble.Identifier) -> CGPoint {
+        guard let pos = positions[id] else {
+            fatalError("unexpected missing position ID \(id)")
+        }
+        return pos
+    }
+
+    func move(_ bubbleID: Bubble.Identifier, to point: CGPoint) {
+        // TODO: error-check getting an identifier we haven't seen yet? 12/16/23
+        positions[bubbleID] = point
+    }
+
+    func disconnect(bubbles: [Bubble.Identifier], from: Bubble.Identifier) {
+        for bubble in bubbles {
+            connections[bubble]?.remove(from)
+            connections[from]?.remove(bubble)
+        }
     }
 }

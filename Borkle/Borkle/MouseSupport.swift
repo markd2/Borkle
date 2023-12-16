@@ -9,6 +9,7 @@ protocol MouseHandler {
 }
 
 protocol MouseSupport {
+    var owningPlayfield: Playfield { get }
     func hitTestBubble(at: CGPoint) -> Bubble.Identifier?
     func areaTestBubbles(intersecting: CGRect) -> [Bubble.Identifier]?
     func drawMarquee(around: CGRect)
