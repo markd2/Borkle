@@ -250,6 +250,8 @@ class Document: NSDocument {
     // !!! there should be some kind of utility when given a soup and a selection to push it out.
     // !!! maybe a command patterny thing.
     func expand(selection: Selection) {
+        fatalError("expanding selcetion should bounce off the playfield")
+#if false
         // !!! this is O(N^2).  May need to have a lookup by ID?
         // !!! of course, wait until we see it appear in instruments
         selection.forEachBubble { bubble in
@@ -260,6 +262,7 @@ class Document: NSDocument {
                 }
             }
         }
+#endif
     }
 
     // Did we see a control-X float by? If so, if we see the next keystroke as a control-S,
@@ -298,7 +301,10 @@ extension Document {
     }
 
     @IBAction func selectAll(_ sender: Any) {
+        fatalError("select all should be part of the playfield")
+#if false
         bubbleCanvas.selectedBubbles.select(bubbles: bubbleSoup.bubbles)
+#endif
     }
     
     @IBAction func expandSelection(_ sender: Any) {
@@ -367,13 +373,15 @@ extension Document {
             bubbleCanvas.bubbleSoup = bubbleSoup
 
             bubbleCanvas.selectedBubbles.unselectAll()
-            bubbleCanvas.select(bubbles: incomingBubbles)
+            bubbleCanvas.select(bubbles: incomingBubbles.map { $0.ID })
         } catch {
             Swift.print("import error \(error)")
         }
     }
 
     @IBAction func shrinkBubble(_ sender: AnyObject) {
+        fatalError("need to move shrinkenating to the playfield")
+#if false
         bubbleCanvas.selectedBubbles.forEachBubble { bubble in
             let newWidth = bubble.width - 10
             if newWidth > 10 {
@@ -382,20 +390,27 @@ extension Document {
             }
             bubbleCanvas.needsDisplay = true
         }
+#endif
     }
 
     @IBAction func embiggenBubble(_ sender: AnyObject) {
+        fatalError("need to move embiggening to the playfield")
+#if false
         bubbleCanvas.selectedBubbles.forEachBubble { bubble in
             let newWidth = bubble.width + 10
             // TODO make this undoable / supported by the soup
             bubble.width = newWidth
         }
         bubbleCanvas.needsDisplay = true
+#endif
     }
 
     @IBAction func colorBubble(_ sender: DumbButton) {
         Swift.print("need to make color changing undoable")
-        bubbleCanvas.selectedBubbles.forEachBubble { bubble in
+        bubbleCanvas.selectedBubbles.forEachBubble { bubbleID in
+            guard let bubble = bubbleSoup.bubble(byID: bubbleID) else {
+                fatalError("soup can't find a bubble for colirizing \(bubbleID)")
+            }     
             bubble.fillColor = sender.color
         }        
         bubbleCanvas.needsDisplay = true
@@ -448,7 +463,10 @@ extension Document {
 
         point.x += bubbleSoup.defaultWidth / 2.0
 
-        let bubble = bubbleCanvas.createNewBubble(at: point, showEditor: false)
+        let bubbleID = bubbleCanvas.createNewBubble(at: point, showEditor: false)
+        guard let bubble = bubbleSoup.bubble(byID: bubbleID) else {
+            fatalError("soup can't find a bubble it just created - ID \(bubbleID)")
+        }
         bubble.text = string
         bubbleCanvas.needsDisplay = true
         bubbleCanvas.invalidateBubble(bubble.ID)
@@ -469,6 +487,8 @@ extension Document {
     }
 
     @IBAction func exportBulletList(_ sender: AnyObject) {
+        fatalError("will probably want to re-write this to be playfield oriented")
+#if false
         var nodes: [Node] = []
 
         let selectedBubble = bubbleCanvas.selectedBubbles.selectedBubbles[0]
@@ -493,6 +513,7 @@ extension Document {
         Swift.print(finalString)
 
         seenIDs = Set<Int>()
+#endif
     }
 
     func visitForBulletList(_ bubble: Bubble, _ depth: Int) -> [Node] {

@@ -34,7 +34,7 @@ protocol MouseSupport {
     func barriersAffectedBy(barrier: Barrier) -> [Barrier]?
     func move(bubble: Bubble.Identifier, to: CGPoint)
     func move(barrier: Barrier, 
-              affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?,
+              affectedBubbles: [Bubble.Identifier]?, affectedBarriers: [Barrier]?,
               to horizontalPosition: CGFloat)
 }
 

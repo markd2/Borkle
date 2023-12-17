@@ -21,7 +21,7 @@ class MouseSpacer: MouseHandler {
         // this will need to go somewhere else when we support shift-dragging
 
         if modifierFlags.contains(.shift) {
-            originalSelection = selection.selectedBubbleIDs
+            originalSelection = selection.selectedBubbles
         } else {
             support.unselectAll()
             originalSelection = []

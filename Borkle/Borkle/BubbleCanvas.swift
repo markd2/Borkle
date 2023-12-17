@@ -5,7 +5,11 @@ class BubbleCanvas: NSView {
 
     // move to soup
     var barriersChangedHook: (() -> Void)?
-    var playfield: Playfield!
+    var playfield: Playfield! {
+        didSet {
+            playfield.invalHook = invalidateBubbleFollowingConnections
+        }
+    }
 
     var selectedBubbles = Selection()
     var alphaBubbles: Selection?
@@ -15,7 +19,7 @@ class BubbleCanvas: NSView {
     var textEditor: NSTextView?
     var textEditingBubble: Bubble.Identifier?
 
-    var dropTargetBubble: Bubble.Identifier?
+    var dropTargetBubbleID: Bubble.Identifier?
 
     let marqueeLineWidth: CGFloat = 2.0
     var marquee: CGRect? {
@@ -114,13 +118,13 @@ class BubbleCanvas: NSView {
                     guard let bubble = bubbleSoup.bubble(byID: id) else {
                         fatalError("couldn't find bubble with expected id \(id)")
                     }
-                    let transparent = alphaBubbles?.isSelected(bubble: bubble) ?? false
+                    let transparent = alphaBubbles?.isSelected(bubble: id) ?? false
                     renderBubble(
                       bubble, in: rect, 
-                      selected: selectedBubbles.isSelected(bubble: bubble),
-                      highlighted: bubble.ID == (highlightedID ?? -666),
+                      selected: selectedBubbles.isSelected(bubble: id),
+                      highlighted: id == (highlightedID ?? -666),
                       transparent: transparent,
-                      dropTarget: bubble.ID == (dropTargetBubble?.ID ?? -666))
+                      dropTarget: id == (dropTargetBubbleID ?? -666))
                 }
             } else {
                 Swift.print("unexpected not-rendering a bubble")
@@ -271,9 +275,9 @@ class BubbleCanvas: NSView {
         setNeedsDisplay(rectWithPadding)
     }
 
-    func invalidateBubbleFollowingConnections(_ bubble: Bubble) {
-        var union = playfield.rectFor(bubbleID: bubble.ID)
-        playfield.connectionsForBubble(id: bubble.ID).forEach { id in
+    func invalidateBubbleFollowingConnections(_ bubbleID: Bubble.Identifier) {
+        var union = playfield.rectFor(bubbleID: bubbleID)
+        playfield.connectionsForBubble(id: bubbleID).forEach { id in
             if let connectedBubble = bubbleSoup.bubble(byID: id) {
                 union = union.union(connectedBubble.rect)
             }
@@ -304,7 +308,7 @@ class BubbleCanvas: NSView {
         }
     }
 
-    func textEdit(bubble: Bubble) {
+    func textEdit(bubbleID: Bubble.Identifier) {
         if textEditor == nil {
             textEditor = NSTextView(frame: .zero)
         }
@@ -312,25 +316,32 @@ class BubbleCanvas: NSView {
             Swift.print("uh... we just made the text editor")
             return
         }
-
-        let rect = bubble.rect.insetBy(dx: 0, dy: 0)
+        let bubbleRect = playfield.rectFor(bubbleID: bubbleID)
+        let rect = bubbleRect.insetBy(dx: 0, dy: 0) // ... uh... not sure what this is to accomplish
+        
         // !!! this logic is kind of duplicated around.
         let textRect = rect.insetBy(dx: Bubble.margin, dy: Bubble.margin)
         textEditor.frame = textRect
 
+        guard let bubble = bubbleSoup.bubble(byID: bubbleID) else {
+            fatalError("bubble went away during edit? \(bubbleID)")
+        }
         textEditor.textStorage?.setAttributedString(bubble.attributedString)
 
         addSubview(textEditor)
         window?.makeFirstResponder(textEditor)
-        textEditingBubble = bubble
+        textEditingBubble = bubbleID
 
         textEditor.textContainer?.lineFragmentPadding = 0
     }
 
-    func commitEditing(bubble: Bubble) {
+    func commitEditing(bubbleID: Bubble.Identifier) {
         guard let textEditor = textEditor else {
             Swift.print("uh.... we shouldn't get here without a text editor")
             return
+        }
+        guard let bubble = bubbleSoup.bubble(byID: bubbleID) else {
+            fatalError("got unexpected bubble during editing committing \(bubbleID)")
         }
         bubble.text = textEditor.string
         
@@ -375,7 +386,7 @@ extension BubbleCanvas {
         lastPoint = viewLocation
 
         if let textEditingBubble = textEditingBubble {
-            commitEditing(bubble: textEditingBubble)
+            commitEditing(bubbleID: textEditingBubble)
             self.textEditingBubble = nil
             return
         }
@@ -398,12 +409,8 @@ extension BubbleCanvas {
         }
 
         if let id = playfield.hitTestBubble(at: viewLocation) {
-            guard let bubble = bubbleSoup.bubble(byID: id) else {
-                return
-            }
-
             if event.clickCount == 2 {
-                textEdit(bubble: bubble)
+                textEdit(bubbleID: id)
             }
 
         } else {
@@ -534,10 +541,13 @@ extension BubbleCanvas {
 }
 
 extension BubbleCanvas: MouseSupport {
+    var owningPlayfield: Playfield {
+        return playfield
+    }
+    
     func hitTestBubble(at point: CGPoint) -> Bubble.Identifier? {
         guard let id = playfield.hitTestBubble(at: point) else { return nil }
-        let bubble = bubbleSoup.bubble(byID: id)
-        return bubble
+        return id
     }
 
     func areaTestBubbles(intersecting area: CGRect) -> [Bubble.Identifier]? {
@@ -579,9 +589,9 @@ extension BubbleCanvas: MouseSupport {
     }
     
     func createNewBubble(at point: CGPoint, showEditor: Bool) -> Bubble.Identifier {
-        let bubble = bubbleSoup.create(newBubbleAt: point)
+        let bubble = playfield.createNewBubble(at: point)
         if showEditor {
-            textEdit(bubble: bubble)
+            textEdit(bubbleID: bubble)
         }
         return bubble
     }
@@ -594,7 +604,7 @@ extension BubbleCanvas: MouseSupport {
         setNeedsDisplay(bounds)
     }
 
-    func move(barrier: Barrier, affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?,
+    func move(barrier: Barrier, affectedBubbles: [Bubble.Identifier]?, affectedBarriers: [Barrier]?,
         to horizontalPosition: CGFloat) {
         moveAllTheThings(anchoredByBarrier: barrier, 
             affectedBubbles: affectedBubbles, affectedBarriers: affectedBarriers,
@@ -614,11 +624,11 @@ extension BubbleCanvas: MouseSupport {
     func highlightAsDropTarget(bubble: Bubble.Identifier?) {
         var damageRects: [CGRect] = []
 
-        if let dropTargetBubble = dropTargetBubble {
+        if let dropTargetBubble = dropTargetBubbleID {
             damageRects += [playfield.rectFor(bubbleID: dropTargetBubble)]
         }
 
-        dropTargetBubble = bubble
+        dropTargetBubbleID = bubble
         if let bubble = bubble {
             damageRects += [playfield.rectFor(bubbleID: bubble)]
         }
@@ -642,14 +652,15 @@ extension BubbleCanvas: MouseSupport {
 // This stuff should move elsewhere since (hopefully) it's purely soup manipulations.
 extension BubbleCanvas {
     func moveAllTheThings(anchoredByBarrier barrier: Barrier, 
-        affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?, to horizontalPosition: CGFloat) {
+        affectedBubbles: [Bubble.Identifier]?, affectedBarriers: [Barrier]?, to horizontalPosition: CGFloat) {
         
         let delta = horizontalPosition - barrier.horizontalPosition
         barrierSoup.move(barrier: barrier, to: horizontalPosition)
 
-        affectedBubbles?.forEach { bubble in
-            let newPosition = CGPoint(x: bubble.position.x + delta, y: bubble.position.y)
-            bubbleSoup.move(bubble: bubble, to: newPosition)
+        affectedBubbles?.forEach { id in
+            let position = playfield.position(for: id)
+            let newPosition = CGPoint(x: position.x + delta, y: position.y)
+            playfield.move(id, to: newPosition)
         }
 
         affectedBarriers?.forEach { barrier in

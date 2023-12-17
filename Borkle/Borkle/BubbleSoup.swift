@@ -18,7 +18,7 @@ class BubbleSoup {
     let defaultHeight: CGFloat = 8
 
     /// Hook that's called when a bubble position changes, so it can be invalidated
-    var invalHook: ((Bubble) -> Void)?
+    var invalHook: ((Bubble.Identifier) -> Void)?
 
     /// Something changed in the bubbles - maybe resize the canvas?
     var bubblesChangedHook: (() -> Void)?
@@ -108,7 +108,7 @@ class BubbleSoup {
 
         add(bubblesArray: bubbles)
 
-        bubbles.forEach { invalHook?($0) }
+        bubbles.forEach { invalHook?($0.ID) }
         bubblesChangedHook?()
     }
 
@@ -118,7 +118,7 @@ class BubbleSoup {
     /// TODO: some kind of reference counting or something for bubbles.  maybe tags.  12/15/2023
     public func remove(bubbles: [Bubble]) {
         undoManager.beginUndoGrouping()
-        bubbles.forEach { invalHook?($0) }
+        bubbles.forEach { invalHook?($0.ID) }
 
         // disconnect
         bubbles.forEach { bubble in
@@ -147,7 +147,7 @@ class BubbleSoup {
 //        bubble.position = CGPoint(x: point.x - defaultWidth / 2.0, y: point.y - defaultHeight / 2.0)
 
         add(bubble: bubble)
-        invalHook?(bubble)
+//        invalHook?(bubble.ID)
         return bubble
     }
 
@@ -166,7 +166,7 @@ class BubbleSoup {
             self.move(bubble: bubble, to: oldPoint)
         }
         undoManager.endUndoGrouping()
-        invalHook?(bubble)
+//        invalHook?(bubble.ID)
         bubblesChangedHook?()
     }
 
@@ -241,7 +241,7 @@ extension BubbleSoup {
     internal func removeLastBubbles(count: Int) {
         undoManager.beginUndoGrouping()
         let lastChunk = Array(self.bubbles.suffix(count))
-        lastChunk.forEach { invalHook?($0) }
+        lastChunk.forEach { invalHook?($0.ID) }
         bubbles.removeLast(count)
         undoManager.registerUndo(withTarget: self) { selfTarget in
             self.add(bubbles: lastChunk)

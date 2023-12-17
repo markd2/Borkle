@@ -22,6 +22,10 @@ class Playfield: Codable {
 
     // make optional to quiet "does not conform to De/Encodable"
     var soup: BubbleSoup? = nil
+    
+    /// Hook that's called when a bubble position changes, so it can be invalidated
+    var invalHook: ((Bubble.Identifier) -> Void)?
+
 
     private enum CodingKeys: String, CodingKey {
         case title, description, bubbleIdentifiers
@@ -47,7 +51,7 @@ class Playfield: Codable {
         return connected
     }
 
-    func createNewBubble(at point: CGPoint) {
+    func createNewBubble(at point: CGPoint) -> Bubble.Identifier {
         guard let bubble = soup?.create(newBubbleAt: point) else {
             fatalError("could not make a booblay")
         }
@@ -58,6 +62,8 @@ class Playfield: Codable {
                                   y: point.y - soup!.defaultHeight / 2.0)
         positions[bubble.ID] = actualPoint
         widths[bubble.ID] = soup!.defaultWidth
+
+        return bubble.ID
     }
 
     // Alpha Thought...
@@ -132,15 +138,18 @@ class Playfield: Codable {
         return bubble?.ID
     }
 
-    public func remove(bubbles: [Bubble]) {
+    public func remove(bubbleID id: Bubble.Identifier) {
+        bubbleIdentifiers.removeAll { $0 == id }
+        connections.removeValue(forKey: id)
+        positions.removeValue(forKey: id)
+        widths.removeValue(forKey: id)
+        print("REMOVING \(id)")
+    }
+
+    public func remove(bubbles: [Bubble.Identifier]) {
         // TODO: inform the soup we've removed these bubbles. 12/15/2023
-        for bubble in bubbles {
-            let id = bubble.ID
-            bubbleIdentifiers.removeAll { $0 == id }
-            connections.removeValue(forKey: id)
-            positions.removeValue(forKey: id)
-            widths.removeValue(forKey: id)
-            print("REMOVING \(id)")
+        for bubbleID in bubbles {
+            remove(bubbleID: bubbleID)
         }
     }
 
