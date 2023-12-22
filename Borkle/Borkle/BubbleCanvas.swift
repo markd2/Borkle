@@ -175,7 +175,7 @@ class BubbleCanvas: NSView {
             guard let bubble = playfield.bubble(byID: id) else {
                 return
             }
-            for index in bubble.connections {
+            for index in playfield.connectionsForBubble(id: id) {
 
                 // both sides of the connection exist in bubble.  e.g. if 3 and 175 is connected,
                 // only want to draw that once.  So wait until bubbles bigger than us to draw
@@ -271,9 +271,7 @@ class BubbleCanvas: NSView {
     func invalidateBubbleFollowingConnections(_ bubbleID: Bubble.Identifier) {
         var union = playfield.rectFor(bubbleID: bubbleID)
         playfield.connectionsForBubble(id: bubbleID).forEach { id in
-            if let connectedBubble = playfield.bubble(byID: id) {
-                union = union.union(connectedBubble.rect)
-            }
+            union = union.union(playfield.rectFor(bubbleID: id))
         }
         let rectWithPadding = union.insetBy(dx: -10, dy: -10)
         setNeedsDisplay(rectWithPadding)

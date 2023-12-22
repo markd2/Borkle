@@ -359,14 +359,15 @@ extension Document {
         }
     }
 
+    /// This is probalby better moved into the playfield
     func importScapple(url: URL) {
-        let ceiling = bubbleSoup.maxBubbleID() + 1
+//        let ceiling = bubbleSoup.maxBubbleID() + 1
 
         do {
             let incomingBubbles = try ScappleImporter().importScapple(url: url)
-            incomingBubbles.forEach { bubble in
-                bubble.offset(by: ceiling)
-            }
+//            incomingBubbles.forEach { bubble in
+//                bubble.offset(by: ceiling)
+//            }
 
             bubbleSoup.add(bubbles: incomingBubbles)
 

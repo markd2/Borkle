@@ -76,16 +76,6 @@ class Bubble: Codable {
     }
     var borderThickness: Int?
 
-    // Offsets ID values by a fixed amount
-    // useful for importing so that imported stuff avoids clobbering existing bubbles.
-    func offset(by fixedAmount: Int) {
-        ID += fixedAmount
-        let renumberedConnections = connections.reduce(into: IndexSet()) { result, integer in
-            result.insert(integer + fixedAmount)
-        }
-        connections = renumberedConnections
-    }
-
     func gronkulateAttributedString(_ attr: NSAttributedString) {
         formattingOptions = []
 
@@ -201,8 +191,10 @@ class Bubble: Codable {
             _effectiveHeight = nil
         }
     }
+    
+    // TODO: remove these once we have a better migration strategy, but for now these
+    // are used to impor t
     internal var connections = IndexSet()
-
     public func forEachConnection(_ iterator: (Int) -> Void) {
         connections.forEach { iterator($0) }
     }
@@ -211,29 +203,6 @@ class Bubble: Codable {
         self.ID = ID
         if let position = position { self.position = position }
         if let width = width { self.width = width }
-    }
-
-    var rect: CGRect {
-        var rect = CGRect(x: position.x, y: position.y,
-                          width: width, height: effectiveHeight)
-        rect.size.height += 2 * Bubble.margin
-        return rect
-    }
-
-    func isConnectedTo(_ bubble: Bubble) -> Bool {
-        let connected = connections.contains(bubble.ID)
-        return connected
-    }
-
-    func connect(to bubble: Bubble) {
-        connections.insert(bubble.ID)
-        bubble.connections.insert(ID)
-        print("connections are \(connections)")
-    }
-
-    func disconnect(bubble: Bubble) {
-        connections.remove(bubble.ID)
-        bubble.connections.remove(ID)
     }
 
     // optional as hacky way to opt out of Codable for this.

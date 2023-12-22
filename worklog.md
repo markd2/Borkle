@@ -1272,16 +1272,23 @@ Got playfields sketched in, so things to do like
 
 - [X] migrate documents from all-in-bubbles in to a single playfield
 - [X] canvas take a playfield
-  - [...] start vectoring all the things through the playfield (if possible)
+  - [X] start vectoring all the things through the playfield (if possible)
 - [ ] have multiple playfields sharing some subset of bubbles
 - [ ] actually save playfields
 - [ ] dragonDrop between playfields
   - [ ] drag to link, option-drag to copy
 
-THINGS TO MOVEAY
+THINGS TO MOVEAY (done)
   - hitTestBubble from soup to playfield
   - areaTestBubbles from soup to playfield
   - inval hook from soup to playfield?
   - enclosingRect from soup to playfield
   - iterate the bubbles from the playfield (since the soup may have more)
 etc
+
+(work happens over numerous days)
+
+==================================================
+# Thursday December 21, 2023
+
+Got some bugs.  like click selection not working.
