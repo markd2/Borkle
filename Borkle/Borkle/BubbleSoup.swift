@@ -17,9 +17,6 @@ class BubbleSoup {
     let defaultWidth: CGFloat = 160
     let defaultHeight: CGFloat = 8
 
-    /// Hook that's called when a bubble position changes, so it can be invalidated
-    var invalHook: ((Bubble.Identifier) -> Void)?
-
     /// Something changed in the bubbles - maybe resize the canvas?
     var bubblesChangedHook: (() -> Void)?
 
@@ -108,7 +105,6 @@ class BubbleSoup {
 
         add(bubblesArray: bubbles)
 
-        bubbles.forEach { invalHook?($0.ID) }
         bubblesChangedHook?()
     }
 
@@ -118,16 +114,6 @@ class BubbleSoup {
     /// TODO: some kind of reference counting or something for bubbles.  maybe tags.  12/15/2023
     public func remove(bubbles: [Bubble]) {
         undoManager.beginUndoGrouping()
-        bubbles.forEach { invalHook?($0.ID) }
-
-        // disconnect
-        bubbles.forEach { bubble in
-            bubble.forEachConnection { index in
-                if let otherBubble = self.bubble(byID: index) {
-                    disconnect(bubble: bubble, from: otherBubble)
-                }
-            }
-        }
 
         let filtered = self.bubbles.filter { return !bubbles.contains($0) }
         self.bubbles = filtered
@@ -143,11 +129,8 @@ class BubbleSoup {
     public func create(newBubbleAt point: CGPoint) -> Bubble {
         let maxID = maxBubbleID()
         let bubble = Bubble(ID: maxID + 1)
-//        bubble.width = defaultWidth
-//        bubble.position = CGPoint(x: point.x - defaultWidth / 2.0, y: point.y - defaultHeight / 2.0)
 
         add(bubble: bubble)
-//        invalHook?(bubble.ID)
         return bubble
     }
 
@@ -166,62 +149,8 @@ class BubbleSoup {
             self.move(bubble: bubble, to: oldPoint)
         }
         undoManager.endUndoGrouping()
-//        invalHook?(bubble.ID)
         bubblesChangedHook?()
     }
-
-    /// Calculate the rectangle that encloses all the bubbles, anchored at (0, 0)
-    public var enclosingRect: CGRect {
-        let union = bubbles.reduce(into: CGRect.zero) { union, bubble in
-            union = union.union(bubble.rect)
-        }
-        return union
-    }
-    
-    func connect(bubble: Bubble, to target: Bubble, callChangeHook: Bool = true) {
-        bubble.connect(to: target)
-        undoManager.registerUndo(withTarget: self) { selfTarget in
-            self.disconnect(bubble: bubble, from: target)
-        }
-
-        if callChangeHook {
-            bubblesChangedHook?()
-        }
-    }
-
-    func disconnect(bubble: Bubble, from target: Bubble, callChangeHook: Bool = true) {
-        bubble.disconnect(bubble: target)
-        undoManager.registerUndo(withTarget: self) { selfTarget in
-            self.connect(bubble: bubble, to: target)
-        }
-
-        if callChangeHook {
-            bubblesChangedHook?()
-        }
-    }
-    
-    func connect(bubbles: [Bubble], to bubble: Bubble) {
-        undoManager.beginUndoGrouping()
-        bubbles.forEach { target in
-            if !bubble.isConnectedTo(target) {
-                connect(bubble: bubble, to: target, callChangeHook: false)
-            }
-        }
-        undoManager.endUndoGrouping()
-        bubblesChangedHook?()
-    }
-
-    func disconnect(bubbles: [Bubble], from bubble: Bubble) {
-        undoManager.beginUndoGrouping()
-        bubbles.forEach { target in
-            if bubble.isConnectedTo(target) {
-                disconnect(bubble: bubble, from: target, callChangeHook: false)
-            }
-        }
-        undoManager.endUndoGrouping()
-        bubblesChangedHook?()
-    }
-
 }
 
 /// Helper Methods
@@ -241,7 +170,6 @@ extension BubbleSoup {
     internal func removeLastBubbles(count: Int) {
         undoManager.beginUndoGrouping()
         let lastChunk = Array(self.bubbles.suffix(count))
-        lastChunk.forEach { invalHook?($0.ID) }
         bubbles.removeLast(count)
         undoManager.registerUndo(withTarget: self) { selfTarget in
             self.add(bubbles: lastChunk)

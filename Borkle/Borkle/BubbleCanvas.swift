@@ -50,12 +50,7 @@ class BubbleCanvas: NSView {
     override var isFlipped: Bool { return true }
     var idToRectMap: [Int: CGRect] = [:]
 
-    var bubbleSoup: BubbleSoup! {
-        didSet {
-            bubbleSoup.invalHook = invalidateBubbleFollowingConnections
-            resizeCanvas()
-        }
-    }
+    var bubbleSoup: BubbleSoup!
 
     var barrierSoup: BarrierSoup! {
         didSet {
