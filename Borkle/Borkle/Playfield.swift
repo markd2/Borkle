@@ -36,6 +36,10 @@ class Playfield: Codable {
         self.soup = soup
     }
 
+    func bubble(byID id: Bubble.Identifier) -> Bubble? {
+        return soup?.bubble(byID: id)
+    }
+
     func forEachBubble(_ iterator: (Bubble.Identifier) -> Void) {
         for id in bubbleIdentifiers {
             iterator(id)

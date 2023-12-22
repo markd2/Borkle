@@ -50,8 +50,6 @@ class BubbleCanvas: NSView {
     override var isFlipped: Bool { return true }
     var idToRectMap: [Int: CGRect] = [:]
 
-    var bubbleSoup: BubbleSoup!
-
     var barrierSoup: BarrierSoup! {
         didSet {
             barrierSoup.invalHook = invalidateBarrier
@@ -110,7 +108,7 @@ class BubbleCanvas: NSView {
         playfield.forEachBubble { id in
             if let rect = idToRectMap[id] {
                 if needsToDraw(rect) {
-                    guard let bubble = bubbleSoup.bubble(byID: id) else {
+                    guard let bubble = playfield.bubble(byID: id) else {
                         fatalError("couldn't find bubble with expected id \(id)")
                     }
                     let transparent = alphaBubbles?.isSelected(bubble: id) ?? false
@@ -158,7 +156,7 @@ class BubbleCanvas: NSView {
 
     func allBorders() -> [Int: CGRect] {
         playfield.forEachBubble { id in
-            guard let bubble = bubbleSoup.bubble(byID: id) else {
+            guard let bubble = playfield.bubble(byID: id) else {
                 return
             }
             let rect = playfield.rectFor(bubbleID: id)
@@ -174,7 +172,7 @@ class BubbleCanvas: NSView {
         bezierPath.setLineDash(pattern, count: pattern.count, phase: 0.0)
 
         playfield.forEachBubble { id in
-            guard let bubble = bubbleSoup.bubble(byID: id) else {
+            guard let bubble = playfield.bubble(byID: id) else {
                 return
             }
             for index in bubble.connections {
@@ -273,7 +271,7 @@ class BubbleCanvas: NSView {
     func invalidateBubbleFollowingConnections(_ bubbleID: Bubble.Identifier) {
         var union = playfield.rectFor(bubbleID: bubbleID)
         playfield.connectionsForBubble(id: bubbleID).forEach { id in
-            if let connectedBubble = bubbleSoup.bubble(byID: id) {
+            if let connectedBubble = playfield.bubble(byID: id) {
                 union = union.union(connectedBubble.rect)
             }
         }
@@ -318,7 +316,7 @@ class BubbleCanvas: NSView {
         let textRect = rect.insetBy(dx: Bubble.margin, dy: Bubble.margin)
         textEditor.frame = textRect
 
-        guard let bubble = bubbleSoup.bubble(byID: bubbleID) else {
+        guard let bubble = playfield.bubble(byID: bubbleID) else {
             fatalError("bubble went away during edit? \(bubbleID)")
         }
         textEditor.textStorage?.setAttributedString(bubble.attributedString)
@@ -335,7 +333,7 @@ class BubbleCanvas: NSView {
             Swift.print("uh.... we shouldn't get here without a text editor")
             return
         }
-        guard let bubble = bubbleSoup.bubble(byID: bubbleID) else {
+        guard let bubble = playfield.bubble(byID: bubbleID) else {
             fatalError("got unexpected bubble during editing committing \(bubbleID)")
         }
         bubble.text = textEditor.string
@@ -371,7 +369,7 @@ extension BubbleCanvas {
         guard let id = playfield.hitTestBubble(at: viewLocation) else {
             return
         }
-        let bubble = bubbleSoup.bubble(byID: id)
+        let bubble = playfield.bubble(byID: id)
         highlightBubble(bubble)
     }
 
@@ -395,7 +393,7 @@ extension BubbleCanvas {
 
         for barrier in barriers { // not a forEach because of the return
             if barrier.hitTest(point: viewLocation, area: bounds) {
-                bubbleSoup.beginGrouping()
+//                playfield.beginGrouping()
                 barrierSoup.beginGrouping()
                 currentMouseHandler = MouseBarrier(withSupport: self, barrier: barrier)
                 currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
@@ -424,7 +422,7 @@ extension BubbleCanvas {
         }
 
         // Catch-all selecting and dragging.
-        bubbleSoup.beginGrouping()
+//        playfield.beginGrouping()
         currentMouseHandler = MouseBubbler(withSupport: self, 
                                            selectedBubbles: selectedBubbles)
         currentMouseHandler?.start(at: viewLocation,
@@ -452,12 +450,12 @@ extension BubbleCanvas {
 
         defer {
             scrollOrigin = nil
-            bubbleSoup.endGrouping()
+//            playfield.endGrouping()
 
             currentMouseHandler = nil
             marquee = nil
 
-            bubbleSoup.endGrouping()
+//            playfield.endGrouping()
             barrierSoup.endGrouping()
         }
 

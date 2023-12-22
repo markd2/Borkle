@@ -81,7 +81,6 @@ class Document: NSDocument {
         }
 
         bubbleCanvas.playfield = defaultPlayfield ?? Playfield(soup: bubbleSoup)
-        bubbleCanvas.bubbleSoup = bubbleSoup
         bubbleCanvas.barrierSoup = barrierSoup
         bubbleCanvas.barriers = barriers
         bubbleCanvas.barriersChangedHook = {
@@ -370,7 +369,6 @@ extension Document {
             }
 
             bubbleSoup.add(bubbles: incomingBubbles)
-            bubbleCanvas.bubbleSoup = bubbleSoup
 
             bubbleCanvas.selectedBubbles.unselectAll()
             bubbleCanvas.select(bubbles: incomingBubbles.map { $0.ID })
