@@ -138,8 +138,9 @@ class Playfield: Codable {
     /// Given a point, find the first bubble that intersects it.
     /// Drawing happens front->back, so hit testing happens back->front
     public func hitTestBubble(at point: CGPoint) -> Bubble.Identifier? {
-        let bubble = bubbles.last(where: { $0.rect.contains(point) })
-        return bubble?.ID
+        let rect = CGRect(x: point.x, y: point.y, width: 1.0, height: 1.0)
+        let bubbles = areaTestBubbles(intersecting: rect)
+        return bubbles?.last
     }
 
     public func remove(bubbleID id: Bubble.Identifier) {
