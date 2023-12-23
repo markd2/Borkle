@@ -96,8 +96,24 @@ class BubbleCanvas: NSView {
         let trackingArea = NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
         addTrackingArea(trackingArea)
     }
+    
+    override var nextResponder: NSResponder? {
+        didSet {
+            print("OOGLE")
+        }
+    }
+
+    func printResponderChain() {
+        var responder: NSResponder? = self
+        while responder != nil {
+            print(responder)
+            responder = responder?.nextResponder
+        }
+    }
 
     override func draw(_ areaToDrawPlzKthx: CGRect) {
+        printResponderChain()
+
         BubbleCanvas.background.set()
         bounds.fill()
 

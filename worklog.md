@@ -1277,6 +1277,9 @@ Got playfields sketched in, so things to do like
 - [ ] actually save playfields
 - [ ] dragonDrop between playfields
   - [ ] drag to link, option-drag to copy
+- [ ] fix undo
+- [ ] fix tests
+- [X] put playfields into the responder chain
 
 THINGS TO MOVEAY (done)
   - hitTestBubble from soup to playfield
@@ -1292,3 +1295,11 @@ etc
 # Thursday December 21, 2023
 
 Got some bugs.  like click selection not working.
+
+==================================================
+# Friday December 22, 2023
+
+puts playfield into the responder chain
+
+
+

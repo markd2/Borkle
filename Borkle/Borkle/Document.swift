@@ -87,6 +87,11 @@ class Document: NSDocument {
             self.documentFileWrapper?.remove(filename: self.barrierFilename)
         }
 
+        let responder = PlayfieldResponder(playfield: bubbleCanvas.playfield)
+        responder.nextResponder = bubbleCanvas.nextResponder
+        bubbleCanvas.printResponderChain()
+        bubbleCanvas.nextResponder = responder
+
         // need to actually drive the frame from the bubbles
         bubbleScroller.contentView.backgroundColor = BubbleCanvas.background
         bubbleScroller.hasHorizontalScroller = true

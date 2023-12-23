@@ -1,4 +1,75 @@
 import Foundation
+import AppKit
+
+class PlayfieldResponder: NSResponder, NSMenuItemValidation {
+    weak var playfield: Playfield?
+
+    init(playfield: Playfield) {
+        self.playfield = playfield
+        super.init()
+        playfield.responder = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override var acceptsFirstResponder: Bool { true }
+    override func becomeFirstResponder() -> Bool {
+        print("SNORNGLE")
+        return true
+    }
+
+    @IBAction func expandSelection(_ sender: Any) {
+    }
+    @IBAction func expandComponent(_ sender: Any) {
+    }
+    @IBAction func shrinkBubble(_ sender: Any) {
+    }
+    @IBAction func embiggenBubble(_ sender: Any) {
+    }
+    @IBAction func exportBulletList(_ sender: Any) {
+    }
+    @IBAction func exportPDF(_ sender: Any) {
+    }
+    @IBAction func importScapple(_ sender: Any) {
+    }
+    @IBAction func paste(_ sender: Any) {
+    }
+
+    @objc func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        switch menuItem.action {
+        case #selector(expandSelection(_:)):
+//            return bubbleCanvas.selectedBubbles.bubbleCount > 0
+            return false
+        case #selector(expandComponent(_:)):
+//            return bubbleCanvas.selectedBubbles.bubbleCount > 0
+            return true
+        case #selector(shrinkBubble(_:)):
+//            return bubbleCanvas.selectedBubbles.bubbleCount > 0
+            return false
+        case #selector(embiggenBubble(_:)):
+//            return bubbleCanvas.selectedBubbles.bubbleCount > 0
+            return true
+        case #selector(exportBulletList(_:)):
+//            return bubbleCanvas.selectedBubbles.bubbleCount == 1
+            return false
+        case #selector(exportPDF(_:)):
+//            return true
+            return true
+        case #selector(importScapple(_:)):
+//            return true
+            return false
+        case #selector(paste(_:)):
+//            return canPaste()
+            return true
+        default:
+            break
+        }
+        return menuItem.isEnabled
+    }
+
+}
 
 /// Playfields are the worksheets for Borkle.  A canvas (will eventually)
 /// be driven by a single playfield. The user can have as many playfields
@@ -11,6 +82,9 @@ import Foundation
 /// Right now formatting (text formatting, bubble color) are still bubble attributes.
 ///
 class Playfield: Codable {
+    // to keep it alive
+    var responder: PlayfieldResponder?
+
     var title: String = "Untitled"
     var description: String = ""
 
