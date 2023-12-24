@@ -251,24 +251,6 @@ class Document: NSDocument {
         return documentFileWrapper
     }
 
-    // !!! there should be some kind of utility when given a soup and a selection to push it out.
-    // !!! maybe a command patterny thing.
-    func expand(selection: Selection) {
-        fatalError("expanding selcetion should bounce off the playfield")
-#if false
-        // !!! this is O(N^2).  May need to have a lookup by ID?
-        // !!! of course, wait until we see it appear in instruments
-        selection.forEachBubble { bubble in
-            for connection in bubble.connections {
-                let connectedBubble = bubbleSoup.bubbles.first { $0.ID == connection }
-                if let connectedBubble = connectedBubble {
-                    selection.select(bubble: connectedBubble)
-                }
-            }
-        }
-#endif
-    }
-
     // Did we see a control-X float by? If so, if we see the next keystroke as a control-S,
     // the save. (emacs save-document combo)
     var controlXLatch = false
@@ -304,28 +286,9 @@ extension Document {
         updateChangeCount(.changeDone)
     }
 
-    @IBAction func expandSelection(_ sender: Any) {
-        expand(selection: bubbleCanvas.selectedBubbles)
-    }
 //asdf    
-    @IBAction func expandComponent(_ sender: Any) {
-        var lastSelectionCount = bubbleCanvas.selectedBubbles.bubbleCount
-        
-        while true {
-            expand(selection: bubbleCanvas.selectedBubbles)
-            if lastSelectionCount == bubbleCanvas.selectedBubbles.bubbleCount {
-                break
-            }
-            lastSelectionCount = bubbleCanvas.selectedBubbles.bubbleCount
-        }
-    }
-    
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         switch menuItem.action {
-        case #selector(expandSelection(_:)):
-            return bubbleCanvas.selectedBubbles.bubbleCount > 0
-        case #selector(expandComponent(_:)):
-            return bubbleCanvas.selectedBubbles.bubbleCount > 0
         case #selector(shrinkBubble(_:)):
             return bubbleCanvas.selectedBubbles.bubbleCount > 0
         case #selector(embiggenBubble(_:)):

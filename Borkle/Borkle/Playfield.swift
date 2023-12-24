@@ -27,6 +27,7 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
         playfield?.expandSelection()
     }
     @IBAction func expandComponent(_ sender: Any) {
+        playfield?.expandComponent()
     }
     @IBAction func shrinkBubble(_ sender: Any) {
     }
@@ -50,23 +51,20 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
         case #selector(expandSelection(_:)):
             return playfield.selectedBubbles.bubbleCount > 0
         case #selector(expandComponent(_:)):
-//            return bubbleCanvas.selectedBubbles.bubbleCount > 0
-            return true
+            return playfield.selectedBubbles.bubbleCount > 0
         case #selector(shrinkBubble(_:)):
 //            return bubbleCanvas.selectedBubbles.bubbleCount > 0
             return false
         case #selector(embiggenBubble(_:)):
 //            return bubbleCanvas.selectedBubbles.bubbleCount > 0
-            return true
+            return false
         case #selector(exportBulletList(_:)):
 //            return bubbleCanvas.selectedBubbles.bubbleCount == 1
             return false
         case #selector(exportPDF(_:)):
-//            return true
             return true
         case #selector(importScapple(_:)):
-//            return true
-            return false
+            return true
         case #selector(paste(_:)):
 //            return canPaste()
             return true
@@ -292,4 +290,17 @@ extension Playfield {
             }
         }
     }
+
+    func expandComponent() {
+        var lastSelectionCount = selectedBubbles.bubbleCount
+        
+        while true {
+            expandSelection()
+            if lastSelectionCount == selectedBubbles.bubbleCount {
+                break
+            }
+            lastSelectionCount = selectedBubbles.bubbleCount
+        }
+    }
+
 }
