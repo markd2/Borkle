@@ -20,7 +20,11 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
         return true
     }
 
+    override func selectAll(_ sender: Any?) {
+        playfield?.selectAll()
+    }
     @IBAction func expandSelection(_ sender: Any) {
+        playfield?.expandSelection()
     }
     @IBAction func expandComponent(_ sender: Any) {
     }
@@ -38,10 +42,13 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
     }
 
     @objc func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        guard let playfield else { return false }
+        
         switch menuItem.action {
+        case #selector(selectAll(_:)):
+            return playfield.bubbleIdentifiers.count > 0
         case #selector(expandSelection(_:)):
-//            return bubbleCanvas.selectedBubbles.bubbleCount > 0
-            return false
+            return playfield.selectedBubbles.bubbleCount > 0
         case #selector(expandComponent(_:)):
 //            return bubbleCanvas.selectedBubbles.bubbleCount > 0
             return true
@@ -100,6 +107,7 @@ class Playfield: Codable {
     /// Hook that's called when a bubble position changes, so it can be invalidated
     var invalHook: ((Bubble.Identifier) -> Void)?
 
+    var selectedBubbles = Selection()
 
     private enum CodingKeys: String, CodingKey {
         case title, description, bubbleIdentifiers
@@ -266,6 +274,22 @@ class Playfield: Codable {
         for bubble in bubbles {
             connections[bubble]?.remove(from)
             connections[from]?.remove(bubble)
+        }
+    }
+}
+
+extension Playfield {
+    func selectAll() {
+        selectedBubbles.select(bubbles: bubbleIdentifiers)
+    }
+
+    func expandSelection() {
+        // !!! this is O(N^2).  May need to have a lookup by ID?
+        // !!! of course, wait until we see it appear in instruments
+        selectedBubbles.forEachBubble { id in
+            connections[id]?.forEach { connection in
+                selectedBubbles.select(bubble: connection)
+            }
         }
     }
 }

@@ -1301,5 +1301,8 @@ Got some bugs.  like click selection not working.
 
 puts playfield into the responder chain
 
+saturday - move selection into playfield
+
+
 
 

@@ -8,10 +8,13 @@ class BubbleCanvas: NSView {
     var playfield: Playfield! {
         didSet {
             playfield.invalHook = invalidateBubbleFollowingConnections
+            playfield.selectedBubbles.invalHook = invalidateBubbleFollowingConnections
+            addTrackingAreas()
+            resizeCanvas()
         }
     }
 
-    var selectedBubbles = Selection()
+    var selectedBubbles: Selection = Selection()
     var alphaBubbles: Selection?
 
     var currentMouseHandler: MouseHandler?
@@ -80,15 +83,11 @@ class BubbleCanvas: NSView {
     required init?(coder: NSCoder) {
         currentCursor = .arrow
         super.init(coder: coder)
-        addTrackingAreas()
-        selectedBubbles.invalHook = invalidateBubbleFollowingConnections
     }
     
     override init(frame: CGRect) {
         currentCursor = .arrow
         super.init(frame: frame)
-        addTrackingAreas()
-        selectedBubbles.invalHook = invalidateBubbleFollowingConnections
     }
     var trackingArea: NSTrackingArea!
 
@@ -96,7 +95,7 @@ class BubbleCanvas: NSView {
         let trackingArea = NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow], owner: self, userInfo: nil)
         addTrackingArea(trackingArea)
     }
-    
+
     override var nextResponder: NSResponder? {
         didSet {
             print("OOGLE")
@@ -106,7 +105,7 @@ class BubbleCanvas: NSView {
     func printResponderChain() {
         var responder: NSResponder? = self
         while responder != nil {
-            print(responder)
+            print(responder as Any)
             responder = responder?.nextResponder
         }
     }
@@ -130,7 +129,7 @@ class BubbleCanvas: NSView {
                     let transparent = alphaBubbles?.isSelected(bubble: id) ?? false
                     renderBubble(
                       bubble, in: rect, 
-                      selected: selectedBubbles.isSelected(bubble: id),
+                      selected: playfield.selectedBubbles.isSelected(bubble: id),
                       highlighted: id == (highlightedID ?? -666),
                       transparent: transparent,
                       dropTarget: id == (dropTargetBubbleID ?? -666))
@@ -423,7 +422,8 @@ extension BubbleCanvas {
         } else {
             // space!
             if event.clickCount == 1 {
-                currentMouseHandler = MouseSpacer(withSupport: self, selection: selectedBubbles)
+                currentMouseHandler = MouseSpacer(withSupport: self, 
+                                                  selection: playfield.selectedBubbles)
             } else if event.clickCount == 2 {
                 currentMouseHandler = MouseDoubleSpacer(withSupport: self)
                 currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
@@ -438,7 +438,7 @@ extension BubbleCanvas {
         // Catch-all selecting and dragging.
 //        playfield.beginGrouping()
         currentMouseHandler = MouseBubbler(withSupport: self, 
-                                           selectedBubbles: selectedBubbles)
+                                           selectedBubbles: playfield.selectedBubbles)
         currentMouseHandler?.start(at: viewLocation,
                                    modifierFlags: event.modifierFlags)
     }
@@ -525,10 +525,10 @@ extension BubbleCanvas {
             }
         } else if event.keyCode == Keycodes.delete.rawValue {
             setCursor(.arrow)
-            if !selectedBubbles.selectedBubbles.isEmpty {
-                playfield.remove(bubbles: selectedBubbles.selectedBubbles)
+            if !playfield.selectedBubbles.selectedBubbles.isEmpty {
+                playfield.remove(bubbles: playfield.selectedBubbles.selectedBubbles)
             }
-            selectedBubbles.unselectAll(callInvalHook: false)
+            playfield.selectedBubbles.unselectAll(callInvalHook: false)
             setNeedsDisplay(bounds)
         } else {
             setCursor(.arrow)
@@ -566,11 +566,11 @@ extension BubbleCanvas: MouseSupport {
     }
 
     func unselectAll() {
-        selectedBubbles.unselectAll()
+        playfield.selectedBubbles.unselectAll()
     }
 
     func select(bubbles: [Bubble.Identifier]) {
-        selectedBubbles.select(bubbles: bubbles)
+        playfield.selectedBubbles.select(bubbles: bubbles)
     }
 
     func makeTransparent(_ selection: Selection?) {

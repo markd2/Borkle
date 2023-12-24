@@ -304,17 +304,10 @@ extension Document {
         updateChangeCount(.changeDone)
     }
 
-    @IBAction func selectAll(_ sender: Any) {
-        fatalError("select all should be part of the playfield")
-#if false
-        bubbleCanvas.selectedBubbles.select(bubbles: bubbleSoup.bubbles)
-#endif
-    }
-    
     @IBAction func expandSelection(_ sender: Any) {
         expand(selection: bubbleCanvas.selectedBubbles)
     }
-    
+//asdf    
     @IBAction func expandComponent(_ sender: Any) {
         var lastSelectionCount = bubbleCanvas.selectedBubbles.bubbleCount
         
