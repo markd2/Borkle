@@ -47,6 +47,7 @@
 		7D93A76D250B019D00991121 /* flumph.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A76C250B019D00991121 /* flumph.jpg */; };
 		7DB5CCC22547AD57004C8F67 /* single-appearance.scap in Resources */ = {isa = PBXBuildFile; fileRef = 7DB5CCC12547AD57004C8F67 /* single-appearance.scap */; };
 		7DB5CCC9254F3AEC004C8F67 /* DumbButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB5CCC8254F3AEC004C8F67 /* DumbButton.swift */; };
+		7DBD29312B3BC10C00B8A65F /* UIResponder+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBD29302B3BC10C00B8A65F /* UIResponder+Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,7 @@
 		7D93A76C250B019D00991121 /* flumph.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = flumph.jpg; sourceTree = "<group>"; };
 		7DB5CCC12547AD57004C8F67 /* single-appearance.scap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "single-appearance.scap"; sourceTree = "<group>"; };
 		7DB5CCC8254F3AEC004C8F67 /* DumbButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DumbButton.swift; sourceTree = "<group>"; };
+		7DBD29302B3BC10C00B8A65F /* UIResponder+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Utilities.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 				7D2C9D2E251A581300B1E2DE /* Model */,
 				7D2C9D2A251A547200B1E2DE /* Soup */,
 				7D2C9D2D251A57F400B1E2DE /* Mouse */,
+				7DBD292F2B3BC0FD00B8A65F /* Utilities */,
 				7D93A749250AD8DC00991121 /* AppDelegate.swift */,
 				7D93A750250AD8DD00991121 /* Assets.xcassets */,
 				7D93A752250AD8DD00991121 /* MainMenu.xib */,
@@ -229,6 +232,14 @@
 				7D5DAABD253C9AE700893D82 /* ScappleDocuments */,
 			);
 			path = BorkleTests;
+			sourceTree = "<group>";
+		};
+		7DBD292F2B3BC0FD00B8A65F /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				7DBD29302B3BC10C00B8A65F /* UIResponder+Utilities.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,6 +369,7 @@
 				7D042C56250D8DB900E65175 /* ScappleImporter.swift in Sources */,
 				7D93A74A250AD8DC00991121 /* AppDelegate.swift in Sources */,
 				7D2C9CD2251556B900B1E2DE /* BubbleSoup.swift in Sources */,
+				7DBD29312B3BC10C00B8A65F /* UIResponder+Utilities.swift in Sources */,
 				7D2C9CFF25190EAD00B1E2DE /* MouseSupport.swift in Sources */,
 				7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */,
 				7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */,

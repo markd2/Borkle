@@ -36,6 +36,7 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
         playfield?.embiggenBubbles()
     }
     @IBAction func exportPDF(_ sender: Any) {
+        playfield?.exportPDF()
     }
     @IBAction func importScapple(_ sender: Any) {
     }
@@ -84,6 +85,7 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
 class Playfield: Codable {
     // to keep it alive
     var responder: PlayfieldResponder?
+    weak var canvas: BubbleCanvas? // for PDF export
 
     var title: String = "Untitled"
     var description: String = ""
@@ -324,6 +326,17 @@ extension Playfield {
                 invalHook?(id)
             }
         } 
+    }
+
+    func exportPDF() {
+        guard let canvas else {
+            fatalError("no canvas during pdf export")
+        }
+        
+        Swift.print("saved to Desktop directory as _borkle.pdf_")
+        let data = canvas.dataWithPDF(inside: canvas.bounds)
+        let url = Document.userDesktopURL().appendingPathComponent("borkle.pdf")
+        try! data.write(to: url)
     }
 
 }
