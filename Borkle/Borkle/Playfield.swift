@@ -30,8 +30,10 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
         playfield?.expandComponent()
     }
     @IBAction func shrinkBubble(_ sender: Any) {
+        playfield?.shrinkBubbles()
     }
     @IBAction func embiggenBubble(_ sender: Any) {
+        playfield?.embiggenBubbles()
     }
     @IBAction func exportBulletList(_ sender: Any) {
     }
@@ -53,11 +55,9 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
         case #selector(expandComponent(_:)):
             return playfield.selectedBubbles.bubbleCount > 0
         case #selector(shrinkBubble(_:)):
-//            return bubbleCanvas.selectedBubbles.bubbleCount > 0
-            return false
+            return playfield.selectedBubbles.bubbleCount > 0
         case #selector(embiggenBubble(_:)):
-//            return bubbleCanvas.selectedBubbles.bubbleCount > 0
-            return false
+            return playfield.selectedBubbles.bubbleCount > 0
         case #selector(exportBulletList(_:)):
 //            return bubbleCanvas.selectedBubbles.bubbleCount == 1
             return false
@@ -301,6 +301,34 @@ extension Playfield {
             }
             lastSelectionCount = selectedBubbles.bubbleCount
         }
+    }
+
+    func shrinkBubbles() {
+        selectedBubbles.forEachBubble { id in
+            guard let width = widths[id] else {
+                fatalError("unexpectedly missing width for id \(id)")
+            }
+            let newWidth = width - 10
+            if newWidth > 10 {
+                // TODO make this undoable
+                widths[id] = newWidth
+                invalHook?(id)
+            }
+        } 
+    }
+
+    func embiggenBubbles() {
+        selectedBubbles.forEachBubble { id in
+            guard let width = widths[id] else {
+                fatalError("unexpectedly missing width for id \(id)")
+            }
+            let newWidth = width + 10
+            if newWidth > 10 {
+                // TODO make this undoable
+                widths[id] = newWidth
+                invalHook?(id)
+            }
+        } 
     }
 
 }

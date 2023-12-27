@@ -289,14 +289,6 @@ extension Document {
 //asdf    
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         switch menuItem.action {
-        case #selector(shrinkBubble(_:)):
-            return bubbleCanvas.selectedBubbles.bubbleCount > 0
-        case #selector(embiggenBubble(_:)):
-            return bubbleCanvas.selectedBubbles.bubbleCount > 0
-        case #selector(exportBulletList(_:)):
-            return bubbleCanvas.selectedBubbles.bubbleCount == 1
-        case #selector(exportPDF(_:)):
-            return true
         case #selector(importScapple(_:)):
             return true
         case #selector(paste(_:)):
@@ -337,32 +329,6 @@ extension Document {
         } catch {
             Swift.print("import error \(error)")
         }
-    }
-
-    @IBAction func shrinkBubble(_ sender: AnyObject) {
-        fatalError("need to move shrinkenating to the playfield")
-#if false
-        bubbleCanvas.selectedBubbles.forEachBubble { bubble in
-            let newWidth = bubble.width - 10
-            if newWidth > 10 {
-                // TODO make this undoable / supported by the soup
-                bubble.width = newWidth
-            }
-            bubbleCanvas.needsDisplay = true
-        }
-#endif
-    }
-
-    @IBAction func embiggenBubble(_ sender: AnyObject) {
-        fatalError("need to move embiggening to the playfield")
-#if false
-        bubbleCanvas.selectedBubbles.forEachBubble { bubble in
-            let newWidth = bubble.width + 10
-            // TODO make this undoable / supported by the soup
-            bubble.width = newWidth
-        }
-        bubbleCanvas.needsDisplay = true
-#endif
     }
 
     @IBAction func colorBubble(_ sender: DumbButton) {
