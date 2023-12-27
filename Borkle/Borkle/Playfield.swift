@@ -42,6 +42,10 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
     @IBAction func paste(_ sender: Any) {
         playfield?.paste()
     }
+    @IBAction func colorBubbles(_ sender: Any) {
+        guard let db = (sender as? DumbButton) else { return }
+        playfield?.colorBubbles(db.color)
+    }
 
     @objc func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard let playfield else { return false }
@@ -378,4 +382,14 @@ extension Playfield {
         Swift.print(bubble.text)
     }
 
+    func colorBubbles(_ color: NSColor) {
+        Swift.print("need to make color changing undoable")
+        selectedBubbles.forEachBubble { bubbleID in
+            guard let bubble = soup!.bubble(byID: bubbleID) else {
+                fatalError("soup can't find a bubble for colirizing \(bubbleID)")
+            }     
+            bubble.fillColor = color
+            invalHook?(bubbleID)
+        }        
+    }
 }

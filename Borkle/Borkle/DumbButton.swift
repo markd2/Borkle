@@ -20,7 +20,7 @@ class DumbButton: NSView {
         let viewLocation = convert(locationInWindow, from: nil) as CGPoint
 
         if bounds.contains(viewLocation) {
-            NSApp.sendAction(#selector(colorBubble(_:)), to: nil, from: self)
+            NSApp.sendAction(#selector(colorBubbles(_:)), to: nil, from: self)
         }
     }
 }

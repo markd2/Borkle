@@ -330,17 +330,6 @@ extension Document {
         }
     }
 
-    @IBAction func colorBubble(_ sender: DumbButton) {
-        Swift.print("need to make color changing undoable")
-        bubbleCanvas.selectedBubbles.forEachBubble { bubbleID in
-            guard let bubble = bubbleSoup.bubble(byID: bubbleID) else {
-                fatalError("soup can't find a bubble for colirizing \(bubbleID)")
-            }     
-            bubble.fillColor = sender.color
-        }        
-        bubbleCanvas.needsDisplay = true
-    }
-
     static func userDesktopURL() -> URL {
         let urls = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)
         let userDesktopDirectoryURL = urls[0]
@@ -357,39 +346,5 @@ extension Document {
 
     @IBAction func decZoom(_ sender: AnyObject) {
         bubbleScroller.magnification -= 0.1
-    }
-
-    @IBAction func paste(_ sender: AnyObject) {
-        let pasteboard = NSPasteboard.general
-        guard let string = pasteboard.string(forType: .string),
-              var point = bubbleCanvas.lastPoint else {
-            return
-        }
-        var startPoint = point
-
-        point.x += bubbleSoup.defaultWidth / 2.0
-
-        let bubbleID = bubbleCanvas.createNewBubble(at: point, showEditor: false)
-        guard let bubble = bubbleSoup.bubble(byID: bubbleID) else {
-            fatalError("soup can't find a bubble it just created - ID \(bubbleID)")
-        }
-        bubble.text = string
-        bubbleCanvas.needsDisplay = true
-        bubbleCanvas.invalidateBubble(bubble.ID)
-
-        // Change the start point so that multiple pastes get
-        // offset.
-        startPoint.x += 30
-        startPoint.y += 30
-        bubbleCanvas.lastPoint = startPoint
-        
-        Swift.print(bubble.text)
-    }
-
-    @IBAction func recalcScrollingBounds(_ sender: NSButton) {
-        // force a recalc of the canvas bounds.  we should do that automatically,
-        // but it's not working.  This is a hack (8/23/2023 - hello me from five years in
-        // the future!) for now.
-        bubbleCanvas.resizeCanvas()
     }
 }
