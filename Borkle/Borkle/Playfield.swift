@@ -16,7 +16,6 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
     
     override var acceptsFirstResponder: Bool { true }
     override func becomeFirstResponder() -> Bool {
-        print("SNORNGLE")
         return true
     }
 
@@ -41,6 +40,7 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
     @IBAction func importScapple(_ sender: Any) {
     }
     @IBAction func paste(_ sender: Any) {
+        playfield?.paste()
     }
 
     @objc func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
@@ -62,8 +62,7 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
         case #selector(importScapple(_:)):
             return true
         case #selector(paste(_:)):
-//            return canPaste()
-            return true
+            return playfield.canPaste()
         default:
             break
         }
@@ -337,6 +336,46 @@ extension Playfield {
         let data = canvas.dataWithPDF(inside: canvas.bounds)
         let url = Document.userDesktopURL().appendingPathComponent("borkle.pdf")
         try! data.write(to: url)
+    }
+
+
+    func canPaste() -> Bool {
+        // need a point to paste at
+        guard let _ = canvas?.lastPoint else {
+            return false
+        }
+
+        // and need something on the pasteboard to paste
+        let pasteboard = NSPasteboard.general
+        let types = pasteboard.availableType(from: [.string])
+        return types != nil
+    }
+
+    func paste() {
+        let pasteboard = NSPasteboard.general
+        guard let string = pasteboard.string(forType: .string),
+              let canvas, let soup,
+              var point = canvas.lastPoint else {
+            return
+        }
+        var startPoint = point
+
+        point.x += soup.defaultWidth / 2.0
+
+        let bubbleID = createNewBubble(at: point)
+        guard let bubble = soup.bubble(byID: bubbleID) else {
+            fatalError("soup can't find a bubble it just created - ID \(bubbleID)")
+        }
+        bubble.text = string
+        invalHook?(bubbleID)
+
+        // Change the start point so that multiple pastes get
+        // offset.
+        startPoint.x += 30
+        startPoint.y += 30
+        canvas.lastPoint = startPoint
+        
+        Swift.print(bubble.text)
     }
 
 }
