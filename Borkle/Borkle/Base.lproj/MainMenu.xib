@@ -119,12 +119,6 @@
                                     <action selector="exportPDF:" target="-1" id="Z8x-vz-wLQ"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Export Bullet List" id="mWp-4J-g0b">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="exportBulletList:" target="-1" id="7Ym-4W-8Ct"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
                             <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>

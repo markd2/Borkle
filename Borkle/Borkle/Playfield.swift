@@ -35,8 +35,6 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
     @IBAction func embiggenBubble(_ sender: Any) {
         playfield?.embiggenBubbles()
     }
-    @IBAction func exportBulletList(_ sender: Any) {
-    }
     @IBAction func exportPDF(_ sender: Any) {
     }
     @IBAction func importScapple(_ sender: Any) {
@@ -58,9 +56,6 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
             return playfield.selectedBubbles.bubbleCount > 0
         case #selector(embiggenBubble(_:)):
             return playfield.selectedBubbles.bubbleCount > 0
-        case #selector(exportBulletList(_:)):
-//            return bubbleCanvas.selectedBubbles.bubbleCount == 1
-            return false
         case #selector(exportPDF(_:)):
             return true
         case #selector(importScapple(_:)):

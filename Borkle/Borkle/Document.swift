@@ -406,60 +406,6 @@ extension Document {
         Swift.print(bubble.text)
     }
 
-    // Idea from Mikey
-    struct Node {
-        let text: String
-        let depth: Int
-    }
-
-    @IBAction func exportBulletList(_ sender: AnyObject) {
-        fatalError("will probably want to re-write this to be playfield oriented")
-#if false
-        var nodes: [Node] = []
-
-        let selectedBubble = bubbleCanvas.selectedBubbles.selectedBubbles[0]
-
-        nodes += visitForBulletList(selectedBubble, 0)
-
-        var finalString = ""
-        nodes.forEach { node in
-            let indent = String(repeating: " ", count: node.depth * 4)
-            finalString += indent + "- " + node.text + "\n"
-        }
-
-        guard let data = finalString.data(using: .utf8) else {
-            Swift.print("could not convert string \(finalString)")
-            return
-        }
-
-        Swift.print("saving to Desktop directory as _outline.md_")
-        let url = userDesktopURL().appendingPathComponent("outline.md")
-        try! data.write(to: url)
-        
-        Swift.print(finalString)
-
-        seenIDs = Set<Int>()
-#endif
-    }
-
-    func visitForBulletList(_ bubble: Bubble, _ depth: Int) -> [Node] {
-        Swift.print("visiting \(bubble.ID) depth \(depth)")
-        var nodes: [Node] = []
-
-        let node = Node(text: bubble.text, depth: depth)
-        nodes += [node]
-
-        seenIDs.insert(bubble.ID)
-
-        bubble.forEachConnection { id in
-            guard let bubble = bubbleSoup.bubble(byID: id),
-                  !seenIDs.contains(bubble.ID) else { return }
-            nodes += self.visitForBulletList(bubble, depth + 1)
-        }
-
-        return nodes
-    }
-    
     @IBAction func recalcScrollingBounds(_ sender: NSButton) {
         // force a recalc of the canvas bounds.  we should do that automatically,
         // but it's not working.  This is a hack (8/23/2023 - hello me from five years in
