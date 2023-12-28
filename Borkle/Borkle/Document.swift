@@ -4,6 +4,8 @@ import Yams
 
 class Document: NSDocument {
     @IBOutlet var imageView: NSImageView!
+
+    var defaultPlayfield: Playfield!
     @IBOutlet var bubbleCanvas: BubbleCanvas!
 
     // I am so lazy...
@@ -21,8 +23,6 @@ class Document: NSDocument {
     let barrierFilename = "barriers.yaml"
     let playfieldDirectory = "playfields.yaml"
     let defaultPlayfieldFilename = "default-playfield.yaml"
-
-    var defaultPlayfield: Playfield!
 
     var bubbleSoup: BubbleSoup
 
@@ -89,7 +89,6 @@ class Document: NSDocument {
 
         let responder = PlayfieldResponder(playfield: bubbleCanvas.playfield)
         responder.nextResponder = bubbleCanvas.nextResponder
-        bubbleCanvas.printResponderChain()
         bubbleCanvas.nextResponder = responder
 
         // need to actually drive the frame from the bubbles
