@@ -1304,5 +1304,4 @@ puts playfield into the responder chain
 saturday - move selection into playfield
 tuesday - paste / colors / embiggining / etc
 
-NEXT: scroller zoom
 
