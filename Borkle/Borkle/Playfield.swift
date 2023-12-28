@@ -46,6 +46,15 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
         guard let db = (sender as? DumbButton) else { return }
         playfield?.colorBubbles(db.color)
     }
+    @IBAction func resetZoom(_ sender: Any) {
+        playfield?.resetZoom()
+    }
+    @IBAction func incZoom(_ sender: Any) {
+        playfield?.incZoom()
+    }
+    @IBAction func decZoom(_ sender: Any) {
+        playfield?.decZoom()
+    }
 
     @objc func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard let playfield else { return false }
@@ -392,4 +401,17 @@ extension Playfield {
             invalHook?(bubbleID)
         }        
     }
+
+    func resetZoom() {
+        canvas?.scroller?.magnification = 1.0
+    }
+
+    func incZoom() {
+        canvas?.scroller?.magnification += 0.1
+    }
+
+    func decZoom() {
+        canvas?.scroller?.magnification -= 0.1
+    }
+
 }

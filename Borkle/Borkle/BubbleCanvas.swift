@@ -44,6 +44,9 @@ class BubbleCanvas: NSView {
     var highlightedID: Int? = nil
 
     var scrollOrigin: CGPoint?
+    weak var scroller: NSScrollView? {
+        return self.superview?.superview as? NSScrollView
+    }
 
     /// for things like "hey paste at the last place the user clicked.
     var lastPoint: CGPoint?
