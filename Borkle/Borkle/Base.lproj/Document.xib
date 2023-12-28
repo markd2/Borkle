@@ -42,10 +42,10 @@
                             <action selector="imageDrop:" target="-2" id="x7U-mF-AyQ"/>
                         </connections>
                     </imageView>
-                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kz4-mA-D4k">
-                        <rect key="frame" x="0.0" y="0.0" width="309" height="291"/>
+                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kz4-mA-D4k" userLabel="First Canvas">
+                        <rect key="frame" x="0.0" y="0.0" width="308" height="291"/>
                         <clipView key="contentView" id="Xa2-Az-D99">
-                            <rect key="frame" x="1" y="1" width="292" height="274"/>
+                            <rect key="frame" x="1" y="1" width="291" height="274"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yd2-k3-bEp" customClass="BubbleCanvas" customModule="Borkle" customModuleProvider="target">
@@ -55,11 +55,11 @@
                             </subviews>
                         </clipView>
                         <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="omz-UR-9om">
-                            <rect key="frame" x="1" y="275" width="292" height="15"/>
+                            <rect key="frame" x="1" y="275" width="291" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="WvQ-xN-ka1">
-                            <rect key="frame" x="293" y="1" width="15" height="274"/>
+                            <rect key="frame" x="292" y="1" width="15" height="274"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
@@ -122,10 +122,10 @@
                             <action selector="recalcScrollingBounds:" target="-2" id="niB-Ni-325"/>
                         </connections>
                     </button>
-                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b24-zs-zNy">
-                        <rect key="frame" x="307" y="0.0" width="308" height="290"/>
+                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b24-zs-zNy" userLabel="Second Canvas">
+                        <rect key="frame" x="308" y="0.0" width="307" height="290"/>
                         <clipView key="contentView" id="i9p-IX-drd">
-                            <rect key="frame" x="1" y="1" width="291" height="273"/>
+                            <rect key="frame" x="1" y="1" width="290" height="273"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dRM-eG-Ljh" customClass="BubbleCanvas" customModule="Borkle" customModuleProvider="target">
@@ -135,11 +135,11 @@
                             </subviews>
                         </clipView>
                         <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="2F3-dl-dUM">
-                            <rect key="frame" x="1" y="274" width="291" height="15"/>
+                            <rect key="frame" x="1" y="274" width="290" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="eMO-EN-Q0q">
-                            <rect key="frame" x="292" y="1" width="15" height="273"/>
+                            <rect key="frame" x="291" y="1" width="15" height="273"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
@@ -147,15 +147,15 @@
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="kz4-mA-D4k" secondAttribute="bottom" id="9q2-sh-41r"/>
                     <constraint firstItem="kz4-mA-D4k" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" id="A3s-1y-d4r"/>
+                    <constraint firstItem="kz4-mA-D4k" firstAttribute="trailing" secondItem="b24-zs-zNy" secondAttribute="leading" id="EsT-eQ-ugE"/>
                     <constraint firstItem="b24-zs-zNy" firstAttribute="top" secondItem="021-kA-8LX" secondAttribute="bottom" constant="8" symbolic="YES" id="IFk-IZ-ZRG"/>
-                    <constraint firstAttribute="trailing" secondItem="kz4-mA-D4k" secondAttribute="trailing" constant="306" id="Mdl-aw-utW"/>
                     <constraint firstItem="021-kA-8LX" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="20" id="O5v-tb-g5r"/>
                     <constraint firstAttribute="trailing" secondItem="b24-zs-zNy" secondAttribute="trailing" id="VPZ-g4-Vem"/>
                     <constraint firstAttribute="bottom" secondItem="b24-zs-zNy" secondAttribute="bottom" id="dKx-Gp-TTx"/>
-                    <constraint firstItem="b24-zs-zNy" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" constant="307" id="omR-x4-3Xf"/>
                     <constraint firstItem="kz4-mA-D4k" firstAttribute="top" secondItem="T03-FT-cVK" secondAttribute="bottom" constant="8" id="qeU-1k-LTR"/>
                     <constraint firstItem="kz4-mA-D4k" firstAttribute="top" secondItem="021-kA-8LX" secondAttribute="bottom" constant="7" id="sXZ-Sa-1LS"/>
                     <constraint firstAttribute="trailing" secondItem="021-kA-8LX" secondAttribute="trailing" constant="20" id="sek-wq-4Ql"/>
+                    <constraint firstItem="kz4-mA-D4k" firstAttribute="width" secondItem="b24-zs-zNy" secondAttribute="width" id="x43-JK-U7p"/>
                 </constraints>
             </view>
             <connections>

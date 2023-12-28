@@ -168,7 +168,8 @@ class Playfield: Codable {
 
         let width: CGFloat = 90
         let height: CGFloat = 80
-        var x: CGFloat = 0
+        let maxWidth: CGFloat = 250
+        var x: CGFloat = 19
         var y: CGFloat = 10
 
         var ids = Set<Bubble.Identifier>() 
@@ -178,7 +179,7 @@ class Playfield: Codable {
             bubbleIdentifiers.append(id)
 
             x += width + 10
-            if x > 500 { x = 0; y += height }
+            if x > maxWidth { x = 10; y += height }
 
             let position = CGPoint(x: x, y: y)
             positions[id] = position
@@ -187,7 +188,7 @@ class Playfield: Codable {
             ids.insert(id)
         }
 
-        for _ in 0 ..< 5 {
+        for _ in 0 ..< (halfBubbles.count / 2) {
             let a = ids.randomElement()!
             let b = ids.randomElement()!
 
