@@ -162,6 +162,41 @@ class Playfield: Codable {
     // Alpha Thought...
     var bubbles: [Bubble] = []
 
+    func migrateSomeFrom(bubbles: [Bubble]) {
+        let halfBubbles = bubbles.filter { _ in Bool.random() }
+        
+
+        let width: CGFloat = 90
+        let height: CGFloat = 80
+        var x: CGFloat = 0
+        var y: CGFloat = 10
+
+        var ids = Set<Bubble.Identifier>() 
+
+        for bubble in halfBubbles {
+            let id = bubble.ID
+            bubbleIdentifiers.append(id)
+
+            x += width + 10
+            if x > 500 { x = 0; y += height }
+
+            let position = CGPoint(x: x, y: y)
+            positions[id] = position
+            widths[id] = width
+
+            ids.insert(id)
+        }
+
+        for _ in 0 ..< 5 {
+            let a = ids.randomElement()!
+            let b = ids.randomElement()!
+
+            addConnectionBetween(bubbleID: a, to: b)
+            addConnectionBetween(bubbleID: b, to: a)
+        }
+
+    }
+
     func migrateFrom(bubbles: [Bubble]) {
         for bubble in bubbles {
             let id = bubble.ID
@@ -193,6 +228,7 @@ class Playfield: Codable {
     func addConnectionsBetween(bubbleIDs: [Bubble.Identifier], to bubbleID: Bubble.Identifier) {
         for id in bubbleIDs {
             addConnectionBetween(bubbleID: id, to: bubbleID)
+            addConnectionBetween(bubbleID: bubbleID, to: id)
         }
     }
 

@@ -8,6 +8,9 @@ class Document: NSDocument {
     var defaultPlayfield: Playfield!
     @IBOutlet var bubbleCanvas: BubbleCanvas!
 
+    var secondPlayfield: Playfield!
+    @IBOutlet var secondBubbleCanvas: BubbleCanvas!
+
     // I am so lazy...
     @IBOutlet var colorButton1: DumbButton!
     @IBOutlet var colorButton2: DumbButton!
@@ -83,6 +86,7 @@ class Document: NSDocument {
         bubbleCanvas.playfield.canvas = bubbleCanvas
         bubbleCanvas.barrierSoup = barrierSoup
         bubbleCanvas.barriers = barriers
+        bubbleCanvas.backgroundColor = BubbleCanvas.background
         bubbleCanvas.barriersChangedHook = {
             self.documentFileWrapper?.remove(filename: self.barrierFilename)
         }
@@ -93,7 +97,7 @@ class Document: NSDocument {
 
         // need to actually drive the frame from the bubbles
         let bubbleScroller = bubbleCanvas.scroller
-        bubbleScroller?.contentView.backgroundColor = BubbleCanvas.background
+        bubbleScroller?.contentView.backgroundColor = bubbleCanvas.backgroundColor
         bubbleScroller?.hasHorizontalScroller = true
         bubbleScroller?.hasVerticalScroller = true
 
@@ -103,6 +107,36 @@ class Document: NSDocument {
         bubbleCanvas.keypressHandler = { event in
             self.handleKeypress(event)
         }
+
+        secondBubbleCanvas.playfield = secondPlayfield ?? Playfield(soup: bubbleSoup)
+        secondBubbleCanvas.playfield.canvas = secondBubbleCanvas
+        secondBubbleCanvas.barrierSoup = barrierSoup
+        secondBubbleCanvas.barriers = barriers
+        secondBubbleCanvas.backgroundColor = BubbleCanvas.background2
+        secondBubbleCanvas.barriersChangedHook = {
+            self.documentFileWrapper?.remove(filename: self.barrierFilename)
+        }
+
+        let responder2 = PlayfieldResponder(playfield: secondBubbleCanvas.playfield)
+        responder2.nextResponder = secondBubbleCanvas.nextResponder
+        secondBubbleCanvas.nextResponder = responder2
+
+        // need to actually drive the frame from the bubbles
+        let bubbleScroller2 = secondBubbleCanvas.scroller
+        bubbleScroller2?.contentView.backgroundColor = secondBubbleCanvas.backgroundColor
+        bubbleScroller2?.hasHorizontalScroller = true
+        bubbleScroller2?.hasVerticalScroller = true
+
+        // zoom
+        bubbleScroller2?.magnification = 1.0
+
+        secondBubbleCanvas.keypressHandler = { event in
+            self.handleKeypress(event)
+        }
+
+
+
+
         colorButton1.color = .white
         colorButton2.color = NSColor(red: 0.896043, green: 0.997437, blue: 0.942763, alpha: 1.0) // greenish
         colorButton3.color = NSColor(red: 1.0, green: 0.90283, blue: 0.976506, alpha: 1.0) // pinkish
@@ -159,6 +193,9 @@ class Document: NSDocument {
                 bubbleSoup.bubbles = bubbles
                 defaultPlayfield = Playfield(soup: bubbleSoup)
                 defaultPlayfield.migrateFrom(bubbles: bubbles)
+
+                secondPlayfield = Playfield(soup: bubbleSoup)
+                secondPlayfield.migrateSomeFrom(bubbles: bubbles)
             } catch {
                 Swift.print("SNORGLE loading got \(error)")
             }

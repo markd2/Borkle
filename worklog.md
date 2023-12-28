@@ -1303,5 +1303,7 @@ puts playfield into the responder chain
 
 saturday - move selection into playfield
 tuesday - paste / colors / embiggining / etc
+wednesday - zoom
 
+need a soup change (e.g. bubble text) update all the playfields/canvases
 

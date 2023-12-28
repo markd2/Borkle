@@ -2,6 +2,9 @@ import Cocoa
 
 class BubbleCanvas: NSView {
     static let background = NSColor(red: 228.0 / 255.0, green: 232.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
+    static let background2 = NSColor(red: 238.0 / 255.0, green: 242.0 / 255.0, blue: 236.0 / 255.0, alpha: 1.0)
+
+    var backgroundColor: NSColor = .white
 
     // move to soup
     var barriersChangedHook: (() -> Void)?
@@ -100,7 +103,7 @@ class BubbleCanvas: NSView {
     }
 
     override func draw(_ areaToDrawPlzKthx: CGRect) {
-        BubbleCanvas.background.set()
+        backgroundColor.set()
         bounds.fill()
 
         idToRectMap = allBorders()
