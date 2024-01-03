@@ -109,7 +109,10 @@ class Playfield: Codable {
     var widths: [Bubble.Identifier: CGFloat] = [:]
 
     // make optional to quiet "does not conform to De/Encodable"
-    var soup: BubbleSoup? = nil
+    private var soup: BubbleSoup? = nil {
+        didSet {
+        }
+    }
     
     /// Hook that's called when a bubble position changes, so it can be invalidated
     var invalHook: ((Bubble.Identifier) -> Void)?
@@ -123,6 +126,10 @@ class Playfield: Codable {
 
     init(soup: BubbleSoup) {
         self.soup = soup
+
+        soup.addChangeHook { [weak self] in
+            self?.canvas?.invalidate()
+        }
     }
 
     func bubble(byID id: Bubble.Identifier) -> Bubble? {
@@ -319,6 +326,11 @@ class Playfield: Codable {
             connections[bubble]?.remove(from)
             connections[from]?.remove(bubble)
         }
+    }
+
+    func setBubbleText(bubbleID: Bubble.Identifier, text: String) {
+        soup?.bubble(byID: bubbleID)?.text = text
+        soup?.bubbleChanged(bubbleID)
     }
 }
 

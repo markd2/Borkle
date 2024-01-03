@@ -1306,4 +1306,19 @@ tuesday - paste / colors / embiggining / etc
 wednesday - zoom
 
 need a soup change (e.g. bubble text) update all the playfields/canvases
+  - change from a single callback to a list
+  - done
 
+also should (eventually) cache the bubble height - clear on a soup change for that bubble
+  - obvious hotspot
+
+==================================================
+# Tuesday January 2, 2023
+
+Still to do:
+  * document saving
+  * undo
+  * update tests
+  * ???
+  * PROFIT!
+ 

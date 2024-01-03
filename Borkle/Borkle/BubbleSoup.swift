@@ -18,7 +18,11 @@ class BubbleSoup {
     let defaultHeight: CGFloat = 8
 
     /// Something changed in the bubbles - maybe resize the canvas?
-    var bubblesChangedHook: (() -> Void)?
+    typealias BubbleChangeHook = () -> Void
+    private var bubblesChangedHooks: [BubbleChangeHook] = []
+    func addChangeHook(_ hook: @escaping BubbleChangeHook) {
+        bubblesChangedHooks.append(hook)
+    }
 
     /// How many bubbles we have.
     public var bubbleCount: Int {
@@ -92,10 +96,14 @@ class BubbleSoup {
         }
     }
 
+    public func bubbleChanged(_ bubbleID: Bubble.Identifier) {
+        bubblesChangedHooks.forEach { $0() }
+    }
+
     /// Add the bubble to the soup.
     public func add(bubble: Bubble) {
         add(bubblesArray: [bubble])
-        bubblesChangedHook?()
+        bubblesChangedHooks.forEach { $0() }
     }
 
     /// Add the bubbles to the soup.  There's no intrinsic order to the bubbles in the soup.
@@ -105,7 +113,7 @@ class BubbleSoup {
 
         add(bubblesArray: bubbles)
 
-        bubblesChangedHook?()
+        bubblesChangedHooks.forEach { $0() }
     }
 
     /// Remove a bunch of bubbles permanently.
@@ -122,7 +130,7 @@ class BubbleSoup {
             self.add(bubbles: bubbles)
         }
         undoManager.endUndoGrouping()
-        bubblesChangedHook?()
+        bubblesChangedHooks.forEach { $0() }
     }
 
     // Make a new bubble centered at the given point.  ID is max + 1 of existing bubbles.
@@ -137,7 +145,7 @@ class BubbleSoup {
     /// Empty out the soup
     public func removeEverything() {
         removeLastBubbles(count: bubbles.count)
-        bubblesChangedHook?()
+        bubblesChangedHooks.forEach { $0() }
     }
 
     /// Move the bubble's location to a new place.
@@ -149,7 +157,7 @@ class BubbleSoup {
             self.move(bubble: bubble, to: oldPoint)
         }
         undoManager.endUndoGrouping()
-        bubblesChangedHook?()
+        bubblesChangedHooks.forEach { $0() }
     }
 }
 

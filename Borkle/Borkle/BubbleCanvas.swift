@@ -263,6 +263,11 @@ class BubbleCanvas: NSView {
         needsDisplay = true
     }
 
+    func invalidate() {
+        needsDisplay = true
+        resizeCanvas()
+    }
+
     func invalidateBubble(_ bubble: Bubble) {
         invalidateBubble(bubble.ID)
     }
@@ -339,7 +344,7 @@ class BubbleCanvas: NSView {
         guard let bubble = playfield.bubble(byID: bubbleID) else {
             fatalError("got unexpected bubble during editing committing \(bubbleID)")
         }
-        bubble.text = textEditor.string
+        playfield.setBubbleText(bubbleID: bubbleID, text: textEditor.string)
         
         if let attr = textEditor.textStorage?.attributedSubstring(from: NSMakeRange(0, bubble.text.count)) {
             bubble.gronkulateAttributedString(attr)

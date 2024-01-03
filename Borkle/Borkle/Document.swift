@@ -75,12 +75,12 @@ class Document: NSDocument {
             bubbleSoup.undoManager = undoManager
             barrierSoup.undoManager = undoManager
         }
-        bubbleSoup.bubblesChangedHook = {
-            self.documentFileWrapper?.remove(filename: self.legacyBubbleFilename)
-        }
-        barrierSoup.barriersChangedHook = {
-            self.documentFileWrapper?.remove(filename: self.barrierFilename)
-        }
+//        bubbleSoup.bubblesChangedHook = {
+//            self.documentFileWrapper?.remove(filename: self.legacyBubbleFilename)
+//        }
+//        barrierSoup.barriersChangedHook = {
+//            self.documentFileWrapper?.remove(filename: self.barrierFilename)
+//        }
 
         bubbleCanvas.playfield = defaultPlayfield ?? Playfield(soup: bubbleSoup)
         bubbleCanvas.playfield.canvas = bubbleCanvas
