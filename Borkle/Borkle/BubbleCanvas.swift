@@ -619,7 +619,7 @@ extension BubbleCanvas: MouseSupport {
     }
 
     func disconnect(bubbles: [Bubble.Identifier], from bubble: Bubble.Identifier) {
-        playfield.disconnect(bubbles: bubbles, from: bubble)
+        playfield.disconnect(bubbleIDs: bubbles, from: bubble)
         needsDisplay = true
     }
 

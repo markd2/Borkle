@@ -176,7 +176,6 @@ class Playfield: Codable {
     func migrateSomeFrom(bubbles: [Bubble]) {
         let halfBubbles = bubbles.filter { _ in Bool.random() }
         
-
         let width: CGFloat = 90
         let height: CGFloat = 80
         let maxWidth: CGFloat = 250
@@ -238,10 +237,14 @@ class Playfield: Codable {
     }
 
     func addConnectionsBetween(bubbleIDs: [Bubble.Identifier], to bubbleID: Bubble.Identifier) {
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            selfTarget.disconnect(bubbleIDs: bubbleIDs, from: bubbleID)
+        }
         for id in bubbleIDs {
             addConnectionBetween(bubbleID: id, to: bubbleID)
             addConnectionBetween(bubbleID: bubbleID, to: id)
         }
+        self.canvas?.invalidate()
     }
 
     func rectFor(bubbleID: Bubble.Identifier) -> CGRect {
@@ -325,11 +328,15 @@ class Playfield: Codable {
         positions[bubbleID] = point
     }
 
-    func disconnect(bubbles: [Bubble.Identifier], from: Bubble.Identifier) {
-        for bubble in bubbles {
+    func disconnect(bubbleIDs: [Bubble.Identifier], from: Bubble.Identifier) {
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            selfTarget.addConnectionsBetween(bubbleIDs: bubbleIDs, to: from)
+        }
+        for bubble in bubbleIDs {
             connections[bubble]?.remove(from)
             connections[from]?.remove(bubble)
         }
+        self.canvas?.invalidate()
     }
 
     func setBubbleText(bubbleID: Bubble.Identifier, text: String) {
