@@ -333,7 +333,16 @@ class Playfield: Codable {
     }
 
     func setBubbleText(bubbleID: Bubble.Identifier, text: String) {
-        soup?.bubble(byID: bubbleID)?.text = text
+        guard let bubble = soup?.bubble(byID: bubbleID) else {
+            fatalError("was expecting a bubble to back ID \(bubbleID)")
+        }
+
+        let oldText = bubble.text
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            selfTarget.setBubbleText(bubbleID: bubbleID, text: oldText)
+        }
+        bubble.text = text
+        
         soup?.bubbleChanged(bubbleID)
     }
 }
@@ -344,8 +353,6 @@ extension Playfield {
     }
 
     func expandSelection() {
-        // !!! this is O(N^2).  May need to have a lookup by ID?
-        // !!! of course, wait until we see it appear in instruments
         selectedBubbles.forEachBubble { id in
             connections[id]?.forEach { connection in
                 selectedBubbles.select(bubble: connection)
