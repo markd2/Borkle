@@ -366,31 +366,48 @@ extension Playfield {
     }
 
     func shrinkBubbles() {
+        var old: [Bubble.Identifier: CGFloat] = [:]
+        var new: [Bubble.Identifier: CGFloat] = [:]
+
         selectedBubbles.forEachBubble { id in
             guard let width = widths[id] else {
                 fatalError("unexpectedly missing width for id \(id)")
             }
             let newWidth = width - 10
+
             if newWidth > 10 {
-                // TODO make this undoable
-                widths[id] = newWidth
-                invalHook?(id)
+                old[id] = width
+                new[id] = newWidth
             }
-        } 
+        }
+
+        changeBubbleSizes(old: old, new: new)
     }
 
     func embiggenBubbles() {
+        var old: [Bubble.Identifier: CGFloat] = [:]
+        var new: [Bubble.Identifier: CGFloat] = [:]
+
         selectedBubbles.forEachBubble { id in
             guard let width = widths[id] else {
                 fatalError("unexpectedly missing width for id \(id)")
             }
-            let newWidth = width + 10
-            if newWidth > 10 {
-                // TODO make this undoable
-                widths[id] = newWidth
-                invalHook?(id)
-            }
+            old[id] = width
+            new[id] = width + 10
+            changeBubbleSizes(old: old, new: new)
         } 
+    }
+
+    private func changeBubbleSizes(old: [Bubble.Identifier: CGFloat],
+                                   new: [Bubble.Identifier: CGFloat]) {
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            selfTarget.changeBubbleSizes(old: new, new: old)
+        }
+
+        for (bubbleID, width) in new {
+            widths[bubbleID] = width
+        }
+        self.canvas?.invalidate()
     }
 
     func exportPDF() {
@@ -460,8 +477,8 @@ extension Playfield {
         }        
     }
 
-    func changeBubbleColors(old: [Bubble.Identifier: NSColor?],
-                            new: [Bubble.Identifier: NSColor?]) {
+    private func changeBubbleColors(old: [Bubble.Identifier: NSColor?],
+                                    new: [Bubble.Identifier: NSColor?]) {
         undoManager.registerUndo(withTarget: self) { selfTarget in
             selfTarget.changeBubbleColors(old: new, new: old)
         }
