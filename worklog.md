@@ -1316,9 +1316,17 @@ also should (eventually) cache the bubble height - clear on a soup change for th
 # Tuesday January 2, 2023
 
 Still to do:
-  * document saving
   * undo
   * update tests
+  * document saving
   * ???
   * PROFIT!
- 
+
+thursday - undo. 
+
+We're using our own grouping outside of [NS]UndoManager,
+though do like the register undo.
+
+Nice side effect of using bubble IDs for everything, don't need to capture
+actual bubbles for a lot of the operations.
+
