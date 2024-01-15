@@ -71,10 +71,13 @@ class Document: NSDocument {
         super.awakeFromNib()
         imageView.image = image
 
-        if let undoManager = undoManager {
-            bubbleSoup.undoManager = undoManager
-            barrierSoup.undoManager = undoManager
+        guard let undoManager = undoManager else {
+            fatalError("We kind of need an undo manager")
         }
+
+        bubbleSoup.undoManager = undoManager
+        barrierSoup.undoManager = undoManager
+
 //        bubbleSoup.bubblesChangedHook = {
 //            self.documentFileWrapper?.remove(filename: self.legacyBubbleFilename)
 //        }
@@ -82,7 +85,7 @@ class Document: NSDocument {
 //            self.documentFileWrapper?.remove(filename: self.barrierFilename)
 //        }
 
-        bubbleCanvas.playfield = defaultPlayfield ?? Playfield(soup: bubbleSoup)
+        bubbleCanvas.playfield = defaultPlayfield ?? Playfield(soup: bubbleSoup, undoManager: undoManager)
         bubbleCanvas.playfield.canvas = bubbleCanvas
         bubbleCanvas.barrierSoup = barrierSoup
         bubbleCanvas.barriers = barriers
@@ -108,7 +111,7 @@ class Document: NSDocument {
             self.handleKeypress(event)
         }
 
-        secondBubbleCanvas.playfield = secondPlayfield ?? Playfield(soup: bubbleSoup)
+        secondBubbleCanvas.playfield = secondPlayfield ?? Playfield(soup: bubbleSoup, undoManager: undoManager)
         secondBubbleCanvas.playfield.canvas = secondBubbleCanvas
         secondBubbleCanvas.barrierSoup = barrierSoup
         secondBubbleCanvas.barriers = barriers
@@ -171,6 +174,9 @@ class Document: NSDocument {
 
     override func read(from fileWrapper: FileWrapper, 
                        ofType typeName: String) throws {
+        guard let undoManager else {
+            fatalError("We kind of need an undo manager")
+        }
 
         // (comment from apple sample code)
         // look for the file wrappers.
@@ -191,10 +197,10 @@ class Document: NSDocument {
             do {
                 let bubbles = try decoder.decode([Bubble].self, from: bubbleData)
                 bubbleSoup.bubbles = bubbles
-                defaultPlayfield = Playfield(soup: bubbleSoup)
+                defaultPlayfield = Playfield(soup: bubbleSoup, undoManager: undoManager)
                 defaultPlayfield.migrateFrom(bubbles: bubbles)
 
-                secondPlayfield = Playfield(soup: bubbleSoup)
+                secondPlayfield = Playfield(soup: bubbleSoup, undoManager: undoManager)
                 secondPlayfield.migrateSomeFrom(bubbles: bubbles)
             } catch {
                 Swift.print("SNORGLE loading got \(error)")

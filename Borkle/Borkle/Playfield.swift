@@ -99,6 +99,9 @@ class Playfield: Codable {
     var responder: PlayfieldResponder?
     weak var canvas: BubbleCanvas? // for PDF export
 
+    // make optional to quiet "does not conform to De/Encodable"
+    var undoManager: UndoManager!
+
     var title: String = "Untitled"
     var description: String = ""
 
@@ -124,8 +127,9 @@ class Playfield: Codable {
         case connections, positions, widths
     }
 
-    init(soup: BubbleSoup) {
+    init(soup: BubbleSoup, undoManager: UndoManager) {
         self.soup = soup
+        self.undoManager = undoManager
 
         soup.addChangeHook { [weak self] in
             self?.canvas?.invalidate()
@@ -442,13 +446,32 @@ extension Playfield {
 
     func colorBubbles(_ color: NSColor) {
         Swift.print("need to make color changing undoable")
+        
+        var colorChange: [Bubble.Identifier: NSColor?] = [:]
+        var originals: [Bubble.Identifier: NSColor?] = [:]
+
         selectedBubbles.forEachBubble { bubbleID in
             guard let bubble = soup!.bubble(byID: bubbleID) else {
                 fatalError("soup can't find a bubble for colirizing \(bubbleID)")
-            }     
-            bubble.fillColor = color
-            invalHook?(bubbleID)
+            }
+            originals[bubbleID] = bubble.fillColor
+            colorChange[bubbleID] = color
+            changeBubbleColors(old: originals, new: colorChange)
         }        
+    }
+
+    func changeBubbleColors(old: [Bubble.Identifier: NSColor?],
+                            new: [Bubble.Identifier: NSColor?]) {
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            selfTarget.changeBubbleColors(old: new, new: old)
+        }
+        for (bubbleID, color) in new {
+            guard let bubble = soup!.bubble(byID: bubbleID) else {
+                fatalError("soup can't find a bubble for colirizing \(bubbleID)")
+            }
+            bubble.fillColor = color
+        }
+        self.canvas?.invalidate()
     }
 
     func resetZoom() {
