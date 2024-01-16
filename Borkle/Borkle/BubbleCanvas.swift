@@ -401,8 +401,9 @@ extension BubbleCanvas {
 
         for barrier in barriers { // not a forEach because of the return
             if barrier.hitTest(point: viewLocation, area: bounds) {
-//                playfield.beginGrouping()
+                playfield.beginMove()
                 barrierSoup.beginGrouping()
+
                 currentMouseHandler = MouseBarrier(withSupport: self, barrier: barrier)
                 currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
                 return
@@ -431,7 +432,8 @@ extension BubbleCanvas {
         }
 
         // Catch-all selecting and dragging.
-//        playfield.beginGrouping()
+        playfield.beginMove()
+
         currentMouseHandler = MouseBubbler(withSupport: self, 
                                            selectedBubbles: playfield.selectedBubbles)
         currentMouseHandler?.start(at: viewLocation,
@@ -459,12 +461,11 @@ extension BubbleCanvas {
 
         defer {
             scrollOrigin = nil
-//            playfield.endGrouping()
 
             currentMouseHandler = nil
             marquee = nil
 
-//            playfield.endGrouping()
+            playfield.endMove()
             barrierSoup.endGrouping()
         }
 

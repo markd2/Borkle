@@ -1,88 +1,6 @@
 import Foundation
 import AppKit
 
-class PlayfieldResponder: NSResponder, NSMenuItemValidation {
-    weak var playfield: Playfield?
-
-    init(playfield: Playfield) {
-        self.playfield = playfield
-        super.init()
-        playfield.responder = self
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override var acceptsFirstResponder: Bool { true }
-    override func becomeFirstResponder() -> Bool {
-        return true
-    }
-
-    override func selectAll(_ sender: Any?) {
-        playfield?.selectAll()
-    }
-    @IBAction func expandSelection(_ sender: Any) {
-        playfield?.expandSelection()
-    }
-    @IBAction func expandComponent(_ sender: Any) {
-        playfield?.expandComponent()
-    }
-    @IBAction func shrinkBubble(_ sender: Any) {
-        playfield?.shrinkBubbles()
-    }
-    @IBAction func embiggenBubble(_ sender: Any) {
-        playfield?.embiggenBubbles()
-    }
-    @IBAction func exportPDF(_ sender: Any) {
-        playfield?.exportPDF()
-    }
-    @IBAction func importScapple(_ sender: Any) {
-    }
-    @IBAction func paste(_ sender: Any) {
-        playfield?.paste()
-    }
-    @IBAction func colorBubbles(_ sender: Any) {
-        guard let db = (sender as? DumbButton) else { return }
-        playfield?.colorBubbles(db.color)
-    }
-    @IBAction func resetZoom(_ sender: Any) {
-        playfield?.resetZoom()
-    }
-    @IBAction func incZoom(_ sender: Any) {
-        playfield?.incZoom()
-    }
-    @IBAction func decZoom(_ sender: Any) {
-        playfield?.decZoom()
-    }
-
-    @objc func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        guard let playfield else { return false }
-        
-        switch menuItem.action {
-        case #selector(selectAll(_:)):
-            return playfield.bubbleIdentifiers.count > 0
-        case #selector(expandSelection(_:)):
-            return playfield.selectedBubbles.bubbleCount > 0
-        case #selector(expandComponent(_:)):
-            return playfield.selectedBubbles.bubbleCount > 0
-        case #selector(shrinkBubble(_:)):
-            return playfield.selectedBubbles.bubbleCount > 0
-        case #selector(embiggenBubble(_:)):
-            return playfield.selectedBubbles.bubbleCount > 0
-        case #selector(exportPDF(_:)):
-            return true
-        case #selector(importScapple(_:)):
-            return true
-        case #selector(paste(_:)):
-            return playfield.canPaste()
-        default:
-            break
-        }
-        return menuItem.isEnabled
-    }
-
-}
 
 /// Playfields are the worksheets for Borkle.  A canvas (will eventually)
 /// be driven by a single playfield. The user can have as many playfields
@@ -323,8 +241,48 @@ class Playfield: Codable {
         return pos
     }
 
+    var originalPositions: [Bubble.Identifier: CGPoint]?
+
+    func beginMove() {
+        guard originalPositions == nil else {
+            fatalError("we have a move in-flight, and beginning another")
+        }
+        originalPositions = [:]
+    }
+
+    func endMove() {
+        guard let originalPositions else {
+            return
+        }
+
+        let newPositions: [Bubble.Identifier: CGPoint] = originalPositions.reduce(into: [:]) { newpos, keyvalue in
+            let bubbleID = keyvalue.key
+            newpos[bubbleID] = positions[bubbleID]
+        }
+
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            selfTarget.moveBubbles(from: newPositions, to: originalPositions)
+        }
+
+        self.originalPositions = nil
+    }
+
+    private func moveBubbles(from: [Bubble.Identifier: CGPoint], to: [Bubble.Identifier: CGPoint]) {
+        undoManager.registerUndo(withTarget: self) { selfTarget in
+            selfTarget.moveBubbles(from: to, to: from)
+        }
+
+        to.forEach { bubbleID, point in
+            positions[bubbleID] = point
+        }
+        self.canvas?.invalidate()
+    }
+
     func move(_ bubbleID: Bubble.Identifier, to point: CGPoint) {
-        // TODO: error-check getting an identifier we haven't seen yet? 12/16/23
+        if originalPositions != nil, originalPositions?[bubbleID] == nil {
+            originalPositions?[bubbleID] = positions[bubbleID]
+        }
+
         positions[bubbleID] = point
     }
 
@@ -516,5 +474,86 @@ extension Playfield {
     func decZoom() {
         canvas?.scroller?.magnification -= 0.1
     }
+}
 
+class PlayfieldResponder: NSResponder, NSMenuItemValidation {
+    weak var playfield: Playfield?
+
+    init(playfield: Playfield) {
+        self.playfield = playfield
+        super.init()
+        playfield.responder = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override var acceptsFirstResponder: Bool { true }
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+
+    override func selectAll(_ sender: Any?) {
+        playfield?.selectAll()
+    }
+    @IBAction func expandSelection(_ sender: Any) {
+        playfield?.expandSelection()
+    }
+    @IBAction func expandComponent(_ sender: Any) {
+        playfield?.expandComponent()
+    }
+    @IBAction func shrinkBubble(_ sender: Any) {
+        playfield?.shrinkBubbles()
+    }
+    @IBAction func embiggenBubble(_ sender: Any) {
+        playfield?.embiggenBubbles()
+    }
+    @IBAction func exportPDF(_ sender: Any) {
+        playfield?.exportPDF()
+    }
+    @IBAction func importScapple(_ sender: Any) {
+    }
+    @IBAction func paste(_ sender: Any) {
+        playfield?.paste()
+    }
+    @IBAction func colorBubbles(_ sender: Any) {
+        guard let db = (sender as? DumbButton) else { return }
+        playfield?.colorBubbles(db.color)
+    }
+    @IBAction func resetZoom(_ sender: Any) {
+        playfield?.resetZoom()
+    }
+    @IBAction func incZoom(_ sender: Any) {
+        playfield?.incZoom()
+    }
+    @IBAction func decZoom(_ sender: Any) {
+        playfield?.decZoom()
+    }
+
+    @objc func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        guard let playfield else { return false }
+        
+        switch menuItem.action {
+        case #selector(selectAll(_:)):
+            return playfield.bubbleIdentifiers.count > 0
+        case #selector(expandSelection(_:)):
+            return playfield.selectedBubbles.bubbleCount > 0
+        case #selector(expandComponent(_:)):
+            return playfield.selectedBubbles.bubbleCount > 0
+        case #selector(shrinkBubble(_:)):
+            return playfield.selectedBubbles.bubbleCount > 0
+        case #selector(embiggenBubble(_:)):
+            return playfield.selectedBubbles.bubbleCount > 0
+        case #selector(exportPDF(_:)):
+            return true
+        case #selector(importScapple(_:)):
+            return true
+        case #selector(paste(_:)):
+            return playfield.canPaste()
+        default:
+            break
+        }
+        return menuItem.isEnabled
+    }
 }
