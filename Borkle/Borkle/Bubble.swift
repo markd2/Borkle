@@ -184,6 +184,8 @@ class Bubble: Codable {
 
     var formattingOptions: [FormattingOption] = []
 
+    // TODO: this needs to go, since the position is in the playfield.
+    // The string sizing stuff should probably move elsewhere.
     var position: CGPoint = .zero
     
     var width: CGFloat = 0 {
