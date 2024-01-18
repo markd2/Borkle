@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7D042C56250D8DB900E65175 /* ScappleImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D042C55250D8DB900E65175 /* ScappleImporter.swift */; };
 		7D0C1D6A2B27F344009B4AB5 /* Playfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C1D692B27F344009B4AB5 /* Playfield.swift */; };
+		7D272A322B58A55C003E16C1 /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D272A312B58A55C003E16C1 /* RGB.swift */; };
 		7D2C9CD2251556B900B1E2DE /* BubbleSoup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CD1251556B900B1E2DE /* BubbleSoup.swift */; };
 		7D2C9CD6251556C200B1E2DE /* BubbleSoupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CD5251556C200B1E2DE /* BubbleSoupTests.swift */; };
 		7D2C9CDE2516B5E600B1E2DE /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CDD2516B5E600B1E2DE /* Selection.swift */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		7D042C55250D8DB900E65175 /* ScappleImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScappleImporter.swift; sourceTree = "<group>"; };
 		7D0C1D692B27F344009B4AB5 /* Playfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playfield.swift; sourceTree = "<group>"; };
+		7D272A312B58A55C003E16C1 /* RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGB.swift; sourceTree = "<group>"; };
 		7D2C9CD1251556B900B1E2DE /* BubbleSoup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleSoup.swift; sourceTree = "<group>"; };
 		7D2C9CD5251556C200B1E2DE /* BubbleSoupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleSoupTests.swift; sourceTree = "<group>"; };
 		7D2C9CDD2516B5E600B1E2DE /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				7D93A74B250AD8DC00991121 /* Document.swift */,
 				7D93A74D250AD8DC00991121 /* Document.xib */,
 				7D0C1D692B27F344009B4AB5 /* Playfield.swift */,
+				7D272A312B58A55C003E16C1 /* RGB.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				7D2C9CD2251556B900B1E2DE /* BubbleSoup.swift in Sources */,
 				7DBD29312B3BC10C00B8A65F /* UIResponder+Utilities.swift in Sources */,
 				7D2C9CFF25190EAD00B1E2DE /* MouseSupport.swift in Sources */,
+				7D272A322B58A55C003E16C1 /* RGB.swift in Sources */,
 				7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */,
 				7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */,
 				7D2C9D13251A3D7F00B1E2DE /* Barrier.swift in Sources */,
