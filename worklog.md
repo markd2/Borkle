@@ -1338,6 +1338,7 @@ adding undo is actually going a lot easier than the first time through.
 
 next - move colors into the playfield.
 
+next time: need undo, and something weird happened to bubble dragging.
 
 
 
