@@ -1330,3 +1330,14 @@ though do like the register undo.
 Nice side effect of using bubble IDs for everything, don't need to capture
 actual bubbles for a lot of the operations.
 
+(couple of days adding undo for stuff)
+adding undo is actually going a lot easier than the first time through.
+
+==================================================
+# Wednesday January 17, 2024
+
+next - move colors into the playfield.
+
+
+
+
