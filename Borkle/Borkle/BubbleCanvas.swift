@@ -372,6 +372,8 @@ extension BubbleCanvas {
     override func mouseMoved(with event: NSEvent) {
         if spaceDown { return }
 
+// if highlighting bubbles on mouse moved is desired. I found it annoying
+#if false
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil)
         guard let id = playfield.hitTestBubble(at: viewLocation) else {
@@ -379,6 +381,7 @@ extension BubbleCanvas {
         }
         let bubble = playfield.bubble(byID: id)
         highlightBubble(bubble)
+#endif
     }
 
     override func mouseDown(with event: NSEvent) {
