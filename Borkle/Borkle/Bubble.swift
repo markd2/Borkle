@@ -21,20 +21,6 @@ class Bubble: Codable {
         }
     }
 
-    var fillColorRGB: RGB?
-    var fillColor: NSColor? {
-        get {
-            guard let rgb = fillColorRGB else { return nil }
-            return NSColor.colorFromRGB(rgb)
-        }
-        set(newColor) {
-            if let newColor = newColor {
-                fillColorRGB = newColor.rgbColor()
-            } else {
-                fillColorRGB = nil
-            }
-        }
-    }
     var borderColorRGB: RGB?
     var borderColor: NSColor? {
         guard let rgb = borderColorRGB else { return nil }
@@ -230,18 +216,4 @@ extension Bubble {
     }
 }
 
-extension NSColor {
-    static func colorFromRGB(_ rgb: RGB) -> NSColor {
-        NSColor.init(deviceRed: rgb.red, green: rgb.green, blue: rgb.blue, alpha: 1.0)
-    }
-
-    func rgbColor() -> RGB {
-        var red: CGFloat = 0.0
-        var green: CGFloat = 0.0
-        var blue: CGFloat = 0.0
-
-        getRed(&red, green: &green, blue: &blue, alpha: nil)
-        return RGB(red: red, green: green, blue: blue)
-    }
-
-}
+ 

@@ -1,4 +1,5 @@
 import Foundation
+import AppKit
 
 //  fillColorRGB:
 //      red: 1e+0
@@ -11,6 +12,17 @@ struct RGB: Codable {
     let blue: CGFloat
 
     init(red: CGFloat, green: CGFloat, blue: CGFloat) {
+        self.red = red
+        self.green = green
+        self.blue = blue
+    }
+
+    init(nscolor: NSColor) {
+        var red: CGFloat = 0.0
+        var green: CGFloat = 0.0
+        var blue: CGFloat = 0.0
+        
+        nscolor.getRed(&red, green: &green, blue: &blue, alpha: nil)
         self.red = red
         self.green = green
         self.blue = blue
@@ -36,5 +48,24 @@ struct RGB: Codable {
         red = chunks[0]
         green = chunks[1]
         blue = chunks[2]
+    }
+
+    var nscolor: NSColor {
+        return NSColor.colorFromRGB(self)
+    }
+}
+
+extension NSColor {
+    static func colorFromRGB(_ rgb: RGB) -> NSColor {
+        NSColor.init(deviceRed: rgb.red, green: rgb.green, blue: rgb.blue, alpha: 1.0)
+    }
+
+    func rgbColor() -> RGB {
+        var red: CGFloat = 0.0
+        var green: CGFloat = 0.0
+        var blue: CGFloat = 0.0
+
+        getRed(&red, green: &green, blue: &blue, alpha: nil)
+        return RGB(red: red, green: green, blue: blue)
     }
 }

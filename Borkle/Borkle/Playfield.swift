@@ -28,6 +28,7 @@ class Playfield: Codable {
     var connections: [Bubble.Identifier: IndexSet] = [:]
     private var positions: [Bubble.Identifier: CGPoint] = [:]
     var widths: [Bubble.Identifier: CGFloat] = [:]
+    var colors: [Bubble.Identifier: RGB?] = [:]
 
     // make optional to quiet "does not conform to De/Encodable"
     private var soup: BubbleSoup? = nil {
@@ -191,6 +192,15 @@ class Playfield: Codable {
             union = union.union(rectFor(bubbleID: id))
         }
         return union
+    }
+
+    func setColor(rgb: RGB?, for bubbleID: Bubble.Identifier) {
+        colors[bubbleID] = rgb
+    }
+
+    func colorFor(bubbleID: Bubble.Identifier) -> RGB? {
+        guard let color = colors[bubbleID] else { return nil }
+        return color
     }
 
     /// Given a point, find the first bubble that intersects it.
@@ -433,32 +443,26 @@ extension Playfield {
         Swift.print(bubble.text)
     }
 
-    func colorBubbles(_ color: NSColor) {
+    func colorBubbles(_ color: RGB) {
         Swift.print("need to make color changing undoable")
         
-        var colorChange: [Bubble.Identifier: NSColor?] = [:]
-        var originals: [Bubble.Identifier: NSColor?] = [:]
+        var colorChange: [Bubble.Identifier: RGB?] = [:]
+        var originals: [Bubble.Identifier: RGB?] = [:]
 
         selectedBubbles.forEachBubble { bubbleID in
-            guard let bubble = soup!.bubble(byID: bubbleID) else {
-                fatalError("soup can't find a bubble for colirizing \(bubbleID)")
-            }
-            originals[bubbleID] = bubble.fillColor
+            originals[bubbleID] = colors[bubbleID]
             colorChange[bubbleID] = color
-            changeBubbleColors(old: originals, new: colorChange)
         }        
+        changeBubbleColors(old: originals, new: colorChange)
     }
 
-    private func changeBubbleColors(old: [Bubble.Identifier: NSColor?],
-                                    new: [Bubble.Identifier: NSColor?]) {
+    private func changeBubbleColors(old: [Bubble.Identifier: RGB?],
+                                    new: [Bubble.Identifier: RGB?]) {
         undoManager.registerUndo(withTarget: self) { selfTarget in
             selfTarget.changeBubbleColors(old: new, new: old)
         }
         for (bubbleID, color) in new {
-            guard let bubble = soup!.bubble(byID: bubbleID) else {
-                fatalError("soup can't find a bubble for colirizing \(bubbleID)")
-            }
-            bubble.fillColor = color
+            colors[bubbleID] = color
         }
         self.canvas?.invalidate()
     }
@@ -519,7 +523,7 @@ class PlayfieldResponder: NSResponder, NSMenuItemValidation {
     }
     @IBAction func colorBubbles(_ sender: Any) {
         guard let db = (sender as? DumbButton) else { return }
-        playfield?.colorBubbles(db.color)
+        playfield?.colorBubbles(RGB(nscolor: db.color))
     }
     @IBAction func resetZoom(_ sender: Any) {
         playfield?.resetZoom()

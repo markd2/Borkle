@@ -206,6 +206,8 @@ class BubbleCanvas: NSView {
     private func renderBubble(_ bubble: Bubble, in rect: CGRect, 
                               selected: Bool, highlighted: Bool, 
                               transparent: Bool, dropTarget: Bool) {
+        let bubbleID = bubble.ID
+
         let context = NSGraphicsContext.current?.cgContext
         context?.saveGState()
         defer {
@@ -218,8 +220,8 @@ class BubbleCanvas: NSView {
 
         let bezierPath = NSBezierPath()
         bezierPath.appendRoundedRect(rect, xRadius: 8, yRadius: 8)
-        if let fillColor = bubble.fillColor {
-            fillColor.set()
+        if let fillColor = playfield.colorFor(bubbleID: bubbleID) {
+            fillColor.nscolor.set()
         } else {
             NSColor.white.set()
         }
