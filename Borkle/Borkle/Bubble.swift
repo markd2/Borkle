@@ -1,6 +1,8 @@
 import Cocoa
 
 class Bubble: Codable {
+    typealias Identifier = Int
+
     static let defaultFontName = "Helvetica"
     static let defaultFontSize: CGFloat = 12.0
 
@@ -12,77 +14,19 @@ class Bubble: Codable {
         static let underline     = FormattingStyle(rawValue: 1 << 3)
     }
 
-    var ID: Int
+    var ID: Identifier
     var text: String = "" {
         didSet {
             _effectiveHeight = nil
         }
     }
 
-    struct RGB: Codable {
-        let red: CGFloat
-        let green: CGFloat
-        let blue: CGFloat
-
-        init(red: CGFloat, green: CGFloat, blue: CGFloat) {
-            self.red = red
-            self.green = green
-            self.blue = blue
-        }
-
-        init(string: String?) {
-            guard let string = string else {
-                // no string, be obnoxious green
-                red = 0.0; green = 1.0; blue = 0.0
-                return
-            }
-
-            let chunks = string
-              .split(separator: " ")
-              .compactMap { String($0) }
-              .compactMap { CGFloat($0) }
-
-            guard chunks.count >= 3 else {
-                // not enough chunkage, be obnoxious green
-                red = 0.0; green = 1.0; blue = 0.0
-                return
-            }
-            red = chunks[0]
-            green = chunks[1]
-            blue = chunks[2]
-        }
-    }
-
-    var fillColorRGB: RGB?
-    var fillColor: NSColor? {
-        get {
-            guard let rgb = fillColorRGB else { return nil }
-            return NSColor.colorFromRGB(rgb)
-        }
-        set(newColor) {
-            if let newColor = newColor {
-                fillColorRGB = newColor.rgbColor()
-            } else {
-                fillColorRGB = nil
-            }
-        }
-    }
     var borderColorRGB: RGB?
     var borderColor: NSColor? {
         guard let rgb = borderColorRGB else { return nil }
         return NSColor.colorFromRGB(rgb)
     }
     var borderThickness: Int?
-
-    // Offsets ID values by a fixed amount
-    // useful for importing so that imported stuff avoids clobbering existing bubbles.
-    func offset(by fixedAmount: Int) {
-        ID += fixedAmount
-        let renumberedConnections = connections.reduce(into: IndexSet()) { result, integer in
-            result.insert(integer + fixedAmount)
-        }
-        connections = renumberedConnections
-    }
 
     func gronkulateAttributedString(_ attr: NSAttributedString) {
         formattingOptions = []
@@ -192,6 +136,8 @@ class Bubble: Codable {
 
     var formattingOptions: [FormattingOption] = []
 
+    // TODO: this needs to go, since the position is in the playfield.
+    // The string sizing stuff should probably move elsewhere.
     var position: CGPoint = .zero
     
     var width: CGFloat = 0 {
@@ -199,8 +145,10 @@ class Bubble: Codable {
             _effectiveHeight = nil
         }
     }
+    
+    // TODO: remove these once we have a better migration strategy, but for now these
+    // are used to impor t
     internal var connections = IndexSet()
-
     public func forEachConnection(_ iterator: (Int) -> Void) {
         connections.forEach { iterator($0) }
     }
@@ -209,29 +157,6 @@ class Bubble: Codable {
         self.ID = ID
         if let position = position { self.position = position }
         if let width = width { self.width = width }
-    }
-
-    var rect: CGRect {
-        var rect = CGRect(x: position.x, y: position.y,
-                          width: width, height: effectiveHeight)
-        rect.size.height += 2 * Bubble.margin
-        return rect
-    }
-
-    func isConnectedTo(_ bubble: Bubble) -> Bool {
-        let connected = connections.contains(bubble.ID)
-        return connected
-    }
-
-    func connect(to bubble: Bubble) {
-        connections.insert(bubble.ID)
-        bubble.connections.insert(ID)
-        print("connections are \(connections)")
-    }
-
-    func disconnect(bubble: Bubble) {
-        connections.remove(bubble.ID)
-        bubble.connections.remove(ID)
     }
 
     // optional as hacky way to opt out of Codable for this.
@@ -269,6 +194,10 @@ extension Bubble: Hashable {
 extension Bubble {
 
     func heightForStringDrawing() -> CGFloat {
+        return heightForStringDrawing(width: width)
+    }
+
+    func heightForStringDrawing(width: CGFloat) -> CGFloat {
         let textStorage = NSTextStorage.init(string: text, attributes: nil)
         let insetWidth = width - (Bubble.margin * 2)
         let size = CGSize(width: insetWidth, height: .infinity)
@@ -287,18 +216,4 @@ extension Bubble {
     }
 }
 
-extension NSColor {
-    static func colorFromRGB(_ rgb: Bubble.RGB) -> NSColor {
-        NSColor.init(deviceRed: rgb.red, green: rgb.green, blue: rgb.blue, alpha: 1.0)
-    }
-
-    func rgbColor() -> Bubble.RGB {
-        var red: CGFloat = 0.0
-        var green: CGFloat = 0.0
-        var blue: CGFloat = 0.0
-
-        getRed(&red, green: &green, blue: &blue, alpha: nil)
-        return Bubble.RGB(red: red, green: green, blue: blue)
-    }
-
-}
+ 

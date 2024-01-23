@@ -161,11 +161,8 @@ extension ScappleImporter: XMLParserDelegate {
             currentFormattingOptionsAttributes = nil
             currentFormattingOptionsString = nil
         case "Border":
-            currentBubble.borderColorRGB = Bubble.RGB(string: currentBorderColorString)
+            currentBubble.borderColorRGB = RGB(string: currentBorderColorString)
             currentBorderColorString = nil
-        case "Fill":
-            currentBubble.fillColorRGB = Bubble.RGB(string: currentFillString)
-            currentFillString = nil
         default:
             break
         }

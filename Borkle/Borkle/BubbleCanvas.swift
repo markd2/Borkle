@@ -2,19 +2,30 @@ import Cocoa
 
 class BubbleCanvas: NSView {
     static let background = NSColor(red: 228.0 / 255.0, green: 232.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
+    static let background2 = NSColor(red: 238.0 / 255.0, green: 242.0 / 255.0, blue: 236.0 / 255.0, alpha: 1.0)
+
+    var backgroundColor: NSColor = .white
 
     // move to soup
     var barriersChangedHook: (() -> Void)?
+    var playfield: Playfield! {
+        didSet {
+            playfield.invalHook = invalidateBubbleFollowingConnections
+            playfield.selectedBubbles.invalHook = invalidateBubbleFollowingConnections
+            addTrackingAreas()
+            resizeCanvas()
+        }
+    }
 
-    var selectedBubbles = Selection()
+    var selectedBubbles: Selection = Selection()
     var alphaBubbles: Selection?
 
     var currentMouseHandler: MouseHandler?
 
     var textEditor: NSTextView?
-    var textEditingBubble: Bubble?
+    var textEditingBubble: Bubble.Identifier?
 
-    var dropTargetBubble: Bubble?
+    var dropTargetBubbleID: Bubble.Identifier?
 
     let marqueeLineWidth: CGFloat = 2.0
     var marquee: CGRect? {
@@ -36,6 +47,9 @@ class BubbleCanvas: NSView {
     var highlightedID: Int? = nil
 
     var scrollOrigin: CGPoint?
+    weak var scroller: NSScrollView? {
+        return self.superview?.superview as? NSScrollView
+    }
 
     /// for things like "hey paste at the last place the user clicked.
     var lastPoint: CGPoint?
@@ -44,13 +58,6 @@ class BubbleCanvas: NSView {
 
     override var isFlipped: Bool { return true }
     var idToRectMap: [Int: CGRect] = [:]
-
-    var bubbleSoup: BubbleSoup! {
-        didSet {
-            bubbleSoup.invalHook = invalidateBubbleFollowingConnections
-            resizeCanvas()
-        }
-    }
 
     var barrierSoup: BarrierSoup! {
         didSet {
@@ -67,7 +74,7 @@ class BubbleCanvas: NSView {
     let extraPadding = CGSize(width: 80, height: 60)
 
     func resizeCanvas() {
-        var union = bubbleSoup.enclosingRect + extraPadding
+        var union = playfield.enclosingRect + extraPadding
 
         // If bubbles are smaller than the useful area, 
         if let superBounds = superview?.superview?.bounds {
@@ -82,15 +89,11 @@ class BubbleCanvas: NSView {
     required init?(coder: NSCoder) {
         currentCursor = .arrow
         super.init(coder: coder)
-        addTrackingAreas()
-        selectedBubbles.invalHook = invalidateBubbleFollowingConnections
     }
     
     override init(frame: CGRect) {
         currentCursor = .arrow
         super.init(frame: frame)
-        addTrackingAreas()
-        selectedBubbles.invalHook = invalidateBubbleFollowingConnections
     }
     var trackingArea: NSTrackingArea!
 
@@ -100,23 +103,26 @@ class BubbleCanvas: NSView {
     }
 
     override func draw(_ areaToDrawPlzKthx: CGRect) {
-        BubbleCanvas.background.set()
+        backgroundColor.set()
         bounds.fill()
 
         idToRectMap = allBorders()
 
         drawConnections(idToRectMap)
 
-        bubbleSoup.forEachBubble {
-            if let rect = idToRectMap[$0.ID] {
+        playfield.forEachBubble { id in
+            if let rect = idToRectMap[id] {
                 if needsToDraw(rect) {
-                    let transparent = alphaBubbles?.isSelected(bubble: $0) ?? false
+                    guard let bubble = playfield.bubble(byID: id) else {
+                        fatalError("couldn't find bubble with expected id \(id)")
+                    }
+                    let transparent = alphaBubbles?.isSelected(bubble: id) ?? false
                     renderBubble(
-                      $0, in: rect, 
-                      selected: selectedBubbles.isSelected(bubble: $0),
-                      highlighted: $0.ID == (highlightedID ?? -666),
+                      bubble, in: rect, 
+                      selected: playfield.selectedBubbles.isSelected(bubble: id),
+                      highlighted: id == (highlightedID ?? -666),
                       transparent: transparent,
-                      dropTarget: $0.ID == (dropTargetBubble?.ID ?? -666))
+                      dropTarget: id == (dropTargetBubbleID ?? -666))
                 }
             } else {
                 Swift.print("unexpected not-rendering a bubble")
@@ -154,9 +160,12 @@ class BubbleCanvas: NSView {
     }
 
     func allBorders() -> [Int: CGRect] {
-        bubbleSoup.forEachBubble {
-            let rect = $0.rect
-            idToRectMap[$0.ID] = rect
+        playfield.forEachBubble { id in
+            guard let bubble = playfield.bubble(byID: id) else {
+                return
+            }
+            let rect = playfield.rectFor(bubbleID: id)
+            idToRectMap[bubble.ID] = rect
         }
         return idToRectMap
     }
@@ -167,8 +176,11 @@ class BubbleCanvas: NSView {
         let pattern: [CGFloat] = [3.0, 2.0]
         bezierPath.setLineDash(pattern, count: pattern.count, phase: 0.0)
 
-        bubbleSoup.forEachBubble { bubble in
-            for index in bubble.connections {
+        playfield.forEachBubble { id in
+            guard let bubble = playfield.bubble(byID: id) else {
+                return
+            }
+            for index in playfield.connectionsForBubble(id: id) {
 
                 // both sides of the connection exist in bubble.  e.g. if 3 and 175 is connected,
                 // only want to draw that once.  So wait until bubbles bigger than us to draw
@@ -194,6 +206,8 @@ class BubbleCanvas: NSView {
     private func renderBubble(_ bubble: Bubble, in rect: CGRect, 
                               selected: Bool, highlighted: Bool, 
                               transparent: Bool, dropTarget: Bool) {
+        let bubbleID = bubble.ID
+
         let context = NSGraphicsContext.current?.cgContext
         context?.saveGState()
         defer {
@@ -206,8 +220,8 @@ class BubbleCanvas: NSView {
 
         let bezierPath = NSBezierPath()
         bezierPath.appendRoundedRect(rect, xRadius: 8, yRadius: 8)
-        if let fillColor = bubble.fillColor {
-            fillColor.set()
+        if let fillColor = playfield.colorFor(bubbleID: bubbleID) {
+            fillColor.nscolor.set()
         } else {
             NSColor.white.set()
         }
@@ -251,6 +265,11 @@ class BubbleCanvas: NSView {
         needsDisplay = true
     }
 
+    func invalidate() {
+        needsDisplay = true
+        resizeCanvas()
+    }
+
     func invalidateBubble(_ bubble: Bubble) {
         invalidateBubble(bubble.ID)
     }
@@ -261,13 +280,10 @@ class BubbleCanvas: NSView {
         setNeedsDisplay(rectWithPadding)
     }
 
-    func invalidateBubbleFollowingConnections(_ bubble: Bubble) {
-        var union = bubble.rect
-
-        bubble.connections.forEach {
-            if let connectedBubble = bubbleSoup.bubble(byID: $0) {
-                union = union.union(connectedBubble.rect)
-            }
+    func invalidateBubbleFollowingConnections(_ bubbleID: Bubble.Identifier) {
+        var union = playfield.rectFor(bubbleID: bubbleID)
+        playfield.connectionsForBubble(id: bubbleID).forEach { id in
+            union = union.union(playfield.rectFor(bubbleID: id))
         }
         let rectWithPadding = union.insetBy(dx: -10, dy: -10)
         setNeedsDisplay(rectWithPadding)
@@ -295,7 +311,7 @@ class BubbleCanvas: NSView {
         }
     }
 
-    func textEdit(bubble: Bubble) {
+    func textEdit(bubbleID: Bubble.Identifier) {
         if textEditor == nil {
             textEditor = NSTextView(frame: .zero)
         }
@@ -303,27 +319,34 @@ class BubbleCanvas: NSView {
             Swift.print("uh... we just made the text editor")
             return
         }
-
-        let rect = bubble.rect.insetBy(dx: 0, dy: 0)
+        let bubbleRect = playfield.rectFor(bubbleID: bubbleID)
+        let rect = bubbleRect.insetBy(dx: 0, dy: 0) // ... uh... not sure what this is to accomplish
+        
         // !!! this logic is kind of duplicated around.
         let textRect = rect.insetBy(dx: Bubble.margin, dy: Bubble.margin)
         textEditor.frame = textRect
 
+        guard let bubble = playfield.bubble(byID: bubbleID) else {
+            fatalError("bubble went away during edit? \(bubbleID)")
+        }
         textEditor.textStorage?.setAttributedString(bubble.attributedString)
 
         addSubview(textEditor)
         window?.makeFirstResponder(textEditor)
-        textEditingBubble = bubble
+        textEditingBubble = bubbleID
 
         textEditor.textContainer?.lineFragmentPadding = 0
     }
 
-    func commitEditing(bubble: Bubble) {
+    func commitEditing(bubbleID: Bubble.Identifier) {
         guard let textEditor = textEditor else {
             Swift.print("uh.... we shouldn't get here without a text editor")
             return
         }
-        bubble.text = textEditor.string
+        guard let bubble = playfield.bubble(byID: bubbleID) else {
+            fatalError("got unexpected bubble during editing committing \(bubbleID)")
+        }
+        playfield.setBubbleText(bubbleID: bubbleID, text: textEditor.string)
         
         if let attr = textEditor.textStorage?.attributedSubstring(from: NSMakeRange(0, bubble.text.count)) {
             bubble.gronkulateAttributedString(attr)
@@ -351,10 +374,16 @@ extension BubbleCanvas {
     override func mouseMoved(with event: NSEvent) {
         if spaceDown { return }
 
+// if highlighting bubbles on mouse moved is desired. I found it annoying
+#if false
         let locationInWindow = event.locationInWindow
         let viewLocation = convert(locationInWindow, from: nil)
-        let bubble = bubbleSoup.hitTestBubble(at: viewLocation)
+        guard let id = playfield.hitTestBubble(at: viewLocation) else {
+            return
+        }
+        let bubble = playfield.bubble(byID: id)
         highlightBubble(bubble)
+#endif
     }
 
     override func mouseDown(with event: NSEvent) {
@@ -363,7 +392,7 @@ extension BubbleCanvas {
         lastPoint = viewLocation
 
         if let textEditingBubble = textEditingBubble {
-            commitEditing(bubble: textEditingBubble)
+            commitEditing(bubbleID: textEditingBubble)
             self.textEditingBubble = nil
             return
         }
@@ -377,24 +406,25 @@ extension BubbleCanvas {
 
         for barrier in barriers { // not a forEach because of the return
             if barrier.hitTest(point: viewLocation, area: bounds) {
-                bubbleSoup.beginGrouping()
+                playfield.beginMove()
                 barrierSoup.beginGrouping()
+
                 currentMouseHandler = MouseBarrier(withSupport: self, barrier: barrier)
                 currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
                 return
             }
         }
 
-        let bubble = bubbleSoup.hitTestBubble(at: viewLocation)
-
-        if let bubble = bubble {
+        if let id = playfield.hitTestBubble(at: viewLocation) {
             if event.clickCount == 2 {
-                textEdit(bubble: bubble)
+                textEdit(bubbleID: id)
             }
+
         } else {
             // space!
             if event.clickCount == 1 {
-                currentMouseHandler = MouseSpacer(withSupport: self, selection: selectedBubbles)
+                currentMouseHandler = MouseSpacer(withSupport: self, 
+                                                  selection: playfield.selectedBubbles)
             } else if event.clickCount == 2 {
                 currentMouseHandler = MouseDoubleSpacer(withSupport: self)
                 currentMouseHandler?.start(at: viewLocation, modifierFlags: event.modifierFlags)
@@ -407,9 +437,10 @@ extension BubbleCanvas {
         }
 
         // Catch-all selecting and dragging.
-        bubbleSoup.beginGrouping()
+        playfield.beginMove()
+
         currentMouseHandler = MouseBubbler(withSupport: self, 
-                                           selectedBubbles: selectedBubbles)
+                                           selectedBubbles: playfield.selectedBubbles)
         currentMouseHandler?.start(at: viewLocation,
                                    modifierFlags: event.modifierFlags)
     }
@@ -435,12 +466,11 @@ extension BubbleCanvas {
 
         defer {
             scrollOrigin = nil
-            bubbleSoup.endGrouping()
 
             currentMouseHandler = nil
             marquee = nil
 
-            bubbleSoup.endGrouping()
+            playfield.endMove()
             barrierSoup.endGrouping()
         }
 
@@ -496,9 +526,11 @@ extension BubbleCanvas {
             }
         } else if event.keyCode == Keycodes.delete.rawValue {
             setCursor(.arrow)
-            if !selectedBubbles.selectedBubbles.isEmpty {
-                bubbleSoup.remove(bubbles: selectedBubbles.selectedBubbles)
+            if !playfield.selectedBubbles.selectedBubbles.isEmpty {
+                playfield.remove(bubbles: playfield.selectedBubbles.selectedBubbles)
             }
+            playfield.selectedBubbles.unselectAll(callInvalHook: false)
+            setNeedsDisplay(bounds)
         } else {
             setCursor(.arrow)
             keypressHandler?(event)
@@ -517,13 +549,17 @@ extension BubbleCanvas {
 }
 
 extension BubbleCanvas: MouseSupport {
-    func hitTestBubble(at point: CGPoint) -> Bubble? {
-        let bubble = bubbleSoup.hitTestBubble(at: point)
-        return bubble
+    var owningPlayfield: Playfield {
+        return playfield
+    }
+    
+    func hitTestBubble(at point: CGPoint) -> Bubble.Identifier? {
+        guard let id = playfield.hitTestBubble(at: point) else { return nil }
+        return id
     }
 
-    func areaTestBubbles(intersecting area: CGRect) -> [Bubble]? {
-        return bubbleSoup.areaTestBubbles(intersecting: area)
+    func areaTestBubbles(intersecting area: CGRect) -> [Bubble.Identifier]? {
+        return playfield.areaTestBubbles(intersecting: area)
     }
 
     func drawMarquee(around rect: CGRect) {
@@ -531,11 +567,11 @@ extension BubbleCanvas: MouseSupport {
     }
 
     func unselectAll() {
-        selectedBubbles.unselectAll()
+        playfield.selectedBubbles.unselectAll()
     }
 
-    func select(bubbles: [Bubble]) {
-        selectedBubbles.select(bubbles: bubbles)
+    func select(bubbles: [Bubble.Identifier]) {
+        playfield.selectedBubbles.select(bubbles: bubbles)
     }
 
     func makeTransparent(_ selection: Selection?) {
@@ -560,57 +596,57 @@ extension BubbleCanvas: MouseSupport {
         scroll(newOrigin)
     }
     
-    func createNewBubble(at point: CGPoint, showEditor: Bool) -> Bubble {
-        let bubble = bubbleSoup.create(newBubbleAt: point)
+    func createNewBubble(at point: CGPoint, showEditor: Bool) -> Bubble.Identifier {
+        let bubble = playfield.createNewBubble(at: point)
         if showEditor {
-            textEdit(bubble: bubble)
+            textEdit(bubbleID: bubble)
         }
         return bubble
     }
 
-    func move(bubble: Bubble, to point: CGPoint) {
-        bubbleSoup.move(bubble: bubble, to: point)
+    func move(bubble: Bubble.Identifier, to point: CGPoint) {
+        playfield.move(bubble, to: point)
             
         // the area to redraw is kind of complex - like if there's connected 
         // bubbles need to make sure connecting lines are redrawn.
         setNeedsDisplay(bounds)
     }
 
-    func move(barrier: Barrier, affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?,
+    func move(barrier: Barrier, affectedBubbles: [Bubble.Identifier]?, affectedBarriers: [Barrier]?,
         to horizontalPosition: CGFloat) {
         moveAllTheThings(anchoredByBarrier: barrier, 
             affectedBubbles: affectedBubbles, affectedBarriers: affectedBarriers,
             to: horizontalPosition)
     }
 
-    func connect(bubbles: [Bubble], to bubble: Bubble) {
-        bubbleSoup.connect(bubbles: bubbles, to: bubble)
+    func connect(bubbles: [Bubble.Identifier], to bubble: Bubble.Identifier) {
+        playfield.addConnectionsBetween(bubbleIDs: bubbles, to: bubble)
         needsDisplay = true
     }
 
-    func disconnect(bubbles: [Bubble], from bubble: Bubble) {
-        bubbleSoup.disconnect(bubbles: bubbles, from: bubble)
+    func disconnect(bubbles: [Bubble.Identifier], from bubble: Bubble.Identifier) {
+        playfield.disconnect(bubbleIDs: bubbles, from: bubble)
         needsDisplay = true
     }
 
-    func highlightAsDropTarget(bubble: Bubble?) {
+    func highlightAsDropTarget(bubble: Bubble.Identifier?) {
         var damageRects: [CGRect] = []
 
-        if let dropTargetBubble = dropTargetBubble {
-            damageRects += [dropTargetBubble.rect]
+        if let dropTargetBubble = dropTargetBubbleID {
+            damageRects += [playfield.rectFor(bubbleID: dropTargetBubble)]
         }
 
-        dropTargetBubble = bubble
-
+        dropTargetBubbleID = bubble
         if let bubble = bubble {
-            damageRects += [bubble.rect]
+            damageRects += [playfield.rectFor(bubbleID: bubble)]
         }
 
         damageRects.forEach { setNeedsDisplay($0) }
     }
 
-    func bubblesAffectedBy(barrier: Barrier) -> [Bubble]? {
-        let affectedBubbles = bubbleSoup.areaTestBubbles(intersecting: barrier.horizontalPosition.rectToRight)
+    func bubblesAffectedBy(barrier: Barrier) -> [Bubble.Identifier]? {
+        let area = barrier.horizontalPosition.rectToRight
+        let affectedBubbles = playfield.areaTestBubbles(intersecting: area)
         return affectedBubbles
     }
 
@@ -624,14 +660,15 @@ extension BubbleCanvas: MouseSupport {
 // This stuff should move elsewhere since (hopefully) it's purely soup manipulations.
 extension BubbleCanvas {
     func moveAllTheThings(anchoredByBarrier barrier: Barrier, 
-        affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?, to horizontalPosition: CGFloat) {
+        affectedBubbles: [Bubble.Identifier]?, affectedBarriers: [Barrier]?, to horizontalPosition: CGFloat) {
         
         let delta = horizontalPosition - barrier.horizontalPosition
         barrierSoup.move(barrier: barrier, to: horizontalPosition)
 
-        affectedBubbles?.forEach { bubble in
-            let newPosition = CGPoint(x: bubble.position.x + delta, y: bubble.position.y)
-            bubbleSoup.move(bubble: bubble, to: newPosition)
+        affectedBubbles?.forEach { id in
+            let position = playfield.position(for: id)
+            let newPosition = CGPoint(x: position.x + delta, y: position.y)
+            playfield.move(id, to: newPosition)
         }
 
         affectedBarriers?.forEach { barrier in

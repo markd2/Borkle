@@ -4,8 +4,12 @@ import Yams
 
 class Document: NSDocument {
     @IBOutlet var imageView: NSImageView!
+
+    var defaultPlayfield: Playfield!
     @IBOutlet var bubbleCanvas: BubbleCanvas!
-    @IBOutlet var bubbleScroller: NSScrollView!
+
+    var secondPlayfield: Playfield!
+    @IBOutlet var secondBubbleCanvas: BubbleCanvas!
 
     // I am so lazy...
     @IBOutlet var colorButton1: DumbButton!
@@ -17,8 +21,11 @@ class Document: NSDocument {
 
     let imageFilename = "image.png"
     let metadataFilename = "metadata.json"
-    let bubbleFilename = "bubbles.yaml"
+    let legacyBubbleFilename = "bubbles.yaml"
+    let bubbleFilename = "bubbles2.yaml"
     let barrierFilename = "barriers.yaml"
+    let playfieldDirectory = "playfields.yaml"
+    let defaultPlayfieldFilename = "default-playfield.yaml"
 
     var bubbleSoup: BubbleSoup
 
@@ -27,7 +34,7 @@ class Document: NSDocument {
 
     var barriers: [Barrier] = [] {
         didSet {
-            documentFileWrapper?.remove(filename: bubbleFilename)
+            documentFileWrapper?.remove(filename: legacyBubbleFilename)
 
             barrierSoup.removeEverything()
             barrierSoup.add(barriers: barriers)
@@ -64,35 +71,75 @@ class Document: NSDocument {
         super.awakeFromNib()
         imageView.image = image
 
-        if let undoManager = undoManager {
-            bubbleSoup.undoManager = undoManager
-            barrierSoup.undoManager = undoManager
-        }
-        bubbleSoup.bubblesChangedHook = {
-            self.documentFileWrapper?.remove(filename: self.bubbleFilename)
-        }
-        barrierSoup.barriersChangedHook = {
-            self.documentFileWrapper?.remove(filename: self.barrierFilename)
+        guard let undoManager = undoManager else {
+            fatalError("We kind of need an undo manager")
         }
 
-        bubbleCanvas.bubbleSoup = bubbleSoup
+        bubbleSoup.undoManager = undoManager
+        barrierSoup.undoManager = undoManager
+
+//        bubbleSoup.bubblesChangedHook = {
+//            self.documentFileWrapper?.remove(filename: self.legacyBubbleFilename)
+//        }
+//        barrierSoup.barriersChangedHook = {
+//            self.documentFileWrapper?.remove(filename: self.barrierFilename)
+//        }
+
+        bubbleCanvas.playfield = defaultPlayfield ?? Playfield(soup: bubbleSoup, undoManager: undoManager)
+        bubbleCanvas.playfield.canvas = bubbleCanvas
         bubbleCanvas.barrierSoup = barrierSoup
         bubbleCanvas.barriers = barriers
+        bubbleCanvas.backgroundColor = BubbleCanvas.background
         bubbleCanvas.barriersChangedHook = {
             self.documentFileWrapper?.remove(filename: self.barrierFilename)
         }
 
+        let responder = PlayfieldResponder(playfield: bubbleCanvas.playfield)
+        responder.nextResponder = bubbleCanvas.nextResponder
+        bubbleCanvas.nextResponder = responder
+
         // need to actually drive the frame from the bubbles
-        bubbleScroller.contentView.backgroundColor = BubbleCanvas.background
-        bubbleScroller.hasHorizontalScroller = true
-        bubbleScroller.hasVerticalScroller = true
+        let bubbleScroller = bubbleCanvas.scroller
+        bubbleScroller?.contentView.backgroundColor = bubbleCanvas.backgroundColor
+        bubbleScroller?.hasHorizontalScroller = true
+        bubbleScroller?.hasVerticalScroller = true
 
         // zoom
-        bubbleScroller.magnification = 1.0
+        bubbleScroller?.magnification = 1.0
 
         bubbleCanvas.keypressHandler = { event in
             self.handleKeypress(event)
         }
+
+        secondBubbleCanvas.playfield = secondPlayfield ?? Playfield(soup: bubbleSoup, undoManager: undoManager)
+        secondBubbleCanvas.playfield.canvas = secondBubbleCanvas
+        secondBubbleCanvas.barrierSoup = barrierSoup
+        secondBubbleCanvas.barriers = barriers
+        secondBubbleCanvas.backgroundColor = BubbleCanvas.background2
+        secondBubbleCanvas.barriersChangedHook = {
+            self.documentFileWrapper?.remove(filename: self.barrierFilename)
+        }
+
+        let responder2 = PlayfieldResponder(playfield: secondBubbleCanvas.playfield)
+        responder2.nextResponder = secondBubbleCanvas.nextResponder
+        secondBubbleCanvas.nextResponder = responder2
+
+        // need to actually drive the frame from the bubbles
+        let bubbleScroller2 = secondBubbleCanvas.scroller
+        bubbleScroller2?.contentView.backgroundColor = secondBubbleCanvas.backgroundColor
+        bubbleScroller2?.hasHorizontalScroller = true
+        bubbleScroller2?.hasVerticalScroller = true
+
+        // zoom
+        bubbleScroller2?.magnification = 1.0
+
+        secondBubbleCanvas.keypressHandler = { event in
+            self.handleKeypress(event)
+        }
+
+
+
+
         colorButton1.color = .white
         colorButton2.color = NSColor(red: 0.896043, green: 0.997437, blue: 0.942763, alpha: 1.0) // greenish
         colorButton3.color = NSColor(red: 1.0, green: 0.90283, blue: 0.976506, alpha: 1.0) // pinkish
@@ -127,6 +174,9 @@ class Document: NSDocument {
 
     override func read(from fileWrapper: FileWrapper, 
                        ofType typeName: String) throws {
+        guard let undoManager else {
+            fatalError("We kind of need an undo manager")
+        }
 
         // (comment from apple sample code)
         // look for the file wrappers.
@@ -141,12 +191,17 @@ class Document: NSDocument {
 
         let fileWrappers = fileWrapper.fileWrappers!
 
-        if let bubbleFileWrapper = fileWrappers[bubbleFilename] {
+        if let bubbleFileWrapper = fileWrappers[legacyBubbleFilename] {
             let bubbleData = bubbleFileWrapper.regularFileContents!
             let decoder = YAMLDecoder()
             do {
                 let bubbles = try decoder.decode([Bubble].self, from: bubbleData)
-                self.bubbleSoup.bubbles = bubbles
+                bubbleSoup.bubbles = bubbles
+                defaultPlayfield = Playfield(soup: bubbleSoup, undoManager: undoManager)
+                defaultPlayfield.migrateFrom(bubbles: bubbles)
+
+                secondPlayfield = Playfield(soup: bubbleSoup, undoManager: undoManager)
+                secondPlayfield.migrateSomeFrom(bubbles: bubbles)
             } catch {
                 Swift.print("SNORGLE loading got \(error)")
             }
@@ -189,12 +244,12 @@ class Document: NSDocument {
             throw(FileWrapperError.unexpectedlyNilFileWrappers)
         }
 
-        if fileWrappers[bubbleFilename] == nil {
+        if fileWrappers[legacyBubbleFilename] == nil {
             let encoder = YAMLEncoder()
 
             if let bubbleString = try? encoder.encode(bubbleSoup.bubbles) {
                 let bubbleFileWrapper = FileWrapper(regularFileWithString: bubbleString)
-                bubbleFileWrapper.preferredFilename = bubbleFilename
+                bubbleFileWrapper.preferredFilename = legacyBubbleFilename
                 documentFileWrapper.addFileWrapper(bubbleFileWrapper)
             }
         }
@@ -239,21 +294,6 @@ class Document: NSDocument {
         return documentFileWrapper
     }
 
-    // !!! there should be some kind of utility when given a soup and a selection to push it out.
-    // !!! maybe a command patterny thing.
-    func expand(selection: Selection) {
-        // !!! this is O(N^2).  May need to have a lookup by ID?
-        // !!! of course, wait until we see it appear in instruments
-        selection.forEachBubble { bubble in
-            for connection in bubble.connections {
-                let connectedBubble = bubbleSoup.bubbles.first { $0.ID == connection }
-                if let connectedBubble = connectedBubble {
-                    selection.select(bubble: connectedBubble)
-                }
-            }
-        }
-    }
-
     // Did we see a control-X float by? If so, if we see the next keystroke as a control-S,
     // the save. (emacs save-document combo)
     var controlXLatch = false
@@ -289,44 +329,11 @@ extension Document {
         updateChangeCount(.changeDone)
     }
 
-    @IBAction func selectAll(_ sender: Any) {
-        bubbleCanvas.selectedBubbles.select(bubbles: bubbleSoup.bubbles)
-    }
-    
-    @IBAction func expandSelection(_ sender: Any) {
-        expand(selection: bubbleCanvas.selectedBubbles)
-    }
-    
-    @IBAction func expandComponent(_ sender: Any) {
-        var lastSelectionCount = bubbleCanvas.selectedBubbles.bubbleCount
-        
-        while true {
-            expand(selection: bubbleCanvas.selectedBubbles)
-            if lastSelectionCount == bubbleCanvas.selectedBubbles.bubbleCount {
-                break
-            }
-            lastSelectionCount = bubbleCanvas.selectedBubbles.bubbleCount
-        }
-    }
-    
+//asdf    
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         switch menuItem.action {
-        case #selector(expandSelection(_:)):
-            return bubbleCanvas.selectedBubbles.bubbleCount > 0
-        case #selector(expandComponent(_:)):
-            return bubbleCanvas.selectedBubbles.bubbleCount > 0
-        case #selector(shrinkBubble(_:)):
-            return bubbleCanvas.selectedBubbles.bubbleCount > 0
-        case #selector(embiggenBubble(_:)):
-            return bubbleCanvas.selectedBubbles.bubbleCount > 0
-        case #selector(exportBulletList(_:)):
-            return bubbleCanvas.selectedBubbles.bubbleCount == 1
-        case #selector(exportPDF(_:)):
-            return true
         case #selector(importScapple(_:)):
             return true
-        case #selector(paste(_:)):
-            return canPaste()
         default:
             break
         }
@@ -346,169 +353,28 @@ extension Document {
         }
     }
 
+    /// This is probalby better moved into the playfield
     func importScapple(url: URL) {
-        let ceiling = bubbleSoup.maxBubbleID() + 1
+//        let ceiling = bubbleSoup.maxBubbleID() + 1
 
         do {
             let incomingBubbles = try ScappleImporter().importScapple(url: url)
-            incomingBubbles.forEach { bubble in
-                bubble.offset(by: ceiling)
-            }
+//            incomingBubbles.forEach { bubble in
+//                bubble.offset(by: ceiling)
+//            }
 
             bubbleSoup.add(bubbles: incomingBubbles)
-            bubbleCanvas.bubbleSoup = bubbleSoup
 
             bubbleCanvas.selectedBubbles.unselectAll()
-            bubbleCanvas.select(bubbles: incomingBubbles)
+            bubbleCanvas.select(bubbles: incomingBubbles.map { $0.ID })
         } catch {
             Swift.print("import error \(error)")
         }
     }
 
-    @IBAction func shrinkBubble(_ sender: AnyObject) {
-        bubbleCanvas.selectedBubbles.forEachBubble { bubble in
-            let newWidth = bubble.width - 10
-            if newWidth > 10 {
-                // TODO make this undoable / supported by the soup
-                bubble.width = newWidth
-            }
-            bubbleCanvas.needsDisplay = true
-        }
-    }
-
-    @IBAction func embiggenBubble(_ sender: AnyObject) {
-        bubbleCanvas.selectedBubbles.forEachBubble { bubble in
-            let newWidth = bubble.width + 10
-            // TODO make this undoable / supported by the soup
-            bubble.width = newWidth
-        }
-        bubbleCanvas.needsDisplay = true
-    }
-
-    @IBAction func colorBubble(_ sender: DumbButton) {
-        Swift.print("need to make color changing undoable")
-        bubbleCanvas.selectedBubbles.forEachBubble { bubble in
-            bubble.fillColor = sender.color
-        }        
-        bubbleCanvas.needsDisplay = true
-    }
-
-    @IBAction func exportPDF(_ sender: AnyObject) {
-        Swift.print("saved to Desktop directory as _borkle.pdf_")
-        let data = bubbleCanvas.dataWithPDF(inside: bubbleCanvas.bounds)
-        let url = userDesktopURL().appendingPathComponent("borkle.pdf")
-        try! data.write(to: url)
-    }
-
-    private func userDesktopURL() -> URL {
+    static func userDesktopURL() -> URL {
         let urls = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)
         let userDesktopDirectoryURL = urls[0]
         return userDesktopDirectoryURL
-    }
-
-    @IBAction func resetZoom(_ sender: AnyObject) {
-        bubbleScroller.magnification = 1.0
-    }
-
-    @IBAction func incZoom(_ sender: AnyObject) {
-        bubbleScroller.magnification += 0.1
-    }
-
-    @IBAction func decZoom(_ sender: AnyObject) {
-        bubbleScroller.magnification -= 0.1
-    }
-
-    private func canPaste() -> Bool {
-        // need a point to paste at
-        guard let _ = bubbleCanvas.lastPoint else {
-            return false
-        }
-
-        // and need something on the pasteboard to paste
-        let pasteboard = NSPasteboard.general
-        let types = pasteboard.availableType(from: [.string])
-        return types != nil
-    }
-
-    @IBAction func paste(_ sender: AnyObject) {
-        let pasteboard = NSPasteboard.general
-        guard let string = pasteboard.string(forType: .string),
-              var point = bubbleCanvas.lastPoint else {
-            return
-        }
-        var startPoint = point
-
-        point.x += bubbleSoup.defaultWidth / 2.0
-
-        let bubble = bubbleCanvas.createNewBubble(at: point, showEditor: false)
-        bubble.text = string
-        bubbleCanvas.needsDisplay = true
-        bubbleCanvas.invalidateBubble(bubble.ID)
-
-        // Change the start point so that multiple pastes get
-        // offset.
-        startPoint.x += 30
-        startPoint.y += 30
-        bubbleCanvas.lastPoint = startPoint
-        
-        Swift.print(bubble.text)
-    }
-
-    // Idea from Mikey
-    struct Node {
-        let text: String
-        let depth: Int
-    }
-
-    @IBAction func exportBulletList(_ sender: AnyObject) {
-        var nodes: [Node] = []
-
-        let selectedBubble = bubbleCanvas.selectedBubbles.selectedBubbles[0]
-
-        nodes += visitForBulletList(selectedBubble, 0)
-
-        var finalString = ""
-        nodes.forEach { node in
-            let indent = String(repeating: " ", count: node.depth * 4)
-            finalString += indent + "- " + node.text + "\n"
-        }
-
-        guard let data = finalString.data(using: .utf8) else {
-            Swift.print("could not convert string \(finalString)")
-            return
-        }
-
-        Swift.print("saving to Desktop directory as _outline.md_")
-        let url = userDesktopURL().appendingPathComponent("outline.md")
-        try! data.write(to: url)
-        
-        Swift.print(finalString)
-
-        seenIDs = Set<Int>()
-    }
-
-    func visitForBulletList(_ bubble: Bubble, _ depth: Int) -> [Node] {
-        Swift.print("visiting \(bubble.ID) depth \(depth)")
-        var nodes: [Node] = []
-
-        let node = Node(text: bubble.text, depth: depth)
-        nodes += [node]
-
-        seenIDs.insert(bubble.ID)
-
-        bubble.forEachConnection { id in
-            guard let bubble = bubbleSoup.bubble(byID: id),
-                  !seenIDs.contains(bubble.ID) else { return }
-            nodes += self.visitForBulletList(bubble, depth + 1)
-        }
-
-        return nodes
-    }
-    
-    @IBAction func recalcScrollingBounds(_ sender: NSButton) {
-        // force a recalc of the canvas bounds.  we should do that automatically,
-        // but it's not working.  This is a hack (8/23/2023 - hello me from five years in
-        // the future!) for now.
-        bubbleCanvas.resizeCanvas()
     }
 }

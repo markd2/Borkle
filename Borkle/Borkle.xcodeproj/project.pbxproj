@@ -3,11 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		7D042C56250D8DB900E65175 /* ScappleImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D042C55250D8DB900E65175 /* ScappleImporter.swift */; };
+		7D0C1D6A2B27F344009B4AB5 /* Playfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C1D692B27F344009B4AB5 /* Playfield.swift */; };
+		7D272A322B58A55C003E16C1 /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D272A312B58A55C003E16C1 /* RGB.swift */; };
 		7D2C9CD2251556B900B1E2DE /* BubbleSoup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CD1251556B900B1E2DE /* BubbleSoup.swift */; };
 		7D2C9CD6251556C200B1E2DE /* BubbleSoupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CD5251556C200B1E2DE /* BubbleSoupTests.swift */; };
 		7D2C9CDE2516B5E600B1E2DE /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CDD2516B5E600B1E2DE /* Selection.swift */; };
@@ -46,6 +48,7 @@
 		7D93A76D250B019D00991121 /* flumph.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A76C250B019D00991121 /* flumph.jpg */; };
 		7DB5CCC22547AD57004C8F67 /* single-appearance.scap in Resources */ = {isa = PBXBuildFile; fileRef = 7DB5CCC12547AD57004C8F67 /* single-appearance.scap */; };
 		7DB5CCC9254F3AEC004C8F67 /* DumbButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB5CCC8254F3AEC004C8F67 /* DumbButton.swift */; };
+		7DBD29312B3BC10C00B8A65F /* UIResponder+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBD29302B3BC10C00B8A65F /* UIResponder+Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,8 @@
 
 /* Begin PBXFileReference section */
 		7D042C55250D8DB900E65175 /* ScappleImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScappleImporter.swift; sourceTree = "<group>"; };
+		7D0C1D692B27F344009B4AB5 /* Playfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playfield.swift; sourceTree = "<group>"; };
+		7D272A312B58A55C003E16C1 /* RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGB.swift; sourceTree = "<group>"; };
 		7D2C9CD1251556B900B1E2DE /* BubbleSoup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleSoup.swift; sourceTree = "<group>"; };
 		7D2C9CD5251556C200B1E2DE /* BubbleSoupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleSoupTests.swift; sourceTree = "<group>"; };
 		7D2C9CDD2516B5E600B1E2DE /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
@@ -102,6 +107,7 @@
 		7D93A76C250B019D00991121 /* flumph.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = flumph.jpg; sourceTree = "<group>"; };
 		7DB5CCC12547AD57004C8F67 /* single-appearance.scap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "single-appearance.scap"; sourceTree = "<group>"; };
 		7DB5CCC8254F3AEC004C8F67 /* DumbButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DumbButton.swift; sourceTree = "<group>"; };
+		7DBD29302B3BC10C00B8A65F /* UIResponder+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Utilities.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +159,8 @@
 				7D51127E250D6F51004F0E63 /* Bubble.swift */,
 				7D93A74B250AD8DC00991121 /* Document.swift */,
 				7D93A74D250AD8DC00991121 /* Document.xib */,
+				7D0C1D692B27F344009B4AB5 /* Playfield.swift */,
+				7D272A312B58A55C003E16C1 /* RGB.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -195,6 +203,7 @@
 				7D2C9D2E251A581300B1E2DE /* Model */,
 				7D2C9D2A251A547200B1E2DE /* Soup */,
 				7D2C9D2D251A57F400B1E2DE /* Mouse */,
+				7DBD292F2B3BC0FD00B8A65F /* Utilities */,
 				7D93A749250AD8DC00991121 /* AppDelegate.swift */,
 				7D93A750250AD8DD00991121 /* Assets.xcassets */,
 				7D93A752250AD8DD00991121 /* MainMenu.xib */,
@@ -226,6 +235,14 @@
 				7D5DAABD253C9AE700893D82 /* ScappleDocuments */,
 			);
 			path = BorkleTests;
+			sourceTree = "<group>";
+		};
+		7DBD292F2B3BC0FD00B8A65F /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				7DBD29302B3BC10C00B8A65F /* UIResponder+Utilities.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,8 +292,9 @@
 		7D93A73E250AD8DC00991121 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1520;
 				ORGANIZATIONNAME = Borkware;
 				TargetAttributes = {
 					7D93A745250AD8DC00991121 = {
@@ -354,10 +372,13 @@
 				7D042C56250D8DB900E65175 /* ScappleImporter.swift in Sources */,
 				7D93A74A250AD8DC00991121 /* AppDelegate.swift in Sources */,
 				7D2C9CD2251556B900B1E2DE /* BubbleSoup.swift in Sources */,
+				7DBD29312B3BC10C00B8A65F /* UIResponder+Utilities.swift in Sources */,
 				7D2C9CFF25190EAD00B1E2DE /* MouseSupport.swift in Sources */,
+				7D272A322B58A55C003E16C1 /* RGB.swift in Sources */,
 				7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */,
 				7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */,
 				7D2C9D13251A3D7F00B1E2DE /* Barrier.swift in Sources */,
+				7D0C1D6A2B27F344009B4AB5 /* Playfield.swift in Sources */,
 				7DB5CCC9254F3AEC004C8F67 /* DumbButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,6 +435,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -444,9 +466,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -475,6 +499,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -505,9 +530,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -533,6 +560,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 2HBB3G8HCG;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Borkle/Info.plist;
@@ -540,7 +568,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				PRODUCT_BUNDLE_IDENTIFIER = borkware.com.Borkle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -556,6 +584,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 2HBB3G8HCG;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Borkle/Info.plist;
@@ -563,7 +592,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				PRODUCT_BUNDLE_IDENTIFIER = borkware.com.Borkle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -578,6 +607,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 2HBB3G8HCG;
 				INFOPLIST_FILE = BorkleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -600,6 +630,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 2HBB3G8HCG;
 				INFOPLIST_FILE = BorkleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

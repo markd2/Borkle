@@ -8,9 +8,9 @@ class MouseBubbler: MouseHandler {
     var prefersWindowCoordinates: Bool { return false }
 
     var initialDragPoint: CGPoint!
-    var originalBubblePositions: [Bubble: CGPoint]!
+    var originalBubblePositions: [Bubble.Identifier: CGPoint]!
     var originalBubblePosition: CGPoint!
-    var hitBubble: Bubble?
+    var hitBubbleID: Bubble.Identifier?
 
     init(withSupport support: MouseSupport, selectedBubbles: Selection) {
         self.support = support
@@ -23,37 +23,38 @@ class MouseBubbler: MouseHandler {
         let addToSelection = modifierFlags.contains(.shift)
         let toggleSelection = modifierFlags.contains(.command)
         
-        guard let hitBubble = support.hitTestBubble(at: point) else {
+        guard let hitBubbleID = support.hitTestBubble(at: point) else {
             return
         }
         
-        self.hitBubble = hitBubble
+        self.hitBubbleID = hitBubbleID
 
         if addToSelection {
-            selectedBubbles.select(bubble: hitBubble)
+            selectedBubbles.select(bubble: hitBubbleID)
         } else if toggleSelection {
-            selectedBubbles.toggle(bubble: hitBubble)
+            selectedBubbles.toggle(bubble: hitBubbleID)
         } else {
-            if selectedBubbles.isSelected(bubble: hitBubble) {
+            if selectedBubbles.isSelected(bubble: hitBubbleID) {
                 // dragging existing selection
             }  else {
                 // No other modifiers, so deselect all and drag 
                 selectedBubbles.unselectAll()
-                selectedBubbles.select(bubble: hitBubble)
+                selectedBubbles.select(bubble: hitBubbleID)
             }
             support.makeTransparent(selectedBubbles)
         }
 
-        originalBubblePositions = selectedBubbles.selectedBubbles.reduce(into: [:]) { dict, bubble in
-            dict[bubble] = bubble.position
+        originalBubblePositions = selectedBubbles.selectedBubbles.reduce(into: [:]) { dict, bubbleID in
+            dict[bubbleID] = support.owningPlayfield.position(for: bubbleID)
         }
 
+        // TODO: this feels similar to the above loop
         originalBubblePositions = [:]
-        selectedBubbles.forEachBubble {
-            originalBubblePositions[$0] = $0.position
+        selectedBubbles.forEachBubble { bubbleID in
+            originalBubblePositions[bubbleID] = support.owningPlayfield.position(for: bubbleID)
         }
 
-        originalBubblePosition = hitBubble.position
+        originalBubblePosition = support.owningPlayfield.position(for: hitBubbleID)
     }
 
     func drag(to point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
@@ -62,7 +63,7 @@ class MouseBubbler: MouseHandler {
         // highlight bubble we're dragging over
         let rect = CGRect(x: point.x, y: point.y, width: 1, height: 1)
         var hitBubbles = support.areaTestBubbles(intersecting: rect) ?? []
-        hitBubbles.removeAll { $0.ID == hitBubble?.ID } // take the primary dragging bubble out.
+        hitBubbles.removeAll { $0 == hitBubbleID } // take the primary dragging bubble out.
         let targetBubble = hitBubbles.last
         support.highlightAsDropTarget(bubble: targetBubble)
 
@@ -81,19 +82,19 @@ class MouseBubbler: MouseHandler {
     func finish(at point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         support.highlightAsDropTarget(bubble: nil)
 
-        guard let hitBubble = hitBubble else {
+        guard let hitBubble = hitBubbleID else {
             return
         }
         
         let rect = CGRect(x: point.x, y: point.y, width: 1, height: 1)
         var hitBubbles = support.areaTestBubbles(intersecting: rect) ?? []
-        hitBubbles.removeAll { $0.ID == hitBubble.ID }
+        hitBubbles.removeAll { $0 == hitBubbleID }
 
         if hitBubbles.count >= 1, let targetBubble = hitBubbles.last  {
             let bubbles = selectedBubbles.selectedBubbles
 
             // if mouse-up inside of a bubble, connect or disconnect.
-            if hitBubble.isConnectedTo(targetBubble) {
+            if support.owningPlayfield.isBubble(hitBubble, connectedTo: targetBubble) {
                 support.disconnect(bubbles: bubbles, from: targetBubble)
             } else {
                 support.connect(bubbles: bubbles, to: targetBubble)
