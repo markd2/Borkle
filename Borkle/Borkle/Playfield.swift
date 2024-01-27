@@ -136,6 +136,8 @@ class Playfield: Codable {
             let position = bubble.position
             positions[id] = position
             
+            colors[id] = RGB(nscolor: .white)
+            
             let width = bubble.width
             widths[id] = width
             
