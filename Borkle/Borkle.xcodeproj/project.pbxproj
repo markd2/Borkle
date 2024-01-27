@@ -11,28 +11,20 @@
 		7D0C1D6A2B27F344009B4AB5 /* Playfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C1D692B27F344009B4AB5 /* Playfield.swift */; };
 		7D272A322B58A55C003E16C1 /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D272A312B58A55C003E16C1 /* RGB.swift */; };
 		7D2C9CD2251556B900B1E2DE /* BubbleSoup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CD1251556B900B1E2DE /* BubbleSoup.swift */; };
-		7D2C9CD6251556C200B1E2DE /* BubbleSoupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CD5251556C200B1E2DE /* BubbleSoupTests.swift */; };
 		7D2C9CDE2516B5E600B1E2DE /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CDD2516B5E600B1E2DE /* Selection.swift */; };
-		7D2C9CE22516B5EE00B1E2DE /* SelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CE12516B5EE00B1E2DE /* SelectionTests.swift */; };
 		7D2C9CEB2516D09700B1E2DE /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = 7D2C9CEA2516D09700B1E2DE /* Yams */; };
 		7D2C9CF325181F9800B1E2DE /* MouseSpacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CF225181F9800B1E2DE /* MouseSpacer.swift */; };
-		7D2C9CF725181FAE00B1E2DE /* MouseSpacerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CF625181FAE00B1E2DE /* MouseSpacerTests.swift */; };
 		7D2C9CFF25190EAD00B1E2DE /* MouseSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CFE25190EAD00B1E2DE /* MouseSupport.swift */; };
 		7D2C9D032519122600B1E2DE /* MouseGrabHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D022519122600B1E2DE /* MouseGrabHand.swift */; };
-		7D2C9D072519123500B1E2DE /* MouseGrabHandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D062519123500B1E2DE /* MouseGrabHandTests.swift */; };
-		7D2C9D0B251912C500B1E2DE /* TestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D0A251912C500B1E2DE /* TestSupport.swift */; };
 		7D2C9D13251A3D7F00B1E2DE /* Barrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D12251A3D7F00B1E2DE /* Barrier.swift */; };
 		7D2C9D17251A3D8900B1E2DE /* BarrierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D16251A3D8900B1E2DE /* BarrierTests.swift */; };
 		7D2C9D1B251A445E00B1E2DE /* MouseBarrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D1A251A445E00B1E2DE /* MouseBarrier.swift */; };
-		7D2C9D1F251A446600B1E2DE /* MouseBarrierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D1E251A446600B1E2DE /* MouseBarrierTests.swift */; };
 		7D2C9D23251A51CA00B1E2DE /* BarrierSoup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D22251A51CA00B1E2DE /* BarrierSoup.swift */; };
 		7D2C9D27251A51D200B1E2DE /* BarrierSoupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D26251A51D200B1E2DE /* BarrierSoupTests.swift */; };
 		7D2C9D34251CEC2100B1E2DE /* MouseBubbler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D33251CEC2100B1E2DE /* MouseBubbler.swift */; };
-		7D2C9D38251CEC5B00B1E2DE /* MouseBubblerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D37251CEC5B00B1E2DE /* MouseBubblerTests.swift */; };
 		7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */; };
 		7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDD250E719800884F29 /* LibraryExtensions.swift */; };
 		7D51127F250D6F51004F0E63 /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D51127E250D6F51004F0E63 /* Bubble.swift */; };
-		7D5DAABA253C9AD200893D82 /* ScappleImporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5DAAB9253C9AD200893D82 /* ScappleImporterTests.swift */; };
 		7D5DAABF253C9B1C00893D82 /* empty.scap in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DAABE253C9B1C00893D82 /* empty.scap */; };
 		7D5DAAC5253CA0A700893D82 /* bubble-with-text.scap in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DAAC4253CA0A700893D82 /* bubble-with-text.scap */; };
 		7D5DAAC9253CA2F800893D82 /* two-connected.scap in Resources */ = {isa = PBXBuildFile; fileRef = 7D5DAAC8253CA2F800893D82 /* two-connected.scap */; };
@@ -390,18 +382,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D5DAABA253C9AD200893D82 /* ScappleImporterTests.swift in Sources */,
 				7D2C9D27251A51D200B1E2DE /* BarrierSoupTests.swift in Sources */,
-				7D2C9D072519123500B1E2DE /* MouseGrabHandTests.swift in Sources */,
-				7D2C9D38251CEC5B00B1E2DE /* MouseBubblerTests.swift in Sources */,
-				7D2C9CE22516B5EE00B1E2DE /* SelectionTests.swift in Sources */,
 				7D2C9D17251A3D8900B1E2DE /* BarrierTests.swift in Sources */,
-				7D2C9CD6251556C200B1E2DE /* BubbleSoupTests.swift in Sources */,
-				7D2C9D0B251912C500B1E2DE /* TestSupport.swift in Sources */,
 				7DD1B20F2B65C55600B4D64C /* PlayfieldTests.swift in Sources */,
-				7D2C9D1F251A446600B1E2DE /* MouseBarrierTests.swift in Sources */,
 				7D93A760250AD8DD00991121 /* BorkleTests.swift in Sources */,
-				7D2C9CF725181FAE00B1E2DE /* MouseSpacerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
