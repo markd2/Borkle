@@ -22,10 +22,18 @@ struct RGB: Codable {
         var green: CGFloat = 0.0
         var blue: CGFloat = 0.0
         
-        nscolor.getRed(&red, green: &green, blue: &blue, alpha: nil)
-        self.red = red
-        self.green = green
-        self.blue = blue
+        if nscolor.colorSpace.colorSpaceModel == .rgb {
+            nscolor.getRed(&red, green: &green, blue: &blue, alpha: nil)
+            self.red = nscolor.redComponent
+            self.green = nscolor.greenComponent
+            self.blue = nscolor.blueComponent
+        } else if nscolor.colorSpace.colorSpaceModel == .gray {
+            self.red = nscolor.whiteComponent
+            self.green = nscolor.whiteComponent
+            self.blue = nscolor.whiteComponent
+        } else {
+            fatalError("unexpected color space model: \(nscolor.colorSpace.colorSpaceModel)")
+        }
     }
 
     init(string: String?) {
