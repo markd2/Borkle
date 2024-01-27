@@ -75,8 +75,8 @@ class Playfield: Codable {
     }
 
     func createNewBubble(at point: CGPoint) -> Bubble.Identifier {
-        guard let bubble = soup?.create(newBubbleAt: point) else {
-            fatalError("could not make a booblay")
+        guard let bubble = soup?.createNewBubble() else {
+            fatalError("no soup for us")
         }
         bubbleIdentifiers += [bubble.ID]
 

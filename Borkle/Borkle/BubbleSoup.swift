@@ -110,8 +110,8 @@ class BubbleSoup {
         bubblesChangedHooks.forEach { $0() }
     }
 
-    // Make a new bubble centered at the given point.  ID is max + 1 of existing bubbles.
-    public func create(newBubbleAt point: CGPoint) -> Bubble {
+    // Make a new bubble.  ID is max + 1 of existing bubbles.
+    public func createNewBubble() -> Bubble {
         let maxID = maxBubbleID()
         let bubble = Bubble(ID: maxID + 1)
 
