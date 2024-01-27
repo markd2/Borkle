@@ -1273,12 +1273,12 @@ Got playfields sketched in, so things to do like
 - [X] migrate documents from all-in-bubbles in to a single playfield
 - [X] canvas take a playfield
   - [X] start vectoring all the things through the playfield (if possible)
-- [ ] have multiple playfields sharing some subset of bubbles
+- [X] have multiple playfields sharing some subset of bubbles
+- [ ] fix tests
 - [ ] actually save playfields
 - [ ] dragonDrop between playfields
   - [ ] drag to link, option-drag to copy
-- [ ] fix undo
-- [ ] fix tests
+- [X] fix undo
 - [X] put playfields into the responder chain
 
 THINGS TO MOVEAY (done)
@@ -1351,3 +1351,4 @@ heh . it's the "NSColour.white" is not an RGB color thing
 and the can't undo was the _initial_ colors were never being set, so
 picking them up for undoing was finding lots of nil, and that's not
 too useful.
+
