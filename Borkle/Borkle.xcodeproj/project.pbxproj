@@ -49,6 +49,7 @@
 		7DB5CCC22547AD57004C8F67 /* single-appearance.scap in Resources */ = {isa = PBXBuildFile; fileRef = 7DB5CCC12547AD57004C8F67 /* single-appearance.scap */; };
 		7DB5CCC9254F3AEC004C8F67 /* DumbButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB5CCC8254F3AEC004C8F67 /* DumbButton.swift */; };
 		7DBD29312B3BC10C00B8A65F /* UIResponder+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBD29302B3BC10C00B8A65F /* UIResponder+Utilities.swift */; };
+		7DD1B20F2B65C55600B4D64C /* PlayfieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1B20E2B65C55600B4D64C /* PlayfieldTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +109,7 @@
 		7DB5CCC12547AD57004C8F67 /* single-appearance.scap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "single-appearance.scap"; sourceTree = "<group>"; };
 		7DB5CCC8254F3AEC004C8F67 /* DumbButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DumbButton.swift; sourceTree = "<group>"; };
 		7DBD29302B3BC10C00B8A65F /* UIResponder+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Utilities.swift"; sourceTree = "<group>"; };
+		7DD1B20E2B65C55600B4D64C /* PlayfieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayfieldTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +235,7 @@
 				7D2C9D37251CEC5B00B1E2DE /* MouseBubblerTests.swift */,
 				7D5DAAB9253C9AD200893D82 /* ScappleImporterTests.swift */,
 				7D5DAABD253C9AE700893D82 /* ScappleDocuments */,
+				7DD1B20E2B65C55600B4D64C /* PlayfieldTests.swift */,
 			);
 			path = BorkleTests;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				7D2C9D17251A3D8900B1E2DE /* BarrierTests.swift in Sources */,
 				7D2C9CD6251556C200B1E2DE /* BubbleSoupTests.swift in Sources */,
 				7D2C9D0B251912C500B1E2DE /* TestSupport.swift in Sources */,
+				7DD1B20F2B65C55600B4D64C /* PlayfieldTests.swift in Sources */,
 				7D2C9D1F251A446600B1E2DE /* MouseBarrierTests.swift in Sources */,
 				7D93A760250AD8DD00991121 /* BorkleTests.swift in Sources */,
 				7D2C9CF725181FAE00B1E2DE /* MouseSpacerTests.swift in Sources */,
