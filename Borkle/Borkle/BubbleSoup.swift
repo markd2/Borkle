@@ -168,7 +168,7 @@ extension BubbleSoup {
     internal func maxBubbleID() -> Int {
         var maxID = 0
 
-        maxID = bubbles.reduce(into: Int.min) { maxval, bubble in
+        maxID = bubbles.reduce(into: 0) { maxval, bubble in
             maxval = max(maxval, bubble.ID)
         }
         return maxID
