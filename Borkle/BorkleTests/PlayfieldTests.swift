@@ -10,6 +10,7 @@ final class PlayfieldTests: XCTestCase {
         let undoManager = UndoManager()
         let soup = BubbleSoup(undoManager: undoManager)
         playfield = Playfield(soup: soup, undoManager: undoManager)
+        setupDefaultSoup(soup: soup)
     }
 
     override func tearDownWithError() throws {
@@ -18,7 +19,26 @@ final class PlayfieldTests: XCTestCase {
         undoManager = nil
     }
 
-    func testExample() throws {
-        
+    // ----------
+    // Utilities
+
+    private func setupDefaultSoup(soup: BubbleSoup) {
+        let bubbleTexts = ["1", "2", "3", "4"]
+        for text in bubbleTexts {
+            let bubble = soup.createNewBubble()
+            bubble.text = text
+            print(bubble)
+        }
+    }
+
+    // ----------
+    // Tests
+
+    func testBubbleByID() throws {
+        let expectedBubble = playfield.bubble(byID: 1)
+        XCTAssertNotNil(expectedBubble)
+
+        let unexpectedBubble = playfield.bubble(byID: 0)
+        XCTAssertNil(unexpectedBubble)
     }
 }
