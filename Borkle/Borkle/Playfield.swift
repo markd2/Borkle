@@ -446,8 +446,6 @@ extension Playfield {
     }
 
     func colorBubbles(_ color: RGB) {
-        Swift.print("need to make color changing undoable")
-        
         var colorChange: [Bubble.Identifier: RGB?] = [:]
         var originals: [Bubble.Identifier: RGB?] = [:]
 
