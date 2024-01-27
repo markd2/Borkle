@@ -1,36 +1,24 @@
-//
-//  PlayfieldTests.swift
-//  BorkleTests
-//
-//  Created by Mark Dalrymple on 1/27/24.
-//  Copyright © 2024 Borkware. All rights reserved.
-//
-
 import XCTest
+@testable import Borkle
 
 final class PlayfieldTests: XCTestCase {
+    var playfield: Playfield!
+    var soup: BubbleSoup!
+    var undoManager: UndoManager!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        let undoManager = UndoManager()
+        let soup = BubbleSoup(undoManager: undoManager)
+        playfield = Playfield(soup: soup, undoManager: undoManager)
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        playfield = nil
+        soup = nil
+        undoManager = nil
     }
 
     func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+        
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
