@@ -1340,5 +1340,14 @@ next - move colors into the playfield.
 
 next time: need undo, and something weird happened to bubble dragging.
 
+==================================================
+# Saturday January 27, 2024
 
+need undo for color changes?  We got code there, but not undoing.
+  - sort of. it's weird. Plus, white isn't overriding colors.
 
+heh . it's the "NSColour.white" is not an RGB color thing
+
+and the can't undo was the _initial_ colors were never being set, so
+picking them up for undoing was finding lots of nil, and that's not
+too useful.
