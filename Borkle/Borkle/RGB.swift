@@ -7,6 +7,10 @@ import AppKit
 //      blue: 9.76506e-1
 
 struct RGB: Codable {
+    static var white: RGB {
+        return RGB(nscolor: NSColor.white)
+    }
+
     let red: CGFloat
     let green: CGFloat
     let blue: CGFloat

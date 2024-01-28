@@ -27,6 +27,7 @@ class Playfield: Codable {
 
     var connections: [Bubble.Identifier: IndexSet] = [:]
     private var positions: [Bubble.Identifier: CGPoint] = [:]
+    let defaultWidth: CGFloat = 150
     var widths: [Bubble.Identifier: CGFloat] = [:]
     var colors: [Bubble.Identifier: RGB?] = [:]
 
@@ -72,6 +73,13 @@ class Playfield: Codable {
     func isBubble(_ id: Bubble.Identifier, connectedTo otherId: Bubble.Identifier) -> Bool {
         let connected = connections[id]?.contains(otherId) ?? false
         return connected
+    }
+
+    func addBubble(_ bubble: Bubble) {
+        bubbleIdentifiers.append(bubble.ID)
+        positions[bubble.ID] = CGPointZero
+        widths[bubble.ID] = defaultWidth
+        colors[bubble.ID] = RGB.white
     }
 
     func createNewBubble(at point: CGPoint) -> Bubble.Identifier {
@@ -150,8 +158,8 @@ class Playfield: Codable {
         self.bubbles = bubbles
     }
 
-    func addConnectionBetween(bubbleID: Bubble.Identifier,
-                              to toBubbleID: Bubble.Identifier) {
+    private func addConnectionBetween(bubbleID: Bubble.Identifier,
+                                      to toBubbleID: Bubble.Identifier) {
         var indexSet = connections[bubbleID, default: IndexSet()]
         indexSet.insert(toBubbleID)
         connections[bubbleID] = indexSet
