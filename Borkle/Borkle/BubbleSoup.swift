@@ -14,8 +14,8 @@ import Foundation
 ///
 class BubbleSoup {
 
-    let defaultWidth: CGFloat = 160
-    let defaultHeight: CGFloat = 8
+    static let defaultWidth: CGFloat = 160
+    static let defaultHeight: CGFloat = 8
 
     /// Something changed in the bubbles - maybe resize the canvas?
     typealias BubbleChangeHook = () -> Void

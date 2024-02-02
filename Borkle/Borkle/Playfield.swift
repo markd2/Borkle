@@ -91,12 +91,8 @@ class Playfield: Codable {
             fatalError("no soup for us")
         }
         bubbleIdentifiers += [bubble.ID]
-
-        // TODO: pull out these defaults to somewhere else
-        let actualPoint = CGPoint(x: point.x - soup!.defaultWidth / 2.0, 
-                                  y: point.y - soup!.defaultHeight / 2.0)
-        positions[bubble.ID] = actualPoint
-        widths[bubble.ID] = soup!.defaultWidth
+        positions[bubble.ID] = point
+        widths[bubble.ID] = BubbleSoup.defaultWidth
 
         return bubble.ID
     }
@@ -439,7 +435,7 @@ extension Playfield {
         }
         var startPoint = point
 
-        point.x += soup.defaultWidth / 2.0
+        point.x += BubbleSoup.defaultWidth / 2.0
 
         let bubbleID = createNewBubble(at: point)
         guard let bubble = soup.bubble(byID: bubbleID) else {
