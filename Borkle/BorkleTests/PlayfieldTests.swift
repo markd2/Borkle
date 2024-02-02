@@ -24,12 +24,16 @@ final class PlayfieldTests: XCTestCase {
 
     private func setupDefaultSoup(soup: BubbleSoup) {
         let bubbleTexts = ["1", "2", "3", "4"]
-        for text in bubbleTexts {
+        let width: CGFloat = 20
+        var bubbleSizes: [Bubble.Identifier: CGFloat] = [:]
+
+        for (index, text) in bubbleTexts.enumerated() {
             let bubble = soup.createNewBubble()
             bubble.text = text
             playfield.addBubble(bubble)
-            print(bubble)
+            bubbleSizes[bubble.ID] = width * CGFloat(index) + 10
         }
+        playfield.changeBubbleWidths(old: [:], new: bubbleSizes)
     }
 
     // ----------
