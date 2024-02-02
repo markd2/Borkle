@@ -373,7 +373,7 @@ extension Playfield {
             }
         }
 
-        changeBubbleSizes(old: old, new: new)
+        changeBubbleWidths(old: old, new: new)
     }
 
     func embiggenBubbles() {
@@ -386,14 +386,14 @@ extension Playfield {
             }
             old[id] = width
             new[id] = width + 10
-            changeBubbleSizes(old: old, new: new)
+            changeBubbleWidths(old: old, new: new)
         } 
     }
 
-    private func changeBubbleSizes(old: [Bubble.Identifier: CGFloat],
-                                   new: [Bubble.Identifier: CGFloat]) {
+    internal func changeBubbleWidths(old: [Bubble.Identifier: CGFloat],
+                                    new: [Bubble.Identifier: CGFloat]) {
         undoManager.registerUndo(withTarget: self) { selfTarget in
-            selfTarget.changeBubbleSizes(old: new, new: old)
+            selfTarget.changeBubbleWidths(old: new, new: old)
         }
 
         for (bubbleID, width) in new {
