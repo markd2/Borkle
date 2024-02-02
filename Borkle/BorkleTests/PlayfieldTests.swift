@@ -54,6 +54,17 @@ final class PlayfieldTests: XCTestCase {
         XCTAssertEqual(indexSet, identifierIndexSet)
     }
 
+    func testCreateNewBubbleAtPoint() {
+        let currentBubbleCount = playfield.bubbleIdentifiers.count
+        let point = CGPoint(x: 100, y: 200)
+        let bubbleID = playfield.createNewBubble(at: point)
+        XCTAssertEqual(playfield.bubbleIdentifiers.count, currentBubbleCount + 1)
+        XCTAssertNotNil(playfield.bubble(byID: bubbleID))
+        
+        let position = playfield.position(for: bubbleID)
+        XCTAssertEqual(position, point)
+    }
+
     func testConnections() {
         // nothing should be connected
         for id in playfield.bubbleIdentifiers {
