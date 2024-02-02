@@ -1352,3 +1352,10 @@ and the can't undo was the _initial_ colors were never being set, so
 picking them up for undoing was finding lots of nil, and that's not
 too useful.
 
+tests are going to be "fun" to migrate.
+
+Bashed my head against undo - all sorts of "sprinkle runloops around",
+but all the individual undo stuff get grouped. Deleted all of it (it was
+getting really messy), and should make a small demo and get some DTS
+help.
+
