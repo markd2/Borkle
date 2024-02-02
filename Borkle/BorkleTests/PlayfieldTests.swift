@@ -45,6 +45,15 @@ final class PlayfieldTests: XCTestCase {
 //        XCTAssertNil(unexpectedBubble)
     }
 
+    func testBubbleIteration() {
+        var indexSet = IndexSet()
+        playfield.forEachBubble { bubbleID in
+            indexSet.insert(bubbleID)
+        }
+        let identifierIndexSet = IndexSet(playfield.bubbleIdentifiers)
+        XCTAssertEqual(indexSet, identifierIndexSet)
+    }
+
     func testConnections() {
         // nothing should be connected
         for id in playfield.bubbleIdentifiers {
