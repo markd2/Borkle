@@ -7,8 +7,8 @@ final class PlayfieldTests: XCTestCase {
     var undoManager: UndoManager!
 
     override func setUpWithError() throws {
-        let undoManager = UndoManager()
-        let soup = BubbleSoup(undoManager: undoManager)
+        undoManager = UndoManager()
+        soup = BubbleSoup(undoManager: undoManager)
         playfield = Playfield(soup: soup, undoManager: undoManager)
         setupDefaultSoup(soup: soup)
     }
