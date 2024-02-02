@@ -58,6 +58,7 @@ class Playfield: Codable {
 
     func bubble(byID id: Bubble.Identifier) -> Bubble? {
         guard bubbleIdentifiers.contains(id) else {
+            // not sure if this should be fatal or not.  For now, it catches some stupid errors.
             fatalError("asking playfield for a bubble it doesn't have")
         }
         return soup?.bubble(byID: id)
