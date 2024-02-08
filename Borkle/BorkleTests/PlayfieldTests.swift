@@ -32,8 +32,15 @@ final class PlayfieldTests: XCTestCase {
             bubble.text = text
             playfield.addBubble(bubble)
             bubbleSizes[bubble.ID] = width * CGFloat(index) + 10
+            playfield.move(bubble.ID, to: CGPoint(x: index + 5, y: index * 2 + 7))
         }
         playfield.changeBubbleWidths(old: [:], new: bubbleSizes)
+
+        // end up with bubble widths of
+        //   (key = 1, value = 10)
+        //   (key = 2, value = 30)
+        //   (key = 3, value = 50)
+        //   (key = 4, value = 70)
     }
 
     // ----------
@@ -99,6 +106,21 @@ final class PlayfieldTests: XCTestCase {
         for id in playfield.bubbleIdentifiers {
             let connectedIndexes = playfield.connectionsForBubble(id: id)
             XCTAssertEqual(connectedIndexes, IndexSet())
+        }
+    }
+
+    func testRectFor() {
+        let margin = 2 * Bubble.margin
+        let idsAndSizes: [Bubble.Identifier: CGFloat] = [
+          1: 10,
+          2: 30,
+          3: 50,
+          4: 70
+        ]
+
+        for (id, size) in idsAndSizes {
+            let rect = playfield.rectFor(bubbleID: id)
+            XCTAssertEqual(rect.width - margin, size)
         }
     }
 }
