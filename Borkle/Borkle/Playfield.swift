@@ -193,6 +193,7 @@ class Playfield: Codable {
                           width: width, height: effectiveHeight)
 
         rect.size.height += 2 * Bubble.margin
+        rect.size.width += 2 * Bubble.margin
 
         return rect
     }
