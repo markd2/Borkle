@@ -1359,3 +1359,21 @@ but all the individual undo stuff get grouped. Deleted all of it (it was
 getting really messy), and should make a small demo and get some DTS
 help.
 
+==================================================
+# Monday November 2024
+
+try to apply swift testing.
+
+But, OF COURSE, getting spurious build errors that require quitting, #ilyxc,
+and restarting.  xcode, where quality is job 17.0
+
+Starting off with about 47% coverge with XCTest
+
+So let's throw it out and do it all with SwiftTesting(tm)!
+And even with zero tests, still have 30% coverage, but couldn't load
+the test bundle.  _sigh_
+
+and now it's stuck building in _GatherProvisiomningInputs
+
+Adding a new test, it wants to create a bridging header.  wtf
+
