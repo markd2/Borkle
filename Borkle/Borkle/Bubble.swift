@@ -145,14 +145,21 @@ class Bubble: Codable {
             _effectiveHeight = nil
         }
     }
+
+    init(ID: Int) {
+        self.ID = ID
+    }
     
     // TODO: remove these once we have a better migration strategy, but for now these
-    // are used to impor t
+    // are used to import
     internal var connections = IndexSet()
+
+    @available(*, deprecated, message: "Move connections out of bubbles")
     public func forEachConnection(_ iterator: (Int) -> Void) {
         connections.forEach { iterator($0) }
     }
 
+    @available(*, deprecated, message: "Move position and size out of bubbles")
     init(ID: Int, position: CGPoint? = nil, width: CGFloat? = nil) {
         self.ID = ID
         if let position = position { self.position = position }
@@ -162,6 +169,7 @@ class Bubble: Codable {
     // optional as hacky way to opt out of Codable for this.
     static let margin: CGFloat = 3.0
 
+    @available(*, deprecated, message: "Use heightForStringDrawing")
     var _effectiveHeight: CGFloat?
     var effectiveHeight: CGFloat {
         if let height = _effectiveHeight {
@@ -193,6 +201,7 @@ extension Bubble: Hashable {
 
 extension Bubble {
 
+    @available(*, deprecated, message: "Use heightForStringDrawing(width:)")
     func heightForStringDrawing() -> CGFloat {
         return heightForStringDrawing(width: width)
     }
