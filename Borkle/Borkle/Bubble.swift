@@ -28,6 +28,7 @@ class Bubble: Codable {
     }
     var borderThickness: Int?
 
+    /// convert attributed string to formatting options
     func gronkulateAttributedString(_ attr: NSAttributedString) {
         formattingOptions = []
 
@@ -63,9 +64,13 @@ class Bubble: Codable {
         }
     }
 
+    /// make an attributed string from the formatting option
+    /// If this proves to be slow with :alot: of bubbles, then
+    /// should be able to cache this.
     var attributedString: NSAttributedString {
         let string = NSMutableAttributedString(string: text)
-
+    
+        // Can these be extracted out?
         let font = NSFont(name: Bubble.defaultFontName, size: Bubble.defaultFontSize)!
         let boldDescriptor = font.fontDescriptor.withSymbolicTraits(.bold)
         let boldFont = NSFont(descriptor: boldDescriptor, size: Bubble.defaultFontSize)!
