@@ -17,10 +17,8 @@
 		7D2C9CFF25190EAD00B1E2DE /* MouseSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9CFE25190EAD00B1E2DE /* MouseSupport.swift */; };
 		7D2C9D032519122600B1E2DE /* MouseGrabHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D022519122600B1E2DE /* MouseGrabHand.swift */; };
 		7D2C9D13251A3D7F00B1E2DE /* Barrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D12251A3D7F00B1E2DE /* Barrier.swift */; };
-		7D2C9D17251A3D8900B1E2DE /* BarrierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D16251A3D8900B1E2DE /* BarrierTests.swift */; };
 		7D2C9D1B251A445E00B1E2DE /* MouseBarrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D1A251A445E00B1E2DE /* MouseBarrier.swift */; };
 		7D2C9D23251A51CA00B1E2DE /* BarrierSoup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D22251A51CA00B1E2DE /* BarrierSoup.swift */; };
-		7D2C9D27251A51D200B1E2DE /* BarrierSoupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D26251A51D200B1E2DE /* BarrierSoupTests.swift */; };
 		7D2C9D34251CEC2100B1E2DE /* MouseBubbler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2C9D33251CEC2100B1E2DE /* MouseBubbler.swift */; };
 		7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDB250D9FC200884F29 /* BubbleCanvas.swift */; };
 		7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D452DDD250E719800884F29 /* LibraryExtensions.swift */; };
@@ -36,12 +34,10 @@
 		7D93A74F250AD8DC00991121 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A74D250AD8DC00991121 /* Document.xib */; };
 		7D93A751250AD8DD00991121 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A750250AD8DD00991121 /* Assets.xcassets */; };
 		7D93A754250AD8DD00991121 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A752250AD8DD00991121 /* MainMenu.xib */; };
-		7D93A760250AD8DD00991121 /* BorkleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93A75F250AD8DD00991121 /* BorkleTests.swift */; };
 		7D93A76D250B019D00991121 /* flumph.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D93A76C250B019D00991121 /* flumph.jpg */; };
 		7DB5CCC22547AD57004C8F67 /* single-appearance.scap in Resources */ = {isa = PBXBuildFile; fileRef = 7DB5CCC12547AD57004C8F67 /* single-appearance.scap */; };
 		7DB5CCC9254F3AEC004C8F67 /* DumbButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB5CCC8254F3AEC004C8F67 /* DumbButton.swift */; };
 		7DBD29312B3BC10C00B8A65F /* UIResponder+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBD29302B3BC10C00B8A65F /* UIResponder+Utilities.swift */; };
-		7DD1B20F2B65C55600B4D64C /* PlayfieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1B20E2B65C55600B4D64C /* PlayfieldTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -173,6 +169,25 @@
 			path = ScappleDocuments;
 			sourceTree = "<group>";
 		};
+		7D8E384D2CD9A3CF006E15B0 /* Old Tests */ = {
+			isa = PBXGroup;
+			children = (
+				7D93A75F250AD8DD00991121 /* BorkleTests.swift */,
+				7D2C9CD5251556C200B1E2DE /* BubbleSoupTests.swift */,
+				7D2C9CE12516B5EE00B1E2DE /* SelectionTests.swift */,
+				7D2C9CF625181FAE00B1E2DE /* MouseSpacerTests.swift */,
+				7D2C9D062519123500B1E2DE /* MouseGrabHandTests.swift */,
+				7D2C9D0A251912C500B1E2DE /* TestSupport.swift */,
+				7D2C9D16251A3D8900B1E2DE /* BarrierTests.swift */,
+				7D2C9D1E251A446600B1E2DE /* MouseBarrierTests.swift */,
+				7D2C9D26251A51D200B1E2DE /* BarrierSoupTests.swift */,
+				7D2C9D37251CEC5B00B1E2DE /* MouseBubblerTests.swift */,
+				7D5DAAB9253C9AD200893D82 /* ScappleImporterTests.swift */,
+				7DD1B20E2B65C55600B4D64C /* PlayfieldTests.swift */,
+			);
+			path = "Old Tests";
+			sourceTree = "<group>";
+		};
 		7D93A73D250AD8DC00991121 = {
 			isa = PBXGroup;
 			children = (
@@ -214,20 +229,9 @@
 		7D93A75E250AD8DD00991121 /* BorkleTests */ = {
 			isa = PBXGroup;
 			children = (
-				7D93A75F250AD8DD00991121 /* BorkleTests.swift */,
+				7D8E384D2CD9A3CF006E15B0 /* Old Tests */,
 				7D93A761250AD8DD00991121 /* Info.plist */,
-				7D2C9CD5251556C200B1E2DE /* BubbleSoupTests.swift */,
-				7D2C9CE12516B5EE00B1E2DE /* SelectionTests.swift */,
-				7D2C9CF625181FAE00B1E2DE /* MouseSpacerTests.swift */,
-				7D2C9D062519123500B1E2DE /* MouseGrabHandTests.swift */,
-				7D2C9D0A251912C500B1E2DE /* TestSupport.swift */,
-				7D2C9D16251A3D8900B1E2DE /* BarrierTests.swift */,
-				7D2C9D1E251A446600B1E2DE /* MouseBarrierTests.swift */,
-				7D2C9D26251A51D200B1E2DE /* BarrierSoupTests.swift */,
-				7D2C9D37251CEC5B00B1E2DE /* MouseBubblerTests.swift */,
-				7D5DAAB9253C9AD200893D82 /* ScappleImporterTests.swift */,
 				7D5DAABD253C9AE700893D82 /* ScappleDocuments */,
-				7DD1B20E2B65C55600B4D64C /* PlayfieldTests.swift */,
 			);
 			path = BorkleTests;
 			sourceTree = "<group>";
@@ -297,6 +301,7 @@
 					};
 					7D93A75A250AD8DD00991121 = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1600;
 						TestTargetID = 7D93A745250AD8DC00991121;
 					};
 				};
@@ -382,10 +387,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D2C9D27251A51D200B1E2DE /* BarrierSoupTests.swift in Sources */,
-				7D2C9D17251A3D8900B1E2DE /* BarrierTests.swift in Sources */,
-				7DD1B20F2B65C55600B4D64C /* PlayfieldTests.swift in Sources */,
-				7D93A760250AD8DD00991121 /* BorkleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,7 +557,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				PRODUCT_BUNDLE_IDENTIFIER = borkware.com.Borkle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -580,7 +581,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				PRODUCT_BUNDLE_IDENTIFIER = borkware.com.Borkle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -591,8 +592,8 @@
 		7D93A768250AD8DD00991121 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
@@ -603,9 +604,10 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				PRODUCT_BUNDLE_IDENTIFIER = borkware.com.BorkleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Borkle.app/Contents/MacOS/Borkle";
 			};
@@ -614,8 +616,8 @@
 		7D93A769250AD8DD00991121 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
@@ -626,7 +628,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				PRODUCT_BUNDLE_IDENTIFIER = borkware.com.BorkleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
