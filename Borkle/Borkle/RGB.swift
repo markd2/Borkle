@@ -8,9 +8,17 @@ import AppKit
 
 struct RGB: Codable {
     static var white: RGB {
-        return RGB(nscolor: NSColor.white)
+        RGB(nscolor: .white)
     }
 
+    static var black: RGB {
+        RGB(nscolor: .black)
+    }
+
+    static var obnoxiousGreen: RGB {
+        RGB(nscolor: .green)
+    }
+    
     let red: CGFloat
     let green: CGFloat
     let blue: CGFloat
