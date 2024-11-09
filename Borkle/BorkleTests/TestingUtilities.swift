@@ -1,11 +1,3 @@
-//
-//  TestingUtilities.swift
-//  BorkleTests
-//
-//  Created by markd on 11/6/24.
-//  Copyright © 2024 Borkware. All rights reserved.
-//
-
 import Foundation
 import Numerics
 

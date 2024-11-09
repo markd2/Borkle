@@ -171,4 +171,12 @@ class BubbleSoupTests {
         #expect(soup.bubbleCount == count - evensCount)
         #expect(changeHookCount == count + 3)
     }
+
+    @Test func explicitBubbleChangeTriggersHook() {
+        let bubble = soup.createNewBubble()
+        #expect(changeHookCount == 1)
+
+        soup.bubbleChanged(bubble.ID)
+        #expect(changeHookCount == 2)
+    }
 }
