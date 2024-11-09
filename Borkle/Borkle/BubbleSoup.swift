@@ -74,7 +74,6 @@ class BubbleSoup {
     /// Add the bubble to the soup.
     public func add(bubble: Bubble) {
         add(bubblesArray: [bubble])
-        bubblesChangedHooks.forEach { $0() }
     }
 
     /// Add the bubbles to the soup.  There's no intrinsic order to the bubbles in the soup.
@@ -83,8 +82,6 @@ class BubbleSoup {
         sanityCheckAdd(bubbles: bubbles)
 
         add(bubblesArray: bubbles)
-
-        bubblesChangedHooks.forEach { $0() }
     }
 
     /// Remove a bunch of bubbles permanently.
@@ -126,6 +123,8 @@ extension BubbleSoup {
     internal func add(bubblesArray bubbles: [Bubble]) {
         undoManager.beginUndoGrouping()
         self.bubbles += bubbles
+        bubblesChangedHooks.forEach { $0() }
+
         undoManager.registerUndo(withTarget: self) { selfTarget in
             self.removeLastBubbles(count: bubbles.count)
         }
@@ -138,6 +137,8 @@ extension BubbleSoup {
         undoManager.beginUndoGrouping()
         let lastChunk = Array(self.bubbles.suffix(count))
         bubbles.removeLast(count)
+        bubblesChangedHooks.forEach { $0() }
+
         undoManager.registerUndo(withTarget: self) { selfTarget in
             self.add(bubbles: lastChunk)
         }
@@ -145,17 +146,18 @@ extension BubbleSoup {
 
     }
 
-    /// Triggers undo. Mainly of use for tests. Presumably you're giving us the
-    /// NSDocument UndoMangler.
-    internal func undo() {
-        undoManager.undoNestedGroup()
-    }
-
-    /// Triggers undo. Mainly of use for tests. Presumably you're giving us the
-    /// NSDocument UndoMangler.
-    internal func redo() {
-        undoManager.redo()
-    }
+// Things seem to be behaving better with TheTestingFramework™
+//    /// Triggers undo. Mainly of use for tests. Presumably you're giving us the
+//    /// NSDocument UndoMangler.
+//    internal func undo() {
+//        undoManager.undoNestedGroup()
+//    }
+//
+//    /// Triggers undo. Mainly of use for tests. Presumably you're giving us the
+//    /// NSDocument UndoMangler.
+//    internal func redo() {
+//        undoManager.redo()
+//    }
 
     /// Returns the largest bubble ID (so you can presumably create a new bubble)
     /// The IDs are not compact.
