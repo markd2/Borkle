@@ -22,7 +22,7 @@ class BubbleSoupTests {
     }
 
     /// multiple undoable operations 
-    @Test func sequentialUndo() {
+    @Test(.tags(.undoRedo)) func sequentialUndo() {
         #expect(soup.bubbleCount == 0)
 
         let bubble1 = Bubble(ID: 234)
@@ -51,17 +51,35 @@ class BubbleSoupTests {
         soup.undoManager.undo()
         #expect(soup.bubbleCount == 0)
         #expect(changeHookCount == 6)
+
+        soup.undoManager.redo()
+        #expect(soup.bubbleCount == 1)
+        #expect(changeHookCount == 7)
+
+        soup.undoManager.redo()
+        #expect(soup.bubbleCount == 4)
+        #expect(changeHookCount == 8)
+
+        soup.undoManager.redo()
+        #expect(soup.bubbleCount == 5)
+        #expect(changeHookCount == 9)
     }
 
-    @Test func addBubble() {
+    @Test(.tags(.undoRedo)) func addBubble() {
         #expect(soup.bubbleCount == 0)
 
         let bubble = Bubble(ID: 234)
         soup.add(bubble: bubble)
         #expect(soup.bubbleCount == 1)
+        #expect(changeHookCount == 1)
 
         soup.undoManager.undo()
         #expect(soup.bubbleCount == 0)
+        #expect(changeHookCount == 2)
+
+        soup.undoManager.redo()
+        #expect(soup.bubbleCount == 1)
+        #expect(changeHookCount == 3)
     }
 
     
