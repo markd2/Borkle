@@ -99,12 +99,6 @@ class BubbleSoup {
         add(bubble: bubble)
         return bubble
     }
-
-    /// Empty out the soup
-    public func removeEverything() {
-        removeLastBubbles(count: bubbles.count)
-        bubblesChangedHooks.forEach { $0() }
-    }
 }
 
 /// Helper Methods
