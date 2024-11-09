@@ -25,14 +25,17 @@ struct LibraryExtensionTests {
         #expect(value.approxEqual(expected))
     }
 
-    @Test func cgfloatFromStringFailure() {
-        #expect(CGFloat("hello") == nil)
-        #expect(CGFloat("") == nil)
-        #expect(CGFloat(" ") == nil)
-        #expect(CGFloat("pi") == nil)
-        #expect(CGFloat("π") == nil)
-        #expect(CGFloat("true") == nil)
-        #expect(CGFloat("false") == nil)
+    @Test(arguments: [
+            "hello",
+            "",
+            " ",
+            "pi",
+            "π",
+            "true",
+            "false",
+          ])
+    func cgfloatFromStringFailure(string: String) {
+        #expect(CGFloat(string) == nil)
     }
 
     @Test(arguments: [
@@ -67,12 +70,17 @@ struct LibraryExtensionTests {
         #expect(point.y.approxEqual(expected.y))
     }
 
-    @Test func cgpointFromStringFailure() {
-        #expect(CGPoint("splunge") == nil)
-        #expect(CGPoint("1.2") == nil)
-        #expect(CGPoint("1.2,") == nil)
-        #expect(CGPoint("three") == nil)
-        #expect(CGPoint("three,four") == nil)
-        #expect(CGPoint("1.2345, 5.6789") == nil)
+    @Test(arguments: [
+            "splunge",
+            "1.2",
+            "1.2,",
+            ",1.2",
+            "1,2,3",
+            "three",
+            "three,four",
+            "1.2345, 5.6789",
+          ])
+    func cgpointFromStringFailure(string: String) {
+        #expect(CGPoint(string) == nil)
     }
 }
