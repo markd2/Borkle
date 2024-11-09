@@ -29,7 +29,7 @@ public extension CGFloat {
 }
 
 public extension CGPoint {
-    /// Make a new CGFloat with the given string, in the same manner as `Double(string)`
+    /// Make a new CGPoint with the given string, in the same manner as a pair of `Double(string)`
     /// Takes a string of the format "3.1415,2.718"
     init?(_ string: String) {
         let components = string.split(separator: ",").map { String($0) }
