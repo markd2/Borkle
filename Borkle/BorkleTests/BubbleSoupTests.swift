@@ -140,4 +140,35 @@ class BubbleSoupTests {
         // change count shouldn't change
         #expect(changeHookCount == count)
     }
+
+    @Test(.tags(.undoRedo)) func removeBubbles() {
+        let count = 30
+        var evens: [Bubble] = []
+
+        for id in 0 ..< count {
+            let bubble = Bubble(ID: id)
+            soup.add(bubble: bubble)
+
+            if id.isMultiple(of: 2) {
+                evens.append(bubble)
+            }
+        }
+
+        #expect(soup.bubbleCount == count)
+        let evensCount = count / 2
+        #expect(evens.count == evensCount)
+        #expect(changeHookCount == count)
+
+        soup.remove(bubbles: evens)
+        #expect(soup.bubbleCount == count - evensCount)
+        #expect(changeHookCount == count + 1)
+
+        undoManager.undo()
+        #expect(soup.bubbleCount == count)
+        #expect(changeHookCount == count + 2)
+
+        undoManager.redo()
+        #expect(soup.bubbleCount == count - evensCount)
+        #expect(changeHookCount == count + 3)
+    }
 }
