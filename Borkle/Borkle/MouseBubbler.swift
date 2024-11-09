@@ -68,7 +68,7 @@ class MouseBubbler: MouseHandler {
         support.highlightAsDropTarget(bubble: targetBubble)
 
         // Move selected bubbles to new position.
-        let delta = initialDragPoint - point
+        let delta = point - initialDragPoint
         selectedBubbles.forEachBubble { bubble in
             guard let originalPosition = originalBubblePositions?[bubble] else {
                 Swift.print("unexpectedly missing original bubble position")

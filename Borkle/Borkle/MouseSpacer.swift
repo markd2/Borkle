@@ -71,7 +71,7 @@ class MouseDoubleSpacer: MouseHandler {
     public func drag(to point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         if let startPoint = startPoint {
             
-            let delta = startPoint - point
+            let delta = point - startPoint
             if abs(delta.x) > Self.slopLimit || abs(delta.y) > Self.slopLimit {
                 // too far
                 self.startPoint = nil

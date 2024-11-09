@@ -1,5 +1,6 @@
 import Testing
 import AppKit
+@testable import Borkle
 
 struct LibraryExtensionTests {
 
@@ -82,5 +83,25 @@ struct LibraryExtensionTests {
           ])
     func cgpointFromStringFailure(string: String) {
         #expect(CGPoint(string) == nil)
+    }
+
+    @Test func cgpointMath() {
+        let p1 = CGPoint(x: 10.5, y: 10.5)
+        let p2 = CGPoint(x: -37.12, y: 88.132)
+        let identity = CGPoint(x: 0, y: 0)
+        #expect(identity == identity)
+
+        let p1plusp2 = CGPoint(x: 10.5 + -37.12, y: 10.5 + 88.132)
+        let p1minusp2 = CGPoint(x: 10.5 - -37.12, y: 10.5 - 88.132)
+        let p2minusp1 = CGPoint(x: -37.12 - 10.5, y: 88.132 - 10.5)
+        
+        #expect(p1 + identity == p1)
+        #expect(identity + p1 == p1)
+        #expect(identity + identity == identity)
+        
+        #expect(p1 + p2 == p1plusp2)
+        #expect(p2 + p1 == p1plusp2)
+        #expect(p1 - p2 == p1minusp2)
+        #expect(p2 - p1 == p2minusp1)
     }
 }
