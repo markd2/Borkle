@@ -64,4 +64,36 @@ class BubbleSoupTests {
         #expect(soup.bubbleCount == 0)
     }
 
+    
+    @Test(arguments: 0 ..< 10)
+    func createBubbleChoosesID(count: Int) {
+        #expect(soup.maxBubbleID() == 0)
+
+        for i in 0 ..< count {
+            let bubble = soup.createNewBubble()
+
+            #expect(bubble.ID == i + 1)
+            #expect(soup.bubbleCount == i + 1)
+            #expect(changeHookCount == i + 1)
+        }
+    }
+
+    @Test func bubbleIteration() {
+        let count = 30
+        for _ in 0 ..< count {
+            _ = soup.createNewBubble()
+        }
+
+        #expect(soup.bubbleCount == count)
+        #expect(changeHookCount == count)
+
+        var bubbleCount = 0
+        soup.forEachBubble { _ in
+            bubbleCount += 1
+        }
+        #expect(count == bubbleCount)
+
+        // change count shouldn't change
+        #expect(changeHookCount == count)
+    }
 }
