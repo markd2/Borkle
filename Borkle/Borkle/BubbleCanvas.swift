@@ -597,8 +597,8 @@ extension BubbleCanvas: MouseSupport {
     }
     
     func createNewBubble(at point: CGPoint, showEditor: Bool) -> Bubble.Identifier {
-        let actualPoint = CGPoint(x: point.x - BubbleSoup.defaultWidth / 2.0, 
-                                  y: point.y - BubbleSoup.defaultHeight / 2.0)
+        let actualPoint = CGPoint(x: point.x - defaultBubbleWidth / 2.0, 
+                                  y: point.y - defaultBubbleHeight / 2.0)
         let bubble = playfield.createNewBubble(at: actualPoint)
         if showEditor {
             textEdit(bubbleID: bubble)

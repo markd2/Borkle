@@ -41,6 +41,7 @@
 		7DBD29312B3BC10C00B8A65F /* UIResponder+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBD29302B3BC10C00B8A65F /* UIResponder+Utilities.swift */; };
 		7DC839012CDD15BB008B50C3 /* BubbleSoupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC839002CDD15BB008B50C3 /* BubbleSoupTests.swift */; };
 		7DC839032CDFEC2D008B50C3 /* TestTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC839022CDFEC2D008B50C3 /* TestTags.swift */; };
+		7DC839052CDFF2B6008B50C3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC839042CDFF2B6008B50C3 /* Constants.swift */; };
 		7DEA17042CDC5B0F00ADC131 /* RGBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA17032CDC5B0F00ADC131 /* RGBTests.swift */; };
 		7DEA17072CDC5EAB00ADC131 /* Numerics in Frameworks */ = {isa = PBXBuildFile; productRef = 7DEA17062CDC5EAB00ADC131 /* Numerics */; };
 		7DEA17092CDC5F8D00ADC131 /* TestingUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEA17082CDC5F8D00ADC131 /* TestingUtilities.swift */; };
@@ -95,6 +96,7 @@
 		7DBD29302B3BC10C00B8A65F /* UIResponder+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Utilities.swift"; sourceTree = "<group>"; };
 		7DC839002CDD15BB008B50C3 /* BubbleSoupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleSoupTests.swift; sourceTree = "<group>"; };
 		7DC839022CDFEC2D008B50C3 /* TestTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTags.swift; sourceTree = "<group>"; };
+		7DC839042CDFF2B6008B50C3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7DEA17032CDC5B0F00ADC131 /* RGBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBTests.swift; sourceTree = "<group>"; };
 		7DEA17082CDC5F8D00ADC131 /* TestingUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -225,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				7DBD29302B3BC10C00B8A65F /* UIResponder+Utilities.swift */,
+				7DC839042CDFF2B6008B50C3 /* Constants.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				7D2C9CFF25190EAD00B1E2DE /* MouseSupport.swift in Sources */,
 				7D272A322B58A55C003E16C1 /* RGB.swift in Sources */,
 				7D452DDC250D9FC200884F29 /* BubbleCanvas.swift in Sources */,
+				7DC839052CDFF2B6008B50C3 /* Constants.swift in Sources */,
 				7D452DDE250E719800884F29 /* LibraryExtensions.swift in Sources */,
 				7D2C9D13251A3D7F00B1E2DE /* Barrier.swift in Sources */,
 				7D0C1D6A2B27F344009B4AB5 /* Playfield.swift in Sources */,
