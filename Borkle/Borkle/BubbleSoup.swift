@@ -41,18 +41,12 @@ class BubbleSoup {
         bubbles.forEach { iterator($0) }
     }
 
-    /// Undo manager responsible for handling undo.  One will be provided if you don't
-    /// give us one
-    var undoManager: UndoManager
+    /// Undo manager responsible for handling undo. IUO because documents won't have
+    /// an undo manager at init time.
+    var undoManager: UndoManager!
 
-    public init(undoManager: UndoManager? = nil) {
-        if let undoManager = undoManager {
-            self.undoManager = undoManager
-        } else {
-            // most likely for tests, so turn off runloop grouping
-            self.undoManager = UndoManager()
-            undoManager?.groupsByEvent = false
-        }
+    public init(undoManager: UndoManager?) {
+        self.undoManager = undoManager
     }
     
     /// Looks up a bubble in the soup by its ID.  Returns nil if not found.

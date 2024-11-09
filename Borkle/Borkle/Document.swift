@@ -54,7 +54,8 @@ class Document: NSDocument {
     }
 
     override init() {
-        bubbleSoup = BubbleSoup()
+        bubbleSoup = BubbleSoup(undoManager: nil)
+
         barrierSoup = BarrierSoup()
         super.init()
         
