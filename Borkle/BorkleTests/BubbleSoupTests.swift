@@ -96,4 +96,30 @@ class BubbleSoupTests {
         // change count shouldn't change
         #expect(changeHookCount == count)
     }
+
+    @Test func getBubbleByID() throws {
+        let count = 30
+        for id in 0 ..< count {
+            let bubble = Bubble(ID: id)
+            soup.add(bubble: bubble)
+        }
+
+        #expect(soup.bubbleCount == count)
+        #expect(changeHookCount == count)
+
+        let bubbleFirst = try #require(soup.bubble(byID: 0))
+        #expect(bubbleFirst.ID == 0)
+        
+        let bubbleMiddle = try #require(soup.bubble(byID: count / 2))
+        #expect(bubbleMiddle.ID == count / 2)
+
+        let bubbleLast = try #require(soup.bubble(byID: count - 1))
+        #expect(bubbleLast.ID == count - 1)
+
+        let bubbleFail = soup.bubble(byID: 666)
+        #expect(bubbleFail == nil)
+
+        // change count shouldn't change
+        #expect(changeHookCount == count)
+    }
 }
