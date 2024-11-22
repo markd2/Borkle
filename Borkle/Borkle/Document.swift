@@ -9,13 +9,15 @@ class Document: NSDocument {
     @IBOutlet var bubbleCanvas: BubbleCanvas!
 
     var secondPlayfield: Playfield!
-    @IBOutlet var secondBubbleCanvas: BubbleCanvas!
 
     // I am so lazy...
     @IBOutlet var colorButton1: DumbButton!
     @IBOutlet var colorButton2: DumbButton!
     @IBOutlet var colorButton3: DumbButton!
     @IBOutlet var colorButton4: DumbButton!
+
+    @IBOutlet var playfield1: NSButton!
+    @IBOutlet var playfield2: NSButton!
 
     var documentFileWrapper: FileWrapper?
 
@@ -111,34 +113,6 @@ class Document: NSDocument {
         bubbleCanvas.keypressHandler = { event in
             self.handleKeypress(event)
         }
-
-        secondBubbleCanvas.playfield = secondPlayfield ?? Playfield(soup: bubbleSoup, undoManager: undoManager)
-        secondBubbleCanvas.playfield.canvas = secondBubbleCanvas
-        secondBubbleCanvas.barrierSoup = barrierSoup
-        secondBubbleCanvas.barriers = barriers
-        secondBubbleCanvas.backgroundColor = BubbleCanvas.background2
-        secondBubbleCanvas.barriersChangedHook = {
-            self.documentFileWrapper?.remove(filename: self.barrierFilename)
-        }
-
-        let responder2 = PlayfieldResponder(playfield: secondBubbleCanvas.playfield)
-        responder2.nextResponder = secondBubbleCanvas.nextResponder
-        secondBubbleCanvas.nextResponder = responder2
-
-        // need to actually drive the frame from the bubbles
-        let bubbleScroller2 = secondBubbleCanvas.scroller
-        bubbleScroller2?.contentView.backgroundColor = secondBubbleCanvas.backgroundColor
-        bubbleScroller2?.hasHorizontalScroller = true
-        bubbleScroller2?.hasVerticalScroller = true
-
-        // zoom
-        bubbleScroller2?.magnification = 1.0
-
-        secondBubbleCanvas.keypressHandler = { event in
-            self.handleKeypress(event)
-        }
-
-
 
 
         colorButton1.color = .white
@@ -354,7 +328,7 @@ extension Document {
         }
     }
 
-    /// This is probalby better moved into the playfield
+    /// !!! This is probalby better moved into the playfield
     func importScapple(url: URL) {
 //        let ceiling = bubbleSoup.maxBubbleID() + 1
 
@@ -377,5 +351,11 @@ extension Document {
         let urls = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)
         let userDesktopDirectoryURL = urls[0]
         return userDesktopDirectoryURL
+    }
+
+    @IBAction func changePlayfield(_ button: NSButton) {
+        let tag = button.tag
+
+        Swift.print("TAGGE \(tag)")
     }
 }
