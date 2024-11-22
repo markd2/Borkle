@@ -1360,7 +1360,7 @@ getting really messy), and should make a small demo and get some DTS
 help.
 
 ==================================================
-# Monday November 2024
+# Monday November 4 2024
 
 try to apply swift testing.
 
@@ -1376,4 +1376,23 @@ the test bundle.  _sigh_
 and now it's stuck building in _GatherProvisiomningInputs
 
 Adding a new test, it wants to create a bridging header.  wtf
+
+==================================================
+# Thursday November 21, 2024
+
+ok, what's the state of this thing now?
+  - split screen with two playfields, the second playfield holding randomly
+    selected bubbles and randomly connecting them
+  o playfield clips while dragging (after resizing window larger)
+    o similarly can't click on bubbles out in the clipped area
+  o Editing a bubble scrolled the other panel
+
+The setup side by side isn't great.  How about a button to switch (then later
+can have some nicer UI for choosing which playfield(s) are visible.
+
+x remove the secondBubbleCanvas
+x have the button donk change the playfield
+
+The menu commands aren't working in the second playfield (like the resizing ones.
+Select-all fatal errors
 
