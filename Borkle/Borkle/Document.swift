@@ -6,9 +6,10 @@ class Document: NSDocument {
     @IBOutlet var imageView: NSImageView!
 
     var defaultPlayfield: Playfield!
+    var secondPlayfield: Playfield!
+
     @IBOutlet var bubbleCanvas: BubbleCanvas!
 
-    var secondPlayfield: Playfield!
 
     // I am so lazy...
     @IBOutlet var colorButton1: DumbButton!
@@ -355,6 +356,15 @@ extension Document {
 
     @IBAction func changePlayfield(_ button: NSButton) {
         let tag = button.tag
+
+        switch tag {
+        case 0:
+            bubbleCanvas.playfield = defaultPlayfield
+        case 1:
+            bubbleCanvas.playfield = secondPlayfield
+        default:
+            fatalError("oops")
+        }
 
         Swift.print("TAGGE \(tag)")
     }
