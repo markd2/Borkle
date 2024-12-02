@@ -20,18 +20,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {
-        
-        let documentController = NSDocumentController.shared
-        
-        if let mostRecentDocument = documentController.recentDocumentURLs.first {
-            documentController.openDocument(withContentsOf: mostRecentDocument, 
-                display: true, 
-                completionHandler: { (document, documentWasAlreadyOpen, errorWhileOpening) in
+    
+        let inTests = ProcessInfo().environment["XCTestBundlePath"] != nil
+
+        if !inTests {        
+            let documentController = NSDocumentController.shared
+            
+            if let mostRecentDocument = documentController.recentDocumentURLs.first {
+                documentController.openDocument(withContentsOf: mostRecentDocument, 
+                                                display: true, 
+                                                completionHandler: { (document, documentWasAlreadyOpen, errorWhileOpening) in
                     Swift.print("Error restoring document \(String(describing: errorWhileOpening))")
                 })
-            return false
+                return false
+            } else {
+                return true
+            }
         } else {
-            return true
+            return false
         }
     }
 }

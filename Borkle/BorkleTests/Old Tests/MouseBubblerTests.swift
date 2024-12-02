@@ -110,7 +110,7 @@ class MouseBubblerTests: XCTestCase {
 
     // mainly for coverage
     func test_nil_hit_bubble_bails_out_of_finish() {
-        mouser.hitBubble = nil
+        mouser.hitBubbleID = nil
         mouser.finish(at: .zero, modifierFlags: [])
         XCTAssertNil(testSupport.areaTestBubblesArgument)
     }

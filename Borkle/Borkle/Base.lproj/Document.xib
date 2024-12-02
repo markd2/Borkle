@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,15 +24,15 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="BorkleDocumentWindow" animationBehavior="default" id="xOd-HO-29H" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="133" y="235" width="331" height="407"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="944"/>
+            <rect key="contentRect" x="133" y="235" width="615" height="407"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <value key="minSize" type="size" width="94" height="86"/>
             <view key="contentView" id="gIp-Ho-8D9">
-                <rect key="frame" x="0.0" y="0.0" width="331" height="407"/>
+                <rect key="frame" x="0.0" y="0.0" width="615" height="407"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="021-kA-8LX">
-                        <rect key="frame" x="191" y="298" width="120" height="89"/>
+                        <rect key="frame" x="475" y="298" width="120" height="89"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="120" id="K9n-Pp-adr"/>
                             <constraint firstAttribute="height" constant="89" id="TfN-cB-WmA"/>
@@ -42,10 +42,10 @@
                             <action selector="imageDrop:" target="-2" id="x7U-mF-AyQ"/>
                         </connections>
                     </imageView>
-                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kz4-mA-D4k">
-                        <rect key="frame" x="0.0" y="0.0" width="331" height="291"/>
+                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kz4-mA-D4k" userLabel="Playfield">
+                        <rect key="frame" x="0.0" y="0.0" width="615" height="291"/>
                         <clipView key="contentView" id="Xa2-Az-D99">
-                            <rect key="frame" x="1" y="1" width="314" height="274"/>
+                            <rect key="frame" x="1" y="1" width="598" height="274"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yd2-k3-bEp" customClass="BubbleCanvas" customModule="Borkle" customModuleProvider="target">
@@ -55,11 +55,11 @@
                             </subviews>
                         </clipView>
                         <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="omz-UR-9om">
-                            <rect key="frame" x="1" y="275" width="314" height="15"/>
+                            <rect key="frame" x="1" y="275" width="598" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="WvQ-xN-ka1">
-                            <rect key="frame" x="315" y="1" width="15" height="274"/>
+                            <rect key="frame" x="599" y="1" width="15" height="274"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
@@ -85,20 +85,19 @@
                         <buttonCell key="cell" type="push" title="100" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vu0-WR-fJB">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
+                            <connections>
+                                <action selector="resetZoom:" target="-1" id="ncy-K2-GZu"/>
+                            </connections>
                         </buttonCell>
-                        <connections>
-                            <action selector="resetZoom" target="-2" id="Mbb-9O-c4Q"/>
-                        </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T03-FT-cVK">
+                    <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T03-FT-cVK">
                         <rect key="frame" x="87" y="292" width="47" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="-" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gFL-Pd-MRp">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="decZoom" target="-2" id="9KF-1s-bar"/>
+                            <action selector="decZoom:" target="-1" id="FFJ-va-rIc"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FZm-UG-dty">
@@ -109,7 +108,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="incZoom" target="-2" id="qUe-db-vyB"/>
+                            <action selector="incZoom:" target="-1" id="zzn-hG-WdR"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u8y-hg-Xpn">
@@ -123,12 +122,35 @@
                             <action selector="recalcScrollingBounds:" target="-2" id="niB-Ni-325"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ilb-8V-mFV">
+                        <rect key="frame" x="185" y="308" width="95" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Playfield 1" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zrK-bb-7sy">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="changePlayfield:" target="-2" id="0q2-nC-xtY"/>
+                        </connections>
+                    </button>
+                    <button tag="1" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Y1-Tv-gH0">
+                        <rect key="frame" x="300" y="304" width="97" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Playfield 2" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2sf-fY-OeF">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="changePlayfield:" target="-2" id="BeX-NI-NXC"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="kz4-mA-D4k" secondAttribute="bottom" id="9q2-sh-41r"/>
                     <constraint firstItem="kz4-mA-D4k" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" id="A3s-1y-d4r"/>
+                    <constraint firstAttribute="trailing" secondItem="kz4-mA-D4k" secondAttribute="trailing" id="LVE-fV-Atr"/>
                     <constraint firstItem="021-kA-8LX" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="20" id="O5v-tb-g5r"/>
-                    <constraint firstAttribute="trailing" secondItem="kz4-mA-D4k" secondAttribute="trailing" id="ejq-dJ-FKq"/>
+                    <constraint firstItem="kz4-mA-D4k" firstAttribute="top" secondItem="T03-FT-cVK" secondAttribute="bottom" constant="8" id="qeU-1k-LTR"/>
                     <constraint firstItem="kz4-mA-D4k" firstAttribute="top" secondItem="021-kA-8LX" secondAttribute="bottom" constant="7" id="sXZ-Sa-1LS"/>
                     <constraint firstAttribute="trailing" secondItem="021-kA-8LX" secondAttribute="trailing" constant="20" id="sek-wq-4Ql"/>
                 </constraints>
@@ -136,7 +158,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-x8E"/>
             </connections>
-            <point key="canvasLocation" x="35.5" y="109.5"/>
+            <point key="canvasLocation" x="151" y="81"/>
         </window>
     </objects>
 </document>

@@ -1251,3 +1251,148 @@ I don't want to move", especailly useful in the early days of a document.
 
 wow, that was easy - just added an if that looks at the options, and then
 snarf and barf and tweak a test.
+
+==================================================
+# Monday December 11, 2023
+
+Time to break apart the bubble / size / location / connection stuff.
+
+Playfields will be the individual worksheets, which will have bubbles,
+and bubbles can have independent size/locations/connections based
+on the worksheets.
+
+branch: markd/introduce-worksheets
+
+==================================================
+# Tuesday December 12, 2023
+
+At the coffee shop in Shadyside ater the Strauss serenade.
+
+Got playfields sketched in, so things to do like
+
+- [X] migrate documents from all-in-bubbles in to a single playfield
+- [X] canvas take a playfield
+  - [X] start vectoring all the things through the playfield (if possible)
+- [X] have multiple playfields sharing some subset of bubbles
+- [ ] fix tests
+- [ ] actually save playfields
+- [ ] dragonDrop between playfields
+  - [ ] drag to link, option-drag to copy
+- [X] fix undo
+- [X] put playfields into the responder chain
+
+THINGS TO MOVEAY (done)
+  - hitTestBubble from soup to playfield
+  - areaTestBubbles from soup to playfield
+  - inval hook from soup to playfield?
+  - enclosingRect from soup to playfield
+  - iterate the bubbles from the playfield (since the soup may have more)
+etc
+
+(work happens over numerous days)
+
+==================================================
+# Thursday December 21, 2023
+
+Got some bugs.  like click selection not working.
+
+==================================================
+# Friday December 22, 2023
+
+puts playfield into the responder chain
+
+saturday - move selection into playfield
+tuesday - paste / colors / embiggining / etc
+wednesday - zoom
+
+need a soup change (e.g. bubble text) update all the playfields/canvases
+  - change from a single callback to a list
+  - done
+
+also should (eventually) cache the bubble height - clear on a soup change for that bubble
+  - obvious hotspot
+
+==================================================
+# Tuesday January 2, 2023
+
+Still to do:
+  * undo
+  * update tests
+  * document saving
+  * ???
+  * PROFIT!
+
+thursday - undo. 
+
+We're using our own grouping outside of [NS]UndoManager,
+though do like the register undo.
+
+Nice side effect of using bubble IDs for everything, don't need to capture
+actual bubbles for a lot of the operations.
+
+(couple of days adding undo for stuff)
+adding undo is actually going a lot easier than the first time through.
+
+==================================================
+# Wednesday January 17, 2024
+
+next - move colors into the playfield.
+
+next time: need undo, and something weird happened to bubble dragging.
+
+==================================================
+# Saturday January 27, 2024
+
+need undo for color changes?  We got code there, but not undoing.
+  - sort of. it's weird. Plus, white isn't overriding colors.
+
+heh . it's the "NSColour.white" is not an RGB color thing
+
+and the can't undo was the _initial_ colors were never being set, so
+picking them up for undoing was finding lots of nil, and that's not
+too useful.
+
+tests are going to be "fun" to migrate.
+
+Bashed my head against undo - all sorts of "sprinkle runloops around",
+but all the individual undo stuff get grouped. Deleted all of it (it was
+getting really messy), and should make a small demo and get some DTS
+help.
+
+==================================================
+# Monday November 4 2024
+
+try to apply swift testing.
+
+But, OF COURSE, getting spurious build errors that require quitting, #ilyxc,
+and restarting.  xcode, where quality is job 17.0
+
+Starting off with about 47% coverge with XCTest
+
+So let's throw it out and do it all with SwiftTesting(tm)!
+And even with zero tests, still have 30% coverage, but couldn't load
+the test bundle.  _sigh_
+
+and now it's stuck building in _GatherProvisiomningInputs
+
+Adding a new test, it wants to create a bridging header.  wtf
+
+==================================================
+# Thursday November 21, 2024
+
+ok, what's the state of this thing now?
+  - split screen with two playfields, the second playfield holding randomly
+    selected bubbles and randomly connecting them
+  o playfield clips while dragging (after resizing window larger)
+    o similarly can't click on bubbles out in the clipped area
+  o Editing a bubble scrolled the other panel
+
+The setup side by side isn't great.  How about a button to switch (then later
+can have some nicer UI for choosing which playfield(s) are visible.
+
+x remove the secondBubbleCanvas
+x have the button donk change the playfield
+
+The menu commands aren't working in the second playfield (like the resizing ones.
+Select-all fatal errors
+

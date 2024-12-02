@@ -5,7 +5,7 @@ class MouseSpacer: MouseHandler {
     private var support: MouseSupport
     private var selection: Selection
     private var anchorPoint: CGPoint!
-    private var originalSelection: [Bubble] = []
+    private var originalSelection: [Bubble.Identifier] = []
     
     
     init(withSupport support: MouseSupport, selection: Selection) {
@@ -37,8 +37,8 @@ class MouseSpacer: MouseHandler {
         support.unselectAll()
         var effectiveBubbles = originalSelection
 
-        let bubbles = support.areaTestBubbles(intersecting: rect)
-        if let bubbles = bubbles {
+        let identifiers = support.areaTestBubbles(intersecting: rect)
+        if let bubbles = identifiers {
             effectiveBubbles += bubbles
         }
         support.select(bubbles: effectiveBubbles)
@@ -71,7 +71,7 @@ class MouseDoubleSpacer: MouseHandler {
     public func drag(to point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
         if let startPoint = startPoint {
             
-            let delta = startPoint - point
+            let delta = point - startPoint
             if abs(delta.x) > Self.slopLimit || abs(delta.y) > Self.slopLimit {
                 // too far
                 self.startPoint = nil

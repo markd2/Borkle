@@ -9,12 +9,13 @@ protocol MouseHandler {
 }
 
 protocol MouseSupport {
-    func hitTestBubble(at: CGPoint) -> Bubble?
-    func areaTestBubbles(intersecting: CGRect) -> [Bubble]?
+    var owningPlayfield: Playfield { get }
+    func hitTestBubble(at: CGPoint) -> Bubble.Identifier?
+    func areaTestBubbles(intersecting: CGRect) -> [Bubble.Identifier]?
     func drawMarquee(around: CGRect)
 
     func unselectAll()
-    func select(bubbles: [Bubble])
+    func select(bubbles: [Bubble.Identifier])
     
     // set to a selection to make them render less opaque, like for dragging.
     // set nil to revert to everyone fully opaque
@@ -23,17 +24,17 @@ protocol MouseSupport {
     var currentScrollOffset: CGPoint { get }
     func scroll(to: CGPoint)
 
-    func createNewBubble(at point: CGPoint, showEditor: Bool) -> Bubble
+    func createNewBubble(at point: CGPoint, showEditor: Bool) -> Bubble.Identifier
 
-    func connect(bubbles: [Bubble], to: Bubble)
-    func disconnect(bubbles: [Bubble], from: Bubble)
-    func highlightAsDropTarget(bubble: Bubble?) // nil to remove highlight
+    func connect(bubbles: [Bubble.Identifier], to: Bubble.Identifier)
+    func disconnect(bubbles: [Bubble.Identifier], from: Bubble.Identifier)
+    func highlightAsDropTarget(bubble: Bubble.Identifier?) // nil to remove highlight
 
-    func bubblesAffectedBy(barrier: Barrier) -> [Bubble]?
+    func bubblesAffectedBy(barrier: Barrier) -> [Bubble.Identifier]?
     func barriersAffectedBy(barrier: Barrier) -> [Barrier]?
-    func move(bubble: Bubble, to: CGPoint)
+    func move(bubble: Bubble.Identifier, to: CGPoint)
     func move(barrier: Barrier, 
-              affectedBubbles: [Bubble]?, affectedBarriers: [Barrier]?,
+              affectedBubbles: [Bubble.Identifier]?, affectedBarriers: [Barrier]?,
               to horizontalPosition: CGFloat)
 }
 

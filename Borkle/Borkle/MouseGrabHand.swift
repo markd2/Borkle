@@ -19,9 +19,8 @@ class MouseGrabHand: MouseHandler {
     }
     
     func drag(to point: CGPoint, modifierFlags: NSEvent.ModifierFlags) {
-        let rawDelta = point - initialDragPoint
-        let flippedX = CGPoint(x: rawDelta.x, y: -rawDelta.y)
-        let newOrigin = scrollOrigin + flippedX
+        let rawDelta = initialDragPoint - point
+        let newOrigin = scrollOrigin + rawDelta
 
         support.scroll(to: newOrigin)
     }
